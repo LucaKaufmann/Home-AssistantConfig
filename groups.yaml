@@ -17,11 +17,20 @@ default_view:
     - scene.relax
     - scene.fade_in
     - switch.clean_kitchen
+<<<<<<< HEAD
     - switch.smart_plug
     - input_select.audiobook
     - input_boolean.sleeping
     - input_boolean.schedule_kitchen_cleaning
     - input_boolean.schedule_livingroom_cleaning
+=======
+    - switch.motion_sensor_hallway_status
+    - switch.start_vacuum
+    - switch.fluxer
+    - switch.smart_plug
+    - input_select.audiobook
+    - input_boolean.sleeping
+>>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
 
 sensor_view:
   name: Sensors

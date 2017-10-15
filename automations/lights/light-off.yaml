@@ -5,8 +5,11 @@ trigger:
   from: home
   platform: state
   to: not_home
+<<<<<<< HEAD
 - platform: time
   at: '23:59'
+=======
+>>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
 condition:
 - condition: state
   entity_id: group.all_devices

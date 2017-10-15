@@ -2,6 +2,7 @@
 sleeping:
   name: Everyone asleep
   initial: off
+<<<<<<< HEAD
   icon: mdi:sleep
 
 schedule_kitchen_cleaning:
@@ -13,3 +14,6 @@ schedule_livingroom_cleaning:
   name: Schedule livingroom cleaning
   initial: off
   icon: mdi:sofa
+=======
+  icon: mdi:sleep 
+>>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
