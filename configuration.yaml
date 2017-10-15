@@ -134,10 +134,6 @@ group: !include groups.yaml
 automation: !include_dir_list automations
 zone: !include zones.yaml
 scene: !include_dir_list scenes
-<<<<<<< HEAD
 script: !include_dir_merge_named scripts
-=======
-script: !include scripts.yaml
->>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
 switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml

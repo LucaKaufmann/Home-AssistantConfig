@@ -5,11 +5,7 @@ trigger:
   entity_id: sensor.motion_sensor_hallway
   to: 'off'
   for:
-<<<<<<< HEAD
     minutes: 1
-=======
-    minutes: 3
->>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
 condition:
 - condition: state
   entity_id: group.all_devices
@@ -20,10 +16,6 @@ action:
   data:
     entity_id: light.big_light
     transition: 10
-<<<<<<< HEAD
-=======
-    brightness_pct: 0
->>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
 - alias: Turn off automation
   service: automation.turn_off
   entity_id: automation.no_motion_livingroom
