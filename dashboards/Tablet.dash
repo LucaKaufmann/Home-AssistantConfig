@@ -1,0 +1,85 @@
+##
+## Main arguments, all optional
+##
+title: Main Panel
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - main_clock(3x1), switch.start_vacuum(2x1), switch.clean_kitchen, reload.reload
+    - device_tracker.sevenplus, device_tracker.tiiaphone, outside_temp, sensor.vacuum_battery,  sensor.vacuum_fan, sensor.vacuum_status, navigate_vacuum
+    - livingroom_temp, kitchen_temp, cpu_temp, sensor.vacuum_cleaned_area, sensor.vacuum_cleaning_time, spacer, navigate_sensor
+    - scene.bedtime, scene.movie_mode, scene.relax
+    - all_lights, livingroom_lights, kitchen_lights, bedroom_lights, light.paperlight, light.big_light, light.desk
+
+
+main_clock:
+    widget_type: clock
+    time_format: 24hr
+    show_seconds: 1
+    #widget_style: "background: white"
+    #date_style: "color: black"
+    #time_style: "color: green"
+
+outside_temp:
+    title: Outside
+    entity: sensor.darksky_temperature
+    widget_type: sensor
+
+livingroom_temp:
+    title: Living room
+    entity: sensor.temperature_sensor_hallway
+    widget_type: sensor
+
+kitchen_temp:
+    title: Kitchen
+    entity: sensor.temperature_sensor_kitchen
+    widget_type: sensor
+
+cpu_temp:
+    title: Raspberry CPU
+    entity: sensor.cpu_temperature
+    widget_type: sensor
+
+all_lights:
+    title: All Lights
+    entity: group.all_lights
+    monitored_entity: light.paperlight
+    widget_type: group
+
+livingroom_lights:
+    title: Living room
+    entity: group.living_room
+    monitored_entity: light.paperlight
+    widget_type: group
+
+kitchen_lights:
+    title: Kitchen
+    entity: group.kitchen
+    monitored_entity: light.kitchen
+    widget_type: group
+
+bedroom_lights:
+    title: Bedroom
+    entity: group.bed_room
+    monitored_entity: light.yellow_light
+    widget_type: group
+
+navigate_vacuum:
+    widget_type: navigate
+    title: Vacuum
+    dashboard: Vacuum
+
+navigate_sensor:
+    widget_type: navigate
+    title: Sensors
+    dashboard: sensors-tablet
+    args:
+      timeout: 10
+      return: Tablet

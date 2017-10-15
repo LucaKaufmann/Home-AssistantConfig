@@ -1,0 +1,22 @@
+alias: Lights off when not home
+id: lights_off_not_home
+trigger:
+- entity_id: group.all_devices
+  from: home
+  platform: state
+  to: not_home
+- platform: time
+  at: '23:59'
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+action:
+- alias: Notify
+  service: notify.ios_sevenplus
+  data:
+    message: Lights off
+- alias: All lights off
+  data:
+    entity_id: group.all_lights
+  service: homeassistant.turn_off

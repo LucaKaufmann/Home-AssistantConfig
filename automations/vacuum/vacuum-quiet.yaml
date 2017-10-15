@@ -1,0 +1,11 @@
+alias: Vacuum to quiet when home
+id: vacuum_quiet
+trigger:
+- platform: state
+  entity_id: group.all_devices
+  to: home
+action:
+- service: vacuum.set_fanspeed
+  entity_id: vacuum.eve
+  data:
+    fan_speed: Quiet

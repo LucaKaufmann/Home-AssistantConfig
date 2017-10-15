@@ -1,0 +1,22 @@
+alias: Paperlight on at sunset
+id: paperlight_on_sunset
+trigger:
+- event: sunset
+  offset: -01:15:00
+  platform: sun
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: home
+action:
+- alias: Light on
+  service: light.turn_on
+  data:
+    entity_id: light.paperlight
+    transition: 3600
+    brightness_pct: 100
+    color_temp: 500
+- alias: Notify
+  service: notify.ios_sevenplus
+  data:
+    message: Fading in Paperlight

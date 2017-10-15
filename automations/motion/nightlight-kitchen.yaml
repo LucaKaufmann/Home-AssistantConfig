@@ -1,0 +1,26 @@
+alias: Kitchen lights on when motion
+id: motion_kitchen
+trigger:
+- platform: state
+  entity_id: sensor.motion_sensor_kitchen
+  from: 'off'
+  to: 'on'
+condition:
+- condition: state
+  entity_id: light.kitchen
+  state: 'off'
+- condition: state
+  entity_id: group.all_devices
+  state: home
+- condition: numeric_state
+  entity_id: sensor.light_sensor_kitchen
+  below: 8000
+action:
+- alias: Lights on
+  service: light.turn_on
+  data:
+    entity_id: light.kitchen
+    brightness_pct: 75
+- alias: Turn on automation
+  service: automation.turn_on
+  entity_id: automation.kitchen_lights_off_when_no_motion

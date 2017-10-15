@@ -1,0 +1,195 @@
+# Views
+
+default_view:
+  name: DEFAULT
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.living_room
+    - group.bed_room
+    - group.kitchen
+    - group.xiaomi_vacuum
+    - media_player.speaker
+    - scene.bedroom_night
+    - scene.bedtime
+    - scene.goodnight
+    - scene.movie_mode
+    - scene.relax
+    - scene.fade_in
+    - switch.clean_kitchen
+    - switch.smart_plug
+    - input_select.audiobook
+    - input_boolean.sleeping
+    - input_boolean.schedule_kitchen_cleaning
+    - input_boolean.schedule_livingroom_cleaning
+
+sensor_view:
+  name: Sensors
+  view: yes
+  icon: mdi:gauge
+  entities:
+    - group.sensor_pi
+    - sun.sun
+    - group.sensor_weather
+    - group.sensor_fitbit
+    - group.sensor_kitchen
+    - group.sensor_hallway
+
+automations_view:
+  name: Automations
+  view: yes
+  icon: mdi:home-automation
+  entities:
+   - group.automations_lights
+   - group.automations_vacuum
+   - group.automations_audiobooks
+   - automation.movement_detected
+
+devices_view:
+  name: Devices
+  view: yes
+  icon: mdi:cellphone-iphone
+  entities:
+   - group.devices_status
+
+# Components
+# Rooms
+living_room:
+  name: Living Room
+  entities:
+   - light.paperlight
+   - light.big_light
+   - light.desk
+
+
+
+bed_room:
+  name: Bed Room
+  entities:
+   - light.yellow_light
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen
+
+# Groups
+color_lights:
+  name: Color lights
+  entities:
+    - light.big_light
+    - light.desk
+
+sensor_pi:
+  name: Raspberry Pi
+  entities:
+    - sensor.cpu_use
+    - sensor.cpu_temperature
+    - sensor.disk_use_
+    - sensor.disk_use_varlog
+    - sensor.ram_use
+    - sensor.ram_free
+    - sensor.swap_use
+    - sensor.swap_free
+    - sensor.last_boot
+    - sensor.since_last_boot
+    - sensor.received_eth0
+    - sensor.sent_eth0
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_ads_percentage_blocked_today
+    - sensor.pihole_dns_queries_today
+
+sensor_weather:
+  name: Weather
+  entities:
+    - sensor.darksky_summary
+    - sensor.darksky_precip_intensity
+    - sensor.darksky_nearest_storm_distance
+    - sensor.darksky_temperature
+
+sensor_fitbit:
+  name: Fitbit
+  entities:
+    - sensor.steps
+    - sensor.sleep_efficiency
+    - sensor.sleep_starttime
+    - sensor.sleep_timeinbed
+    - sensor.sleep_minutesasleep
+    - sensor.sleep_minutesawake
+    - sensor.sleep_minutestofallasleep
+    - sensor.sleep_minutesafterwakeup
+
+sensor_hallway:
+  name: Hallway
+  entities:
+    - sensor.motion_sensor_hallway
+    - sensor.temperature_sensor_hallway
+    - sensor.light_sensor_hallway
+
+sensor_kitchen:
+  name: Kitchen
+  entities:
+    - sensor.motion_sensor_kitchen
+    - sensor.temperature_sensor_kitchen
+    - sensor.light_sensor_kitchen
+
+all_motion_sensors:
+  name: Motion sensors
+  entities:
+    - sensor.motion_sensor_kitchen
+    - sensor.motion_sensor_hallway
+
+tracking_devices:
+  name: Tracked Devices
+  entities:
+   - device_tracker.sevenplus
+
+devices_status:
+  name: Devices
+  entities:
+   - device_tracker.sevenplus
+   - sensor.sevenplus_battery_level
+   - sensor.sevenplus_battery_state
+   - sensor.lucas_ipad_battery_level
+   - sensor.lucas_ipad_battery_state
+   - device_tracker.tiiaphone
+
+xiaomi_vacuum:
+  name: Vacuum
+  entities:
+   - vacuum.eve
+   - input_slider.vacuum_fan
+   - sensor.vacuum_status
+   - sensor.vacuum_error
+   - sensor.vacuum_battery
+   - sensor.vacuum_cleaning_time
+   - sensor.vacuum_cleaned_area
+
+automations_lights:
+  name: Light automations
+  entities:
+    - automation.rainy_day
+    - automation.big_light_on_at_sunset
+    - automation.paperlight_on_at_sunset
+    - automation.goodnight_lights
+    - automation.lights_off_when_not_home
+    - automation.notify_when_lights_on_after_10
+    - automation.kitchen_lights_off_when_no_motion
+    - automation.kitchen_lights_on_when_motion
+    - automation.living_room_lights_off_when_no_motion
+    - automation.living_room_lights_on_when_motion
+
+automations_vacuum:
+  name: Vacuum automations
+  entities:
+    - automation.scheduled_vacuum
+    - automation.vacuum_to_quiet_when_home
+    - automation.vacuum_to_max_when_not_home
+
+automations_audiobooks:
+  name: Audiobook automations
+  entities:
+    - automation.play_curious_george_christmas
+    - automation.play_curious_george_halloween
+    - automation.play_curious_george_space
+    - automation.stop_the_audiobook

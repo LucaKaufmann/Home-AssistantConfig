@@ -1,0 +1,34 @@
+light.paperlight:
+  homebridge_visible: true
+
+light.yellow_light:
+  homebridge_visible: true
+
+light.kitchen:
+  homebridge_name: "Kitchen light"
+  homebridge_visible: true
+
+scene.bedroom_night:
+  icon: mdi:bed
+  homebridge_visible: true
+
+scene.bedtime:
+  icon: mdi:sleep
+  homebridge_visible: true
+
+scene.movie_mode:
+  icon: mdi:movie
+  homebridge_visible: true
+
+scene.romance:
+  homebridge_visible: true
+
+vacuum.eve:
+  homebridge_visible: true
+
+switch.start_vacuum:
+  homebridge_visible: true
+
+switch.clean_kitchen:
+  homebridge_name: "Cleaning the kitchen"
+  homebridge_visible: true

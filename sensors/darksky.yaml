@@ -1,0 +1,8 @@
+platform: darksky
+name: Darksky
+api_key: !secret darksky_api_key
+monitored_conditions:
+  - summary
+  - icon
+  - temperature
+  - precip_intensity

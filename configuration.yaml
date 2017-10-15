@@ -1,0 +1,139 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Helsinki
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  base_url: !secret base_url
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  #ignore:
+  # - ikea_tradfri
+
+device_tracker:
+- platform: nmap_tracker
+  hosts: !secret hosts
+  exclude:
+   - !secret raspberry_pi_ip
+  track_new_devices: no
+  consider_home: 1200
+  interval_seconds: 60
+  home_interval: 30
+- platform: owntracks_http
+  scan_options: " --privileged -sP "
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+logger:
+  default: critical
+  logs:
+    homeassistant.components.http: warning
+    homeassistant.components: info
+# Text to speech
+tts:
+  platform: google
+
+# Additional components
+light:
+ - platform: hue
+   host: !secret hue_bridge
+
+#tradfri:
+#  host: !secret tradfri_ip
+#  api_key: !secret tradfri_api_key
+
+
+vacuum:
+ - platform: xiaomi_miio
+   name: 'Eve'
+   host: !secret xiaomi_ip
+   token: !secret xiaomi_token
+
+media_player:
+#  - platform: plex
+  - platform: cast
+
+ios:
+
+notify:
+ - platform: ios
+
+input_select:
+  audiobook:
+    name: Audiobook
+    options:
+      - Curious George Halloween
+      - Curious George Christmas
+      - Curious George Space
+      - None
+    initial: None
+    icon: mdi:audiobook
+
+#device_sun_light_trigger:
+#  light_group: group.living_room
+#  device_group: group.tracking_devices
+
+shell_command:
+  renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
+
+panel_custom:
+  - name: floorplan
+    sidebar_title: Floorplan
+    sidebar_icon: mdi:home
+    url_path: floorplan
+    config: !include floorplan.yaml
+
+# Sensors
+sensor: !include_dir_list sensors
+
+group: !include groups.yaml
+automation: !include_dir_list automations
+zone: !include zones.yaml
+scene: !include_dir_list scenes
+script: !include_dir_merge_named scripts
+switch: !include switches.yaml
+input_boolean: !include input_boolean.yaml

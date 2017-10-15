@@ -1,0 +1,23 @@
+alias: Rainy Day
+id: rainy_day
+trigger:
+- entity_id: sensor.icon
+  platform: state
+  to: rain
+- entity_id: sensor.icon
+  platform: state
+  to: snow
+- entity_id: sensor.icon
+  platform: state
+  to: cloudy
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: home
+- after: '10:00'
+  before: '23:00'
+  condition: time
+action:
+- data:
+    entity_id: scene.movie_mode
+  service: scene.turn_on

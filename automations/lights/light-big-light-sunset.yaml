@@ -1,0 +1,22 @@
+alias: Big light on at sunset
+id: big_light_on_sunset
+trigger:
+- event: sunset
+  offset: -02:00:00
+  platform: sun
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: home
+action:
+- alias: Light on
+  service: light.turn_on
+  data:
+    entity_id: light.big_light
+    transition: 7200
+    brightness_pct: 100
+    color_temp: 500
+- alias: Notify
+  service: notify.ios_sevenplus
+  data:
+    message: Fading in big light

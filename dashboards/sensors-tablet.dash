@@ -1,0 +1,121 @@
+##
+## Main arguments, all optional
+##
+title: Sensors
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - hallway_temp(2x1), kitchen_temp(2x1), outside_temp(2x1), reload.reload
+    - cpu_temp(2x1), cpu_usage(2x1), disk_usage(2x1), navigate_main
+    - livingroom_light(2x1), kitchen_light(2x1), motion_sensors(2x1), navigate_vacuum
+    - unique_clients(2x1), dns_queries(2x1), ads_blocked(2x1)
+    - uptime(2x1), unique_domains(2x1), ads_blocked_percentage(2x1)
+
+
+navigate_main:
+    widget_type: navigate
+    title: Main
+    dashboard: Tablet
+
+navigate_vacuum:
+    widget_type: navigate
+    title: Vacuum
+    dashboard: Vacuum
+
+outside_temp:
+    title: Outside
+    entity: sensor.darksky_temperature
+    widget_type: sensor
+
+cpu_temp:
+    title: Raspberry CPU
+    entity: sensor.cpu_temperature
+    widget_type: sensor
+
+cpu_usage:
+    title: CPU Usage
+    entity: sensor.cpu_use
+    widget_type: sensor
+
+disk_usage:
+    title: Disk Usage
+    entity: sensor.disk_use_
+    widget_type: gauge
+    max: 100
+    min: 0
+    units: “%”
+
+hallway_temp:
+    title: Hallway
+    entity: sensor.temperature_sensor_hallway
+    widget_type: sensor
+
+kitchen_temp:
+    title: Kitchen
+    entity: sensor.temperature_sensor_kitchen
+    widget_type: sensor
+
+livingroom_light:
+    title: Living room Light
+    entity: sensor.light_sensor_hallway
+    widget_type: sensor
+    shorten: 1
+
+kitchen_light:
+    title: Kitchen Light
+    entity: sensor.light_sensor_kitchen
+    widget_type: sensor
+    shorten: 1
+
+motion_sensors:
+    title: Motion Sensors
+    entity: group.all_motion_sensors
+    widget_type: sensor
+    text_style: "color: blue"
+
+unique_clients:
+    title: Network Clients
+    entity: sensor.pihole_dns_unique_clients
+    widget_type: sensor
+    precision: 0
+
+dns_queries:
+    title: DNS Queries
+    entity: sensor.pihole_dns_queries_today
+    widget_type: sensor
+    shorten: 1
+    precision: 0
+
+ads_blocked:
+    title: Ads blocked
+    entity: sensor.pihole_ads_blocked_today
+    widget_type: sensor
+    shorten: 1
+    precision: 0
+
+unique_domains:
+    title: Unique domains
+    entity: sensor.pihole_dns_unique_domains
+    widget_type: sensor
+    precision: 0
+
+ads_blocked_percentage:
+    title: Ads blocked percentage
+    entity: sensor.pihole_ads_percentage_blocked_today
+    widget_type: gauge
+    max: 100
+    min: 0
+    units: “%”
+
+uptime:
+    title: Uptime
+    entity: sensor.since_last_boot
+    widget_type: sensor
+    precision: 0

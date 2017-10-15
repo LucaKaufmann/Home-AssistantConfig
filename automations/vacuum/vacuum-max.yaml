@@ -1,0 +1,16 @@
+alias: Vacuum to Max when not home
+id: vacuum_max
+trigger:
+- platform: state
+  entity_id: group.all_devices
+  from: home
+  to: not_home
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+action:
+- service: vacuum.set_fanspeed
+  entity_id: vacuum.eve
+  data:
+    fan_speed: Max

@@ -1,0 +1,14 @@
+alias: Notify when lights on after 10
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+id: 'notify_lights_on'
+trigger:
+- at: '22:00'
+  platform: time
+action:
+- alias: Notify
+  service: notify.ios_sevenplus
+  data:
+    message: Lights are still on

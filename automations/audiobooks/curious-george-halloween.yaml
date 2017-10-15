@@ -1,0 +1,19 @@
+alias: Play Curious George Halloween
+id: curious_george_halloween
+trigger:
+- platform: state
+  entity_id: input_select.audiobook
+  to: Curious George Halloween
+- platform: event
+  event_type: call_service
+  event_data:
+    service_data:
+      entity_id: scene.bedtime
+    domain: scene
+    service: turn_on
+action:
+  service: media_player.play_media
+  data:
+    entity_id: media_player.speaker
+    media_content_id: !secret george_halloween
+    media_content_type: audio/mp4
