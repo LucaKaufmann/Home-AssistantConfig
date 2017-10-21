@@ -13,3 +13,8 @@ schedule_livingroom_cleaning:
   name: Schedule livingroom cleaning
   initial: off
   icon: mdi:sofa
+
+schedule_cleaning:
+  name: Schedule apartment cleaning
+  initial: off
+  icon: mdi:home

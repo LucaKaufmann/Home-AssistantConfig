@@ -1,12 +1,12 @@
-alias: Play Curious George Halloween
-id: curious_george_halloween
+alias: Play Curious George Books
+id: curios_george_books
 trigger:
-- platform: state
+  platform: state
   entity_id: input_select.audiobook
-  to: Curious George Halloween
+  to: Curious George Books
 action:
   service: media_player.play_media
   data:
     entity_id: media_player.speaker
-    media_content_id: !secret george_halloween
+    media_content_id: !secret george_books
     media_content_type: audio/mp4

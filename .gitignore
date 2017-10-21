@@ -2,6 +2,7 @@
 .*
 *.db*
 *.log
+*.mp3
 !*.yaml
 !scenes
 !automations

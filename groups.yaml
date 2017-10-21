@@ -17,20 +17,12 @@ default_view:
     - scene.relax
     - scene.fade_in
     - switch.clean_kitchen
-<<<<<<< HEAD
     - switch.smart_plug
     - input_select.audiobook
     - input_boolean.sleeping
     - input_boolean.schedule_kitchen_cleaning
     - input_boolean.schedule_livingroom_cleaning
-=======
-    - switch.motion_sensor_hallway_status
-    - switch.start_vacuum
-    - switch.fluxer
-    - switch.smart_plug
-    - input_select.audiobook
-    - input_boolean.sleeping
->>>>>>> d408653cd1018fa71c1897691ab81d0622da6ee7
+    - input_boolean.schedule_cleaning
 
 sensor_view:
   name: Sensors
@@ -52,7 +44,8 @@ automations_view:
    - group.automations_lights
    - group.automations_vacuum
    - group.automations_audiobooks
-   - automation.movement_detected
+   - group.automations_motion
+
 
 devices_view:
   name: Devices
@@ -175,7 +168,7 @@ xiaomi_vacuum:
    - sensor.vacuum_cleaned_area
 
 automations_lights:
-  name: Light automations
+  name: Light Automations
   entities:
     - automation.rainy_day
     - automation.big_light_on_at_sunset
@@ -183,17 +176,26 @@ automations_lights:
     - automation.goodnight_lights
     - automation.lights_off_when_not_home
     - automation.notify_when_lights_on_after_10
+
+
+automations_motion:
+  name: Motion Automations
+  entities:
     - automation.kitchen_lights_off_when_no_motion
     - automation.kitchen_lights_on_when_motion
     - automation.living_room_lights_off_when_no_motion
     - automation.living_room_lights_on_when_motion
+    - automation.movement_detected
+
 
 automations_vacuum:
   name: Vacuum automations
   entities:
-    - automation.scheduled_vacuum
     - automation.vacuum_to_quiet_when_home
     - automation.vacuum_to_max_when_not_home
+    - automation.vacuum_kitchen
+    - automation.schedule_vacuum_cleaning
+    - automation.vacuum_trigger_cleaning
 
 automations_audiobooks:
   name: Audiobook automations

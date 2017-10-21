@@ -16,7 +16,10 @@ condition:
   below: 8500
 - condition: time
   after: '09:00'
-  before: '17:00'
+  before: '22:00'
+- condition: state
+  entity_id: light.big_light
+  state: 'off'
 action:
 - alias: Light on
   service: light.turn_on

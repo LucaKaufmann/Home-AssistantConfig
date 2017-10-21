@@ -1,11 +1,6 @@
 vacuum_clean_kitchen_from_hallway:
   alias: vacuum_clean_kitchen_from_hallway
   sequence:
-    - alias: Set to quiet
-      service: vacuum.set_fanspeed
-      data:
-        entity_id: vacuum.eve
-        fan_speed: 'Quiet'
     - alias: Start vacuum remote control
       service: vacuum.xiaomi_remote_control_start
       data:
@@ -79,11 +74,6 @@ vacuum_clean_kitchen_from_hallway:
         entity_id: vacuum.eve
     - delay:
         seconds: 5
-    - alias: Set to Max
-      service: vacuum.set_fanspeed
-      data:
-        entity_id: vacuum.eve
-        fan_speed: 'Max'
     - alias: Spot clean
       service: vacuum.clean_spot
       data:

@@ -8,6 +8,9 @@ condition:
 - condition: state
   entity_id: group.all_devices
   state: home
+- condition: sun
+  after: sunset
+  after_offset: -02:10:00
 action:
 - alias: Light on
   service: light.turn_on

@@ -1,0 +1,39 @@
+alias: Vacuum trigger cleaning
+id: vacuum_trigger_cleaning
+trigger:
+- platform: time
+  at: '12:30'
+- platform: state
+  entity_id: group.all_devices
+  from: home
+  to: not_home
+  for:
+    hours: 0
+    minutes: 20
+    seconds: 0
+- platform: state
+  entity_id: group.all_devices
+  from: home
+  to: Tiia
+  for:
+    hours: 0
+    minutes: 20
+    seconds: 0
+condition:
+- condition: state
+  entity_id: input_boolean.schedule_cleaning
+  state: 'on'
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+- condition: time
+  after: '09:00'
+  before: '20:00'
+action:
+- service: notify.ios_sevenplus
+  data:
+    message: Cleaning triggered
+- service: vacuum.turn_on
+  entity_id: vacuum.eve
+- service: input_boolean.turn_off
+  entity_id: input_boolean.schedule_cleaning

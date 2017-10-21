@@ -1,13 +1,19 @@
 alias: Paperlight on at sunset
 id: paperlight_on_sunset
 trigger:
-- event: sunset
+- platform: sun
+  event: sunset
   offset: -01:15:00
-  platform: sun
+- platform: state
+  entity_id: group.all_devices
+  to: 'home'
 condition:
 - condition: state
   entity_id: group.all_devices
   state: home
+- condition: sun
+  after: sunset
+  after_offset: -01:30:00
 action:
 - alias: Light on
   service: light.turn_on

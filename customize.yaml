@@ -4,6 +4,9 @@ light.paperlight:
 light.yellow_light:
   homebridge_visible: true
 
+light.desk:
+  homebridge_visible: true
+
 light.kitchen:
   homebridge_name: "Kitchen light"
   homebridge_visible: true
@@ -20,15 +23,27 @@ scene.movie_mode:
   icon: mdi:movie
   homebridge_visible: true
 
-scene.romance:
+scene.relax:
+  homebridge_visible: true
+
+switch.smart_plug:
   homebridge_visible: true
 
 vacuum.eve:
   homebridge_visible: true
 
 switch.start_vacuum:
+  homebridge_name: "Vacuum"
   homebridge_visible: true
 
 switch.clean_kitchen:
-  homebridge_name: "Cleaning the kitchen"
+  homebridge_name: "Clean the kitchen"
+  homebridge_visible: true
+
+input_boolean.schedule_cleaning:
+  homebridge_name: "Clean the house when I leave"
+  homebridge_visible: true
+
+input_boolean.schedule_kitchen_cleaning:
+  homebridge_name: "Clean the kitchen when I leave"
   homebridge_visible: true

@@ -16,12 +16,12 @@ condition:
   entity_id: sensor.light_sensor_hallway
   below: 8000
 action:
+- alias: Turn on automation
+  service: automation.turn_on
+  entity_id: automation.living_room_lights_off_when_no_motion
 - alias: Lights on
   service: light.turn_on
   data:
     entity_id: light.big_light
     transition: 3
     brightness_pct: 75
-- alias: Turn on automation
-  service: automation.turn_on
-  entity_id: automation.no_motion_livingroom

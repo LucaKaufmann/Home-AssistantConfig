@@ -1,0 +1,20 @@
+alias: Schedule Vacuum Cleaning
+id: schedule_vacuum_cleaning
+trigger:
+  platform: time
+  at: '03:00'
+condition:
+- condition: time
+  after: '01:00'
+  weekday:
+  - tue
+  - thu
+  - sat
+  - sun
+- condition: template
+  value_template: '{{ (as_timestamp(now())-as_timestamp(states.group.all_motion_sensors.last_updated))
+    < 43200 }}'
+action:
+  alias: Schedule cleaning
+  service: input_boolean.turn_on
+  entity_id: input_boolean.schedule_cleaning
