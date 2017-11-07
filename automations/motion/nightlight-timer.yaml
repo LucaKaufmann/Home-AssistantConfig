@@ -2,17 +2,21 @@ alias: Living room lights off when no motion
 id: no_motion_livingroom
 trigger:
 - platform: state
-  entity_id: sensor.motion_sensor_hallway
+  entity_id: sensor.motion_livingroom
   from: 'on'
   to: 'off'
   for:
     minutes: 1
 action:
-- alias: Lights off
+- alias: Big light off
   service: light.turn_off
   data:
     entity_id: light.big_light
     transition: 10
+- alias: Hallway light off
+  service: light.turn_off
+  data:
+    entity_id: light.hallway
 - alias: Turn off automation
   service: automation.turn_off
   entity_id: automation.living_room_lights_off_when_no_motion

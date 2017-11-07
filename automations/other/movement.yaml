@@ -10,9 +10,11 @@ condition:
   state: 'not_home'
 action:
 - alias: Notify
-  service: notify.ios_sevenplus
+  service: notify.facebook
   data:
-    message: 'Movement detected'
+    message: Movement detected
+    target:
+      - !secret phonenumber_L
 - alias: Set awake
   service: input_boolean.turn_off
   data:

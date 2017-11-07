@@ -24,6 +24,12 @@ condition:
   state: 'on'
 action:
 - service: script.turn_on
-  entity_id: script.vacuum_clean_kitchen_from_hallway
+  entity_id: script.vacuum_clean_kitchen
 - service: input_boolean.turn_off
   entity_id: input_boolean.schedule_kitchen_cleaning
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Cleaning the kitchen...
+    target:
+      - !secret phonenumber_L

@@ -1,6 +1,0 @@
-platform: rest
-name: Temperature Sensor Hallway
-resource: !secret hallway_temperature_url
-value_template: '{{ value_json.state.temperature | float / 100 }}'
-unit_of_measurement: °C
-scan_interval: 60

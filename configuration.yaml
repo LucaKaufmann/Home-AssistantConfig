@@ -16,7 +16,8 @@ homeassistant:
 # introduction:
 
 # Enables the frontend
-frontend:
+frontend: !include frontend.yaml
+panel_custom: !include panel_custom.yaml
 
 # Enables configuration UI
 config:
@@ -29,7 +30,6 @@ http:
   base_url: !secret base_url
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: example.duckdns.org:8123
-
 # Checks for available updates
 # Note: This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
@@ -45,16 +45,17 @@ discovery:
   # - ikea_tradfri
 
 device_tracker:
-- platform: nmap_tracker
-  hosts: !secret hosts
-  exclude:
-   - !secret raspberry_pi_ip
-  track_new_devices: no
-  consider_home: 1200
-  interval_seconds: 60
-  home_interval: 30
-- platform: owntracks_http
-  scan_options: " --privileged -sP "
+#- platform: nmap_tracker
+#  hosts: !secret hosts
+#  exclude:
+#   - !secret raspberry_pi_ip
+#  track_new_devices: no
+#  consider_home: 800
+#  interval_seconds: 10
+#  home_interval: 120
+- platform: bluetooth_tracker
+  interval_seconds: 10
+  consider_home: 300
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -64,6 +65,17 @@ history:
 
 # View all events in a logbook
 logbook:
+  exclude:
+    entities:
+      - group.all_motion_sensors
+      - sensor.motion_livingroom
+      - sensor.motion_kitchen
+      - group.sensor_kitchen
+      - group.sensor_livingroom
+      - group.sensor_pi
+      - group.sensor_view
+    domains:
+      - group
 
 # Track the sun
 sun:
@@ -82,9 +94,8 @@ light:
  - platform: hue
    host: !secret hue_bridge
 
-#tradfri:
-#  host: !secret tradfri_ip
-#  api_key: !secret tradfri_api_key
+tradfri:
+  host: !secret tradfri_ip
 
 
 vacuum:
@@ -96,11 +107,20 @@ vacuum:
 media_player:
 #  - platform: plex
   - platform: cast
+  - platform: plex
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: true
+
+media_extractor:
 
 ios:
 
 notify:
- - platform: ios
+  - platform: ios
+  - platform: facebook
+    name: facebook
+    page_access_token: !secret fb_token
 
 input_select:
   audiobook:
@@ -120,16 +140,10 @@ input_select:
 shell_command:
   renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
 
-panel_custom:
-  - name: floorplan
-    sidebar_title: Floorplan
-    sidebar_icon: mdi:home
-    url_path: floorplan
-    config: !include floorplan.yaml
-
 # Sensors
-sensor: !include_dir_list sensors
+hue:
 
+sensor: !include_dir_list sensors
 group: !include groups.yaml
 automation: !include_dir_list automations
 zone: !include zones.yaml

@@ -1,6 +1,0 @@
-platform: rest
-name: Light Sensor Kitchen
-resource: !secret kitchen_light_url
-value_template: '{{ value_json.state.lightlevel }}'
-unit_of_measurement: Lux
-scan_interval: 10

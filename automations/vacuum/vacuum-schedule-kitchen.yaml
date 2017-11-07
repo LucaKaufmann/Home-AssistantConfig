@@ -1,8 +1,8 @@
-alias: Kitchen lights on when motion
+alias: Schedule kitchen cleaning
 id: motion_kitchen
 trigger:
 - platform: state
-  entity_id: sensor.motion_sensor_kitchen
+  entity_id: sensor.motion_kitchen
   from: 'off'
   to: 'on'
 condition:
@@ -12,7 +12,16 @@ condition:
 - condition: time
   after: '15:00'
   before: '19:00'
+- condition: state
+  entity_id: input_boolean.schedule_kitchen_cleaning
+  state: 'off'
 action:
 - alias: Schedule kitchen cleaning
   service: input_boolean.turn_on
   entity_id: input_boolean.schedule_kitchen_cleaning
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Kitchen will be cleaned tomorrow
+    target:
+      - !secret phonenumber_L

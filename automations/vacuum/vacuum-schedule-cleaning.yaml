@@ -15,6 +15,12 @@ condition:
   value_template: '{{ (as_timestamp(now())-as_timestamp(states.group.all_motion_sensors.last_updated))
     < 43200 }}'
 action:
-  alias: Schedule cleaning
+- alias: Schedule cleaning
   service: input_boolean.turn_on
   entity_id: input_boolean.schedule_cleaning
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Apartment will be cleaned today
+    target:
+      - !secret phonenumber_L

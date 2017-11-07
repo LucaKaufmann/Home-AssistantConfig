@@ -17,12 +17,28 @@ condition:
 action:
 - alias: Light on
   service: light.turn_on
-  data:
+  data_template:
     entity_id: light.paperlight
-    transition: 3600
+    transition: >
+        {% set secondsToSunset = as_timestamp(states.sun.sun.attributes.next_setting) - as_timestamp(now()) | int %}
+        {% if  secondsToSunset < 7200 %}
+            {{ secondsToSunset | round(0) }}
+        {% elif secondsToSunset < 0%}
+          0
+        {% else %}
+          0
+        {%- endif %}
     brightness_pct: 100
     color_temp: 500
 - alias: Notify
-  service: notify.ios_sevenplus
+  service: notify.facebook
   data:
-    message: Fading in Paperlight
+    message: >
+        {% set secondsToSunset = as_timestamp(states.sun.sun.attributes.next_setting) - as_timestamp(now()) | int %}
+        {% if  secondsToSunset > 7200 or secondsToSunset < 0%}
+          Fading in the paper light after sunset
+        {% else %}
+          Fading in the paper light. {{(secondsToSunset/60) | round(0)}} minutes until the sun sets
+        {% endif %}
+    target:
+      - !secret phonenumber_L

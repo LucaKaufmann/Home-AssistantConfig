@@ -8,21 +8,26 @@ default_view:
     - group.living_room
     - group.bed_room
     - group.kitchen
+    - group.hallway
+    - group.light_scenes
     - group.xiaomi_vacuum
-    - media_player.speaker
-    - scene.bedroom_night
-    - scene.bedtime
-    - scene.goodnight
-    - scene.movie_mode
-    - scene.relax
-    - scene.fade_in
     - switch.clean_kitchen
     - switch.smart_plug
-    - input_select.audiobook
     - input_boolean.sleeping
     - input_boolean.schedule_kitchen_cleaning
     - input_boolean.schedule_livingroom_cleaning
     - input_boolean.schedule_cleaning
+
+
+media_player_view:
+  name: Media Players
+  view: yes
+  icon: mdi:play-circle
+  entities:
+    - media_player.speaker
+    - media_player.plex_web_chrome
+    - media_player.plex_web_safari
+    - input_select.audiobook
 
 sensor_view:
   name: Sensors
@@ -34,7 +39,8 @@ sensor_view:
     - group.sensor_weather
     - group.sensor_fitbit
     - group.sensor_kitchen
-    - group.sensor_hallway
+    - group.sensor_livingroom
+    - group.hue_sensors
 
 automations_view:
   name: Automations
@@ -63,8 +69,6 @@ living_room:
    - light.big_light
    - light.desk
 
-
-
 bed_room:
   name: Bed Room
   entities:
@@ -75,12 +79,26 @@ kitchen:
   entities:
     - light.kitchen
 
+hallway:
+  name: Hallway
+  entities:
+    - light.hallway
+
 # Groups
 color_lights:
   name: Color lights
   entities:
     - light.big_light
     - light.desk
+
+light_scenes:
+  name: Scenes
+  entities:
+    - scene.bedtime
+    - scene.movie_mode_arctic
+    - scene.relax
+    - scene.reading
+    - scene.razer
 
 sensor_pi:
   name: Raspberry Pi
@@ -94,7 +112,6 @@ sensor_pi:
     - sensor.swap_use
     - sensor.swap_free
     - sensor.last_boot
-    - sensor.since_last_boot
     - sensor.received_eth0
     - sensor.sent_eth0
     - sensor.pihole_ads_blocked_today
@@ -121,25 +138,30 @@ sensor_fitbit:
     - sensor.sleep_minutestofallasleep
     - sensor.sleep_minutesafterwakeup
 
-sensor_hallway:
-  name: Hallway
+sensor_livingroom:
+  name: Living room
   entities:
-    - sensor.motion_sensor_hallway
-    - sensor.temperature_sensor_hallway
-    - sensor.light_sensor_hallway
+    - sensor.motion_livingroom
+    - sensor.livingroom_light_level
+    - sensor.livingroom_temperature
 
 sensor_kitchen:
   name: Kitchen
   entities:
-    - sensor.motion_sensor_kitchen
-    - sensor.temperature_sensor_kitchen
-    - sensor.light_sensor_kitchen
+    - sensor.motion_kitchen
+    - sensor.kitchen_light_level
+    - sensor.kitchen_temperature
+
+hue_sensors:
+  name: Hue
+  entities:
+    - sensor.dimmer_switch
 
 all_motion_sensors:
   name: Motion sensors
   entities:
-    - sensor.motion_sensor_kitchen
-    - sensor.motion_sensor_hallway
+    - sensor.motion_kitchen
+    - sensor.motion_livingroom
 
 tracking_devices:
   name: Tracked Devices
@@ -150,6 +172,7 @@ devices_status:
   name: Devices
   entities:
    - device_tracker.sevenplus
+   - device_tracker.sevenbt
    - sensor.sevenplus_battery_level
    - sensor.sevenplus_battery_state
    - sensor.lucas_ipad_battery_level
@@ -174,8 +197,12 @@ automations_lights:
     - automation.big_light_on_at_sunset
     - automation.paperlight_on_at_sunset
     - automation.goodnight_lights
+    - automation.good_morning
     - automation.lights_off_when_not_home
+    - automation.fade_in_big_light_when_dark
     - automation.notify_when_lights_on_after_10
+    - automation.flash_when_luca_home
+    - automation.flash_when_tiia_home
 
 
 automations_motion:

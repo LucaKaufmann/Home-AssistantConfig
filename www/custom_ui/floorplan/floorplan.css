@@ -93,11 +93,19 @@ svg, svg * {
 /* Light */
 
 .light-off {
-  fill: #C3B7F4 !important;
+  fill: #000000 !important;
 }
 
 .light-on {
   fill: #F8D2B9 !important;
+}
+
+.group-off {
+  fill: #CFE9FF !important;
+}
+
+.group-on {
+  fill: #76B6F8 !important;
 }
 
 /* Doorbell */

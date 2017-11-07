@@ -12,7 +12,6 @@ global_parameters:
     use_hass_icon: 1
 
 layout:
-    - main_clock(3x1)
     - hallway_temp, kitchen_temp, outside_temp
     - all_lights, device_tracker.sevenplus, device_tracker.tiiaphone
     - livingroom_lights, kitchen_lights, bedroom_lights

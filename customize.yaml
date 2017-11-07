@@ -1,3 +1,7 @@
+binary_sensor.floorplan:
+  custom_ui_state_card: state-card-floorplan
+  config: !include floorplan.yaml
+
 light.paperlight:
   homebridge_visible: true
 
@@ -11,19 +15,37 @@ light.kitchen:
   homebridge_name: "Kitchen light"
   homebridge_visible: true
 
+light.hallway:
+  homebridge_name: "Hallway light"
+  homebridge_visible: true
+
 scene.bedroom_night:
   icon: mdi:bed
   homebridge_visible: true
 
 scene.bedtime:
+  homebridge_name: "Curious George"
   icon: mdi:sleep
   homebridge_visible: true
 
-scene.movie_mode:
+scene.movie_mode_arctic:
+  homebridge_name: "Movie Mode"
   icon: mdi:movie
   homebridge_visible: true
 
 scene.relax:
+  homebridge_name: "Relax Mode"
+  icon: mdi:coffee
+  homebridge_visible: true
+
+scene.reading:
+  homebridge_name: "Reading Mode"
+  icon: mdi:book-open-variant
+  homebridge_visible: true
+
+scene.razer:
+  homebridge_name: "Game Mode"
+  icon: mdi:gamepad-variant
   homebridge_visible: true
 
 switch.smart_plug:
@@ -45,5 +67,8 @@ input_boolean.schedule_cleaning:
   homebridge_visible: true
 
 input_boolean.schedule_kitchen_cleaning:
-  homebridge_name: "Clean the kitchen when I leave"
+  homebridge_name: "Clean the kitchen w/hen I leave"
   homebridge_visible: true
+
+group.all_scenes:
+  hidden: false

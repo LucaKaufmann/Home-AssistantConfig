@@ -54,23 +54,23 @@ disk_usage:
 
 hallway_temp:
     title: Hallway
-    entity: sensor.temperature_sensor_hallway
+    entity: sensor.livingroom_temperature
     widget_type: sensor
 
 kitchen_temp:
     title: Kitchen
-    entity: sensor.temperature_sensor_kitchen
+    entity: sensor.kitchen_temperature
     widget_type: sensor
 
 livingroom_light:
     title: Living room Light
-    entity: sensor.light_sensor_hallway
+    entity: sensor.livingroom_light_level
     widget_type: sensor
     shorten: 1
 
 kitchen_light:
     title: Kitchen Light
-    entity: sensor.light_sensor_kitchen
+    entity: sensor.kitchen_light_level
     widget_type: sensor
     shorten: 1
 

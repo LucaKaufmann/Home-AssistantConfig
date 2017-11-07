@@ -30,9 +30,12 @@ condition:
   after: '09:00'
   before: '20:00'
 action:
-- service: notify.ios_sevenplus
+- alias: Notify
+  service: notify.facebook
   data:
-    message: Cleaning triggered
+    message: Cleaning the apartment
+    target:
+      - !secret phonenumber_L
 - service: vacuum.turn_on
   entity_id: vacuum.eve
 - service: input_boolean.turn_off

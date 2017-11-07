@@ -1,9 +1,16 @@
 alias: Play Curious George Books
 id: curios_george_books
 trigger:
-  platform: state
+- platform: state
   entity_id: input_select.audiobook
   to: Curious George Books
+- platform: event
+  event_type: call_service
+  event_data:
+    service_data:
+     entity_id: scene.bedtime
+    domain: scene
+    service: turn_on
 action:
   service: media_player.play_media
   data:

@@ -1,14 +1,19 @@
 alias: Notify when lights on after 10
-condition:
-- condition: state
-  entity_id: group.all_devices
-  state: not_home
 id: 'notify_lights_on'
 trigger:
 - at: '22:00'
   platform: time
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: not_home
+- condition: state
+  entity_id: group.all_lights
+  state: 'on'
 action:
 - alias: Notify
-  service: notify.ios_sevenplus
+  service: notify.facebook
   data:
-    message: Lights are still on
+    message: Some lights are still on
+    target:
+      - !secret phonenumber_L

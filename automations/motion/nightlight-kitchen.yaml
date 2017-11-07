@@ -2,18 +2,23 @@ alias: Kitchen lights on when motion
 id: motion_kitchen
 trigger:
 - platform: state
-  entity_id: sensor.motion_sensor_kitchen
-  from: 'off'
+  entity_id: sensor.motion_kitchen
   to: 'on'
+- platform: numeric_state
+  entity_id: sensor.light_sensor_kitchen
+  below: 8000
 condition:
 - condition: state
   entity_id: light.kitchen
   state: 'off'
 - condition: state
+  entity_id: sensor.motion_kitchen
+  state: 'on'
+- condition: state
   entity_id: group.all_devices
   state: home
 - condition: numeric_state
-  entity_id: sensor.light_sensor_kitchen
+  entity_id: sensor.kitchen_light_level
   below: 8000
 action:
 - alias: Lights on

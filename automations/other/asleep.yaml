@@ -25,10 +25,6 @@ condition:
   after: '22:00:00'
   before: '06:00:00'
 action:
-- alias: Notify
-  service: notify.ios_sevenplus
-  data:
-    message: 'Goodnight'
 - alias: All lights off
   data:
     entity_id: group.all_lights

@@ -27,4 +27,5 @@ iframe:
     title: Cats
     refresh: 60
     url_list:
-      - http://192.168.92.100:8123/floorplan
+       - https://todoist.com/app#project%2F127065096
+    #  - http://192.168.92.100:8123/floorplan

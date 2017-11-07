@@ -13,9 +13,11 @@ condition:
   state: not_home
 action:
 - alias: Notify
-  service: notify.ios_sevenplus
+  service: notify.facebook
   data:
-    message: Lights off
+    message: No one's home, turning the lights off
+    target:
+      - !secret phonenumber_L
 - alias: All lights off
   data:
     entity_id: group.all_lights

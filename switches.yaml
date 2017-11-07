@@ -3,10 +3,10 @@
   switches:
     clean_kitchen:
       friendly_name: 'Clean kitchen'
-      value_template: "{{ is_state('script.vacuum_clean_kitchen_from_hallway', 'on') }}"
+      value_template: "{{ is_state('script.vacuum_clean_kitchen', 'on') }}"
       turn_on:
         service: script.turn_on
-        entity_id: script.vacuum_clean_kitchen_from_hallway
+        entity_id: script.vacuum_clean_kitchen
       turn_off:
         service: script.turn_on
         entity_id: script.vacuum_stop
@@ -19,13 +19,6 @@
       turn_off:
         service: vacuum.turn_off
         entity_id: vacuum.eve
-
-#WIP
-- platform: rest
-  name: 'Motion Sensor Hallway status'
-  resource: !secret motion_sensor_hallway_switch
-  body_on: '{"on":"true"}'
-  body_off: '{"on":"false"}'
 
 - platform: tplink
   host: 192.168.92.245
