@@ -5,7 +5,6 @@ sensors:
     value_template: "{{ states.vacuum.eve.attributes['status'] }}"
     friendly_name: "Status"
     icon_template: mdi:information
-#icon_template: "{% if is_state('switch.evie.attributes['Status']", "Charging") %}mdi:battery-charging{% else if is_state("switch.evie.attributes['Status']", "Cleaning")  %}mdi:broom{% else %}mdi:information{% endif %}'
   vacuum_fan:
     value_template: "{{ states.vacuum.eve.attributes['fan_speed'] }}"
     friendly_name: "Fan"
@@ -20,7 +19,6 @@ sensors:
     friendly_name: "Battery"
     unit_of_measurement: "%"
     icon_template: mdi:battery
-#icon_template: '{% if is_state("switch.evie.attributes['Battery']", 100) %}mdi:battery-charging-100{% else %}mdi:battery-charging-60{% endif %}'
   vacuum_cleaning_time:
     value_template: "{{ states.vacuum.eve.attributes['cleaning_time'] }}"
     friendly_name: "Cleaning time"

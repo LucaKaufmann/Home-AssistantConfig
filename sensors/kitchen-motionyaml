@@ -1,0 +1,10 @@
+platform: rest
+name: Motion Sensor Kitchen
+resource: !secret kitchen_motion_url
+value_template: >-
+  {% if value_json.state.presence %}
+  on
+  {% else %}
+  off
+  {% endif %}
+scan_interval: 1

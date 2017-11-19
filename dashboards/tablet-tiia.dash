@@ -1,0 +1,129 @@
+##
+## Main arguments, all optional
+##
+title: Tablet Panel
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - main_clock(3x1), start_vacuum(2x1), schedule_full_cleaning, reload.reload
+    - device_tracker.sevenbt, device_tracker.tiiaphone, outside_temp, clean_kitchen(2x1), schedule_kitchen_cleaning, navigate_vacuum
+    - livingroom_temp, kitchen_temp, cpu_temp, scene.reading, sensor.vacuum_status, sensor.vacuum_battery, navigate_sensor
+    - scene.bedtime, scene.movie_mode_arctic, scene.razer, scene.relax, iframe(3x2)
+    - livingroom_lights, kitchen_lights, light.hallway, bedroom_lights
+
+
+main_clock:
+    widget_type: clock
+    time_format: 24hr
+    show_seconds: 1
+    #widget_style: "background: white"
+    #date_style: "color: black"
+    #time_style: "color: green"
+
+outside_temp:
+    title: Outside
+    entity: sensor.darksky_temperature
+    widget_type: sensor
+
+livingroom_temp:
+    title: Living room
+    entity: sensor.livingroom_temperature
+    widget_type: sensor
+
+kitchen_temp:
+    title: Kitchen
+    entity: sensor.kitchen_temperature
+    widget_type: sensor
+
+cpu_temp:
+    title: Raspberry CPU
+    entity: sensor.cpu_temperature
+    widget_type: sensor
+
+all_lights:
+    title: All Lights
+    entity: group.all_lights
+    monitored_entity: light.paperlight
+    widget_type: group
+
+livingroom_lights:
+    title: Living room
+    entity: group.living_room
+    monitored_entity: light.paperlight
+    widget_type: group
+
+kitchen_lights:
+    title: Kitchen
+    entity: group.kitchen
+    monitored_entity: light.kitchen
+    widget_type: group
+
+bedroom_lights:
+    title: Bedroom
+    entity: group.bed_room
+    monitored_entity: light.yellow_light
+    widget_type: group
+
+start_vacuum:
+    widget_type: switch
+    title: Start Cleaning
+    entity: switch.start_vacuum
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+clean_kitchen:
+    widget_type: switch
+    title: Clean Kitchen
+    entity: switch.clean_kitchen
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+schedule_full_cleaning:
+    title: Schedule cleaning
+    entity: input_boolean.schedule_cleaning
+    widget_type: input_boolean
+
+schedule_kitchen_cleaning:
+    title: Schedule cleaning kitchen
+    entity: input_boolean.schedule_kitchen_cleaning
+    widget_type: input_boolean
+
+iframe:
+    widget_type: iframe
+    title: Cats
+    refresh: 10
+    url_list:
+      - https://www.pexels.com/photo/grey-and-white-short-fur-cat-104827/
+      - https://www.pexels.com/photo/eyes-cat-coach-sofa-96938/
+      - https://www.pexels.com/photo/silver-tabby-cat-lying-on-brown-wooden-surface-126407/
+      - https://www.pexels.com/photo/kitten-cat-rush-lucky-cat-45170/
+      - https://www.pexels.com/photo/grey-fur-kitten-127028/
+      - https://www.pexels.com/photo/cat-whiskers-kitty-tabby-20787/
+      - https://www.pexels.com/photo/cat-sleeping-62640/
+
+navigate_vacuum:
+    widget_type: navigate
+    title: Vacuum
+    dashboard: vacuum-tablet
+    args:
+      timeout: 15
+      return: tablet-tiia
+
+navigate_sensor:
+    widget_type: navigate
+    title: Sensors
+    dashboard: sensors-tablet
+    args:
+      timeout: 10
+      return: tablet-tiia

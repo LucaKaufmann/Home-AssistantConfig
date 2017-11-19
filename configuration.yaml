@@ -16,7 +16,10 @@ homeassistant:
 # introduction:
 
 # Enables the frontend
-frontend: !include frontend.yaml
+frontend:
+  extra_html_url:
+    - /local/custom_ui/state-card-floorplan.html
+
 panel_custom: !include panel_custom.yaml
 
 # Enables configuration UI
@@ -56,6 +59,7 @@ device_tracker:
 - platform: bluetooth_tracker
   interval_seconds: 10
   consider_home: 300
+  track_new_devices: no
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -83,11 +87,12 @@ sun:
 logger:
   default: critical
   logs:
-    homeassistant.components.http: warning
     homeassistant.components: info
+    homeassistant.components.http.ban: warning
 # Text to speech
 tts:
-  platform: google
+ - platform: google
+   language: 'en-us'
 
 # Additional components
 light:
@@ -111,6 +116,8 @@ media_player:
     include_non_clients: true
     scan_interval: 5
     show_all_controls: true
+#  - platform: gstreamer
+  - platform: sonos
 
 media_extractor:
 
@@ -137,11 +144,19 @@ input_select:
 #  light_group: group.living_room
 #  device_group: group.tracking_devices
 
-shell_command:
-  renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
-
 # Sensors
 hue:
+
+snips:
+
+mqtt:
+  broker: 127.0.0.1
+
+binary_sensor:
+  - platform: mqtt
+    state_topic: dummy/floorplan/sensor
+    name: Floorplan
+
 
 sensor: !include_dir_list sensors
 group: !include groups.yaml
@@ -149,5 +164,6 @@ automation: !include_dir_list automations
 zone: !include zones.yaml
 scene: !include_dir_list scenes
 script: !include_dir_merge_named scripts
+intent_script: !include_dir_merge_named intent_scripts
 switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml

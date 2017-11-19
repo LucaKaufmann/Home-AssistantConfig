@@ -1,0 +1,6 @@
+platform: rest
+name: Light Sensor Hallway
+resource: !secret hallway_light_url
+value_template: '{{ value_json.state.lightlevel }}'
+unit_of_measurement: Lux
+scan_interval: 10

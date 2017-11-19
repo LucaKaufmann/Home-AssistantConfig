@@ -1,0 +1,13 @@
+alias: Flash when Tiia home
+id: flash_tiia
+trigger:
+- platform: state
+  entity_id: device_tracker.tiiaphone
+  to: home
+action:
+- alias: Light on
+  service: light.turn_on
+  data:
+    entity_id: light.big_light
+    brightness_pct: 100
+    color_name: "BlueViolet"

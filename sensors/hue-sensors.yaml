@@ -1,0 +1,23 @@
+platform: template
+name: Hue Sensors
+sensors:
+  livingroom_light_level:
+    value_template: "{{ states.sensor.motion_livingroom.attributes['light_level'] }}"
+    friendly_name: "Living room Light Level"
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline
+  livingroom_temperature:
+    value_template: "{{ states.sensor.motion_livingroom.attributes['temperature'] }}"
+    friendly_name: "Living room Temperature"
+    unit_of_measurement: °C
+    icon_template: mdi:temperature-celsius
+  kitchen_light_level:
+    value_template: "{{ states.sensor.motion_kitchen.attributes['light_level'] }}"
+    friendly_name: "Kitchen Light Level"
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline
+  kitchen_temperature:
+    value_template: "{{ states.sensor.motion_kitchen.attributes['temperature'] }}"
+    friendly_name: "Kitchen Temperature"
+    unit_of_measurement: °C
+    icon_template: mdi:temperature-celsius

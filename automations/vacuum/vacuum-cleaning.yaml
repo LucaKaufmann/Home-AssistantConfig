@@ -4,7 +4,7 @@ trigger:
 - platform: time
   at: '12:30'
 - platform: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   from: home
   to: not_home
   for:
@@ -12,7 +12,7 @@ trigger:
     minutes: 20
     seconds: 0
 - platform: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   from: home
   to: Tiia
   for:
@@ -24,7 +24,7 @@ condition:
   entity_id: input_boolean.schedule_cleaning
   state: 'on'
 - condition: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   state: not_home
 - condition: time
   after: '09:00'

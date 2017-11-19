@@ -18,3 +18,8 @@ schedule_cleaning:
   name: Schedule apartment cleaning
   initial: off
   icon: mdi:home
+
+cleaning_doublepass:
+  name: Cleaning double pass
+  initial: off
+  icon: mdi:repeat

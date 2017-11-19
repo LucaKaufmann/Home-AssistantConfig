@@ -1,0 +1,9 @@
+vacuum_doublepass:
+  alias: Vacuum Double pass
+  sequence:
+    - delay:
+        seconds: 5
+    - alias: Start cleaning
+      service: vacuum.turn_on
+      data:
+        entity_id: vacuum.eve

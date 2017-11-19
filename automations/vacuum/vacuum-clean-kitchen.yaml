@@ -2,18 +2,18 @@ alias: Vacuum kitchen
 id: vacuum_kitchen
 trigger:
 - platform: time
-  at: '12:30'
+  at: '14:30'
 - platform: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   from: home
   to: not_home
   for:
-    hours: 0
-    minutes: 20
+    hours: 1
+    minutes: 30
     seconds: 0
 condition:
 - condition: time
-  after: '12:00'
+  after: '09:00'
   before: '20:00'
   weekday:
   - mon

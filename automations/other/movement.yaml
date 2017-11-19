@@ -6,8 +6,11 @@ trigger:
   to: 'on'
 condition:
 - condition: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   state: 'not_home'
+- condition: state
+  entity_id: sensor.vacuum_status
+  state: 'Charging'
 action:
 - alias: Notify
   service: notify.facebook

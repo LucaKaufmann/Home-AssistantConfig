@@ -1,0 +1,14 @@
+alias: Flash when Luca home
+id: flash_luca
+trigger:
+- platform: state
+  entity_id: device_tracker.sevenbt
+  to: home
+action:
+- alias: Light on
+  service: light.turn_on
+  data:
+    entity_id: light.big_light
+    brightness_pct: 100
+    rgb_color: [255,142,31]
+    flash: short

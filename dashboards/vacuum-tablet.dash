@@ -1,0 +1,57 @@
+##
+## Main arguments, all optional
+##
+title: Vacuum
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - start_vacuum(3x1), schedule_full_cleaning
+    - sensor.vacuum_battery, clean_kitchen(2x1), schedule_kitchen_cleaning
+    - sensor.vacuum_cleaned_area, sensor.vacuum_cleaning_time, sensor.vacuum_status
+    - sensor.vacuum_fan(3x1)
+    - navigate_main, navigate_sensor, reload.reload
+
+start_vacuum:
+    widget_type: switch
+    title: Start Cleaning
+    entity: switch.start_vacuum
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+clean_kitchen:
+    widget_type: switch
+    title: Clean Kitchen
+    entity: switch.clean_kitchen
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+schedule_full_cleaning:
+    title: Schedule cleaning
+    entity: input_boolean.schedule_cleaning
+    widget_type: input_boolean
+
+schedule_kitchen_cleaning:
+    title: Schedule cleaning kitchen
+    entity: input_boolean.schedule_kitchen_cleaning
+    widget_type: input_boolean
+
+navigate_main:
+    widget_type: navigate
+    title: Main
+    dashboard: Tablet
+
+navigate_sensor:
+    widget_type: navigate
+    title: Sensors
+    dashboard: Sensors

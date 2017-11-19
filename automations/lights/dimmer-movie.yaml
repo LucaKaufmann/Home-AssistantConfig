@@ -1,0 +1,10 @@
+alias: Dimmer Relax
+id: dimmer_relax
+trigger:
+- entity_id: sensor.dimmer_switch
+  platform: state
+  to: 1_hold
+action:
+- data:
+    entity_id: scene.movie_mode_arctic
+  service: scene.turn_on

@@ -1,5 +1,5 @@
 name: Floorplan
-image: /local/custom_ui/floorplan/floorplan.svg
+image: /local/custom_ui/floorplan/floorplan-portrait.svg
 stylesheet: /local/custom_ui/floorplan/floorplan.css
 
 # These options are optional

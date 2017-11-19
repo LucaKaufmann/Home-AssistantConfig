@@ -1,0 +1,10 @@
+name: Razer
+entities:
+  light.paperlight:
+    state: off
+    transition: 2
+  light.living_room:
+    state: on
+    brightness: 254
+    rgb_color: [81, 255, 66]
+    transition: 2

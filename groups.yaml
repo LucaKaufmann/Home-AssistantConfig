@@ -9,14 +9,9 @@ default_view:
     - group.bed_room
     - group.kitchen
     - group.hallway
-    - group.light_scenes
     - group.xiaomi_vacuum
-    - switch.clean_kitchen
-    - switch.smart_plug
+    - group.light_scenes
     - input_boolean.sleeping
-    - input_boolean.schedule_kitchen_cleaning
-    - input_boolean.schedule_livingroom_cleaning
-    - input_boolean.schedule_cleaning
 
 
 media_player_view:
@@ -25,6 +20,7 @@ media_player_view:
   icon: mdi:play-circle
   entities:
     - media_player.speaker
+    - media_player.living_room
     - media_player.plex_web_chrome
     - media_player.plex_web_safari
     - input_select.audiobook
@@ -41,6 +37,7 @@ sensor_view:
     - group.sensor_kitchen
     - group.sensor_livingroom
     - group.hue_sensors
+    - sensor.fail2ban
 
 automations_view:
   name: Automations
@@ -60,6 +57,13 @@ devices_view:
   entities:
    - group.devices_status
 
+floorplan_view:
+  name: Floorplan
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.floorplan_group
+
 # Components
 # Rooms
 living_room:
@@ -78,6 +82,7 @@ kitchen:
   name: Kitchen
   entities:
     - light.kitchen
+    - switch.smart_plug
 
 hallway:
   name: Hallway
@@ -103,7 +108,7 @@ light_scenes:
 sensor_pi:
   name: Raspberry Pi
   entities:
-    - sensor.cpu_use
+    - sensor.cpu_used
     - sensor.cpu_temperature
     - sensor.disk_use_
     - sensor.disk_use_varlog
@@ -163,10 +168,11 @@ all_motion_sensors:
     - sensor.motion_kitchen
     - sensor.motion_livingroom
 
-tracking_devices:
+tracked_devices:
   name: Tracked Devices
   entities:
-   - device_tracker.sevenplus
+   - device_tracker.sevenbt
+   - device_tracker.tiiaphone
 
 devices_status:
   name: Devices
@@ -189,6 +195,11 @@ xiaomi_vacuum:
    - sensor.vacuum_battery
    - sensor.vacuum_cleaning_time
    - sensor.vacuum_cleaned_area
+   - switch.clean_kitchen
+   - input_boolean.schedule_kitchen_cleaning
+   - input_boolean.schedule_livingroom_cleaning
+   - input_boolean.schedule_cleaning
+   - input_boolean.cleaning_doublepass
 
 automations_lights:
   name: Light Automations
@@ -231,3 +242,8 @@ automations_audiobooks:
     - automation.play_curious_george_halloween
     - automation.play_curious_george_space
     - automation.stop_the_audiobook
+
+floorplan_group:
+  name: Floorplan
+  entities:
+    - binary_sensor.floorplan

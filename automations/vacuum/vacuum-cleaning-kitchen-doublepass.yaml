@@ -1,0 +1,31 @@
+alias: Vacuum double pass kitchen
+id: vacuum_double_pass_kitchen
+trigger:
+  platform: state
+  entity_id: sensor.vacuum_status
+  from: 'Returning home'
+  to: 'Charging'
+condition:
+- condition: state
+  entity_id: input_boolean.cleaning_doublepass
+  state: 'on'
+- condition: state
+  entity_id: input_boolean.cleaning_doublepass
+  state: 'off'
+- condition: state
+  entity_id: group.tracked_devices
+  state: not_home
+- condition: time
+  after: '14:00'
+  before: '20:00'
+action:
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Vacuum double pass in the kitchen
+    target:
+      - !secret phonenumber_L
+- service: script.turn_on
+  entity_id: script.vacuum_clean_kitchen
+- service: input_boolean.turn_off
+  entity_id: input_boolean.cleaning_doublepass
