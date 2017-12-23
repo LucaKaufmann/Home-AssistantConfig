@@ -2,21 +2,18 @@ alias: Fade in big light when dark
 id: fade_in_big_light
 trigger:
 - platform: numeric_state
-  entity_id: sensor.light_sensor_hallway
+  entity_id: sensor.livingroom_light_level
   below: 8500
 - platform: state
   entity_id: group.all_devices
   to: home
 condition:
 - condition: state
-  entity_id: group.all_devices
-  state: home
+  entity_id: group.tracked_devices
+  state: 'home'
 - condition: numeric_state
-  entity_id: sensor.light_sensor_hallway
+  entity_id: sensor.livingroom_light_level
   below: 8500
-- condition: sun
-  before: sunset
-  before_offset: -02:10:00
 - condition: state
   entity_id: light.big_light
   state: 'off'
@@ -27,7 +24,7 @@ action:
     entity_id: light.big_light
     transition: 900
     brightness_pct: >
-        {% set brightness_sensor = states.sensor.light_sensor_hallway.state | int %}
+        {% set brightness_sensor = states.ssensor.livingroom_light_level.state | int %}
         {% if  brightness_sensor < 2000 %}
           100
         {% elif brightness_sensor < 4000 %}

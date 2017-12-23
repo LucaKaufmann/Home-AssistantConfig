@@ -17,6 +17,7 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+  javascript_version: latest
   extra_html_url:
     - /local/custom_ui/state-card-floorplan.html
 
@@ -24,6 +25,47 @@ panel_custom: !include panel_custom.yaml
 
 # Enables configuration UI
 config:
+
+cloud:
+  alexa:
+    filter:
+      exclude_entities:
+        - light.hallway_2
+        - light.paperlight_1
+        - light.paperlight_2
+        - light.paperlight_3
+        - group.all_automations
+        - group.all_devices
+        - group.all_motion_sensors
+        - group.all_scripts
+        - group.all_switches
+        - group.all_vacuum_cleaners
+        - group.automations_audiobooks
+        - group.automations_lights
+        - group.automations_motion
+        - group.automations_vacuum
+        - group.automations_view
+        - group.color_lights
+        - group.default_view
+        - group.devices_status
+        - group.devices_view
+        - group.floorplan_group
+        - group.floorplan_view
+        - group.hue_sensors
+        - group.light_scenes
+        - group.media_player_view
+        - group.sensor_fitbit
+        - group.sensor_kitchen
+        - group.sensor_livingroom
+        - group.sensor_pi
+        - group.sensor_view
+        - group.sensor_weather
+        - group.tracked_devices
+        - group.xiaomi_vacuum
+        - script.sonos_say
+      exclude_domains:
+        - automation
+        - media_player
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -95,12 +137,17 @@ tts:
    language: 'en-us'
 
 # Additional components
-light:
- - platform: hue
-   host: !secret hue_bridge
+#light:
+ #- platform: hue
+#   host: !secret hue_bridge
 
-tradfri:
-  host: !secret tradfri_ip
+# Sensors
+hue:
+  bridges:
+    - host: !secret hue_bridge
+
+#tradfri:
+#  host: !secret tradfri_ip
 
 
 vacuum:
@@ -112,12 +159,15 @@ vacuum:
 media_player:
 #  - platform: plex
   - platform: cast
-  - platform: plex
-    include_non_clients: true
-    scan_interval: 5
-    show_all_controls: true
+#  - platform: plex
+#    include_non_clients: true
+#    scan_interval: 5
+#    show_all_controls: true
 #  - platform: gstreamer
   - platform: sonos
+#  - platform: spotify
+#    client_id: !secret spotify_client_id
+#    client_secret: !secret spotify_secret
 
 media_extractor:
 
@@ -144,8 +194,7 @@ input_select:
 #  light_group: group.living_room
 #  device_group: group.tracking_devices
 
-# Sensors
-hue:
+
 
 snips:
 

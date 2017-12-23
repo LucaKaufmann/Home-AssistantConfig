@@ -2,7 +2,6 @@
 .*
 *.db*
 *.log
-*.mp3
 !*.yaml
 !scenes
 !automations
@@ -15,6 +14,7 @@
 !*.js
 !*.css
 !*.svg
+*.mp3
 secrets.yaml
 zones.yaml
 known_devices.yaml

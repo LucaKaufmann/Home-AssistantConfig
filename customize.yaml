@@ -12,10 +12,14 @@ light.desk:
   homebridge_visible: true
 
 light.kitchen:
+  alexa_name: "Kitchen Light"
+  alexa_hidden: false
   homebridge_name: "Kitchen light"
   homebridge_visible: true
 
 light.hallway:
+  alexa_name: "Hallway Light"
+  alexa_hidden: false
   homebridge_name: "Hallway light"
   homebridge_visible: true
 
@@ -24,26 +28,36 @@ scene.bedroom_night:
   homebridge_visible: true
 
 scene.bedtime:
+  alexa_name: "Bedtime"
+  alexa_hidden: false
   homebridge_name: "Curious George"
   icon: mdi:sleep
   homebridge_visible: true
 
 scene.movie_mode_arctic:
+  alexa_name: "Movie Mode"
+  alexa_hidden: false
   homebridge_name: "Movie Mode"
   icon: mdi:movie
   homebridge_visible: true
 
 scene.relax:
+  alexa_name: "Relax Mode"
+  alexa_hidden: false
   homebridge_name: "Relax Mode"
   icon: mdi:coffee
   homebridge_visible: true
 
 scene.reading:
+  alexa_name: "Reading Mode"
+  alexa_hidden: false
   homebridge_name: "Reading Mode"
   icon: mdi:book-open-variant
   homebridge_visible: true
 
 scene.razer:
+  alexa_name: "Game Mode"
+  alexa_hidden: false
   homebridge_name: "Game Mode"
   icon: mdi:gamepad-variant
   homebridge_visible: true
