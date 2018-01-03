@@ -11,7 +11,7 @@ action:
 - alias: Lights off
   service: light.turn_off
   data:
-    entity_id: light.kitchen
+    entity_id: light.kitchen_light
 - alias: Turn off automation
   service: automation.turn_off
   entity_id: automation.kitchen_lights_off_when_no_motion

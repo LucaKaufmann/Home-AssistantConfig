@@ -70,9 +70,9 @@ cloud:
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
-  ssl_certificate: !secret ssl_certificate
-  ssl_key: !secret ssl_key
-  base_url: !secret base_url
+  #ssl_certificate: !secret ssl_certificate
+  #ssl_key: !secret ssl_key
+  #base_url: !secret base_url
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: example.duckdns.org:8123
 # Checks for available updates
@@ -101,10 +101,10 @@ device_tracker:
 - platform: bluetooth_tracker
   interval_seconds: 10
   consider_home: 300
-  track_new_devices: no
+  track_new_devices: yes
 
 # Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
+#conversation:
 
 # Enables support for tracking state changes over time.
 history:
@@ -150,11 +150,11 @@ hue:
 #  host: !secret tradfri_ip
 
 
-vacuum:
- - platform: xiaomi_miio
-   name: 'Eve'
-   host: !secret xiaomi_ip
-   token: !secret xiaomi_token
+#vacuum:
+# - platform: xiaomi_miio
+#   name: 'Eve'
+#   host: !secret xiaomi_ip
+#   token: !secret xiaomi_token
 
 media_player:
 #  - platform: plex
@@ -169,7 +169,7 @@ media_player:
 #    client_id: !secret spotify_client_id
 #    client_secret: !secret spotify_secret
 
-media_extractor:
+#media_extractor:
 
 ios:
 
@@ -210,7 +210,7 @@ binary_sensor:
 sensor: !include_dir_list sensors
 group: !include groups.yaml
 automation: !include_dir_list automations
-zone: !include zones.yaml
+# zone: !include zones.yaml
 scene: !include_dir_list scenes
 script: !include_dir_merge_named scripts
 intent_script: !include_dir_merge_named intent_scripts

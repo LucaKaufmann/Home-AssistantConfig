@@ -5,17 +5,17 @@ trigger:
   entity_id: sensor.motion_kitchen
   to: 'on'
 - platform: numeric_state
-  entity_id: sensor.light_sensor_kitchen
+  entity_id: sensor.kitchen_light_level
   below: 8000
 condition:
 - condition: state
-  entity_id: light.kitchen
+  entity_id: light.kitchen_light
   state: 'off'
 - condition: state
   entity_id: sensor.motion_kitchen
   state: 'on'
 - condition: state
-  entity_id: group.all_devices
+  entity_id: group.tracked_devices
   state: home
 - condition: numeric_state
   entity_id: sensor.kitchen_light_level
@@ -24,7 +24,7 @@ action:
 - alias: Lights on
   service: light.turn_on
   data:
-    entity_id: light.kitchen
+    entity_id: light.kitchen_light
     brightness_pct: 75
 - alias: Turn on automation
   service: automation.turn_on

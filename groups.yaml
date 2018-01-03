@@ -173,7 +173,7 @@ all_motion_sensors:
 tracked_devices:
   name: Tracked Devices
   entities:
-   - device_tracker.sevenbt
+   - device_tracker.sevenplus
    - device_tracker.tiiaphone
 
 devices_status:
