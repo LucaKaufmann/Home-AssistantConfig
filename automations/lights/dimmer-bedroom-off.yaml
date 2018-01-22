@@ -1,0 +1,10 @@
+alias: Dimmer bedroom
+id: dimmer_bedroom
+trigger:
+- platform: state
+  entity_id: sensor.dimmer_switch
+  to: '2_hold'
+action:
+- service: light.turn_off
+  data:
+    entity_id: light.yellow_light

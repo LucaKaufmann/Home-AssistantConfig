@@ -2,7 +2,7 @@ alias: Living room lights on when motion
 id: motion_livingroom
 trigger:
 - platform: state
-  entity_id: sensor.motion_livingroom
+  entity_id: binary_sensor.motion_sensor_158d0001bd11a7
   from: 'off'
   to: 'on'
 condition:
@@ -16,7 +16,7 @@ condition:
   entity_id: group.all_devices
   state: home
 - condition: numeric_state
-  entity_id: sensor.livingroom_light_level
+  entity_id: sensor.kitchen_light_level
   below: 8000
 action:
 - alias: Turn on automation
@@ -27,9 +27,14 @@ action:
   data:
     entity_id: light.big_light
     transition: 3
-    brightness_pct: 75
-- alias: Hallway light on
+    brightness_pct: 10
+- alias: Gateway on
   service: light.turn_on
   data:
-    entity_id: light.hallway
-    brightness_pct: 5
+    entity_id: light.gateway_light_7811dcaf23d2
+    brightness_pct: 10
+#- alias: Hallway light on
+#  service: light.turn_on
+#  data:
+#    entity_id: light.hallway
+#    brightness_pct: 5

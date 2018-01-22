@@ -2,10 +2,10 @@ alias: Schedule Vacuum Cleaning
 id: schedule_vacuum_cleaning
 trigger:
   platform: time
-  at: '03:00'
+  at: '08:00'
 condition:
 - condition: time
-  after: '01:00'
+#  after: '06:00'
   weekday:
   - tue
   - thu

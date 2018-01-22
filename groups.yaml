@@ -38,6 +38,7 @@ sensor_view:
     - group.sensor_fitbit
     - group.sensor_kitchen
     - group.sensor_livingroom
+    - group.sensor_bedroom
     - group.hue_sensors
     - sensor.fail2ban
 
@@ -90,6 +91,7 @@ hallway:
   name: Hallway
   entities:
     - light.hallway
+    - light.gateway_light_7811dcaf23d2
 
 # Groups
 color_lights:
@@ -148,16 +150,26 @@ sensor_fitbit:
 sensor_livingroom:
   name: Living room
   entities:
-    - sensor.motion_livingroom
-    - sensor.livingroom_light_level
-    - sensor.livingroom_temperature
+    - binary_sensor.motion_sensor_158d0001bd11a7
+
+sensor_bedroom:
+  name: Bedroom
+  entities:
+    - sensor.motion_bedroom
+    - sensor.bedroom_light_level
+    - sensor.bedroom_temperature
 
 sensor_kitchen:
   name: Kitchen
   entities:
     - sensor.motion_kitchen
+    - binary_sensor.motion_sensor_158d0001d8e71b
     - sensor.kitchen_light_level
     - sensor.kitchen_temperature
+
+kitchen_motion_sensors:
+  - binary_sensor.motion_sensor_158d0001d8e71b
+  - sensor.motion_kitchen
 
 hue_sensors:
   name: Hue
@@ -168,7 +180,9 @@ all_motion_sensors:
   name: Motion sensors
   entities:
     - sensor.motion_kitchen
-    - sensor.motion_livingroom
+    - sensor.motion_bedroom
+    - binary_sensor.motion_sensor_158d0001d8e71b
+    - binary_sensor.motion_sensor_158d0001bd11a7
 
 tracked_devices:
   name: Tracked Devices
@@ -180,7 +194,6 @@ devices_status:
   name: Devices
   entities:
    - device_tracker.sevenplus
-   - device_tracker.sevenbt
    - sensor.sevenplus_battery_level
    - sensor.sevenplus_battery_state
    - sensor.lucas_ipad_battery_level

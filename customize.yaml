@@ -2,6 +2,21 @@ binary_sensor.floorplan:
   custom_ui_state_card: state-card-floorplan
   config: !include floorplan.yaml
 
+binary_sensor.motion_sensor_158d0001bd11a7:
+  friendly_name: 'Living Room Motion'
+
+binary_sensor.motion_sensor_158d0001d8e71b:
+  friendly_name: 'Kitchen Motion 2'
+
+binary_sensor.door_window_sensor_158d0001e4c274:
+  friendly_name: 'Door Sensor'
+
+binary_sensor.switch_158d0001ae6f8c:
+  friendly_name: 'Xiaomi Switch'
+
+light.gateway_light_7811dcaf23d2:
+  friendly_name: 'Xiaomi Gateway'
+
 light.paperlight:
   homebridge_visible: true
 

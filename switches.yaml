@@ -20,5 +20,5 @@
         service: vacuum.turn_off
         entity_id: vacuum.eve
 
-- platform: tplink
-  host: 192.168.92.245
+#- platform: tplink
+#  host: 192.168.92.245

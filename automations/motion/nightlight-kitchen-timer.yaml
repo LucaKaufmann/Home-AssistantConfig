@@ -2,11 +2,11 @@ alias: Kitchen lights off when no motion
 id: no_motion_kitchen
 trigger:
 - platform: state
-  entity_id: sensor.motion_kitchen
+  entity_id: group.kitchen_motion_sensors
   from: 'on'
   to: 'off'
   for:
-    minutes: 3
+    minutes: 1
 action:
 - alias: Lights off
   service: light.turn_off
