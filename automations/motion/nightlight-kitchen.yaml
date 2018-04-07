@@ -6,7 +6,7 @@ trigger:
   to: 'on'
 - platform: numeric_state
   entity_id: sensor.kitchen_light_level
-  below: 8000
+  below: 13000
 condition:
 - condition: state
   entity_id: light.kitchen_light
@@ -19,13 +19,25 @@ condition:
   state: home
 - condition: numeric_state
   entity_id: sensor.kitchen_light_level
-  below: 8000
+  below: 14000
 action:
 - alias: Lights on
   service: light.turn_on
-  data:
+  data_template:
     entity_id: light.kitchen_light
-    brightness_pct: 75
+    brightness_pct: >
+      {% if now().hour < 22 %}
+        100
+      {% else %}
+        {% set light_level = states('sensor.kitchen_light_level')%}
+        {% if light_level > '10000' %}
+          100
+        {% elif light_level > '6000' %}
+          50
+        {% elif light_level < '2000' %}
+          10
+        {% endif %}
+      {% endif %}
 - alias: Turn on automation
   service: automation.turn_on
   entity_id: automation.kitchen_lights_off_when_no_motion

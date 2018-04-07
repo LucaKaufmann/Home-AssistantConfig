@@ -1,0 +1,35 @@
+sonos_ungroup_motion:
+  alias: "Sonos Ungroup Motion"
+  sequence:
+    - condition: template
+      value_template: >
+        {% if target_player is not none and target_player != false and target_player != '' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    # The target player must be playing
+    - condition: template
+      value_template: >
+        {% if states(target_player) == 'playing' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    # The target must not be the co-ordinator
+    - condition: template
+      value_template: >
+        {% if target_player != 'media_player.' + states('input_select.music_controller') %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    - service: media_player.sonos_unjoin
+      data_template:
+        entity_id: >
+          {% if target_player is not none %}
+            {{ target_player }}
+          {% endif %}

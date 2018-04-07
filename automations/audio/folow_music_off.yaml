@@ -1,0 +1,35 @@
+alias: Disable follow music if controller has been paused
+trigger:
+  # Check every 5 minutes
+  - platform: time
+    minutes: '/5'
+    seconds: 0
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: input_boolean.follow_music
+      state: 'on'
+    # The controller player must NOT be playing
+    - condition: template
+      value_template: >
+        {% if states('media_player.' + states('input_select.music_controller')) != 'playing' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    # The controller player must be paused for at least 15 minutes (900 seconds)
+    - condition: template
+      value_template: >
+        {% for state in states.media_player if state.entity_id == 'media_player.' + states('input_select.music_controller') %}
+          {% if as_timestamp(now()) | int - as_timestamp(state.last_changed) > 900 %}
+            true
+          {% else %}
+            false
+          {% endif %}
+        {% else %}
+          false
+        {% endfor %}
+action:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.follow_music

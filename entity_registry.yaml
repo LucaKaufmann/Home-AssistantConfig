@@ -1,0 +1,124 @@
+light.hallway:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:f1:00:c6-0b
+light.paperlight_2:
+  name:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:38:ba:ea-01
+light.paperlight_1:
+  name:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:46:3f:d6-01
+light.paperlight_3:
+  name:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:2f:e9:63-01
+light.big_light:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:8f:af:2c-0b
+light.desk:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:ae:4b:1d-0b
+light.kitchen_light:
+  name:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:44:64:4f-01
+light.yellow_light:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:03:71:40:ee-0b
+sensor.illumination_7811dcaf23d2:
+  name:
+  platform: xiaomi_aqara
+  unique_id: illumination7811dcaf23d2
+binary_sensor.motion_sensor_158d0001d8e71b:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001d8e71b
+binary_sensor.switch_158d0001ae6f8c:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001ae6f8c
+binary_sensor.motion_sensor_158d0001bd11a7:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001bd11a7
+binary_sensor.door_window_sensor_158d0001e4c274:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001e4c274
+switch.plug_158d0001b8fb75:
+  name: Smart Plug
+  platform: xiaomi_aqara
+  unique_id: status158d0001b8fb75
+light.gateway_light_7811dcaf23d2:
+  name:
+  platform: xiaomi_aqara
+  unique_id: rgb7811dcaf23d2
+sensor.sevenplus_battery_level:
+  name:
+  platform: ios
+  unique_id: level_sevenplus
+sensor.sevenplus_battery_state:
+  name:
+  platform: ios
+  unique_id: state_sevenplus
+sensor.lucas_ipad_battery_level:
+  name:
+  platform: ios
+  unique_id: level_lucas_ipad
+sensor.lucas_ipad_battery_state:
+  name:
+  platform: ios
+  unique_id: state_lucas_ipad
+media_player.chrome:
+  name:
+  platform: plex
+  unique_id: uuyf9aj3pg2ceo018o8c7hoe
+media_player.speaker:
+  name:
+  platform: cast
+  unique_id: 11ad2e3c-c95a-a1ff-b5bb-8808475c8f94
+media_player.home_group:
+  name:
+  platform: cast
+  unique_id: fc34cd82-5d32-4e94-8007-62f701505675
+media_player.chrome_2:
+  name:
+  platform: plex
+  unique_id: 0ydofwati6ir7bujtk13tjr1
+media_player.sevenplus:
+  name:
+  platform: plex
+  unique_id: C27F6BBB-14DD-4A45-BB13-8BC86A2AC3F0
+media_player.chrome_3:
+  name:
+  platform: plex
+  unique_id: v6fwglb7xdxkpzopcwbtl2rx
+media_player.safari:
+  name:
+  platform: plex
+  unique_id: zyuhd2zawngh6168i62hqrze
+media_player.lucas_ipad:
+  name:
+  platform: plex
+  unique_id: BB7C61C2-6AFC-418C-9E8A-74CA0ACCE1C4
+media_player.kitchen:
+  name:
+  platform: sonos
+  unique_id: RINCON_7828CA03370E01400
+media_player.living_room:
+  name:
+  platform: sonos
+  unique_id: RINCON_7828CA1C07B801400
+media_player.living_room_tv:
+  name:
+  platform: cast
+  unique_id: 767629db-6ae2-099f-843f-0093c8187a8d
+media_player.zenpad_10_z301m:
+  name:
+  platform: plex
+  unique_id: 26495dd92b778d0b-com-plexapp-android

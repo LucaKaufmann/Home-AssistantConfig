@@ -85,10 +85,12 @@ vacuum.eve:
 
 switch.start_vacuum:
   homebridge_name: "Vacuum"
+  alexa_name: "Vacuum"
   homebridge_visible: true
 
 switch.clean_kitchen:
-  homebridge_name: "Clean the kitchen"
+  alexa_name: "Cleaning the kitchen"
+  homebridge_name: "Cleaning the kitchen"
   homebridge_visible: true
 
 input_boolean.schedule_cleaning:

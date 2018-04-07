@@ -29,49 +29,28 @@ config:
 cloud:
   alexa:
     filter:
-      exclude_entities:
-        - light.hallway_2
-        - light.paperlight_1
-        - light.paperlight_2
-        - light.paperlight_3
-        - group.all_automations
-        - group.all_devices
-        - group.all_motion_sensors
-        - group.all_scripts
-        - group.all_switches
-        - group.all_vacuum_cleaners
-        - group.automations_audiobooks
-        - group.automations_lights
-        - group.automations_motion
-        - group.automations_vacuum
-        - group.automations_view
-        - group.color_lights
-        - group.default_view
-        - group.devices_status
-        - group.devices_view
-        - group.floorplan_group
-        - group.floorplan_view
-        - group.hue_sensors
-        - group.light_scenes
-        - group.media_player_view
-        - group.sensor_fitbit
-        - group.sensor_kitchen
-        - group.sensor_livingroom
-        - group.sensor_pi
-        - group.sensor_view
-        - group.sensor_weather
-        - group.tracked_devices
-        - group.xiaomi_vacuum
-        - script.sonos_say
-      exclude_domains:
-        - automation
-        - media_player
+      include_entities:
+        - input_boolean.follow_music
+        - input_boolean.schedule_cleaning
+        - input_boolean.schedule_kitchen_cleaning
+        - input_boolean.cleaning_doublepass
+        - light.hallway
+        - light.paperlight
+        - light.yellow_light
+        - light.kitchen
+        - scene.bedtime
+        - scene.movie_mode_arctic
+        - scene.relax
+        - scene.reading
+        - scene.razer
+        - switch.start_vacuum
+        - switch.clean_kitchen
 
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+  #ssl_certificate: /ssl/fullchain.pem
+  #ssl_key: /ssl/privkey.pem
   #ssl_certificate: !secret ssl_certificate
   #ssl_key: !secret ssl_key
   base_url: !secret base_url
@@ -82,6 +61,9 @@ http:
 # the developers to assist with development of Home Assistant.
 # For more information, please see:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+
+websocket_api:
+
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
@@ -125,6 +107,23 @@ logbook:
     domains:
       - group
 
+influxdb:
+  host: 127.0.0.1
+  port: 8086
+# uncomment if you used a password
+#  username: admin
+#  password: !secret influxdb_password
+  database: homeassistant
+  default_measurement: state
+
+light:
+  - platform: group
+    name: Livingroom Lights
+    entities:
+      - light.paperlight
+      - light.desk
+      - light.big_light
+
 # Track the sun
 sun:
 
@@ -147,6 +146,11 @@ tts:
 hue:
   bridges:
     - host: !secret hue_bridge
+
+fan:
+  - platform: xiaomi_miio
+    host: !secret air_purifier_ip
+    token: !secret air_purifier_token
 
 xiaomi_aqara:
   discovery_retry: 5
@@ -185,17 +189,6 @@ notify:
     name: facebook
     page_access_token: !secret fb_token
 
-input_select:
-  audiobook:
-    name: Audiobook
-    options:
-      - Curious George Halloween
-      - Curious George Christmas
-      - Curious George Space
-      - None
-    initial: None
-    icon: mdi:audiobook
-
 #device_sun_light_trigger:
 #  light_group: group.living_room
 #  device_group: group.tracking_devices
@@ -222,3 +215,4 @@ script: !include_dir_merge_named scripts
 intent_script: !include_dir_merge_named intent_scripts
 switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml
+input_select: !include input_select.yaml

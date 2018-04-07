@@ -23,3 +23,8 @@ cleaning_doublepass:
   name: Cleaning double pass
   initial: off
   icon: mdi:repeat
+
+follow_music:
+  name: Follow Music
+  initial: off
+  icon: mdi:speaker

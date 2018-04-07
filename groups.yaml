@@ -12,6 +12,7 @@ default_view:
     - group.xiaomi_vacuum
     - group.light_scenes
     - input_boolean.sleeping
+    - input_boolean.follow_music
 
 
 media_player_view:
@@ -20,12 +21,11 @@ media_player_view:
   icon: mdi:play-circle
   entities:
     - media_player.speaker
-    - media_player.spotify
-    - media_player.spotify_2
     - media_player.living_room
-    - media_player.plex_web_chrome
-    - media_player.plex_web_safari
+    - media_player.kitchen
     - input_select.audiobook
+    - input_select.music_controller
+    - input_boolean.follow_music
 
 sensor_view:
   name: Sensors
@@ -85,7 +85,8 @@ kitchen:
   name: Kitchen
   entities:
     - light.kitchen
-    - switch.smart_plug
+    - switch.plug_158d0001b8fb75
+    - fan.xiaomi_air_purifier
 
 hallway:
   name: Hallway
