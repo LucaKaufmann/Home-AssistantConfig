@@ -28,11 +28,8 @@ follow_music:
   name: Follow Music
   initial: off
   icon: mdi:speaker
-<<<<<<< HEAD
 
 auto_lights:
   name: Automatic lights
   initial: off
   icon: mdi:lightbulb-on
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
