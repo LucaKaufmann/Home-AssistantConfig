@@ -101,8 +101,11 @@ input_boolean.schedule_kitchen_cleaning:
   homebridge_name: "Clean the kitchen w/hen I leave"
   homebridge_visible: true
 
+<<<<<<< HEAD
 media_player.lg_webos_smart_tv:
   alexa_name: "TV"
 
+=======
+>>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 group.all_scenes:
   hidden: false
