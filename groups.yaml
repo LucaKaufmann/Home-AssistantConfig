@@ -12,13 +12,10 @@ default_view:
     - group.xiaomi_vacuum
     - group.light_scenes
     - input_boolean.sleeping
-<<<<<<< HEAD
     - binary_sensor.sleeping
     - input_boolean.follow_music
     - input_boolean.auto_lights
-=======
-    - input_boolean.follow_music
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
+
 
 
 media_player_view:
@@ -29,10 +26,7 @@ media_player_view:
     - media_player.speaker
     - media_player.living_room
     - media_player.kitchen
-<<<<<<< HEAD
     - media_player.lg_webos_smart_tv
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
     - input_select.audiobook
     - input_select.music_controller
     - input_boolean.follow_music
@@ -97,10 +91,7 @@ kitchen:
     - light.kitchen
     - switch.plug_158d0001b8fb75
     - fan.xiaomi_air_purifier
-<<<<<<< HEAD
     - fan.xiaomi_miio_device
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 
 hallway:
   name: Hallway

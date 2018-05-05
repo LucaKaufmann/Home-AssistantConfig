@@ -122,7 +122,6 @@ media_player.zenpad_10_z301m:
   name:
   platform: plex
   unique_id: 26495dd92b778d0b-com-plexapp-android
-<<<<<<< HEAD
 media_player.chrome_4:
   name:
   platform: plex
@@ -167,5 +166,3 @@ media_player.safari_5:
   name:
   platform: plex
   unique_id: e014nm4wo5683s1iwamm8ct5
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
