@@ -1,7 +1,6 @@
 - platform: mqtt
   state_topic: dummy/floorplan/sensor
   name: Floorplan
-<<<<<<< HEAD
 - platform: bayesian
   prior: 0.1
   name: 'Sleeping'
@@ -31,5 +30,3 @@
         prob_given_false: 0.1
         platform: 'state'
         to_state: 'off'
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746

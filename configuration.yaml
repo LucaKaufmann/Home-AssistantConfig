@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
@@ -49,7 +45,6 @@ cloud:
         - scene.razer
         - switch.start_vacuum
         - switch.clean_kitchen
-<<<<<<< HEAD
         - media_player.lg_webos_smart_tv
     entity_config:
       media_player.lg_webos_smart_tv:
@@ -77,19 +72,12 @@ cloud:
     entity_config:
       media_player.lg_webos_smart_tv:
         name: TV
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
-<<<<<<< HEAD
   ssl_certificate: /certs/fullchain.pem
   ssl_key: /certs/privkey.pem
-=======
-  #ssl_certificate: /ssl/fullchain.pem
-  #ssl_key: /ssl/privkey.pem
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
   #ssl_certificate: !secret ssl_certificate
   #ssl_key: !secret ssl_key
   base_url: !secret base_url
@@ -121,7 +109,6 @@ device_tracker:
 #  consider_home: 800
 #  interval_seconds: 10
 #  home_interval: 120
-<<<<<<< HEAD
 #- platform: bluetooth_tracker
 #  interval_seconds: 10
 #  consider_home: 300
@@ -131,12 +118,6 @@ device_tracker:
   devices:
     sevenplus: 'bluetooth_pi/presence/sevenplus'
     tiiaphone: 'bluetooth_pi/presence/tiiaphone'
-=======
-- platform: bluetooth_tracker
-  interval_seconds: 10
-  consider_home: 300
-  track_new_devices: no
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
@@ -159,11 +140,7 @@ logbook:
       - group
 
 influxdb:
-<<<<<<< HEAD
   host: !secret influxdb_ip
-=======
-  host: 127.0.0.1
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
   port: 8086
 # uncomment if you used a password
 #  username: admin
@@ -206,10 +183,7 @@ fan:
   - platform: xiaomi_miio
     host: !secret air_purifier_ip
     token: !secret air_purifier_token
-<<<<<<< HEAD
     name: Xiaomi Air Purifier
-=======
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 
 xiaomi_aqara:
   discovery_retry: 5
@@ -234,7 +208,6 @@ media_player:
 #    show_all_controls: true
 #  - platform: gstreamer
   - platform: sonos
-<<<<<<< HEAD
   # - platform: spotify
   #   client_id: !secret spotify_client_id
   #   client_secret: !secret spotify_secret
@@ -246,12 +219,6 @@ media_player:
         mac: 78:5D:C8:62:65:D1
 
 wake_on_lan:
-=======
-#  - platform: spotify
-#    client_id: !secret spotify_client_id
-#    client_secret: !secret spotify_secret
-
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 #media_extractor:
 
 ios:
@@ -269,16 +236,10 @@ notify:
 
 
 #snips:
-
-<<<<<<< HEAD
 mqtt:
   broker: 127.0.0.1
   username: !secret mqtt_user
   password: !secret mqtt_passwd
-=======
-#mqtt:
-#  broker: 127.0.0.1
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 
 #binary_sensor:
 #  - platform: mqtt
@@ -287,16 +248,10 @@ mqtt:
 
 
 sensor: !include_dir_list sensors
-<<<<<<< HEAD
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_list automations
 zone: !include zones.yaml
-=======
-group: !include groups.yaml
-automation: !include_dir_list automations
-# zone: !include zones.yaml
->>>>>>> 7a0603191329e2dca51d5002702dc12f97c73746
 scene: !include_dir_list scenes
 script: !include_dir_merge_named scripts
 intent_script: !include_dir_merge_named intent_scripts
