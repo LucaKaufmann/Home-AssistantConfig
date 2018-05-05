@@ -1,0 +1,35 @@
+#Input boolean
+sleeping:
+  name: Everyone asleep
+  initial: off
+  icon: mdi:sleep
+
+schedule_kitchen_cleaning:
+  name: Schedule kitchen cleaning
+  initial: off
+  icon: mdi:food-variant
+
+schedule_livingroom_cleaning:
+  name: Schedule livingroom cleaning
+  initial: off
+  icon: mdi:sofa
+
+schedule_cleaning:
+  name: Schedule apartment cleaning
+  initial: off
+  icon: mdi:home
+
+cleaning_doublepass:
+  name: Cleaning double pass
+  initial: off
+  icon: mdi:repeat
+
+follow_music:
+  name: Follow Music
+  initial: off
+  icon: mdi:speaker
+
+auto_lights:
+  name: Automatic lights
+  initial: off
+  icon: mdi:lightbulb-on

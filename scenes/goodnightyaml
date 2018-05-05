@@ -1,0 +1,6 @@
+name: Goodnight
+entities:
+  light.yellow_light:
+    state: on
+    brightness: 10
+    color_temp: 454

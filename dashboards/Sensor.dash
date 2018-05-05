@@ -1,0 +1,30 @@
+##
+## Main arguments, all optional
+##
+title: Sensors
+widget_dimensions: [118, 118]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 3
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - switch.start_vacuum(3x1)
+    - sensor.vacuum_battery, switch.clean_kitchen(2x1)
+    - sensor.vacuum_cleaned_area, sensor.vacuum_cleaning_time, sensor.vacuum_status
+    - sensor.vacuum_fan(3x1)
+    - navigate_main, navigate_vacuum, reload.reload
+
+
+navigate_main:
+    widget_type: navigate
+    title: Main
+    dashboard: Main
+
+navigate_vacuum:
+    widget_type: navigate
+    title: Vacuum
+    dashboard: Vacuum

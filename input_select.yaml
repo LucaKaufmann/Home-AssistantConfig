@@ -1,0 +1,15 @@
+music_controller:
+    name: Music Controller
+    options:
+      - living_room
+      - kitchen
+
+audiobook:
+  name: Audiobook
+  options:
+    - Curious George Halloween
+    - Curious George Christmas
+    - Curious George Space
+    - None
+  initial: None
+  icon: mdi:audiobook

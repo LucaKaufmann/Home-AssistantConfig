@@ -1,0 +1,24 @@
+alias: Movement detected
+id: movement_detected
+trigger:
+- platform: state
+  entity_id: group.all_motion_sensors
+  to: 'on'
+condition:
+- condition: state
+  entity_id: group.tracked_devices
+  state: 'not_home'
+- condition: state
+  entity_id: sensor.vacuum_status
+  state: 'Charging'
+action:
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Movement detected
+    target:
+      - !secret phonenumber_L
+- alias: Set awake
+  service: input_boolean.turn_off
+  data:
+    entity_id: input_boolean.sleeping

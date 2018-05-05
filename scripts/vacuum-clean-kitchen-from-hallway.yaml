@@ -1,0 +1,86 @@
+vacuum_clean_kitchen_from_hallway:
+  alias: vacuum_clean_kitchen_from_hallway
+  sequence:
+    - alias: Start vacuum remote control
+      service: vacuum.xiaomi_remote_control_start
+      data:
+        entity_id: vacuum.eve
+    - delay:
+        # supports seconds, milliseconds, minutes, hours
+        seconds: 10
+    - alias: Move away from dock
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.10
+        rotation: 0
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Move forward to kitchen 1
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.29
+        rotation: 0
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Move forward to kitchen 2
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.29
+        rotation: 0
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Move forward to kitchen 2
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.29
+        rotation: 0
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Turn right
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.29
+        rotation: -21
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Position for spot clean
+      service: vacuum.xiaomi_remote_control_move
+      data:
+        entity_id: vacuum.eve
+        velocity: 0.20
+        rotation: 0
+        duration: 4000
+    - delay:
+            # supports seconds, milliseconds, minutes, hours
+        seconds: 4
+    - alias: Stop remote
+      service: vacuum.xiaomi_remote_control_stop
+      data:
+        entity_id: vacuum.eve
+    - delay:
+        seconds: 5
+    - alias: Spot clean
+      service: vacuum.clean_spot
+      data:
+        entity_id: vacuum.eve
+    - delay:
+        minutes: 3
+    - alias: Return to dock
+      service: vacuum.return_to_base
+      data:
+        entity_id: vacuum.eve

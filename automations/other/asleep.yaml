@@ -1,0 +1,35 @@
+alias: Enable sleeping
+id: enable_sleeping
+trigger:
+- platform: state
+  entity_id: group.all_lights
+  to: 'off'
+- platform: state
+  entity_id: group.all_motion_sensors
+  to: 'off'
+  for:
+    minutes: 20
+condition:
+- condition: state
+  entity_id: group.all_devices
+  state: 'home'
+- condition: state
+  entity_id: group.all_lights
+  state: 'off'
+- condition: state
+  entity_id: group.all_motion_sensors
+  state: 'off'
+  for:
+    minutes: 20
+- condition: time
+  after: '22:00:00'
+  before: '06:00:00'
+action:
+- alias: All lights off
+  data:
+    entity_id: group.all_lights
+  service: homeassistant.turn_off
+- alias: Set asleep
+  service: input_boolean.turn_on
+  data:
+    entity_id: input_boolean.sleeping

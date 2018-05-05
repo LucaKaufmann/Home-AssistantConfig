@@ -1,0 +1,262 @@
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Helsinki
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+  javascript_version: latest
+  extra_html_url:
+    - /local/custom_ui/state-card-floorplan.html
+
+panel_custom: !include panel_custom.yaml
+
+# Enables configuration UI
+config:
+
+cloud:
+  alexa:
+    filter:
+      include_entities:
+        - input_boolean.follow_music
+        - input_boolean.schedule_cleaning
+        - input_boolean.schedule_kitchen_cleaning
+        - input_boolean.cleaning_doublepass
+        - light.hallway
+        - light.paperlight
+        - light.yellow_light
+        - light.kitchen
+        - scene.bedtime
+        - scene.movie_mode_arctic
+        - scene.relax
+        - scene.reading
+        - scene.razer
+        - switch.start_vacuum
+        - switch.clean_kitchen
+        - media_player.lg_webos_smart_tv
+    entity_config:
+      media_player.lg_webos_smart_tv:
+        name: TV
+        description: TV in the living room
+  google_actions:
+    filter:
+      include_entities:
+        - input_boolean.follow_music
+        - input_boolean.schedule_cleaning
+        - input_boolean.schedule_kitchen_cleaning
+        - input_boolean.cleaning_doublepass
+        - light.hallway
+        - light.paperlight
+        - light.yellow_light
+        - light.kitchen
+        - scene.bedtime
+        - scene.movie_mode_arctic
+        - scene.relax
+        - scene.reading
+        - scene.razer
+        - switch.start_vacuum
+        - switch.clean_kitchen
+        - media_player.lg_webos_smart_tv
+    entity_config:
+      media_player.lg_webos_smart_tv:
+        name: TV
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  ssl_certificate: /certs/fullchain.pem
+  ssl_key: /certs/privkey.pem
+  #ssl_certificate: !secret ssl_certificate
+  #ssl_key: !secret ssl_key
+  base_url: !secret base_url
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+
+websocket_api:
+
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  #ignore:
+  # - ikea_tradfri
+
+device_tracker:
+#- platform: nmap_tracker
+#  hosts: !secret hosts
+#  exclude:
+#   - !secret raspberry_pi_ip
+#  track_new_devices: no
+#  consider_home: 800
+#  interval_seconds: 10
+#  home_interval: 120
+#- platform: bluetooth_tracker
+#  interval_seconds: 10
+#  consider_home: 300
+#  track_new_devices: no
+- platform: owntracks
+- platform: mqtt
+  devices:
+    sevenplus: 'bluetooth_pi/presence/sevenplus'
+    tiiaphone: 'bluetooth_pi/presence/tiiaphone'
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+  exclude:
+    entities:
+      - group.all_motion_sensors
+      - sensor.motion_livingroom
+      - sensor.motion_kitchen
+      - group.sensor_kitchen
+      - group.sensor_livingroom
+      - group.sensor_pi
+      - group.sensor_view
+    domains:
+      - group
+
+influxdb:
+  host: !secret influxdb_ip
+  port: 8086
+# uncomment if you used a password
+#  username: admin
+#  password: !secret influxdb_password
+  database: homeassistant
+  default_measurement: state
+
+light:
+  - platform: group
+    name: Livingroom Lights
+    entities:
+      - light.paperlight
+      - light.desk
+      - light.big_light
+
+# Track the sun
+sun:
+
+logger:
+  default: critical
+  logs:
+    homeassistant.components: info
+    homeassistant.components.http.ban: warning
+# Text to speech
+tts:
+ - platform: google
+   language: 'en-us'
+
+# Additional components
+#light:
+ #- platform: hue
+#   host: !secret hue_bridge
+
+# Sensors
+hue:
+  bridges:
+    - host: !secret hue_bridge
+
+fan:
+  - platform: xiaomi_miio
+    host: !secret air_purifier_ip
+    token: !secret air_purifier_token
+    name: Xiaomi Air Purifier
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret xiaomi_gateway_key
+#tradfri:
+#  host: !secret tradfri_ip
+
+
+vacuum:
+ - platform: xiaomi_miio
+   name: 'Eve'
+   host: !secret xiaomi_ip
+   token: !secret xiaomi_token
+
+media_player:
+#  - platform: plex
+  - platform: cast
+#  - platform: plex
+#    include_non_clients: true
+#    scan_interval: 5
+#    show_all_controls: true
+#  - platform: gstreamer
+  - platform: sonos
+  # - platform: spotify
+  #   client_id: !secret spotify_client_id
+  #   client_secret: !secret spotify_secret
+  - platform: webostv
+    host: !secret lgtv_ip
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: 78:5D:C8:62:65:D1
+
+wake_on_lan:
+#media_extractor:
+
+ios:
+
+notify:
+  - platform: ios
+  - platform: facebook
+    name: facebook
+    page_access_token: !secret fb_token
+
+#device_sun_light_trigger:
+#  light_group: group.living_room
+#  device_group: group.tracking_devices
+
+
+
+#snips:
+
+mqtt:
+  broker: 127.0.0.1
+  username: !secret mqtt_user
+  password: !secret mqtt_passwd
+
+#binary_sensor:
+#  - platform: mqtt
+#    state_topic: dummy/floorplan/sensor
+#    name: Floorplan
+
+
+sensor: !include_dir_list sensors
+binary_sensor: !include binary_sensors.yaml
+group: !include groups.yaml
+automation: !include_dir_list automations
+zone: !include zones.yaml
+scene: !include_dir_list scenes
+script: !include_dir_merge_named scripts
+intent_script: !include_dir_merge_named intent_scripts
+switch: !include switches.yaml
+input_boolean: !include input_boolean.yaml
+input_select: !include input_select.yaml

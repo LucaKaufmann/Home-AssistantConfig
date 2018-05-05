@@ -1,0 +1,126 @@
+##
+## Main arguments, all optional
+##
+title: Tablet Panel
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - main_clock(3x1), start_vacuum(2x1), schedule_full_cleaning, reload.reload
+    - device_tracker.sevenbt, device_tracker.tiiaphone, outside_temp, sensor.vacuum_battery, clean_kitchen, schedule_kitchen_cleaning, scene.relax
+    - livingroom_temp, kitchen_temp, livingroom_lights, kitchen_lights, light.hallway, bedroom_lights, scene.reading
+    #- scene.relax, scene.reading, livingroom_lights, kitchen_lights, light.hallway, bedroom_lights
+    #- livingroom_lights, kitchen_lights, light.hallway, bedroom_lights
+    - iframe(7x2)
+
+
+main_clock:
+    widget_type: clock
+    time_format: 24hr
+    show_seconds: 1
+    #widget_style: "background: white"
+    #date_style: "color: black"
+    #time_style: "color: green"
+
+outside_temp:
+    title: Outside
+    entity: sensor.darksky_temperature
+    widget_type: sensor
+
+livingroom_temp:
+    title: Living room
+    entity: sensor.livingroom_temperature
+    widget_type: sensor
+
+kitchen_temp:
+    title: Kitchen
+    entity: sensor.kitchen_temperature
+    widget_type: sensor
+
+cpu_temp:
+    title: Raspberry CPU
+    entity: sensor.cpu_temperature
+    widget_type: sensor
+
+all_lights:
+    title: All Lights
+    entity: group.all_lights
+    monitored_entity: light.paperlight
+    widget_type: group
+
+livingroom_lights:
+    title: Living room
+    entity: group.living_room
+    monitored_entity: light.paperlight
+    widget_type: group
+
+kitchen_lights:
+    title: Kitchen
+    entity: group.kitchen
+    monitored_entity: light.kitchen
+    widget_type: group
+
+bedroom_lights:
+    title: Bedroom
+    entity: group.bed_room
+    monitored_entity: light.yellow_light
+    widget_type: group
+
+start_vacuum:
+    widget_type: switch
+    title: Start Cleaning
+    entity: switch.start_vacuum
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+clean_kitchen:
+    widget_type: switch
+    title: Clean Kitchen
+    entity: switch.clean_kitchen
+    icon_on: mdi-stop
+    icon_off: mdi-play
+    icon_style_active: "color: #ff0026"
+    icon_style_inactive: "color: #00ff61"
+
+schedule_full_cleaning:
+    title: Schedule cleaning
+    entity: input_boolean.schedule_cleaning
+    widget_type: input_boolean
+
+schedule_kitchen_cleaning:
+    title: Schedule cleaning kitchen
+    entity: input_boolean.schedule_kitchen_cleaning
+    widget_type: input_boolean
+
+iframe:
+    widget_type: iframe
+    refresh: 60
+    url_list:
+      - http://forecast.io/embed/#lat=60.293745&lon=25.044015&name=Vantaa&color=#00aaff&units=ca
+      #- https://paper.dropbox.com/doc/ToDo-IVh7KgKtQ3yBhmmdFu3wY?_tk=share_copylink
+
+rss_feed:
+    widget_type: rss
+    entity: newsfeed
+    interval: 5
+
+navigate_vacuum:
+    widget_type: navigate
+    title: Vacuum
+    dashboard: vacuum-tablet
+
+navigate_sensor:
+    widget_type: navigate
+    title: Sensors
+    dashboard: sensors-tablet
+    args:
+      timeout: 10
+      return: Tablet

@@ -1,0 +1,12 @@
+alias: Play Curious George Christmas
+id: curious_george_christmas
+trigger:
+  platform: state
+  entity_id: input_select.audiobook
+  to: Curious George Christmas
+action:
+  service: media_player.play_media
+  data:
+    entity_id: media_player.speaker
+    media_content_id: !secret george_christmas
+    media_content_type: audio/mp4

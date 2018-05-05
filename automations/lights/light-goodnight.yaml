@@ -1,0 +1,18 @@
+alias: Goodnight lights
+id: light_goodnight
+trigger:
+  platform: event
+  event_type: call_service
+  event_data:
+    service_data:
+      entity_id: scene.goodnight
+    domain: scene
+    service: turn_on
+action:
+- alias: Light off
+  service: light.turn_off
+  data:
+    entity_id: light.yellow_light
+    transition: 1200
+    brightness_pct: 0
+    color_temp: 500

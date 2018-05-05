@@ -1,0 +1,270 @@
+# Views
+
+default_view:
+  name: DEFAULT
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.living_room
+    - group.bed_room
+    - group.kitchen
+    - group.hallway
+    - group.xiaomi_vacuum
+    - group.light_scenes
+    - input_boolean.sleeping
+    - binary_sensor.sleeping
+    - input_boolean.follow_music
+    - input_boolean.auto_lights
+
+
+media_player_view:
+  name: Media Players
+  view: yes
+  icon: mdi:play-circle
+  entities:
+    - media_player.speaker
+    - media_player.living_room
+    - media_player.kitchen
+    - media_player.lg_webos_smart_tv
+    - input_select.audiobook
+    - input_select.music_controller
+    - input_boolean.follow_music
+
+sensor_view:
+  name: Sensors
+  view: yes
+  icon: mdi:gauge
+  entities:
+    - group.sensor_pi
+    - sun.sun
+    - group.sensor_weather
+    - group.sensor_fitbit
+    - group.sensor_kitchen
+    - group.sensor_livingroom
+    - group.sensor_bedroom
+    - group.hue_sensors
+    - sensor.fail2ban
+
+automations_view:
+  name: Automations
+  view: yes
+  icon: mdi:home-automation
+  entities:
+   - group.automations_lights
+   - group.automations_vacuum
+   - group.automations_audiobooks
+   - group.automations_motion
+
+
+devices_view:
+  name: Devices
+  view: yes
+  icon: mdi:cellphone-iphone
+  entities:
+   - group.devices_status
+
+floorplan_view:
+  name: Floorplan
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.floorplan_group
+
+# Components
+# Rooms
+living_room:
+  name: Living Room
+  entities:
+   - light.paperlight
+   - light.big_light
+   - light.desk
+
+bed_room:
+  name: Bed Room
+  entities:
+   - light.yellow_light
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen
+    - switch.plug_158d0001b8fb75
+    - fan.xiaomi_air_purifier
+    - fan.xiaomi_miio_device
+
+hallway:
+  name: Hallway
+  entities:
+    - light.hallway
+    - light.gateway_light_7811dcaf23d2
+
+# Groups
+color_lights:
+  name: Color lights
+  entities:
+    - light.big_light
+    - light.desk
+
+light_scenes:
+  name: Scenes
+  entities:
+    - scene.bedtime
+    - scene.movie_mode_arctic
+    - scene.relax
+    - scene.reading
+    - scene.razer
+
+sensor_pi:
+  name: Raspberry Pi
+  entities:
+    - sensor.cpu_used
+    - sensor.cpu_temperature
+    - sensor.disk_use_
+    - sensor.disk_use_varlog
+    - sensor.ram_use
+    - sensor.ram_free
+    - sensor.swap_use
+    - sensor.swap_free
+    - sensor.last_boot
+    - sensor.received_eth0
+    - sensor.sent_eth0
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_ads_percentage_blocked_today
+    - sensor.pihole_dns_queries_today
+
+sensor_weather:
+  name: Weather
+  entities:
+    - sensor.darksky_summary
+    - sensor.darksky_precip_intensity
+    - sensor.darksky_nearest_storm_distance
+    - sensor.darksky_temperature
+
+sensor_fitbit:
+  name: Fitbit
+  entities:
+    - sensor.steps
+    - sensor.sleep_efficiency
+    - sensor.sleep_starttime
+    - sensor.sleep_timeinbed
+    - sensor.sleep_minutesasleep
+    - sensor.sleep_minutesawake
+    - sensor.sleep_minutestofallasleep
+    - sensor.sleep_minutesafterwakeup
+
+sensor_livingroom:
+  name: Living room
+  entities:
+    - binary_sensor.motion_sensor_158d0001bd11a7
+
+sensor_bedroom:
+  name: Bedroom
+  entities:
+    - sensor.motion_bedroom
+    - sensor.bedroom_light_level
+    - sensor.bedroom_temperature
+
+sensor_kitchen:
+  name: Kitchen
+  entities:
+    - sensor.motion_kitchen
+    - binary_sensor.motion_sensor_158d0001d8e71b
+    - sensor.kitchen_light_level
+    - sensor.kitchen_temperature
+
+kitchen_motion_sensors:
+  - binary_sensor.motion_sensor_158d0001d8e71b
+  - sensor.motion_kitchen
+
+hue_sensors:
+  name: Hue
+  entities:
+    - sensor.dimmer_switch
+
+all_motion_sensors:
+  name: Motion sensors
+  entities:
+    - sensor.motion_kitchen
+    - sensor.motion_bedroom
+    - binary_sensor.motion_sensor_158d0001d8e71b
+    - binary_sensor.motion_sensor_158d0001bd11a7
+
+tracked_devices:
+  name: Tracked Devices
+  entities:
+   - device_tracker.sevenplus
+   - device_tracker.tiiaphone
+
+devices_status:
+  name: Devices
+  entities:
+   - device_tracker.sevenplus
+   - sensor.sevenplus_battery_level
+   - sensor.sevenplus_battery_state
+   - sensor.lucas_ipad_battery_level
+   - sensor.lucas_ipad_battery_state
+   - device_tracker.tiiaphone
+
+xiaomi_vacuum:
+  name: Vacuum
+  entities:
+   - vacuum.eve
+   - input_slider.vacuum_fan
+   - sensor.vacuum_status
+   - sensor.vacuum_error
+   - sensor.vacuum_battery
+   - sensor.vacuum_cleaning_time
+   - sensor.vacuum_cleaned_area
+   - switch.clean_kitchen
+   - input_boolean.schedule_kitchen_cleaning
+   - input_boolean.schedule_livingroom_cleaning
+   - input_boolean.schedule_cleaning
+   - input_boolean.cleaning_doublepass
+
+automations_lights:
+  name: Light Automations
+  entities:
+    - automation.rainy_day
+    - automation.big_light_on_at_sunset
+    - automation.paperlight_on_at_sunset
+    - automation.goodnight_lights
+    - automation.good_morning
+    - automation.lights_off_when_not_home
+    - automation.fade_in_big_light_when_dark
+    - automation.notify_when_lights_on_after_10
+    - automation.flash_when_luca_home
+    - automation.flash_when_tiia_home
+
+
+automations_motion:
+  name: Motion Automations
+  entities:
+    - automation.kitchen_lights_off_when_no_motion
+    - automation.kitchen_lights_on_when_motion
+    - automation.living_room_lights_off_when_no_motion
+    - automation.living_room_lights_on_when_motion
+    - automation.movement_detected
+
+
+automations_vacuum:
+  name: Vacuum automations
+  entities:
+    - automation.vacuum_to_quiet_when_home
+    - automation.vacuum_to_max_when_not_home
+    - automation.vacuum_kitchen
+    - automation.schedule_vacuum_cleaning
+    - automation.vacuum_trigger_cleaning
+
+automations_audiobooks:
+  name: Audiobook automations
+  entities:
+    - automation.play_curious_george_books
+    - automation.play_curious_george_christmas
+    - automation.play_curious_george_halloween
+    - automation.play_curious_george_space
+    - automation.stop_the_audiobook
+
+floorplan_group:
+  name: Floorplan
+  entities:
+    - binary_sensor.floorplan

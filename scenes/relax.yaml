@@ -1,0 +1,17 @@
+name: Relax
+entities:
+  light.paperlight:
+    state: on
+    brightness: 144
+    color_temp: 447
+    transition: 2
+  light.big_light:
+    state: on
+    brightness: 144
+    color_temp: 443
+    transition: 2
+  light.desk:
+    state: on
+    brightness: 144
+    color_temp: 443
+    transition: 2

@@ -1,0 +1,6 @@
+name: Fade In
+entities:
+  light.big_light:
+    state: on
+    brightness: 1
+    color_temp: 1

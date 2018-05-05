@@ -1,0 +1,5 @@
+platform: fail2ban
+jails:
+  - ssh
+  - hass-iptables
+file_path: '/var/log/fail2ban.log.1'

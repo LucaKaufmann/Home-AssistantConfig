@@ -1,0 +1,40 @@
+alias: Living room lights on when motion
+id: motion_livingroom
+trigger:
+- platform: state
+  entity_id: binary_sensor.motion_sensor_158d0001bd11a7
+  from: 'off'
+  to: 'on'
+condition:
+- condition: state
+  entity_id: light.big_light
+  state: 'off'
+- condition: state
+  entity_id: light.hallway
+  state: 'off'
+- condition: state
+  entity_id: group.all_devices
+  state: home
+- condition: numeric_state
+  entity_id: sensor.kitchen_light_level
+  below: 8000
+action:
+- alias: Turn on automation
+  service: automation.turn_on
+  entity_id: automation.living_room_lights_off_when_no_motion
+- alias: Big light on
+  service: light.turn_on
+  data:
+    entity_id: light.big_light
+    transition: 3
+    brightness_pct: 10
+- alias: Gateway on
+  service: light.turn_on
+  data:
+    entity_id: light.gateway_light_7811dcaf23d2
+    brightness_pct: 10
+#- alias: Hallway light on
+#  service: light.turn_on
+#  data:
+#    entity_id: light.hallway
+#    brightness_pct: 5

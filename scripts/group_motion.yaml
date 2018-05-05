@@ -1,0 +1,40 @@
+sonos_group_motion:
+  alias: "Sonos Group Motion"
+  sequence:
+    - condition: template
+      value_template: >
+        {% if target_player is not none and target_player != false and target_player != '' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    # The target player must not be playing anything
+    - condition: template
+      value_template: >
+        {% if states(target_player) != 'playing' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+
+    # First set the target player to the same volume as the controller
+    - service: media_player.volume_set
+      data_template:
+        entity_id: >
+          {% if target_player is not none %}
+            {{ target_player }}
+          {% endif %}
+        volume_level: >
+          {% for state in states.media_player if state.entity_id == 'media_player.' + states('input_select.music_controller') %}
+            {{state.attributes.volume_level }}
+          {% endfor %}
+
+    #Now join the player into the group
+    - service: media_player.sonos_join
+      data_template:
+        master: media_player.{{ states('input_select.music_controller') }}
+        entity_id: >
+          {% if target_player is not none %}
+            {{ target_player }}
+          {% endif %}

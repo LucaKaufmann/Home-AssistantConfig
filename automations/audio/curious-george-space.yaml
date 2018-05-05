@@ -1,0 +1,12 @@
+alias: Play Curious George Space
+id: curios_george_space
+trigger:
+  platform: state
+  entity_id: input_select.audiobook
+  to: Curious George Space
+action:
+  service: media_player.play_media
+  data:
+    entity_id: media_player.speaker
+    media_content_id: !secret george_space
+    media_content_type: audio/mp4

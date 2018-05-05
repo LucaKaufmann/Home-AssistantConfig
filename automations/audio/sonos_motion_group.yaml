@@ -1,0 +1,33 @@
+alias: Group Player when motion detected
+trigger:
+  - platform: state
+    entity_id: group.kitchen_motion_sensors #Entry
+    to: 'on'
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: input_boolean.follow_music
+      state: 'on'
+    # The controller player must be playing music (not paused)
+    - condition: template
+      value_template: >
+        {% if states('media_player.' + states('input_select.music_controller')) == 'playing' %}
+          true
+        {% else %}
+          false
+        {% endif %}
+action:
+  - service: script.sonos_group_motion
+    data_template:
+      target_player: >
+        {% if trigger.entity_id == 'group.kitchen_motion_sensors' %}
+          {% set player = 'media_player.kitchen' %}
+        {% elif trigger.entity_id == 'binary_sensor.bedroom_motion_106' %}
+          {% set player = 'media_player.main_bedroom' %}
+        {% endif %}
+        {% if player is not none %}
+          {{ player }}
+        {% else %}
+          false
+        {% endif %}

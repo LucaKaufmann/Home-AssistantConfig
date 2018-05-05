@@ -1,0 +1,22 @@
+alias: Disable sleeping
+id: disable_sleeping
+trigger:
+- platform: time
+  at: '09:00:00'
+- platform: state
+  entity_id: group.all_motion_sensors
+  to: 'on'
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      after: '06:00:00'
+      before: '20:00:00'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'on'
+action:
+- alias: Set awake
+  service: input_boolean.turn_off
+  data:
+    entity_id: input_boolean.sleeping

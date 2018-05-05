@@ -1,0 +1,21 @@
+alias: Good morning
+id: light_good_morning
+trigger:
+  platform: time
+  at: '06:15:00'
+condition:
+  condition: state
+  entity_id: group.tracked_devices
+  state: 'home'
+action:
+- alias: Light on
+  service: light.turn_on
+  data:
+    entity_id: light.yellow_light
+    transition: 1800
+    brightness_pct: 100
+    color_temp: 500
+- delay: 0:05
+- service: switch.turn_on
+  data:
+    entity_id: switch.smart_plug

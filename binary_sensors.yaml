@@ -1,0 +1,32 @@
+- platform: mqtt
+  state_topic: dummy/floorplan/sensor
+  name: Floorplan
+- platform: bayesian
+  prior: 0.1
+  name: 'Sleeping'
+  probability_threshold: 0.90
+  observations:
+      - entity_id: 'group.tracked_devices'
+        prob_given_true: 0.9
+        prob_given_false: 0.5
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'sun.sun'
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'below_horizon'
+      - entity_id: 'group.all_lights'
+        prob_given_true: 0.8
+        platform: 'state'
+        to_state: 'off'
+      - entity_id: 'sensor.motion_last10'
+        prob_given_true: 0.8
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'off'
+      - entity_id: 'media_player.lg_webos_smart_tv'
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'off'

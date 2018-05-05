@@ -1,0 +1,108 @@
+binary_sensor.floorplan:
+  custom_ui_state_card: state-card-floorplan
+  config: !include floorplan.yaml
+
+binary_sensor.motion_sensor_158d0001bd11a7:
+  friendly_name: 'Living Room Motion'
+
+binary_sensor.motion_sensor_158d0001d8e71b:
+  friendly_name: 'Kitchen Motion 2'
+
+binary_sensor.door_window_sensor_158d0001e4c274:
+  friendly_name: 'Door Sensor'
+
+binary_sensor.switch_158d0001ae6f8c:
+  friendly_name: 'Xiaomi Switch'
+
+light.gateway_light_7811dcaf23d2:
+  friendly_name: 'Xiaomi Gateway'
+
+light.paperlight:
+  homebridge_visible: true
+
+light.yellow_light:
+  homebridge_visible: true
+
+light.desk:
+  homebridge_visible: true
+
+light.kitchen:
+  alexa_name: "Kitchen Light"
+  alexa_hidden: false
+  homebridge_name: "Kitchen light"
+  homebridge_visible: true
+
+light.hallway:
+  alexa_name: "Hallway Light"
+  alexa_hidden: false
+  homebridge_name: "Hallway light"
+  homebridge_visible: true
+
+scene.bedroom_night:
+  icon: mdi:bed
+  homebridge_visible: true
+
+scene.bedtime:
+  alexa_name: "Bedtime"
+  alexa_hidden: false
+  homebridge_name: "Curious George"
+  icon: mdi:sleep
+  homebridge_visible: true
+
+scene.movie_mode_arctic:
+  alexa_name: "Movie Mode"
+  alexa_hidden: false
+  homebridge_name: "Movie Mode"
+  icon: mdi:movie
+  homebridge_visible: true
+
+scene.relax:
+  alexa_name: "Relax Mode"
+  alexa_hidden: false
+  homebridge_name: "Relax Mode"
+  icon: mdi:coffee
+  homebridge_visible: true
+
+scene.reading:
+  alexa_name: "Reading Mode"
+  alexa_hidden: false
+  homebridge_name: "Reading Mode"
+  icon: mdi:book-open-variant
+  homebridge_visible: true
+
+scene.razer:
+  alexa_name: "Game Mode"
+  alexa_hidden: false
+  homebridge_name: "Game Mode"
+  icon: mdi:gamepad-variant
+  homebridge_visible: true
+
+switch.smart_plug:
+  homebridge_visible: true
+
+vacuum.eve:
+  homebridge_visible: true
+
+switch.start_vacuum:
+  homebridge_name: "Vacuum"
+  alexa_name: "Vacuum"
+  homebridge_visible: true
+
+switch.clean_kitchen:
+  alexa_name: "Cleaning the kitchen"
+  homebridge_name: "Cleaning the kitchen"
+  homebridge_visible: true
+
+input_boolean.schedule_cleaning:
+  homebridge_name: "Clean the house when I leave"
+  homebridge_visible: true
+
+input_boolean.schedule_kitchen_cleaning:
+  homebridge_name: "Clean the kitchen w/hen I leave"
+  homebridge_visible: true
+
+media_player.lg_webos_smart_tv:
+  alexa_name: "TV"
+
+group.all_scenes:
+  hidden: false

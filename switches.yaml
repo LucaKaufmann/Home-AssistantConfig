@@ -1,0 +1,24 @@
+#Switches
+- platform: template
+  switches:
+    clean_kitchen:
+      friendly_name: 'Clean kitchen'
+      value_template: "{{ is_state('script.vacuum_clean_kitchen', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        entity_id: script.vacuum_clean_kitchen
+      turn_off:
+        service: script.turn_on
+        entity_id: script.vacuum_stop
+    start_vacuum:
+      friendly_name: 'Vacuum'
+      value_template: "{{ is_state('vacuum.eve.status', 'Cleaning') }}"
+      turn_on:
+        service: vacuum.turn_on
+        entity_id: vacuum.eve
+      turn_off:
+        service: vacuum.turn_off
+        entity_id: vacuum.eve
+
+- platform: tplink
+  host: 192.168.92.31

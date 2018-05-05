@@ -1,0 +1,31 @@
+##
+## Main arguments, all optional
+##
+title: Sensors
+widget_dimensions: [140, 140]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 7
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+layout:
+    - iframe(6x5), reload.reload
+    - navigate_main
+
+
+
+navigate_main:
+    widget_type: navigate
+    title: Main
+    dashboard: Tablet
+
+iframe:
+    widget_type: iframe
+    title: Cats
+    refresh: 60
+    url_list:
+       - https://todoist.com/app#project%2F127065096
+    #  - http://192.168.92.100:8123/floorplan

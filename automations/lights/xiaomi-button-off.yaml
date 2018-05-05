@@ -1,0 +1,12 @@
+alias: Xiaomi button off
+id: xiaomi_button_off
+trigger:
+- platform: event
+  event_type: click
+  event_data:
+    entity_id: binary_sensor.switch_158d0001ae6f8c
+    click_type: long_click_press
+action:
+- service: homeassistant.turn_off
+  data:
+    entity_id: group.all_lights

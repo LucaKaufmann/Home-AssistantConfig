@@ -1,0 +1,10 @@
+alias: Dimmer Off
+id: dimmer_Off
+trigger:
+- entity_id: sensor.dimmer_switch
+  platform: state
+  to: 4_click
+action:
+- service: homeassistant.turn_off
+  data:
+    entity_id: group.living_room

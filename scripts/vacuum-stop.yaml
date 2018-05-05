@@ -1,0 +1,18 @@
+vacuum_stop:
+  alias: Stop Vacuum
+  sequence:
+    -  service: script.turn_off
+       data:
+         entity_id: script.vacuum_clean_livingroom_from_hallway
+    -  service: script.turn_off
+       data:
+         entity_id: script.vacuum_clean_kitchen
+    -  service: script.turn_off
+       data:
+         entity_id: script.vacuum_clean_kitchen_from_livingroom
+    -  service: script.turn_off
+       data:
+         entity_id: script.vacuum_clean_kitchen_from_hallway
+    -  service: vacuum.return_to_base
+       data:
+         entity_id: vacuum.eve
