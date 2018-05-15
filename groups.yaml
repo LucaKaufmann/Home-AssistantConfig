@@ -27,6 +27,7 @@ media_player_view:
     - media_player.living_room
     - media_player.kitchen
     - media_player.lg_webos_smart_tv
+    - media_player.music_flow2034
     - input_select.audiobook
     - input_select.music_controller
     - input_boolean.follow_music
@@ -98,6 +99,7 @@ hallway:
   entities:
     - light.hallway
     - light.gateway_light_7811dcaf23d2
+    - binary_sensor.door_window_sensor_158d0001e4c274
 
 # Groups
 color_lights:
