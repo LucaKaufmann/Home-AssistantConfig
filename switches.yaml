@@ -10,6 +10,24 @@
       turn_off:
         service: script.turn_on
         entity_id: script.vacuum_stop
+    clean_dining_area:
+      friendly_name: 'Clean dining area'
+      value_template: "{{ is_state('script.vacuum_clean_dining_area', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        entity_id: script.vacuum_clean_dining_area
+      turn_off:
+        service: script.turn_on
+        entity_id: script.vacuum_stop
+    clean_livingroom:
+      friendly_name: 'Clean living room'
+      value_template: "{{ is_state('script.vacuum_clean_livingroom', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        entity_id: script.vacuum_clean_livingroom
+      turn_off:
+        service: script.turn_on
+        entity_id: script.vacuum_stop
     start_vacuum:
       friendly_name: 'Vacuum'
       value_template: "{{ is_state('vacuum.eve.status', 'Cleaning') }}"

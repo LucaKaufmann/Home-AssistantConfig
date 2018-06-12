@@ -14,7 +14,7 @@
         prob_given_true: 0.6
         platform: 'state'
         to_state: 'below_horizon'
-      - entity_id: 'group.all_lights'
+      - entity_id: 'group.all_lights_except_nightlight'
         prob_given_true: 0.9
         platform: 'state'
         to_state: 'off'

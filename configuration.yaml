@@ -34,9 +34,9 @@ cloud:
         - input_boolean.schedule_cleaning
         - input_boolean.schedule_kitchen_cleaning
         - input_boolean.cleaning_doublepass
-        - light.hallway
         - light.paperlight
         - light.yellow_light
+        - light.big_light
         - light.kitchen
         - scene.bedtime
         - scene.movie_mode_arctic
@@ -44,12 +44,26 @@ cloud:
         - scene.reading
         - scene.razer
         - switch.start_vacuum
+        - switch.clean_dining_area
         - switch.clean_kitchen
+        - switch.clean_livingroom
+        - script.vacuum_clean_dining_area
+        - script.vacuum_clean_kitchen
+        - script.vacuum_clean_livingroom
         - media_player.lg_webos_smart_tv
     entity_config:
       media_player.lg_webos_smart_tv:
         name: TV
         description: TV in the living room
+      switch.clean_kitchen:
+        name: Vacuuming the Kitchen
+        description: Vacuum the kitchen
+      switch.clean_dining_area:
+        name: Vacuuming the dining area
+        description: Vacuum the dining area
+      switch.clean_livingroom:
+        name: Vacuuming the living room
+        description: Vacuum the living room
   google_actions:
     filter:
       include_entities:
@@ -57,9 +71,9 @@ cloud:
         - input_boolean.schedule_cleaning
         - input_boolean.schedule_kitchen_cleaning
         - input_boolean.cleaning_doublepass
-        - light.hallway
         - light.paperlight
         - light.yellow_light
+        - light.big_light
         - light.kitchen
         - scene.bedtime
         - scene.movie_mode_arctic
@@ -67,11 +81,22 @@ cloud:
         - scene.reading
         - scene.razer
         - switch.start_vacuum
+        - switch.clean_dining_area
         - switch.clean_kitchen
+        - switch.clean_livingroom
+        - script.vacuum_clean_dining_area
+        - script.vacuum_clean_kitchen
+        - script.vacuum_clean_livingroom
         - media_player.lg_webos_smart_tv
     entity_config:
       media_player.lg_webos_smart_tv:
         name: TV
+      switch.clean_kitchen:
+        name: Vacuuming the Kitchen
+      switch.clean_dining_area:
+        name: Vacuuming the dining area
+      switch.clean_livingroom:
+        name: Vacuuming the living room
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -155,6 +180,12 @@ light:
       - light.paperlight
       - light.desk
       - light.big_light
+  - platform: group
+    name: Paperlight
+    entities:
+      - light.tradfri_bulb_e27_ws_opal_980lm_2
+      - light.tradfri_bulb_e27_ws_opal_980lm_3
+      - light.tradfri_bulb_e27_ws_opal_980lm_4
 
 # Track the sun
 sun:

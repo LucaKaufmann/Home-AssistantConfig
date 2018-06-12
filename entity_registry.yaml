@@ -1,19 +1,7 @@
-light.hallway:
+light.kitchen:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:f1:00:c6-0b
-light.paperlight_2:
-  name:
-  platform: hue
-  unique_id: 00:0b:57:ff:fe:38:ba:ea-01
-light.paperlight_1:
-  name:
-  platform: hue
-  unique_id: 00:0b:57:ff:fe:46:3f:d6-01
-light.paperlight_3:
-  name:
-  platform: hue
-  unique_id: 00:0b:57:ff:fe:2f:e9:63-01
 light.big_light:
   name:
   platform: hue
@@ -22,10 +10,6 @@ light.desk:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:ae:4b:1d-0b
-light.kitchen_light:
-  name:
-  platform: hue
-  unique_id: 00:0b:57:ff:fe:44:64:4f-01
 light.yellow_light:
   name:
   platform: hue
@@ -106,11 +90,11 @@ media_player.lucas_ipad:
   name:
   platform: plex
   unique_id: BB7C61C2-6AFC-418C-9E8A-74CA0ACCE1C4
-media_player.kitchen:
+media_player.dining_room:
   name:
   platform: sonos
   unique_id: RINCON_7828CA03370E01400
-media_player.living_room:
+media_player.kitchen:
   name:
   platform: sonos
   unique_id: RINCON_7828CA1C07B801400
@@ -166,3 +150,27 @@ media_player.safari_5:
   name:
   platform: plex
   unique_id: e014nm4wo5683s1iwamm8ct5
+media_player.lukepod:
+  name:
+  platform: plex
+  unique_id: 27B87778-63E7-4D96-B6D5-D97DBDEA402D
+light.tradfri_bulb_e27_ws_opal_980lm_4:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65539
+light.tradfri_bulb_e27_ws_opal_980lm_3:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65541
+light.tradfri_bulb_e27_ws_opal_980lm_2:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65540
+light.living_room_2:
+  name:
+  platform: tradfri
+  unique_id: group-7e1155520440013a-145056
+media_player.unnamed_device_2:
+  name:
+  platform: plex
+  unique_id: f7r4rs903dqjjory0dkdi66n

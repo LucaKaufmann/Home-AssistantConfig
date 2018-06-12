@@ -24,7 +24,7 @@ media_player_view:
   icon: mdi:play-circle
   entities:
     - media_player.speaker
-    - media_player.living_room
+    - media_player.dining_room
     - media_player.kitchen
     - media_player.lg_webos_smart_tv
     - media_player.music_flow2034
@@ -43,7 +43,6 @@ sensor_view:
     - group.sensor_fitbit
     - group.sensor_kitchen
     - group.sensor_livingroom
-    - group.sensor_bedroom
     - group.hue_sensors
     - sensor.fail2ban
 
@@ -84,20 +83,19 @@ living_room:
 bed_room:
   name: Bed Room
   entities:
-   - light.yellow_light
+   - fan.xiaomi_air_purifier
+   - fan.xiaomi_miio_device
 
 kitchen:
   name: Kitchen
   entities:
     - light.kitchen
+    - light.yellow_light
     - switch.plug_158d0001b8fb75
-    - fan.xiaomi_air_purifier
-    - fan.xiaomi_miio_device
 
 hallway:
   name: Hallway
   entities:
-    - light.hallway
     - light.gateway_light_7811dcaf23d2
     - binary_sensor.door_window_sensor_158d0001e4c274
 
@@ -107,6 +105,16 @@ color_lights:
   entities:
     - light.big_light
     - light.desk
+
+all_lights_except_nightlight:
+  name: Lights except night light
+  entities:
+    - light.paperlight
+    - light.big_light
+    - light.desk
+    - light.yellow_light
+    - light.kitchen
+    - light.hallway
 
 light_scenes:
   name: Scenes
@@ -159,13 +167,9 @@ sensor_livingroom:
   name: Living room
   entities:
     - binary_sensor.motion_sensor_158d0001bd11a7
-
-sensor_bedroom:
-  name: Bedroom
-  entities:
-    - sensor.motion_bedroom
-    - sensor.bedroom_light_level
-    - sensor.bedroom_temperature
+    - sensor.living_motion_room
+    - sensor.livingroom_light_level
+    - sensor.livingroom_temperature
 
 sensor_kitchen:
   name: Kitchen

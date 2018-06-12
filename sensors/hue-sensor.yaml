@@ -1,1 +1,3 @@
-platform: hue_sensor
+platform: hue
+ip_address: !secret hue_bridge
+token: !secret hue_token
