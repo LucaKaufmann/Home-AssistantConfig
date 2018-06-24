@@ -3,8 +3,8 @@ name: 'Motion in 10 min'
 sensors:
     motion_last10:
         value_template: >
-          {% set motionLivingroom = states.binary_sensor.motion_sensor_158d0001bd11a7.attributes['No motion since'] | int %}
-          {% set motionKitchen = states.binary_sensor.motion_sensor_158d0001d8e71b.attributes['No motion since'] | int %}
+          {% set motionLivingroom = states.binary_sensor.motion_hallway_upstairs.attributes['No motion since'] | int %}
+          {% set motionKitchen = states.binary_sensor.motion_kitchen.attributes['No motion since'] | int %}
           {% if (motionLivingroom < 900) or (motionKitchen < 900) %}
             on
           {% else %}

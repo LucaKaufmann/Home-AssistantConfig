@@ -9,6 +9,7 @@ default_view:
     - group.bed_room
     - group.kitchen
     - group.hallway
+    - group.hallway_upstairs
     - group.xiaomi_vacuum
     - group.light_scenes
     - input_boolean.sleeping
@@ -43,6 +44,7 @@ sensor_view:
     - group.sensor_fitbit
     - group.sensor_kitchen
     - group.sensor_livingroom
+    - group.sensor_hallway_upstairs
     - group.hue_sensors
     - sensor.fail2ban
 
@@ -98,6 +100,11 @@ hallway:
   entities:
     - light.gateway_light_7811dcaf23d2
     - binary_sensor.door_window_sensor_158d0001e4c274
+
+hallway_upstairs:
+  name: Hallway Upstairs
+  entities:
+    - light.hallway_upstairs
 
 # Groups
 color_lights:
@@ -163,10 +170,14 @@ sensor_fitbit:
     - sensor.sleep_minutestofallasleep
     - sensor.sleep_minutesafterwakeup
 
+sensor_hallway_upstairs:
+  name: Hallway Upstairs
+  entities:
+    - binary_sensor.motion_hallway_upstairs
+
 sensor_livingroom:
   name: Living room
   entities:
-    - binary_sensor.motion_sensor_158d0001bd11a7
     - sensor.living_motion_room
     - sensor.livingroom_light_level
     - sensor.livingroom_temperature
@@ -175,12 +186,12 @@ sensor_kitchen:
   name: Kitchen
   entities:
     - sensor.motion_kitchen
-    - binary_sensor.motion_sensor_158d0001d8e71b
+    - binary_sensor.motion_kitchen
     - sensor.kitchen_light_level
     - sensor.kitchen_temperature
 
 kitchen_motion_sensors:
-  - binary_sensor.motion_sensor_158d0001d8e71b
+  - binary_sensor.motion_kitchen
   - sensor.motion_kitchen
 
 hue_sensors:
@@ -225,6 +236,7 @@ xiaomi_vacuum:
    - switch.clean_kitchen
    - input_boolean.schedule_kitchen_cleaning
    - input_boolean.schedule_livingroom_cleaning
+   - input_boolean.schedule_dining_area_cleaning
    - input_boolean.schedule_cleaning
    - input_boolean.cleaning_doublepass
 

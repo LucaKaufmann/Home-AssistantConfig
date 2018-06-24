@@ -1,0 +1,27 @@
+alias: Schedule dining area cleaning
+id: dining_cleaning
+trigger:
+- platform: state
+  entity_id: binary_sensor.motion_sensor_158d0001bd11a7
+  from: 'off'
+  to: 'on'
+condition:
+- condition: state
+  entity_id: group.tracked_devices
+  state: home
+- condition: time
+  after: '15:00'
+  before: '22:00'
+- condition: state
+  entity_id: input_boolean.schedule_dining_area_cleaning
+  state: 'off'
+action:
+- alias: Schedule dining area cleaning
+  service: input_boolean.turn_on
+  entity_id: input_boolean.schedule_dining_area_cleaning
+- alias: Notify
+  service: notify.facebook
+  data:
+    message: Kitchen will be cleaned tomorrow
+    target:
+      - !secret phonenumber_L

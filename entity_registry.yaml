@@ -18,16 +18,16 @@ sensor.illumination_7811dcaf23d2:
   name:
   platform: xiaomi_aqara
   unique_id: illumination7811dcaf23d2
-binary_sensor.motion_sensor_158d0001d8e71b:
-  name:
+binary_sensor.motion_kitchen:
+  name: Kitchen Motion Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001d8e71b
 binary_sensor.switch_158d0001ae6f8c:
   name:
   platform: xiaomi_aqara
   unique_id: status158d0001ae6f8c
-binary_sensor.motion_sensor_158d0001bd11a7:
-  name:
+binary_sensor.motion_hallway_upstairs:
+  name: Hallway Upstairs Motion Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001bd11a7
 binary_sensor.door_window_sensor_158d0001e4c274:
@@ -174,3 +174,19 @@ media_player.unnamed_device_2:
   name:
   platform: plex
   unique_id: f7r4rs903dqjjory0dkdi66n
+light.tradfri_bulb_e27_ws_opal_980lm_5:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65542
+light.hallway_upstairs:
+  name:
+  platform: tradfri
+  unique_id: group-7e1155520440013a-145057
+media_player.sonas_hot_chromecast:
+  name:
+  platform: cast
+  unique_id: c92c67fb-ad86-1f71-4554-ef7e8c8e6bc9
+media_player.chrome_6:
+  name:
+  platform: plex
+  unique_id: 3k2cnbtmqyq94b0p9x6xvn0y
