@@ -1,0 +1,6 @@
+platform: template
+name: TV Sensors
+sensors:
+  living_room_tv_source:
+    value_template: '{{ states.media_player.lg_webos_smart_tv.attributes["source"] }}'
+    friendly_name: 'Living Room TV Source'

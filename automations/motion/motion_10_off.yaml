@@ -1,0 +1,13 @@
+alias: No motion in the last 10 minutes
+id: motion_10_off
+trigger:
+- platform: state
+  entity_id: group.all_motion_sensors
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 10
+action:
+- alias: Turn on motion
+  service: input_boolean.turn_off
+  entity_id: input_boolean.motion_last_10

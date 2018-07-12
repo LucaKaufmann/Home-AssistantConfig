@@ -38,3 +38,11 @@ auto_lights:
   name: Automatic lights
   initial: off
   icon: mdi:lightbulb-on
+
+motion_last_10:
+  name: Motion in the last 10 minutes
+  initial: off
+
+home_for_over_10:
+  name: Home for over 10 minutes
+  initial: off

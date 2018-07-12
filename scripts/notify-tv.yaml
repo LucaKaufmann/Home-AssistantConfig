@@ -1,0 +1,6 @@
+notify_tv:
+  alias: Notify TV
+  sequence:
+    - service: notify.livingroom_tv
+      data:
+        message: "{{ message }}"

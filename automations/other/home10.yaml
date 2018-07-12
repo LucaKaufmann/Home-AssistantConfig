@@ -1,0 +1,13 @@
+alias: Home for 10 minutes
+id: home_10
+trigger:
+- platform: state
+  entity_id: group.device_tracker
+  from: 'not_home'
+  to: 'home'
+  for:
+    minutes: 10
+action:
+- alias: Turn on motion
+  service: input_boolean.turn_on
+  entity_id: input_boolean.home_for_over_10

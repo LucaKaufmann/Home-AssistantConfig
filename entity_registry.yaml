@@ -1,192 +1,240 @@
 light.kitchen:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:f1:00:c6-0b
 light.big_light:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:8f:af:2c-0b
 light.desk:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:ae:4b:1d-0b
 light.yellow_light:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:03:71:40:ee-0b
 sensor.illumination_7811dcaf23d2:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: illumination7811dcaf23d2
 binary_sensor.motion_kitchen:
+  config_entry_id:
   name: Kitchen Motion Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001d8e71b
 binary_sensor.switch_158d0001ae6f8c:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: status158d0001ae6f8c
 binary_sensor.motion_hallway_upstairs:
+  config_entry_id:
   name: Hallway Upstairs Motion Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001bd11a7
 binary_sensor.door_window_sensor_158d0001e4c274:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: status158d0001e4c274
 switch.plug_158d0001b8fb75:
+  config_entry_id:
   name: Smart Plug
   platform: xiaomi_aqara
   unique_id: status158d0001b8fb75
 light.gateway_light_7811dcaf23d2:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: rgb7811dcaf23d2
 sensor.sevenplus_battery_level:
+  config_entry_id:
   name:
   platform: ios
   unique_id: level_sevenplus
 sensor.sevenplus_battery_state:
+  config_entry_id:
   name:
   platform: ios
   unique_id: state_sevenplus
 sensor.lucas_ipad_battery_level:
+  config_entry_id:
   name:
   platform: ios
   unique_id: level_lucas_ipad
 sensor.lucas_ipad_battery_state:
+  config_entry_id:
   name:
   platform: ios
   unique_id: state_lucas_ipad
 media_player.chrome:
+  config_entry_id:
   name:
   platform: plex
   unique_id: uuyf9aj3pg2ceo018o8c7hoe
 media_player.speaker:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 11ad2e3c-c95a-a1ff-b5bb-8808475c8f94
 media_player.home_group:
+  config_entry_id:
   name:
   platform: cast
   unique_id: fc34cd82-5d32-4e94-8007-62f701505675
 media_player.chrome_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 0ydofwati6ir7bujtk13tjr1
 media_player.sevenplus:
+  config_entry_id:
   name:
   platform: plex
   unique_id: C27F6BBB-14DD-4A45-BB13-8BC86A2AC3F0
 media_player.chrome_3:
+  config_entry_id:
   name:
   platform: plex
   unique_id: v6fwglb7xdxkpzopcwbtl2rx
 media_player.safari:
+  config_entry_id:
   name:
   platform: plex
   unique_id: zyuhd2zawngh6168i62hqrze
 media_player.lucas_ipad:
+  config_entry_id:
   name:
   platform: plex
   unique_id: BB7C61C2-6AFC-418C-9E8A-74CA0ACCE1C4
 media_player.dining_room:
+  config_entry_id:
   name:
   platform: sonos
   unique_id: RINCON_7828CA03370E01400
 media_player.kitchen:
+  config_entry_id:
   name:
   platform: sonos
   unique_id: RINCON_7828CA1C07B801400
 media_player.living_room_tv:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 767629db-6ae2-099f-843f-0093c8187a8d
 media_player.zenpad_10_z301m:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 26495dd92b778d0b-com-plexapp-android
 media_player.chrome_4:
+  config_entry_id:
   name:
   platform: plex
   unique_id: s77d2yx7ankkuvooubqfaffn
 media_player.luca_s_imac:
+  config_entry_id:
   name:
   platform: plex
   unique_id: wqywmix5q7epcsamryprjm7v
 media_player.safari_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: u4vplamtpk6vp7q4eh60rbsq
 media_player.chrome_5:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 0mphygar6r31v34vnialronv
 media_player.music_flow2034:
+  config_entry_id:
   name:
   platform: cast
   unique_id: d96453e9-133e-3a36-962a-80b0bff2f353
 media_player.unnamed_device:
+  config_entry_id:
   name:
   platform: plex
   unique_id: ew3mi1jdy5t81tt9rzw2fgxr
 media_player.safari_3:
+  config_entry_id:
   name:
   platform: plex
   unique_id: imyhl7fs67anp0q4s46lk982
 media_player.safari_4:
+  config_entry_id:
   name:
   platform: plex
   unique_id: mhan1vau98p1xpzyqiufrwux
 fan.xiaomi_miio_device:
+  config_entry_id:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.ma2-78:11:DC:DF:8F:13
 media_player.living_room_speaker:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 259a5cea-3c54-14b7-f1e0-04da865c0e61
 media_player.safari_5:
+  config_entry_id:
   name:
   platform: plex
   unique_id: e014nm4wo5683s1iwamm8ct5
 media_player.lukepod:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 27B87778-63E7-4D96-B6D5-D97DBDEA402D
 light.tradfri_bulb_e27_ws_opal_980lm_4:
+  config_entry_id:
   name:
   platform: tradfri
   unique_id: light-7e1155520440013a-65539
 light.tradfri_bulb_e27_ws_opal_980lm_3:
+  config_entry_id:
   name:
   platform: tradfri
   unique_id: light-7e1155520440013a-65541
 light.tradfri_bulb_e27_ws_opal_980lm_2:
+  config_entry_id:
   name:
   platform: tradfri
   unique_id: light-7e1155520440013a-65540
 light.living_room_2:
+  config_entry_id:
   name:
   platform: tradfri
   unique_id: group-7e1155520440013a-145056
 media_player.unnamed_device_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: f7r4rs903dqjjory0dkdi66n
-light.tradfri_bulb_e27_ws_opal_980lm_5:
-  name:
+light.hallway_upstairs:
+  config_entry_id:
+  name: Hallway Upstairs
   platform: tradfri
   unique_id: light-7e1155520440013a-65542
-light.hallway_upstairs:
+light.hallway_upstairs_group:
+  config_entry_id:
   name:
   platform: tradfri
   unique_id: group-7e1155520440013a-145057
 media_player.sonas_hot_chromecast:
+  config_entry_id:
   name:
   platform: cast
   unique_id: c92c67fb-ad86-1f71-4554-ef7e8c8e6bc9
 media_player.chrome_6:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 3k2cnbtmqyq94b0p9x6xvn0y

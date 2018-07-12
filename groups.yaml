@@ -16,6 +16,8 @@ default_view:
     - binary_sensor.sleeping
     - input_boolean.follow_music
     - input_boolean.auto_lights
+    - input_boolean.motion_last_10
+    - input_boolean.home_for_over_10
 
 
 
@@ -28,6 +30,8 @@ media_player_view:
     - media_player.dining_room
     - media_player.kitchen
     - media_player.lg_webos_smart_tv
+    - media_player.sonas_hot_chromecast
+    - media_player.living_room_tv
     - media_player.music_flow2034
     - input_select.audiobook
     - input_select.music_controller
@@ -44,6 +48,7 @@ sensor_view:
     - group.sensor_fitbit
     - group.sensor_kitchen
     - group.sensor_livingroom
+    - group.sensor_bedroom
     - group.sensor_hallway_upstairs
     - group.hue_sensors
     - sensor.fail2ban
@@ -87,12 +92,13 @@ bed_room:
   entities:
    - fan.xiaomi_air_purifier
    - fan.xiaomi_miio_device
+   - switch.air_conditioner
+   - light.yellow_light
 
 kitchen:
   name: Kitchen
   entities:
     - light.kitchen
-    - light.yellow_light
     - switch.plug_158d0001b8fb75
 
 hallway:
@@ -175,10 +181,17 @@ sensor_hallway_upstairs:
   entities:
     - binary_sensor.motion_hallway_upstairs
 
+sensor_bedroom:
+  name: Bedroom
+  entities:
+    - sensor.air_purifier_temperature
+
 sensor_livingroom:
   name: Living room
   entities:
     - sensor.living_motion_room
+    - sensor.big_light_brightness
+    - sensor.paperlight_brightness
     - sensor.livingroom_light_level
     - sensor.livingroom_temperature
 
@@ -203,9 +216,9 @@ all_motion_sensors:
   name: Motion sensors
   entities:
     - sensor.motion_kitchen
-    - sensor.motion_bedroom
-    - binary_sensor.motion_sensor_158d0001d8e71b
-    - binary_sensor.motion_sensor_158d0001bd11a7
+    - sensor.living_motion_room
+    - binary_sensor.motion_hallway_upstairs
+    - binary_sensor.motion_kitchen
 
 tracked_devices:
   name: Tracked Devices
@@ -287,3 +300,10 @@ floorplan_group:
   name: Floorplan
   entities:
     - binary_sensor.floorplan
+
+all_media_players:
+  name: Media players
+  entities:
+    - media_player.lg_webos_smart_tv
+    - media_player.sonas_hot_chromecast
+    - media_player.living_room_tv

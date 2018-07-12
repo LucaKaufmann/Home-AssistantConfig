@@ -122,8 +122,8 @@ updater:
 
 # Discover some devices automatically
 discovery:
-  #ignore:
-  # - ikea_tradfri
+  ignore:
+    - ikea_tradfri
 
 device_tracker:
 #- platform: nmap_tracker
@@ -143,6 +143,15 @@ device_tracker:
   devices:
     sevenplus: 'bluetooth_pi/presence/sevenplus'
     tiiaphone: 'bluetooth_pi/presence/tiiaphone'
+- platform: unifi_direct
+  host: !secret downstairs_ap_IP
+  username: !secret unifi_user
+  password: !secret unifi_pw
+- platform: unifi_direct
+  host: !secret upstairs_ap_IP
+  username: !secret unifi_user
+  password: !secret unifi_pw
+
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
@@ -220,8 +229,8 @@ xiaomi_aqara:
   discovery_retry: 5
   gateways:
     - key: !secret xiaomi_gateway_key
-#tradfri:
-#  host: !secret tradfri_ip
+tradfri:
+ host: !secret tradfri_ip
 
 
 vacuum:
@@ -231,14 +240,11 @@ vacuum:
    token: !secret xiaomi_token
 
 media_player:
-#  - platform: plex
-  - platform: cast
-#  - platform: plex
-#    include_non_clients: true
-#    scan_interval: 5
-#    show_all_controls: true
+  - platform: plex
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: true
 #  - platform: gstreamer
-  - platform: sonos
   # - platform: spotify
   #   client_id: !secret spotify_client_id
   #   client_secret: !secret spotify_secret
@@ -250,7 +256,11 @@ media_player:
         mac: 78:5D:C8:62:65:D1
 
 wake_on_lan:
-#media_extractor:
+
+media_extractor:
+  default_query: best
+
+python_script:
 
 ios:
 
@@ -259,6 +269,9 @@ notify:
   - platform: facebook
     name: facebook
     page_access_token: !secret fb_token
+  - platform: webostv
+    host: !secret lgtv_ip
+    name: livingroom_tv
 
 #device_sun_light_trigger:
 #  light_group: group.living_room
