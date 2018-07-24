@@ -1,8 +1,9 @@
 music_controller:
     name: Music Controller
     options:
-      - dining_room
+      - living_room
       - kitchen
+      - bedroom
 
 audiobook:
   name: Audiobook

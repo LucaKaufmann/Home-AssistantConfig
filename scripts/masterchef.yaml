@@ -1,0 +1,5 @@
+masterchef:
+  alias: Masterchef
+  sequence:
+    - service: ifttt.trigger
+      data: {"event":"masterchef_living_room"}

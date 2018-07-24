@@ -14,4 +14,15 @@ My setup is running on a Raspberry Pi along with Homebridge (for Homekit integra
 # Node Red flows
 Node Red automations are backed up in the flows.json file.
 Here's an overview:
-![Node red flows](https://github.com/LucaKaufmann/Home-AssistantConfig/raw/master/Screen%20Shot%202018-06-24%20at%2010.43.35.png)
+![Node red flows](https://github.com/LucaKaufmann/Home-AssistantConfig/raw/master/light_automations.png)
+
+Media lights automations:
+![Node red flows](https://github.com/LucaKaufmann/Home-AssistantConfig/raw/master/media_lights_automations.png)
+
+Vacuum automations:
+
+![Node red flows](https://github.com/LucaKaufmann/Home-AssistantConfig/raw/master/vacuum_automations.png)
+
+AC automations:
+
+![Node red flows](https://github.com/LucaKaufmann/Home-AssistantConfig/raw/master/AC_automations.png)

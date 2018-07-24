@@ -43,6 +43,7 @@ cloud:
         - scene.relax
         - scene.reading
         - scene.razer
+        - fan.xiaomi_miio_device
         - switch.start_vacuum
         - switch.clean_dining_area
         - switch.clean_kitchen
@@ -50,11 +51,10 @@ cloud:
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
-        - media_player.lg_webos_smart_tv
+        - switch.criminal_minds
+        - switch.masterchef
+        #- media_player.lg_webos_smart_tv
     entity_config:
-      media_player.lg_webos_smart_tv:
-        name: TV
-        description: TV in the living room
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
         description: Vacuum the kitchen
@@ -64,6 +64,9 @@ cloud:
       switch.clean_livingroom:
         name: Vacuuming the living room
         description: Vacuum the living room
+      fan.xiaomi_miio_device:
+        name: Air purifier
+        description: Xiaomi air purifier
   google_actions:
     filter:
       include_entities:
@@ -80,6 +83,7 @@ cloud:
         - scene.relax
         - scene.reading
         - scene.razer
+        - fan.xiaomi_miio_device
         - switch.start_vacuum
         - switch.clean_dining_area
         - switch.clean_kitchen
@@ -87,16 +91,17 @@ cloud:
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
-        - media_player.lg_webos_smart_tv
+        - switch.criminal_minds
+        - switch.masterchef
     entity_config:
-      media_player.lg_webos_smart_tv:
-        name: TV
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
       switch.clean_dining_area:
         name: Vacuuming the dining area
       switch.clean_livingroom:
         name: Vacuuming the living room
+      fan.xiaomi_miio_device:
+        name: Air purifier
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -181,6 +186,9 @@ influxdb:
 #  password: !secret influxdb_password
   database: homeassistant
   default_measurement: state
+
+ifttt:
+  key: !secret ifttt_key
 
 light:
   - platform: group

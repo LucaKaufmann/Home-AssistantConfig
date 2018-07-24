@@ -113,7 +113,7 @@ media_player.lucas_ipad:
   name:
   platform: plex
   unique_id: BB7C61C2-6AFC-418C-9E8A-74CA0ACCE1C4
-media_player.dining_room:
+media_player.bedroom:
   config_entry_id:
   name:
   platform: sonos
@@ -238,3 +238,28 @@ media_player.chrome_6:
   name:
   platform: plex
   unique_id: 3k2cnbtmqyq94b0p9x6xvn0y
+media_player.unnamed_device_3:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: 3e0s4rqo4zgmbo6reqcpdiux
+media_player.unnamed_device_4:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: g5nyhppknqjxxbt946lefqm3
+media_player.unnamed_device_5:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: vmig6nvsn6rbe29hqij47uu6
+media_player.tiia_s_macbook_pro:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: xw1kkwbqdmvvzjxhuzfv9rud
+media_player.living_room:
+  config_entry_id: c54f0ea69e9740a0b0a36003d61da183
+  name:
+  platform: sonos
+  unique_id: RINCON_949F3ED21C4F01400

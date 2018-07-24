@@ -1,0 +1,5 @@
+criminal_minds:
+  alias: Criminal Minds
+  sequence:
+    - service: ifttt.trigger
+      data: {"event":"criminal_minds_living_room"}

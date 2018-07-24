@@ -29,6 +29,7 @@ media_player_view:
     - media_player.speaker
     - media_player.dining_room
     - media_player.kitchen
+    - media_player.bedroom
     - media_player.lg_webos_smart_tv
     - media_player.sonas_hot_chromecast
     - media_player.living_room_tv
@@ -50,6 +51,7 @@ sensor_view:
     - group.sensor_livingroom
     - group.sensor_bedroom
     - group.sensor_hallway_upstairs
+    - group.sensor_entrance
     - group.hue_sensors
     - sensor.fail2ban
 
@@ -180,6 +182,11 @@ sensor_hallway_upstairs:
   name: Hallway Upstairs
   entities:
     - binary_sensor.motion_hallway_upstairs
+
+sensor_entrance:
+  name: Entrance
+  entities:
+    - sensor.illumination_7811dcaf23d2
 
 sensor_bedroom:
   name: Bedroom

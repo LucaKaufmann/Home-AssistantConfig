@@ -5,6 +5,11 @@ trigger:
     to: 'off'
     for:
       minutes: 2
+  - platform: state
+    entity_id: binary_sensor.motion_hallway_upstairs #Entry
+    to: 'off'
+    for:
+      minutes: 2
 condition:
   condition: and
   conditions:
@@ -17,8 +22,8 @@ action:
       target_player: >
         {% if trigger.entity_id == 'group.kitchen_motion_sensors' %}
           {% set player = 'media_player.kitchen' %}
-        {% elif trigger.entity_id == 'binary_sensor.bedroom_motion_106' %}
-          {% set player = 'media_player.main_bedroom' %}
+        {% elif trigger.entity_id == 'binary_sensor.motion_hallway_upstairs' %}
+          {% set player = 'media_player.bedroom' %}
         {% endif %}
         {% if player is not none %}
           {{ player }}

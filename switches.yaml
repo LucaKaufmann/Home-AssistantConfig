@@ -37,6 +37,24 @@
       turn_off:
         service: vacuum.turn_off
         entity_id: vacuum.eve
+    criminal_minds:
+      friendly_name: 'Criminal minds'
+      value_template: "{{ is_state('script.criminal_minds', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        entity_id: script.criminal_minds
+      turn_off:
+        service: script.turn_off
+        entity_id: script.criminal_minds
+    masterchef:
+      friendly_name: 'Master chef'
+      value_template: "{{ is_state('script.masterchef', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        entity_id: script.masterchef
+      turn_off:
+        service: script.turn_off
+        entity_id: script.masterchef
 
 - platform: tplink
   host: 192.168.92.31
