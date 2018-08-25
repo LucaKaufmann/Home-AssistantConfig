@@ -27,16 +27,41 @@
         platform: 'state'
         to_state: 'off'
 - platform: bayesian
-  prior: 0.1
-  name: 'tiia_home'
-  probability_threshold: 0.96
+  prior: 0.5
+  name: 'Tiia home'
+  probability_threshold: 0.7
   observations:
       - entity_id: 'device_tracker.tiiaphone'
-        prob_given_true: 0.9
-        prob_given_false: 0.0
+        prob_given_true: 0.99
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.tiiasiphone'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.tiias_iphone'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+- platform: bayesian
+  prior: 0.5
+  name: 'Luca home'
+  probability_threshold: 0.7
+  observations:
+      - entity_id: 'device_tracker.sevenplusbt'
+        prob_given_true: 0.99
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.sevenplus_router'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.sevenplusha'
         prob_given_true: 0.6
         prob_given_false: 0.3
         platform: 'state'

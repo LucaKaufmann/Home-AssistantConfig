@@ -1,0 +1,5 @@
+platform: waze_travel_time
+name: 'Luca waze travel time'
+origin: device_tracker.sevenplusha
+destination: zone.home
+region: 'EU'

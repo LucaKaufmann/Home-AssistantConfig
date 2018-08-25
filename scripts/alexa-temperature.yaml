@@ -1,0 +1,14 @@
+alexa_temperature:
+  alias: "Alexa temperature script"
+  sequence:
+    - service: script.sonos_say
+      data_template:
+        sonos_entity: media_player.bedroom
+        volume: 0.3
+        message: >
+          <speak> Outside, it's  {{states('sensor.darksky_temperature') | round(0)}} degrees.
+          In the living room we have a temperature of  {{states('sensor.livingroom_temperature') | round(0)}},
+          <break time="600ms"/>
+          in the kitchen it's {{states('sensor.kitchen_temperature') | round(0)}} and upstairs we have
+          {{states('sensor.air_purifier_temperature') | round(0)}} degrees. </speak>
+        delay: '00:00:15'

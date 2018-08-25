@@ -1,0 +1,11 @@
+criminal_minds:
+  url: !secret criminal_minds_url
+
+masterchef:
+  url: !secret masterchef_url
+
+monkey:
+  url: !secret curious_george_url
+
+audiobook:
+  url: !secret audiobook_url

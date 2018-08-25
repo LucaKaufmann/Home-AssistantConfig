@@ -1,20 +1,20 @@
 light.kitchen:
-  config_entry_id:
+  config_entry_id: 921c9d137cdd45219f550f85843f7077
   name:
   platform: hue
   unique_id: 00:17:88:01:02:f1:00:c6-0b
 light.big_light:
-  config_entry_id:
+  config_entry_id: 921c9d137cdd45219f550f85843f7077
   name:
   platform: hue
   unique_id: 00:17:88:01:02:8f:af:2c-0b
 light.desk:
-  config_entry_id:
+  config_entry_id: 921c9d137cdd45219f550f85843f7077
   name:
   platform: hue
   unique_id: 00:17:88:01:02:ae:4b:1d-0b
 light.yellow_light:
-  config_entry_id:
+  config_entry_id: 921c9d137cdd45219f550f85843f7077
   name:
   platform: hue
   unique_id: 00:17:88:01:03:71:40:ee-0b
@@ -79,12 +79,12 @@ media_player.chrome:
   platform: plex
   unique_id: uuyf9aj3pg2ceo018o8c7hoe
 media_player.speaker:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: 11ad2e3c-c95a-a1ff-b5bb-8808475c8f94
 media_player.home_group:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: fc34cd82-5d32-4e94-8007-62f701505675
@@ -114,17 +114,17 @@ media_player.lucas_ipad:
   platform: plex
   unique_id: BB7C61C2-6AFC-418C-9E8A-74CA0ACCE1C4
 media_player.bedroom:
-  config_entry_id:
+  config_entry_id: c54f0ea69e9740a0b0a36003d61da183
   name:
   platform: sonos
   unique_id: RINCON_7828CA03370E01400
 media_player.kitchen:
-  config_entry_id:
+  config_entry_id: c54f0ea69e9740a0b0a36003d61da183
   name:
   platform: sonos
   unique_id: RINCON_7828CA1C07B801400
 media_player.living_room_tv:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: 767629db-6ae2-099f-843f-0093c8187a8d
@@ -154,7 +154,7 @@ media_player.chrome_5:
   platform: plex
   unique_id: 0mphygar6r31v34vnialronv
 media_player.music_flow2034:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: d96453e9-133e-3a36-962a-80b0bff2f353
@@ -179,7 +179,7 @@ fan.xiaomi_miio_device:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.ma2-78:11:DC:DF:8F:13
 media_player.living_room_speaker:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: 259a5cea-3c54-14b7-f1e0-04da865c0e61
@@ -229,7 +229,7 @@ light.hallway_upstairs_group:
   platform: tradfri
   unique_id: group-7e1155520440013a-145057
 media_player.sonas_hot_chromecast:
-  config_entry_id:
+  config_entry_id: 7742a91805ae4197aadef3255962272e
   name:
   platform: cast
   unique_id: c92c67fb-ad86-1f71-4554-ef7e8c8e6bc9
@@ -263,3 +263,33 @@ media_player.living_room:
   name:
   platform: sonos
   unique_id: RINCON_949F3ED21C4F01400
+light.office:
+  config_entry_id:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65544
+light.tradfri_group_3:
+  config_entry_id:
+  name:
+  platform: tradfri
+  unique_id: group-7e1155520440013a-145058
+sensor.sevenplus_battery_level_2:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: level_sevenplusha
+sensor.sevenplus_battery_state_2:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: state_sevenplusha
+sensor.tiias_iphone_battery_state:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: state_tiias_iphone
+sensor.tiias_iphone_battery_level:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: level_tiias_iphone

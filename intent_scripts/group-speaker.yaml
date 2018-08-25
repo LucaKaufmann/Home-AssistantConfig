@@ -1,0 +1,18 @@
+GroupSpeaker:
+  action:
+    service: script.sonos_group_motion
+    data_template:
+      target_player: >
+        {% if speakerName == 'kitchen' %}
+          {% set player = 'media_player.kitchen' %}
+        {% elif speakerName == 'dining room' %}
+          {% set player = 'media_player.bedroom' %}
+        {% endif %}
+        {% if player is not none %}
+          {{ player }}
+        {% else %}
+          false
+        {% endif %}
+  speech:
+      type: plain
+      text: "Adding {{speakerName}} speaker!"

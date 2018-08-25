@@ -1,0 +1,13 @@
+alias: Somoene downstairs
+id: downstairs_on
+trigger:
+- platform: state
+  entity_id: sensor.downstairs_motion_sensors
+  to: 'on'
+- platform: state
+  entity_id: sensor.downstairs_media_players
+  to: 'on'
+action:
+- alias: Turn on
+  service: input_boolean.turn_on
+  entity_id: input_boolean.someone_downstairs

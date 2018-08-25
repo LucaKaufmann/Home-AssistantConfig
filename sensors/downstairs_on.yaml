@@ -1,0 +1,14 @@
+platform: template
+name: 'Downstairs motion sensors'
+sensors:
+    downstairs_motion_sensors:
+        value_template: >
+          {% if is_state('sensor.living_motion_room', 'on')
+          or is_state('sensor.motion_kitchen', 'on')
+          or is_state('binary_sensor.binary_sensor.motion_hallway_upstairs', 'on')
+          or is_state('binary_sensor.binary_sensor.motion_kitchen', 'on') %}
+            on
+          {% else %}
+            off
+          {% endif %}
+        friendly_name: Downstairs motion sensors

@@ -1,0 +1,11 @@
+PlayStream:
+  action:
+    service: python_script.twitch
+    data_template:
+      stream_name: >
+        {{ streamName }}
+      media_player: >
+        {{ player }}
+  speech:
+      type: plain
+      text: "Enjoy the stream {{streamName}} on {{player}}!"

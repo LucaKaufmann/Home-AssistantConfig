@@ -18,4 +18,4 @@
 secrets.yaml
 zones.yaml
 known_devices.yaml
-ha-alexa-tts/*
+alexa-tts/*

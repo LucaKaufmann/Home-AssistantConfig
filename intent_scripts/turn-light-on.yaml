@@ -1,9 +1,0 @@
-lightsTurnOnSet:
-  action:
-    - service: light.turn_on
-      data_template:
-        entity_id: light.big_light
-    - service: tts.google_say
-      data_template:
-        entity_id: media_player.speaker
-        message: "Turning on the lights"

@@ -1,0 +1,7 @@
+platform: template
+name: TV Source
+sensors:
+  tv_source:
+    value_template: "{{ states.media_player.lg_webos_smart_tv.attributes['source'] }}"
+    friendly_name: "Source"
+    icon_template: mdi:television

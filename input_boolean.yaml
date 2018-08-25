@@ -45,4 +45,13 @@ motion_last_10:
 
 home_for_over_10:
   name: Home for over 10 minutes
+  initial: on
+
+someone_downstairs:
+  name: Is someone downstairs
   initial: off
+
+tv_limit:
+  name: TV Limit
+  initial: off
+  icon: mdi:television

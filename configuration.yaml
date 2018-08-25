@@ -26,6 +26,8 @@ panel_custom: !include panel_custom.yaml
 # Enables configuration UI
 config:
 
+alexa:
+
 cloud:
   alexa:
     filter:
@@ -53,6 +55,9 @@ cloud:
         - script.vacuum_clean_livingroom
         - switch.criminal_minds
         - switch.masterchef
+        - switch.curious_george
+        - switch.audiobook
+        - script.alexa_temperature
         #- media_player.lg_webos_smart_tv
     entity_config:
       switch.clean_kitchen:
@@ -93,6 +98,9 @@ cloud:
         - script.vacuum_clean_livingroom
         - switch.criminal_minds
         - switch.masterchef
+        - switch.curious_george
+        - switch.audiobook
+        - script.alexa_temperature
     entity_config:
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
@@ -143,19 +151,23 @@ device_tracker:
 #  interval_seconds: 10
 #  consider_home: 300
 #  track_new_devices: no
-- platform: owntracks
 - platform: mqtt
   devices:
-    sevenplus: 'bluetooth_pi/presence/sevenplus'
+    sevenplusbt: 'bluetooth_pi/presence/sevenplus'
     tiiaphone: 'bluetooth_pi/presence/tiiaphone'
 - platform: unifi_direct
   host: !secret downstairs_ap_IP
   username: !secret unifi_user
   password: !secret unifi_pw
+  track_new_devices: no
 - platform: unifi_direct
   host: !secret upstairs_ap_IP
   username: !secret unifi_user
   password: !secret unifi_pw
+  track_new_devices: no
+# - platform: icloud
+#   username: !secret icloud_user
+#   password: !secret icloud_pw
 
 
 # Allows you to issue voice commands from the frontend in enabled browsers
@@ -214,8 +226,13 @@ logger:
     homeassistant.components.http.ban: warning
 # Text to speech
 tts:
- - platform: google
-   language: 'en-us'
+  - platform: google
+    language: 'en-us'
+  - platform: amazon_polly
+    aws_access_key_id: !secret aws_secret_id
+    aws_secret_access_key: !secret aws_access_key
+    voice: Matthew
+    text_type: ssml
 
 # Additional components
 #light:
@@ -265,6 +282,10 @@ media_player:
 
 wake_on_lan:
 
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api_key
+
 media_extractor:
   default_query: best
 
@@ -280,7 +301,18 @@ notify:
   - platform: webostv
     host: !secret lgtv_ip
     name: livingroom_tv
-
+  - platform: command_line
+    name: beam
+    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Beam'"
+  - platform: command_line
+    name: echo
+    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Echo'"
+  - platform: command_line
+    name: white
+    command: "/config/alexa-tts/alexa_wrapper.sh -d 'White Sonos One'"
+  - platform: command_line
+    name: black
+    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Black Sonos One'"
 #device_sun_light_trigger:
 #  light_group: group.living_room
 #  device_group: group.tracking_devices
@@ -300,6 +332,7 @@ mqtt:
 
 
 sensor: !include_dir_list sensors
+rest_command: !include rest_commands.yaml
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_list automations

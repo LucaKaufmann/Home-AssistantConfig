@@ -10,7 +10,10 @@ streams = {
     "ninja": "ninja",
     "tim": "timthetatman",
     "gdq": "gamesdonequick",
-    "games done quick": "gamesdonequick"
+    "games done quick": "gamesdonequick",
+    "shroud": "shroud",
+    "seagull": "a_seagull",
+    "sneaky": "c9sneaky"
 }
 
 if streamInput in streams:
@@ -20,9 +23,9 @@ else:
 
 url = "https://twitch.tv/"+streamToCast
 
-if (chromecast == 1):
+if (chromecast == 1 or chromecast == 'living room tv'):
     mediaPlayer = "living_room_tv"
-elif (chromecast == 2):
+elif (chromecast == 2 or chromecast == 'bedroom tv'):
     mediaPlayer = "sonas_hot_chromecast"
 elif (chromecast == 3):
     mediaPlayer = "dining_room"

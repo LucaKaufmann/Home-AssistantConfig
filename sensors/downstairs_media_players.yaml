@@ -1,0 +1,15 @@
+platform: template
+name: 'Downstairs media players'
+sensors:
+    downstairs_media_players:
+        value_template: >
+          {% if is_state('media_player.living_room_tv', 'playing')
+          or is_state('media_player.lg_webos_smart_tv', 'playing')
+          or is_state('media_player.living_room', 'playing')
+          or is_state('media_player.kitchen', 'playing')
+          or is_state('media_player.bedroom', 'playing') %}
+            on
+          {% else %}
+            off
+          {% endif %}
+        friendly_name: Downstairs media players

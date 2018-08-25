@@ -39,22 +39,36 @@
         entity_id: vacuum.eve
     criminal_minds:
       friendly_name: 'Criminal minds'
-      value_template: "{{ is_state('script.criminal_minds', 'on') }}"
+      value_template: "{{ is_state('media_player.living_room_tv', 'playing') }}"
       turn_on:
-        service: script.turn_on
-        entity_id: script.criminal_minds
+        service: rest_command.criminal_minds
       turn_off:
-        service: script.turn_off
-        entity_id: script.criminal_minds
+        service: media_player.turn_off
+        entity_id: media_player.living_room_tv
     masterchef:
       friendly_name: 'Master chef'
-      value_template: "{{ is_state('script.masterchef', 'on') }}"
+      value_template: "{{ is_state('media_player.living_room_tv', 'playing') }}"
       turn_on:
-        service: script.turn_on
-        entity_id: script.masterchef
+        service: rest_command.masterchef
       turn_off:
-        service: script.turn_off
-        entity_id: script.masterchef
+        service: media_player.turn_off
+        entity_id: media_player.living_room_tv
+    curious_george:
+      friendly_name: 'Curious george'
+      value_template: "{{ is_state('media_player.living_room_tv', 'playing') }}"
+      turn_on:
+        service: rest_command.monkey
+      turn_off:
+        service: media_player.turn_off
+        entity_id: media_player.living_room_tv
+    audiobook:
+      friendly_name: 'Audiobook'
+      value_template: "{{ is_state('media_player.speaker', 'playing') }}"
+      turn_on:
+        service: rest_command.audiobook
+      turn_off:
+        service: media_player.turn_off
+        entity_id: media_player.speaker
 
 - platform: tplink
   host: 192.168.92.31

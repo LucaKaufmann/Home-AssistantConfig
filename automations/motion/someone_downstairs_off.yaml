@@ -1,0 +1,30 @@
+alias: No one downstairs
+id: downstairs_off
+trigger:
+- platform: state
+  entity_id: sensor.downstairs_motion_sensors
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 15
+- platform: state
+  entity_id: sensor.downstairs_media_players
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 15
+condition:
+  - condition: state
+    entity_id: sensor.downstairs_motion_sensors
+    state: 'off'
+    for:
+      minutes: 15
+  - condition: state
+    entity_id: sensor.downstairs_media_players
+    state: 'off'
+    for:
+      minutes: 15
+action:
+- alias: Turn off
+  service: input_boolean.turn_off
+  entity_id: input_boolean.someone_downstairs

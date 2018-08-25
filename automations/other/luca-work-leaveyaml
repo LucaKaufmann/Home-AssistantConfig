@@ -1,0 +1,16 @@
+alias: Luca time to get home
+id: luca_home_time
+trigger:
+- platform: zone
+  zone: zone.futurice
+  event: leave
+  entity_id: device_tracker.luca_sevenplus
+action:
+- alias: Notify TV
+  service: notify.livingroom_tv
+  data_template:
+    message: >
+      'Luca will be home in {{ states('sensor.google_travel_time__transit') }} minutes'
+- alias: Set turn light on
+  service: light.turn_on
+  entity_id: light.yellow_light

@@ -10,9 +10,11 @@ default_view:
     - group.kitchen
     - group.hallway
     - group.hallway_upstairs
+    - group.office
     - group.xiaomi_vacuum
     - group.light_scenes
     - input_boolean.sleeping
+    - input_boolean.someone_downstairs
     - binary_sensor.sleeping
     - input_boolean.follow_music
     - input_boolean.auto_lights
@@ -114,6 +116,11 @@ hallway_upstairs:
   entities:
     - light.hallway_upstairs
 
+office:
+  name: Office
+  entities:
+    - light.office
+
 # Groups
 color_lights:
   name: Color lights
@@ -130,6 +137,14 @@ all_lights_except_nightlight:
     - light.yellow_light
     - light.kitchen
     - light.hallway
+
+downstairs_lights:
+  name: Lights downstairs
+  entities:
+    - light.paperlight
+    - light.big_light
+    - light.desk
+    - light.kitchen
 
 light_scenes:
   name: Scenes
@@ -201,6 +216,8 @@ sensor_livingroom:
     - sensor.paperlight_brightness
     - sensor.livingroom_light_level
     - sensor.livingroom_temperature
+    - sensor.downstairs_media_players
+    - sensor.downstairs_motion_sensors
 
 sensor_kitchen:
   name: Kitchen
@@ -232,6 +249,12 @@ tracked_devices:
   entities:
    - device_tracker.sevenplus
    - device_tracker.tiiaphone
+
+anyone_home:
+  name: Anyone home
+  entities:
+    - binary_sensor.tiia_home
+    - binary_sensor.luca_home
 
 devices_status:
   name: Devices

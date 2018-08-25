@@ -1,0 +1,38 @@
+title: Home
+views:
+  - title: Main
+    id: main
+    background: radial-gradient(crimson, skyblue)
+    theme: dark-mode
+    cards:
+      - type: entity-filter
+        entities:
+          - device_tracker.tiiaphone
+          - device_tracker.sevenplus
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+    title: Second view
+    cards:
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Example
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - light.kitchen
+          - switch.ac
+          - entity: light.living_room
+            # Override the name to use
+            name: LR Lights
+
+        # The markdown card will render markdown text.
+      - type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.

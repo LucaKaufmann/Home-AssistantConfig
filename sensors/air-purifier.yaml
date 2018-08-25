@@ -4,7 +4,7 @@ sensors:
   air_purifier_temperature:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['temperature'] }}"
     friendly_name: "Temperature"
-    unit_of_measurement: "C"
+    unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
   air_purifier_humidity:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['humidity'] }}"
