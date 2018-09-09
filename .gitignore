@@ -2,6 +2,7 @@
 .*
 *.db*
 *.log
+icloud/*
 !*.yaml
 !scenes
 !automations
