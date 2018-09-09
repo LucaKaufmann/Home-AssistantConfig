@@ -1,0 +1,7 @@
+platform: history_stats
+name: TV on past hour
+entity_id: media_player.lg_webos_smart_tv
+state: 'playing'
+type: time
+duration: 01:00
+end: '{{ now() }}'

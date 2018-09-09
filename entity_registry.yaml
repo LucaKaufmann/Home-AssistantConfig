@@ -263,7 +263,7 @@ media_player.living_room:
   name:
   platform: sonos
   unique_id: RINCON_949F3ED21C4F01400
-light.office:
+light.hallway_color:
   config_entry_id:
   name:
   platform: tradfri
@@ -293,3 +293,28 @@ sensor.tiias_iphone_battery_level:
   name:
   platform: ios
   unique_id: level_tiias_iphone
+sensor.jeres_iphone_battery_state:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: state_jeres_iphone
+sensor.jeres_iphone_battery_level:
+  config_entry_id:
+  name:
+  platform: ios
+  unique_id: level_jeres_iphone
+light.office:
+  config_entry_id:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65547
+light.living_room:
+  config_entry_id:
+  name:
+  platform: tradfri
+  unique_id: light-7e1155520440013a-65546
+light.tradfri_group_4:
+  config_entry_id:
+  name:
+  platform: tradfri
+  unique_id: group-7e1155520440013a-145059

@@ -1,0 +1,5 @@
+platform: mqtt
+state_topic: "wallpanel/mywallpanel/sensor/temperature"
+name: "WallPanel Temperature"
+unit_of_measurement: "lx"
+value_template: '{{ value_json.value }}'

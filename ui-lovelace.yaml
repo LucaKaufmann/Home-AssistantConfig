@@ -26,14 +26,17 @@ views:
               - entity: sensor.air_purifier_temperature
                 name: Upstairs
       - type: map
+        aspect_ratio: 50%
+        entities:
+          - device_tracker.jeres_iphone
+          - zone.home
+          - zone.school
+      - type: map
         aspect_ratio: 100%
         entities:
           - entity: device_tracker.sevenplusha
-          - entity: device_tracker.tiiasapple_watch
-          - entity: device_tracker.jeresiphone
-          - zone.home
+          - entity: device_tracker.tiias_iphone
           - zone.futurice
-          - zone.school
           - zone.stockmann
       - type: entity-filter
         title: Lights on
@@ -59,6 +62,7 @@ views:
             entities:
               - sensor.tv_source
               - sensor.tv_on_today
+              - sensor.tv_on_past_hour
               - sensor.netflix_time
               - sensor.plex_time
               - sensor.playstation_time
@@ -113,6 +117,7 @@ views:
         entities:
           - light.paperlight
           - light.big_light
+          - light.living_room
           - light.desk
       - type: entities
         title: Bed Room
@@ -138,6 +143,7 @@ views:
         show_header_toggle: true
         entities:
           - light.hallway_upstairs
+          - light.hallway_color
       - type: entities
         title: Office
         show_header_toggle: true
@@ -158,6 +164,7 @@ views:
           - input_boolean.schedule_dining_area_cleaning
           - input_boolean.schedule_cleaning
           - input_boolean.cleaning_doublepass
+          - input_boolean.notify_vacuum_emptying
       - type: entities
         title: Scenes
         show_header_toggle: true
@@ -247,6 +254,8 @@ views:
           - sensor.livingroom_temperature
           - sensor.downstairs_media_players
           - sensor.downstairs_motion_sensors
+          - binary_sensor.wallpanel_motion
+          - binary_sensor.wallpanel_face_detected
       - type: entities
         title: Bedroom
         show_header_toggle: true
@@ -312,12 +321,15 @@ views:
         show_header_toggle: true
         entities:
           - device_tracker.jeresiphone
+          - device_tracker.jeres_iphone
+          - device_tracker.jerephone
       - type: entities
         title: Sensors
         show_header_toggle: true
         entities:
           - binary_sensor.tiia_home
           - binary_sensor.luca_home
+          - binary_sensor.jere_home
           - group.anyone_home
   - title: Map
     icon: mdi:map
@@ -326,8 +338,8 @@ views:
         aspect_ratio: 100%
         entities:
           - entity: device_tracker.sevenplusha
-          - entity: device_tracker.tiiasapple_watch
-          - entity: device_tracker.jeresiphone
+          - entity: device_tracker.tiias_iphone
+          - entity: device_tracker.jeres_iphone
           - zone.home
           - zone.futurice
           - zone.school

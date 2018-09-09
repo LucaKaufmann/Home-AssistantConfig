@@ -155,6 +155,7 @@ device_tracker:
   devices:
     sevenplusbt: 'bluetooth_pi/presence/sevenplus'
     tiiaphone: 'bluetooth_pi/presence/tiiaphone'
+    jerephone: 'bluetooth_pi/presence/jerephone'
 - platform: unifi_direct
   host: !secret downstairs_ap_IP
   username: !secret unifi_user
@@ -263,6 +264,8 @@ vacuum:
    name: 'Eve'
    host: !secret xiaomi_ip
    token: !secret xiaomi_token
+
+map:
 
 media_player:
   - platform: plex

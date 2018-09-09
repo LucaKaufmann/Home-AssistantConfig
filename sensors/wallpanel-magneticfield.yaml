@@ -1,0 +1,5 @@
+platform: mqtt
+state_topic: "wallpanel/mywallpanel/sensor/magneticField"
+name: "WallPanel Magnetic Field"
+unit_of_measurement: "uT"
+value_template: '{{ value_json.value }}'

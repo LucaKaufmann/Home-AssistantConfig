@@ -1,6 +1,18 @@
 - platform: mqtt
   state_topic: dummy/floorplan/sensor
   name: Floorplan
+- platform: mqtt
+  state_topic: "wallpanel/mywallpanel/sensor/motion"
+  name: "Wallpanel Motion"
+  payload_on: '{"value":true}'
+  payload_off: '{"value":false}'
+  device_class: motion
+- platform: mqtt
+  state_topic: "wallpanel/mywallpanel/sensor/face"
+  name: "Wallpanel Face Detected"
+  payload_on: '{"value":true}'
+  payload_off: '{"value":false}'
+  device_class: motion
 - platform: bayesian
   prior: 0.1
   name: 'Sleeping'
@@ -66,4 +78,25 @@
         prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
+- platform: bayesian
+  prior: 0.5
+  name: 'Jere home'
+  probability_threshold: 0.7
+  observations:
+      - entity_id: 'device_tracker.jerephone'
+        prob_given_true: 0.99
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.jeresiphone'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.jeres_iphone'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
+      
       

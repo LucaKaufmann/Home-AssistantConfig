@@ -127,6 +127,7 @@ color_lights:
   entities:
     - light.big_light
     - light.desk
+    - light.living_room
 
 all_lights_except_nightlight:
   name: Lights except night light
@@ -137,6 +138,8 @@ all_lights_except_nightlight:
     - light.yellow_light
     - light.kitchen
     - light.hallway
+    - light.living_room
+    - light.office
 
 downstairs_lights:
   name: Lights downstairs
@@ -145,6 +148,7 @@ downstairs_lights:
     - light.big_light
     - light.desk
     - light.kitchen
+    - light.living_room
 
 light_scenes:
   name: Scenes

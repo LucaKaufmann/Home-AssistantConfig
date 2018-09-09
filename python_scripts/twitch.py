@@ -36,7 +36,7 @@ elif (chromecast == 5):
 elif (chromecast == 6):
     mediaPlayer = "music_flow2034"
 else:
-    mediaPlayer = ""
+    mediaPlayer = "living_room_tv"
 
 
 logger.info("Streaming {} to {}".format(streamInput, mediaPlayer))

@@ -55,3 +55,8 @@ tv_limit:
   name: TV Limit
   initial: off
   icon: mdi:television
+
+notify_vacuum_emptying:
+  name: Notify vacuum emptying
+  initial: off
+  icon: mdi:message-alert
