@@ -19,9 +19,3 @@ action:
 - alias: Schedule dining area cleaning
   service: input_boolean.turn_on
   entity_id: input_boolean.schedule_dining_area_cleaning
-- alias: Notify
-  service: notify.facebook
-  data:
-    message: Kitchen will be cleaned tomorrow
-    target:
-      - !secret phonenumber_L

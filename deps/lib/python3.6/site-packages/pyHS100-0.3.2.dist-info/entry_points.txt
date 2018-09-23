@@ -1,3 +1,0 @@
-[console_scripts]
-pyhs100 = pyHS100.cli:cli
-

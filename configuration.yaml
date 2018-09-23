@@ -11,7 +11,8 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Helsinki
   customize: !include customize.yaml
-
+  whitelist_external_dirs:
+    - '/tmp'
 # Show links to resources in log and frontend
 # introduction:
 
@@ -25,6 +26,29 @@ panel_custom: !include panel_custom.yaml
 
 # Enables configuration UI
 config:
+
+camera:
+  - platform: ffmpeg
+    name: DaFang
+    input: !secret dafang_input
+    extra_arguments: '-pred 1 -q:v 2'
+  - platform: local_file
+    file_path: '/tmp/latestimage.jpg'
+
+image_processing:
+  - platform: sighthound
+    api_key: !secret sighthound_api_key
+    mode: dev
+    state_display: persons
+    scan_interval: 10000
+    source:
+      - entity_id: camera.local_file
+  - platform: facebox
+    ip_address: !secret influxdb_ip
+    port: 8081
+    scan_interval: 10000
+    source:
+      - entity_id: camera.local_file
 
 alexa:
 
@@ -40,6 +64,10 @@ cloud:
         - light.yellow_light
         - light.big_light
         - light.kitchen
+        - light.office
+        - light.hallway_upstairs
+        - light.hallway_color
+        - light.living_room
         - scene.bedtime
         - scene.movie_mode_arctic
         - scene.relax
@@ -53,12 +81,12 @@ cloud:
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
-        - switch.criminal_minds
-        - switch.masterchef
-        - switch.curious_george
         - switch.audiobook
-        - script.alexa_temperature
-        #- media_player.lg_webos_smart_tv
+        - script.zootopia
+        - script.good_doctor
+        - script.criminal_minds
+        - script.greys_anatomy
+        - media_player.lg_webos_smart_tv
     entity_config:
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
@@ -72,6 +100,18 @@ cloud:
       fan.xiaomi_miio_device:
         name: Air purifier
         description: Xiaomi air purifier
+      script.zootopia:
+        name: Zootopia
+        display_categories: switch
+      script.good_doctor:
+        name: Good Doctor
+        display_categories: switch
+      script.criminal_minds:
+        name: Criminal Minds
+        display_categories: switch
+      script.greys_anatomy:
+        name: Grey's Anatomy
+        display_categories: switch
   google_actions:
     filter:
       include_entities:
@@ -83,6 +123,10 @@ cloud:
         - light.yellow_light
         - light.big_light
         - light.kitchen
+        - light.office
+        - light.hallway_upstairs
+        - light.hallway_color
+        - light.living_room
         - scene.bedtime
         - scene.movie_mode_arctic
         - scene.relax
@@ -96,11 +140,12 @@ cloud:
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
-        - switch.criminal_minds
-        - switch.masterchef
-        - switch.curious_george
         - switch.audiobook
-        - script.alexa_temperature
+        - script.zootopia
+        - script.good_doctor
+        - script.criminal_minds
+        - script.greys_anatomy
+        - media_player.lg_webos_smart_tv
     entity_config:
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
@@ -327,6 +372,8 @@ mqtt:
   broker: 127.0.0.1
   username: !secret mqtt_user
   password: !secret mqtt_passwd
+  discovery: true
+  discovery_prefix: homeassistant
 
 #binary_sensor:
 #  - platform: mqtt

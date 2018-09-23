@@ -245,7 +245,7 @@ all_motion_sensors:
   entities:
     - sensor.motion_kitchen
     - sensor.living_motion_room
-    - binary_sensor.motion_hallway_upstairs
+    #- binary_sensor.motion_hallway_upstairs_2
     - binary_sensor.motion_kitchen
 
 tracked_devices:
@@ -341,3 +341,9 @@ all_media_players:
     - media_player.lg_webos_smart_tv
     - media_player.sonas_hot_chromecast
     - media_player.living_room_tv
+
+upstairs_motion_sensors:
+  name: Upstairs Motion Sensors
+  entities:
+    - binary_sensor.motion_hallway_upstairs
+    - binary_sensor.motion_hallway_upstairs_2

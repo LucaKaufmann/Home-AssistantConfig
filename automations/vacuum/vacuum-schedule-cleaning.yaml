@@ -19,8 +19,6 @@ action:
   service: input_boolean.turn_on
   entity_id: input_boolean.schedule_cleaning
 - alias: Notify
-  service: notify.facebook
+  service: notify.ios_sevenplusha
   data:
-    message: Apartment will be cleaned today
-    target:
-      - !secret phonenumber_L
+    message: 'Apartment will be cleaned today'

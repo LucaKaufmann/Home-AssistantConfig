@@ -1,0 +1,4 @@
+good_doctor:
+  alias: Good Doctor
+  sequence:
+    - service: rest_command.good_doctor

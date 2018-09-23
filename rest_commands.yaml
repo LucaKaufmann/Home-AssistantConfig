@@ -7,5 +7,14 @@ masterchef:
 monkey:
   url: !secret curious_george_url
 
+zootopia:
+  url: !secret zootopia_url
+
 audiobook:
   url: !secret audiobook_url
+
+good_doctor:
+  url: !secret good_doctor_url
+
+greys_anatomy:
+  url: !secret greys_anatomy_url

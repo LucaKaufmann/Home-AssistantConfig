@@ -24,7 +24,11 @@ views:
               - entity: sensor.kitchen_temperature
                 name: Kitchen
               - entity: sensor.air_purifier_temperature
-                name: Upstairs
+                name: Bedroom
+              - entity: sensor.temperature_office
+                name: Office
+              - entity: sensor.temperature_kids_room
+                name: Kids room
       - type: map
         aspect_ratio: 50%
         entities:
@@ -90,6 +94,29 @@ views:
           - entity: sensor.fortnite_wins_teacakess
             name: Wins Teacakess
             icon: mdi:trophy
+      - type: entities
+        entities:
+          - camera.dafang
+          - switch.dafang_h264_rtsp_server
+          - switch.dafang_mjpeg_rtsp_server
+          - sensor.dafang
+          - device_tracker.dafang
+          - sensor.dafang_light_sensor
+          - switch.dafang_ir_filter
+          - switch.dafang_ir_led
+          - switch.dafang_night_mode
+          - switch.dafang_night_mode_auto
+          - switch.dafang_blue_led
+          - switch.dafang_yellow_led
+          - switch.dafang_motion_detection
+          - switch.dafang_motion_tracking
+          - camera.dafang_motion_snapshot
+          - cover.dafang_move_leftright
+          - cover.dafang_move_updown
+          - binary_sensor.dafang_motion_sensor
+
+
+
       # - type: custom:monster-card
       #   card:
       #     type: glance
@@ -127,11 +154,17 @@ views:
           - switch.air_conditioner
           - light.yellow_light
       - type: entities
+        title: Kids Room
+        show_header_toggle: true
+        entities:
+          - switch.bedroom_switch
+      - type: entities
         title: Kitchen
         show_header_toggle: true
         entities:
           - light.kitchen
           - switch.plug_158d0001b8fb75
+          - switch.kitchen_switch
       - type: entities
         title: Hallway
         show_header_toggle: true
@@ -256,16 +289,34 @@ views:
           - sensor.downstairs_motion_sensors
           - binary_sensor.wallpanel_motion
           - binary_sensor.wallpanel_face_detected
+          - binary_sensor.living_room_door
       - type: entities
         title: Bedroom
         show_header_toggle: true
         entities:
           - sensor.air_purifier_temperature
+          - sensor.air_purifier_humidity
+      - type: entities
+        title: Office
+        show_header_toggle: true
+        entities:
+          - sensor.temperature_office
+          - sensor.humidity_office
+          - sensor.air_pressure_office
+      - type: entities
+        title: Kids room
+        show_header_toggle: true
+        entities:
+          - sensor.temperature_kids_room
+          - sensor.humidity_kids_room
+          - sensor.air_pressure_kids_room
       - type: entities
         title: Hallway Upstairs
         show_header_toggle: true
         entities:
           - binary_sensor.motion_hallway_upstairs
+          - binary_sensor.motion_hallway_upstairs_2
+          - sensor.light_level_upstairs
       - type: entities
         title: Entrance
         show_header_toggle: true
@@ -344,3 +395,33 @@ views:
           - zone.futurice
           - zone.school
           - zone.stockmann
+  - title: Camera
+    icon: mdi:camera
+    cards:
+      - type: entities
+        entities:
+          - camera.dafang
+          - switch.dafang_h264_rtsp_server
+          - switch.dafang_mjpeg_rtsp_server
+          - sensor.dafang
+          - device_tracker.dafang
+          - sensor.dafang_light_sensor
+          - switch.dafang_ir_filter
+          - switch.dafang_ir_led
+          - switch.dafang_night_mode
+          - switch.dafang_night_mode_auto
+          - switch.dafang_blue_led
+          - switch.dafang_yellow_led
+          - switch.dafang_motion_detection
+          - switch.dafang_motion_tracking
+          - camera.dafang_motion_snapshot
+          - cover.dafang_move_leftright
+          - cover.dafang_move_updown
+          - binary_sensor.dafang_motion_sensor
+      - type: entities
+        entities:
+          - image_processing.sighthound_local_file
+          - image_processing.facebox_local_file
+      - type: entities
+        entities:
+          - camera.local_file

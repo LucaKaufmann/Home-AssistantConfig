@@ -7,6 +7,10 @@ trigger:
 - platform: state
   entity_id: sensor.downstairs_media_players
   to: 'on'
+condition:
+- condition: state
+  entity_id: group.anyone_home
+  state: 'on'
 action:
 - alias: Turn on
   service: input_boolean.turn_on

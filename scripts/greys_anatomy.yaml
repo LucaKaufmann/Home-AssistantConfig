@@ -1,0 +1,4 @@
+greys_anatomy:
+  alias: Grey's Anatomy
+  sequence:
+    - service: rest_command.greys_anatomy

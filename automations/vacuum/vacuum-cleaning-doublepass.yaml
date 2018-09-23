@@ -9,20 +9,11 @@ condition:
 - condition: state
   entity_id: input_boolean.cleaning_doublepass
   state: 'on'
-- condition: state
-  entity_id: group.tracked_devices
-  state: not_home
 - condition: time
   after: '09:00'
   before: '20:00'
 action:
-- alias: Notify
-  service: notify.facebook
-  data:
-    message: Vacuum double pass
-    target:
-      - !secret phonenumber_L
-- service: vacuum.turn_on
+- service: vacuum.start
   entity_id: vacuum.eve
 - service: input_boolean.turn_off
   entity_id: input_boolean.cleaning_doublepass

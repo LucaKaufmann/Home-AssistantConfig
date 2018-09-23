@@ -13,6 +13,9 @@ trigger:
   to: 'off'
   for:
     minutes: 15
+- platform: numeric_state
+  entity_id: image_processing.sighthound_local_file
+  below: '1'
 condition:
   - condition: state
     entity_id: sensor.downstairs_motion_sensors
@@ -24,6 +27,12 @@ condition:
     state: 'off'
     for:
       minutes: 15
+  - condition: numeric_state
+    entity_id: image_processing.sighthound_local_file
+    below: '1'
+  - condition: state
+    entity_id: group.anyone_home
+    state: 'on'
 action:
 - alias: Turn off
   service: input_boolean.turn_off
