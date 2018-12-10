@@ -13,42 +13,65 @@ homeassistant:
   customize: !include customize.yaml
   whitelist_external_dirs:
     - '/tmp'
+    - '/images'
+    - '/config/vacuum'
 # Show links to resources in log and frontend
 # introduction:
 
 # Enables the frontend
 frontend:
   javascript_version: latest
+  themes: !include_dir_merge_named themes
   extra_html_url:
     - /local/custom_ui/state-card-floorplan.html
+    - /local/luca_gps.html
+    - /local/tiia_gps.html
+
 
 panel_custom: !include panel_custom.yaml
 
+panel_iframe:
+  luca:
+    title: 'Luca GPS'
+    url: '/local/luca_gps.html'
+  tiia:
+    title: 'Tiia GPS'
+    url: '/local/tiia_gps.html'
+    
 # Enables configuration UI
 config:
 
-camera:
-  - platform: ffmpeg
-    name: DaFang
-    input: !secret dafang_input
-    extra_arguments: '-pred 1 -q:v 2'
-  - platform: local_file
-    file_path: '/tmp/latestimage.jpg'
+folder_watcher:
+  - folder: /config/vacuum
 
-image_processing:
-  - platform: sighthound
-    api_key: !secret sighthound_api_key
-    mode: dev
-    state_display: persons
-    scan_interval: 10000
-    source:
-      - entity_id: camera.local_file
-  - platform: facebox
-    ip_address: !secret influxdb_ip
-    port: 8081
-    scan_interval: 10000
-    source:
-      - entity_id: camera.local_file
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  ssl_certificate: /certs/fullchain.pem
+  ssl_key: /certs/privkey.pem
+  #ssl_certificate: !secret ssl_certificate
+  #ssl_key: !secret ssl_key
+  base_url: !secret base_url
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+
+websocket_api:
+
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  # ignore:
+  #   - ikea_tradfri
+  enable:
+    - homekit
 
 alexa:
 
@@ -151,74 +174,10 @@ cloud:
         name: Vacuuming the Kitchen
       switch.clean_dining_area:
         name: Vacuuming the dining area
-      switch.clean_livingroom:
-        name: Vacuuming the living room
-      fan.xiaomi_miio_device:
-        name: Air purifier
 
-http:
-  # Uncomment this to add a password (recommended!)
-  api_password: !secret http_password
-  ssl_certificate: /certs/fullchain.pem
-  ssl_key: /certs/privkey.pem
-  #ssl_certificate: !secret ssl_certificate
-  #ssl_key: !secret ssl_key
-  base_url: !secret base_url
-  # Uncomment this if you are using SSL or running in Docker etc
-  # base_url: example.duckdns.org:8123
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-
-websocket_api:
-
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
-
-# Discover some devices automatically
-discovery:
-  ignore:
-    - ikea_tradfri
-
-device_tracker:
-#- platform: nmap_tracker
-#  hosts: !secret hosts
-#  exclude:
-#   - !secret raspberry_pi_ip
-#  track_new_devices: no
-#  consider_home: 800
-#  interval_seconds: 10
-#  home_interval: 120
-#- platform: bluetooth_tracker
-#  interval_seconds: 10
-#  consider_home: 300
-#  track_new_devices: no
-- platform: mqtt
-  devices:
-    sevenplusbt: 'bluetooth_pi/presence/sevenplus'
-    tiiaphone: 'bluetooth_pi/presence/tiiaphone'
-    jerephone: 'bluetooth_pi/presence/jerephone'
-- platform: unifi_direct
-  host: !secret downstairs_ap_IP
-  username: !secret unifi_user
-  password: !secret unifi_pw
-  track_new_devices: no
-- platform: unifi_direct
-  host: !secret upstairs_ap_IP
-  username: !secret unifi_user
-  password: !secret unifi_pw
-  track_new_devices: no
-# - platform: icloud
-#   username: !secret icloud_user
-#   password: !secret icloud_pw
-
-
-# Allows you to issue voice commands from the frontend in enabled browsers
-#conversation:
-
+google:
+  client_id: !secret google_cal_id
+  client_secret: !secret google_cal_secret
 # Enables support for tracking state changes over time.
 history:
 
@@ -248,6 +207,151 @@ influxdb:
 ifttt:
   key: !secret ifttt_key
 
+image_processing:
+#   - platform: sighthound
+#     api_key: !secret sighthound_api_key
+#     mode: dev
+#     state_display: persons
+#     scan_interval: 10000
+#     source:
+#       - entity_id: camera.dafang_latest
+#   - platform: facebox
+#     ip_address: !secret influxdb_ip
+#     port: 8081
+#     scan_interval: 10000
+#     source:
+#       - entity_id: camera.dafang_latest
+#   - platform: classificationbox
+#     ip_address: !secret influxdb_ip
+#     port: 8083
+#     model_id: 5bd486373f1745fe
+#     confidence: 50
+#     scan_interval: 10000
+#     source:
+#       - entity_id: camera.dafang
+  - platform: classificationbox
+    ip_address: !secret influxdb_ip
+    port: 8083
+    confidence: 50
+    model_id: livingroom_presence
+    scan_interval: 10000
+    source:
+      - entity_id: camera.xiaofang2
+  - platform: classificationbox
+    ip_address: !secret influxdb_ip
+    port: 8083
+    confidence: 50
+    model_id: dining_table_cleaning
+    scan_interval: 10000
+    source:
+      - entity_id: camera.xiaofang2
+  - platform: classificationbox
+    ip_address: !secret influxdb_ip
+    port: 8083
+    confidence: 50
+    model_id: eatingmodel
+    scan_interval: 10000
+    source:
+      - entity_id: camera.xiaofang2_latest
+  - platform: classificationbox
+    ip_address: !secret influxdb_ip
+    port: 8083
+    confidence: 50
+    model_id: vacuummodel
+    scan_interval: 10000
+    source:
+      - entity_id: camera.xiaofang2_latest
+  - platform: classificationbox
+    ip_address: !secret influxdb_ip
+    port: 8083
+    confidence: 50
+    model_id: kitchen_lights_model
+    scan_interval: 10000
+    source:
+      - entity_id: camera.xiaofang1
+  # - platform: classificationbox
+  #   ip_address: !secret influxdb_ip
+  #   port: 8083
+  #   confidence: 50
+  #   scan_interval: 10000
+  #   source:
+  #     - entity_id: camera.xiaofang1_latest
+  - platform: tensorflow
+    source:
+      - entity_id: camera.xiaofang2_latest
+    model:
+      graph: /config/tensorflow/frozen_inference_graph.pb
+    file_out: '/images/xiaofang2/tensorflow.jpg'
+    scan_interval: 10000
+  - platform: tensorflow2
+    source:
+      - entity_id: camera.xiaofang2
+        name: Tensorflow People
+    model:
+      graph: /config/tensorflow/people.pb
+    scan_interval: 10000
+  - platform: tensorflow
+    source:
+      - entity_id: camera.dafang_latest
+    model:
+      graph: /config/tensorflow/frozen_inference_graph.pb
+    file_out: '/images/dafang/tensorflow.jpg'
+    scan_interval: 10000
+  - platform: tensorflow
+    source:
+      - entity_id: camera.xiaofang1_latest
+    model:
+      graph: /config/tensorflow/frozen_inference_graph.pb
+    file_out: '/images/xiaofang1/tensorflow.jpg'
+    scan_interval: 10000
+
+device_tracker:
+#- platform: nmap_tracker
+#  hosts: !secret hosts
+#  exclude:
+#   - !secret raspberry_pi_ip
+#  track_new_devices: no
+#  consider_home: 800
+#  interval_seconds: 10
+#  home_interval: 120
+#- platform: bluetooth_tracker
+#  interval_seconds: 10
+#  consider_home: 300
+#  track_new_devices: no
+- platform: mqtt
+  devices:
+    sevenplusbt: 'bluetooth_pi/presence/sevenplus'
+    tiiaphone: 'bluetooth_pi/presence/tiiaphone'
+    jerephone: 'bluetooth_pi/presence/jerephone'
+# - platform: unifi_direct
+#   host: !secret downstairs_ap_IP
+#   username: !secret unifi_user
+#   password: !secret unifi_pw
+#   track_new_devices: no
+# - platform: unifi_direct
+#   host: !secret upstairs_ap_IP
+#   username: !secret unifi_user
+#   password: !secret unifi_pw
+#   track_new_devices: no
+- platform: unifi
+  host: !secret unifi_controller_ip
+  username: !secret unifi_user
+  password: !secret unifi_controller_pw
+  verify_ssl: false
+  track_new_devices: false
+  detection_time: 60
+  monitored_conditions:
+    - rssi
+    - signal
+    - ap_mac
+    - name
+    - mac
+    - ip
+    - _last_seen_by_uap
+# - platform: icloud
+#   username: !secret icloud_user
+#   password: !secret icloud_pw
+
 light:
   - platform: group
     name: Livingroom Lights
@@ -258,10 +362,28 @@ light:
   - platform: group
     name: Paperlight
     entities:
-      - light.tradfri_bulb_e27_ws_opal_980lm_2
-      - light.tradfri_bulb_e27_ws_opal_980lm_3
-      - light.tradfri_bulb_e27_ws_opal_980lm_4
+      - light.paperlight_1
+      - light.paperlight_2
+      - light.paperlight_3
+  - platform: group
+    name: Hallway Downstairs
+    entities:
+      - light.hallway_1
+      - light.hallway_2
+      - light.hallway_3
+  - platform: mqtt_template
+    name: Dashboard Kitchen
+    command_topic: "dashboard/rpi1/set"
+    state_topic: "dashboard/rpi1/status"
+    command_on_template: "on,{{ brightness|d }}"
+    command_off_template: "off"
+    state_template: "{{ value.split(',')[0] }}"  # must return `on` or `off`
+    brightness_template: "{{ value.split(',')[1] }}"
 
+
+ring:
+  username: !secret ring_user
+  password: !secret ring_pw
 # Track the sun
 sun:
 
@@ -270,6 +392,7 @@ logger:
   logs:
     homeassistant.components: info
     homeassistant.components.http.ban: warning
+    homeassistant.components.homekit_controller: debug
 # Text to speech
 tts:
   - platform: google
@@ -300,9 +423,19 @@ xiaomi_aqara:
   discovery_retry: 5
   gateways:
     - key: !secret xiaomi_gateway_key
-tradfri:
- host: !secret tradfri_ip
 
+# tradfri:
+#  host: !secret tradfri_ip
+
+# netatmo2:
+#   api_key: !secret netatmo_api_key
+#   secret_key: !secret netatmo_secret_key
+#   username: !secret netatmo_user
+#   password: !secret netatmo_pw
+#   discovery: False
+#
+# climate:
+#   - platform: netatmo2
 
 vacuum:
  - platform: xiaomi_miio
@@ -313,10 +446,10 @@ vacuum:
 map:
 
 media_player:
-  - platform: plex
-    include_non_clients: true
-    scan_interval: 5
-    show_all_controls: true
+  # - platform: plex
+  #   include_non_clients: true
+  #   scan_interval: 5
+  #   show_all_controls: true
 #  - platform: gstreamer
   # - platform: spotify
   #   client_id: !secret spotify_client_id
@@ -327,6 +460,18 @@ media_player:
       service: wake_on_lan.send_magic_packet
       data:
         mac: 78:5D:C8:62:65:D1
+  - platform: alexa
+    email: !secret alexa_email
+    password: !secret alexa_password
+    url: 'amazon.com'
+  - platform: ps4
+    host: !secret ps4waker_ip
+    ps4_ip: !secret ps4_ip
+    name: PlayStation 4
+    games_filename: '/config/ps4/ps4-games.json'
+    imagemap_json: '/config/ps4/games.json'
+    local_store: ''
+
 
 wake_on_lan:
 
@@ -340,6 +485,16 @@ media_extractor:
 python_script:
 
 ios:
+  push:
+      categories:
+        - name: Laundry
+          identifier: 'laundry'
+          actions:
+            - identifier: 'STOP_WASHING_MACHINE'
+              title: 'Turn off'
+              activationMode: 'background'
+              destructive: yes
+              behavior: 'default'
 
 notify:
   - platform: ios
@@ -381,7 +536,37 @@ mqtt:
 #    name: Floorplan
 
 
+homekit: !include homekit.yaml
+
+shell_command:
+  rename_snapshots_dafang: 'bash /config/bash_scripts/renameSnapshotsDafang.sh'
+  dafang_motion_on: !secret dafang_motion_on
+  dafang_motion_off: !secret dafang_motion_off
+  rename_snapshots_xiaofang1: 'bash /config/bash_scripts/renameSnapshotsXiaofang1.sh'
+  xiaofang1_motion_on: !secret xiaofang1_motion_on
+  xiaofang1_motion_off: !secret xiaofang1_motion_off
+  rename_snapshots_xiaofang2: 'bash /config/bash_scripts/renameSnapshotsXiaofang2.sh'
+  xiaofang2_motion_on: !secret xiaofang2_motion_on
+  xiaofang2_motion_off: !secret xiaofang2_motion_off
+  export_csv: 'python /config/export_to_csv.py -r {{rssi}} -s {{signal}} -a {{ap}} -d {{downstairs}}'
+  export_csv_luca: "python /config/export_to_csv.py -r {{states.device_tracker.sevenplus_router.attributes.rssi}} -s {{states.device_tracker.sevenplus_router.attributes.signal}} -a {% if is_state('binary_sensor.luca_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.luca_downstairs','on') %}1{% else %}0{% endif %}"
+  export_csv_tiia: "python /config/export_to_csv.py -r {{states.device_tracker.tiiasiphone.attributes.rssi}} -s {{states.device_tracker.tiiasiphone.attributes.signal}} -a {% if is_state('binary_sensor.tiia_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.tiia_downstairs','on') %}1{% else %}0{% endif %}"
+  export_gps_luca: "python /config/export/export_gps.py -t {{states.device_tracker.sevenplusha.attributes.latitude}} -o {{states.device_tracker.sevenplusha.attributes.longitude}} -d '{{states.device_tracker.sevenplusha.attributes.timestamp}}' -p luca"
+  export_gps_tiia: "python /config/export/export_gps.py -t {{states.device_tracker.tiias_iphone.attributes.latitude}} -o {{states.device_tracker.tiias_iphone.attributes.longitude}} -d '{{states.device_tracker.tiias_iphone.last_updated}}' -p tiia"
+  plot_luca: "python /config/export/plot.py -p luca"
+  plot_tiia: "python /config/export/plot.py -p tiia"  
+  build_map: 'bash /config/scripts/vacuum_maps.sh'
+
+recorder:
+  purge_keep_days: 5
+  db_url: !secret mysql_db_url
+  exclude:
+    domains:
+     - shell_command
+     - image_processing
+
 sensor: !include_dir_list sensors
+camera: !include cameras.yaml
 rest_command: !include rest_commands.yaml
 binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
@@ -393,3 +578,4 @@ intent_script: !include_dir_merge_named intent_scripts
 switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml
 input_select: !include input_select.yaml
+input_number: !include input_number.yaml

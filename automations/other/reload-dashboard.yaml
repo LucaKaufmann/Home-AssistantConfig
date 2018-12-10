@@ -1,0 +1,12 @@
+alias: Reload Dashboard
+id: reload_dashboard
+trigger:
+    platform: homeassistant
+    event: start
+action:
+- alias: Send reload message
+  service: mqtt.publish
+  data:
+    topic: dashboard/rpi1/reload
+    payload: "true"
+

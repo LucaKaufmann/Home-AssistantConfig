@@ -4,22 +4,27 @@ sensors:
   vacuum_status:
     value_template: "{{ states.vacuum.eve.attributes['status'] }}"
     friendly_name: "Status"
+    entity_id: vacuum.eve
     icon_template: mdi:information
   vacuum_fan:
     value_template: "{{ states.vacuum.eve.attributes['fan_speed'] }}"
     friendly_name: "Fan"
+    entity_id: vacuum.eve
     icon_template: mdi:fan
   vacuum_cleaned_area:
     value_template: "{{ states.vacuum.eve.attributes['cleaned_area'] }}"
     friendly_name: "Cleaned area"
     unit_of_measurement: "m2"
+    entity_id: vacuum.eve
     icon_template: mdi:broom
   vacuum_battery:
     value_template: "{{ states.vacuum.eve.attributes['battery_level'] }}"
     friendly_name: "Battery"
+    entity_id: vacuum.eve
     unit_of_measurement: "%"
     icon_template: mdi:battery
   vacuum_cleaning_time:
     value_template: "{{ states.vacuum.eve.attributes['cleaning_time'] }}"
     friendly_name: "Cleaning time"
+    entity_id: vacuum.eve
     icon_template: mdi:timer

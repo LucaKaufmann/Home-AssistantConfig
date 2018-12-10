@@ -16,9 +16,11 @@ from homeassistant.const import (CONF_IP_ADDRESS, CONF_TOKEN)
 from homeassistant.helpers.entity import Entity
 from homeassistant.util import Throttle
 
+__version__ = '0.7'
+
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(seconds=0.1)
+SCAN_INTERVAL = timedelta(seconds=3)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_IP_ADDRESS): cv.string,
@@ -112,12 +114,23 @@ def parse_zgp(response):
 
 def parse_rwl(response):
     """Parse the json response for a RWL Hue remote."""
-    press = str(response['state']['buttonevent'])
 
-    if press[-1] in ['0', '2']:
-        button = str(press)[0] + '_click'
-    else:
-        button = str(press)[0] + '_hold'
+    """
+        I know it should be _released not _up
+        but _hold_up is too good to miss isn't it
+    """
+    responsecodes = {
+        '0' : "_click",
+        '1' : "_hold",
+        '2' : "_click_up",
+        '3' : "_hold_up"
+    }
+
+
+    button = ""
+    if response['state']['buttonevent']:
+        press = str(response['state']['buttonevent'])
+        button = str(press)[0] + responsecodes[press[-1]]
 
     data = {'model': 'RWL',
             'name': response['name'],

@@ -1,0 +1,13 @@
+alias: Schedule litterbox chore
+id: schedule_litterbox_chore
+trigger:
+  platform: time
+  at: '08:00'
+condition:
+- condition: template
+  value_template: '{{ (as_timestamp(now())-as_timestamp(states.input_boolean.clean_litterbox.last_updated))
+    > 432000 }}'
+action:
+- alias: Schedule clean litterbox
+  service: input_boolean.turn_on
+  entity_id: input_boolean.clean_litterbox

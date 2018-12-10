@@ -1,0 +1,24 @@
+WhereIsLuca:
+  speech:
+      type: plain
+      text: >
+        {% set location = states('device_tracker.sevenplusha') %}
+        {% if  is_state('binary_sensor.luca_home', 'on') %}
+          Luca is at home.
+        {% elif not is_state('device_tracker.sevenplusha', 'not_home') %}
+          {% if location == 'Futurice' %}
+          Luca is at work.
+          {% elif location == 'Citymarket' %}
+          Luca is at Citymarket.
+          {% elif location == 'Helsinki Airport' %}
+          Luca is at the airport.
+          {% elif location == 'School' %}
+          Luca is at
+          {% else %}
+          Luca is in {{ location }}. 
+          {% endif %}
+          It would take him {{ states('sensor.luca_travel_time') }} minutes to get home.
+        {% else %}
+          Luca is on the way. He will be home in {{ states('sensor.luca_travel_time') }} minutes.
+        {% endif %}
+

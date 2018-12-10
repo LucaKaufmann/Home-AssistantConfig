@@ -1,0 +1,6 @@
+platform: mqtt
+state_topic: 'light/livingroom'
+value_template: '{{ value_json.level }}'
+name: 'Livingroom Light Level Avg'
+unit_of_measurement: Lux
+force_update: true

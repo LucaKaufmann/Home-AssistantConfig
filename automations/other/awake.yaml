@@ -1,8 +1,6 @@
 alias: Disable sleeping
 id: disable_sleeping
 trigger:
-- platform: time
-  at: '09:00:00'
 - platform: state
   entity_id: group.all_motion_sensors
   to: 'on'

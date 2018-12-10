@@ -6,7 +6,7 @@ trigger:
   from: 'on'
   to: 'off'
   for:
-    minutes: 10
+    minutes: 15
 action:
 - alias: Turn on motion
   service: input_boolean.turn_off

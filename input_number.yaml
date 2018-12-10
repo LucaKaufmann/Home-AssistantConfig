@@ -1,0 +1,7 @@
+#Input Number
+kitchen_true_light_level:
+  name: Kitchen true light level
+  min: 0
+  max: 100000
+  step: 1
+  mode: box

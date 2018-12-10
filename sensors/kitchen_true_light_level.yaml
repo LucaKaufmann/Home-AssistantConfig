@@ -1,0 +1,9 @@
+platform: template
+name: Kitchen True Light Level
+sensors:
+  kitchen_true_light_level:
+    value_template: "{{ states.input_number.kitchen_true_light_level.state|int or 0 }}"
+    friendly_name: "Kitchen true light level"
+    entity_id: input_number.kitchen_true_light_level
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline

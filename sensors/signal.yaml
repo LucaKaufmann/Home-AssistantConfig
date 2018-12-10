@@ -1,0 +1,60 @@
+platform: template
+name: Signal
+sensors:
+  luca_signal:
+    value_template: "{{ states.device_tracker.sevenplus_router.attributes.signal }}"
+    friendly_name: "Luca Signal"
+    entity_id: device_tracker.sevenplus_router
+    unit_of_measurement: 'dBm'
+    icon_template: >-
+      {% set signal = states.device_tracker.sevenplus_router.attributes.signal %}
+      {% if signal < -60 %}
+        mdi:signal-cellular-1
+      {% elif signal < -50 %}
+        mdi:signal-cellular-2
+      {% else %}
+        mdi:signal-cellular-3
+      {% endif %}
+  luca_rssi:
+    value_template: "{{ states.device_tracker.sevenplus_router.attributes.rssi }}"
+    friendly_name: "Luca RSSI"
+    entity_id: device_tracker.sevenplus_router
+    unit_of_measurement: 'dBm'
+    icon_template: >-
+      {% set signal = states.device_tracker.sevenplus_router.attributes.rssi %}
+      {% if signal > 50 %}
+        mdi:signal-cellular-3
+      {% elif signal > 35 %}
+        mdi:signal-cellular-2
+      {% else %}
+        mdi:signal-cellular-1
+      {% endif %}
+  tiia_signal:
+    value_template: "{{ states.device_tracker.tiiasiphone.attributes.signal }}"
+    friendly_name: "Tiia Signal"
+    entity_id: device_tracker.tiiasiphone
+    unit_of_measurement: 'dBm'
+    icon_template: >-
+      {% set signal = states.device_tracker.tiiasiphone.attributes.signal %}
+      {% if signal < -60 %}
+        mdi:signal-cellular-1
+      {% elif signal < -50 %}
+        mdi:signal-cellular-2
+      {% else %}
+        mdi:signal-cellular-3
+      {% endif %}
+  tiia_rssi:
+    value_template: "{{ states.device_tracker.tiiasiphone.attributes.rssi }}"
+    friendly_name: "Tiia RSSI"
+    entity_id: device_tracker.tiiasiphone
+    unit_of_measurement: 'dBm'
+    icon_template: >-
+      {% set signal = states.device_tracker.tiiasiphone.attributes.rssi %}
+      {% if signal > 50 %}
+        mdi:signal-cellular-3
+      {% elif signal > 35 %}
+        mdi:signal-cellular-2
+      {% else %}
+        mdi:signal-cellular-1
+      {% endif %}
+  

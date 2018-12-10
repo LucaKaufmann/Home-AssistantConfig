@@ -1,0 +1,23 @@
+- platform: mqtt
+  state_topic: 'monitor/downstairs/4C:74:BF:A8:24:B3'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'Downstairs Luca'
+
+- platform: mqtt
+  state_topic: 'location/upstairs/4C:74:BF:A8:24:B3'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'Upstairs Luca'
+
+- platform: mqtt
+  state_topic: 'monitor/downstairs/A8:5C:2C:16:E4:6A'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'Downstairs Tiia'
+
+- platform: mqtt
+  state_topic: 'location/upstairs/A8:5C:2C:16:E4:6A'
+  value_template: '{{ value_json.confidence }}'
+  unit_of_measurement: '%'
+  name: 'Upstairs Tiia'

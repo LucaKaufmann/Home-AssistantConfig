@@ -1,0 +1,5 @@
+platform: mqtt
+state_topic: 'monitor/upstairs_hallway/A8:5C:2C:16:E4:6A'
+value_template: '{{ value_json.confidence }}'
+unit_of_measurement: '%'
+name: 'Upstairs Hallway Tiia'

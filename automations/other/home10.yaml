@@ -7,6 +7,10 @@ trigger:
   to: 'on'
   for:
     minutes: 10
+condition:
+- condition: state
+  entity_id: input_boolean.vacation_mode
+  state: 'off'
 action:
 - alias: Turn on motion
   service: input_boolean.turn_on

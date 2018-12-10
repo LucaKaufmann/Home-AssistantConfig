@@ -1,0 +1,9 @@
+platform: min_max
+name: "Home Occupancy Confidence Luca"
+type: mean
+round_digits: 0
+entity_ids:
+  - sensor.upstairs_luca
+  - sensor.upstairs_hallway_luca
+  - sensor.living_room_luca
+  - sensor.kitchen_luca

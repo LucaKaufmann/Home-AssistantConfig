@@ -4,20 +4,36 @@ sensors:
   livingroom_light_level:
     value_template: "{{ states.sensor.living_motion_room.attributes['light_level'] }}"
     friendly_name: "Living Room Light Level"
+    entity_id: sensor.living_motion_room
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   livingroom_temperature:
     value_template: "{{ states.sensor.living_motion_room.attributes['temperature'] }}"
     friendly_name: "Living Room Temperature"
+    entity_id: sensor.living_motion_room
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
+  livingroom_lux:
+    value_template: "{{ states.sensor.living_motion_room.attributes['lx'] }}"
+    friendly_name: "Living Room Lux"
+    entity_id: sensor.living_motion_room
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline
   kitchen_light_level:
     value_template: "{{ states.sensor.motion_kitchen.attributes['light_level'] }}"
     friendly_name: "Kitchen Light Level"
+    entity_id: sensor.motion_kitchen
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   kitchen_temperature:
     value_template: "{{ states.sensor.motion_kitchen.attributes['temperature'] }}"
     friendly_name: "Kitchen Temperature"
+    entity_id: sensor.motion_kitchen
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
+  kitchen_lux:
+    value_template: "{{ states.sensor.motion_kitchen.attributes['lx'] }}"
+    friendly_name: "Kitchen Lux"
+    entity_id: sensor.motion_kitchen
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline

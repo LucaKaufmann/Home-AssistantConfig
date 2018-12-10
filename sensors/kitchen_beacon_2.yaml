@@ -1,0 +1,5 @@
+platform: mqtt
+state_topic: 'monitor/kitchen/E2C56DB5-DFFB-48D2-B060-D0F5A71096E0-22-8'
+value_template: '{{ value_json.confidence }}'
+unit_of_measurement: '%'
+name: 'Kitchen Beacon 2'

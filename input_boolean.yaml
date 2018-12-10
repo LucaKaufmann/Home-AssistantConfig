@@ -4,6 +4,11 @@ sleeping:
   initial: off
   icon: mdi:sleep
 
+kid_sleeping:
+  name: Kid asleep
+  initial: off
+  icon: mdi:sleep
+
 schedule_kitchen_cleaning:
   name: Schedule kitchen cleaning
   initial: off
@@ -18,6 +23,11 @@ schedule_dining_area_cleaning:
   name: Schedule dining area cleaning
   initial: off
   icon: mdi:silverware
+
+schedule_hallway_cleaning:
+  name: Schedule hallway cleaning
+  initial: off
+  icon: mdi:home
 
 schedule_cleaning:
   name: Schedule apartment cleaning
@@ -36,20 +46,16 @@ follow_music:
 
 auto_lights:
   name: Automatic lights
-  initial: off
   icon: mdi:lightbulb-on
 
 motion_last_10:
   name: Motion in the last 10 minutes
-  initial: off
 
 home_for_over_10:
   name: Home for over 10 minutes
-  initial: on
 
 someone_downstairs:
   name: Is someone downstairs
-  initial: off
 
 tv_limit:
   name: TV Limit
@@ -60,3 +66,71 @@ notify_vacuum_emptying:
   name: Notify vacuum emptying
   initial: off
   icon: mdi:message-alert
+
+anyone_playing_fortnite:
+  name: Anyone playing Fortnite
+  initial: off
+  icon: mdi:google-controller
+
+arrival_notifications:
+  name: Arrival notifications
+  initial: off
+  icon: mdi:map
+
+guest_mode:
+  name: Guest mode
+  initial: off
+  
+vacation_mode:
+  name: Vacation mode
+  initial: off
+  icon: mdi:airplane
+
+movie_mode:
+  name: Movie Mode
+  icon: mdi:television
+
+gaming_mode:
+  name: Gaming Mode
+  icon: mdi:google-controller
+
+color_mode:
+  name: Color Mode
+  icon: mdi:palette
+
+washing_machine:
+  name: Washing machine
+  icon: mdi:washing-machine
+
+clean_litterbox:
+  name: Should clean litterbox
+  icon: mdi:cat
+
+empty_dishwasher:
+  name: Should empty dishwasher
+  icon: mdi:dishwasher
+
+do_laundry:
+  name: Should do laundry
+  icon: mdi:washing-machine
+
+camera_cycling_bedroom:
+  name: Cycle cameras bedroom
+  icon: mdi:cctv
+
+camera_cycling_livingroom:
+  name: Cycle cameras livingroom
+  icon: mdi:cctv
+  
+training_mode:
+  name: Training Mode
+  icon: mdi:library-books
+  
+luca_downstairs:
+  name: Luca Downstairs
+  icon: mdi:cellphone
+
+tiia_downstairs:
+  name: Tiia Downstairs
+  icon: mdi:cellphone
+ 

@@ -3,28 +3,34 @@ name: Xiaomi Air Purifier
 sensors:
   air_purifier_temperature:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['temperature'] }}"
+    entity_id: fan.xiaomi_miio_device
     friendly_name: "Temperature"
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
   air_purifier_humidity:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['humidity'] }}"
     friendly_name: "Humidity"
+    entity_id: fan.xiaomi_miio_device
     unit_of_measurement: "%"
     icon_template: mdi:water
   air_purifier_filter_hours:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['filter_hours_used'] }}"
     friendly_name: "Filter hours used"
+    entity_id: fan.xiaomi_miio_device
     icon_template: mdi:clock
   air_purifier_filter_life:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['filter_life_remaining'] }}"
     friendly_name: "Filter life remaining"
+    entity_id: fan.xiaomi_miio_device
     unit_of_measurement: "%"
     icon_template: mdi:filter
   air_purifier_motor_speed:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['motor_speed'] }}"
     friendly_name: "Motor speed"
+    entity_id: fan.xiaomi_miio_device
     icon_template: mdi:fan
   air_purifier_purify_volume:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['purify_volume'] }}"
     friendly_name: "Purify volume"
+    entity_id: fan.xiaomi_miio_device
     icon_template: mdi:fan

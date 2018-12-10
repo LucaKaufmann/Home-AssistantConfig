@@ -4,10 +4,12 @@ sensors:
   big_light_brightness:
     value_template: "{{ states.light.big_light.attributes['brightness'] or 0 }}"
     friendly_name: "Big light brightness"
+    entity_id: light.big_light
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   paperlight_brightness:
     value_template: "{{ states.light.paperlight.attributes['brightness'] or 0 }}"
     friendly_name: "Paperlight brightness"
+    entity_id: light.paperlight
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline

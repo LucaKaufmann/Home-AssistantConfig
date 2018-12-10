@@ -2,17 +2,14 @@ name: Movie Mode Arctic
 entities:
   light.big_light:
     state: on
-    brightness: 137
+    brightness: 255
     rgb_color: [105, 218, 195]
     transition: 3
   light.desk:
     state: on
-    brightness: 137
+    brightness: 255
     rgb_color: [83, 176, 255]
     transition: 5
-  light.hallway:
-    state: off
-    transition: 2
   light.paperlight:
     state: off
     transition: 5

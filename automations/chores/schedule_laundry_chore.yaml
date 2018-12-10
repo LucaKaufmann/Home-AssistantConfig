@@ -1,0 +1,13 @@
+alias: Schedule laundry chore
+id: schedule_laundry_chore
+trigger:
+  platform: time
+  at: '08:00'
+condition:
+- condition: template
+  value_template: '{{ (as_timestamp(now())-as_timestamp(states.input_boolean.washing_machine.last_updated))
+    > 86400 }}'
+action:
+- alias: Schedule do laundry
+  service: input_boolean.turn_on
+  entity_id: input_boolean.do_laundry

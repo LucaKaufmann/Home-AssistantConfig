@@ -4,4 +4,5 @@ sensors:
   tv_source:
     value_template: "{{ states.media_player.lg_webos_smart_tv.attributes['source'] }}"
     friendly_name: "Source"
+    entity_id: media_player.lg_webos_smart_tv
     icon_template: mdi:television

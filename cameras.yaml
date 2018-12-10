@@ -1,0 +1,139 @@
+- platform: ffmpeg
+  name: DaFang
+  input: !secret dafang_input
+  extra_arguments: '-pred 1 -q:v 2'
+- platform: ffmpeg
+  name: DaFang mobile
+  input: !secret dafang_input
+- platform: local_file
+  name: Dafang Latest
+  file_path: '/images/dafang/snapshot1.jpg'
+- platform: local_file
+  name: Dafang Snapshot 1
+  file_path: '/images/dafang/snapshot1.jpg'
+- platform: local_file
+  name: Dafang Snapshot 2
+  file_path: '/images/dafang/snapshot2.jpg'
+- platform: local_file
+  name: Dafang Snapshot 3
+  file_path: '/images/dafang/snapshot3.jpg'
+- platform: local_file
+  name: Dafang Snapshot 4
+  file_path: '/images/dafang/snapshot4.jpg'
+- platform: local_file
+  name: Dafang Snapshot 5
+  file_path: '/images/dafang/snapshot5.jpg'
+
+- platform: ffmpeg
+  name: Xiaofang1
+  input: !secret xiaofang1_input
+  extra_arguments: '-pred 1 -q:v 2'
+# - platform: ffmpeg
+#   name: Xiaofang1 mobile
+#   input: !secret dafang_input
+- platform: local_file
+  name: Xiaofang1 Latest
+  file_path: '/images/xiaofang1/snapshot1.jpg'
+- platform: local_file
+  name: Xiaofang1 Snapshot 1
+  file_path: '/images/xiaofang1/snapshot1.jpg'
+- platform: local_file
+  name: Xiaofang1 Snapshot 2
+  file_path: '/images/xiaofang1/snapshot2.jpg'
+- platform: local_file
+  name: Xiaofang1 Snapshot 3
+  file_path: '/images/xiaofang1/snapshot3.jpg'
+- platform: local_file
+  name: Xiaofang1 Snapshot 4
+  file_path: '/images/xiaofang1/snapshot4.jpg'
+- platform: local_file
+  name: Xiaofang1 Snapshot 5
+  file_path: '/images/xiaofang1/snapshot5.jpg'
+
+- platform: ffmpeg
+  name: Xiaofang2
+  input: !secret xiaofang2_input
+  extra_arguments: '-pred 1 -q:v 2'
+# - platform: ffmpeg
+#   name: Xiaofang2 mobile
+#   input: !secret dafang_input
+- platform: local_file
+  name: Xiaofang2 Latest
+  file_path: '/images/xiaofang2/snapshot1.jpg'
+- platform: local_file
+  name: Xiaofang2 Snapshot 1
+  file_path: '/images/xiaofang2/snapshot1.jpg'
+- platform: local_file
+  name: Xiaofang2 Snapshot 2
+  file_path: '/images/xiaofang2/snapshot2.jpg'
+- platform: local_file
+  name: Xiaofang2 Snapshot 3
+  file_path: '/images/xiaofang2/snapshot3.jpg'
+- platform: local_file
+  name: Xiaofang2 Snapshot 4
+  file_path: '/images/xiaofang2/snapshot4.jpg'
+- platform: local_file
+  name: Xiaofang2 Snapshot 5
+  file_path: '/images/xiaofang2/snapshot5.jpg'
+
+- platform: local_file
+  name: Tensorflow Xiaofang1
+  file_path: '/images/xiaofang1/tensorflow.jpg'
+- platform: local_file
+  name: Tensorflow Xiaofang2
+  file_path: '/images/xiaofang2/tensorflow.jpg'
+- platform: local_file
+  name: Tensorflow People
+  file_path: '/images/xiaofang2/tensorflow_people.jpg'
+- platform: local_file
+  name: Tensorflow Dafang
+  file_path: '/images/dafang/tensorflow.jpg'
+
+# - platform: tensorflow
+#   camera: camera.xiaofang2_latest
+#   processor: image_processing.tensorflow_xiaofang2_latest
+#   name: Tensorflow Xiaofang2
+#   classifier: ''
+# - platform: tensorflow
+#   camera: camera.xiaofang1_latest
+#   processor: image_processing.tensorflow_xiaofang1_latest
+#   name: Tensorflow Xiaofang1
+#   classifier: ''
+# - platform: tensorflow
+#   camera: camera.dafang_latest
+#   processor: image_processing.tensorflow_dafang_latest
+#   # Optional Parameters
+#   name: Tensorflow Dafang
+#   classifier: ''
+- platform: sighthound
+  camera: camera.dafang_latest
+  processor: image_processing.sighthound_dafang_latest
+  # Optional Parameters
+  name: Sighthound Dafang
+  classifier: ''
+
+# - platform: generic
+#   name: Xiaofang2 Tensorflow
+#   still_image_url: >
+#     {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.tensorflow_xiaofang2.attributes.entity_picture }}
+# - platform: generic
+#   name: Xiaofang1 Tensorflow
+#   still_image_url: >
+#     {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.tensorflow_xiaofang1.attributes.entity_picture }}
+# - platform: generic
+#   name: Dafang Tensorflow
+#   still_image_url: >
+#     {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.tensorflow_dafang.attributes.entity_picture }}
+- platform: generic
+  name: Dafang Sighthound
+  still_image_url: >
+    {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.sighthound_dafang.attributes.entity_picture }}
+# - platform: generic
+#   name: Vacuum Map
+#   still_image_url: 'https://awesomeplex.duckdns.org:8123/local/navmap.png'
+#   content_type: image/png
+#   framerate: 1
+- platform: local_file
+  name: Vacuum Map
+  file_path: '/config/www/navmap.png'
+- platform: ring

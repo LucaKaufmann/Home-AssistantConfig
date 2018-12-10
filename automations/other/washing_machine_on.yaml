@@ -1,0 +1,10 @@
+alias: Washing machine on
+id: washing_machine_on
+trigger:
+- platform: numeric_state
+  entity_id: sensor.switch_current_watts
+  above: 10
+action:
+- alias: Turn on guest mode
+  service: input_boolean.turn_on
+  entity_id: input_boolean.washing_machine

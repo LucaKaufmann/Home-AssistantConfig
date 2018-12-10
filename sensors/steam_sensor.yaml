@@ -1,0 +1,5 @@
+platform: steam_online
+api_key: !secret steam_api_key
+accounts:
+  - 76561197994627749
+  - 76561198189917609

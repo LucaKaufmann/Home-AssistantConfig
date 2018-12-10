@@ -1,0 +1,8 @@
+filter:
+  include_entities:
+    - camera.dafang_mobile
+    - media_player.lg_webos_smart_tv
+    - script.zootopia
+    - sensor.temperature_kids_room
+    - sensor.temperature_office
+    - switch.start_vacuum

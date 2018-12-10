@@ -1,0 +1,41 @@
+ShowCamera:
+  action:
+    service: media_player.play_media
+    data_template:
+      entity_id: >
+        {% if playerName is defined %}
+         {{ playerName }}
+        {% else %}
+          {% if is_state("media_player.sonas_hot_chromecast", "playing") or is_state("media_player.sonas_hot_chromecast", "paused") or is_state("input_boolean.someone_downstairs", "off")  %}
+            media_player.sonas_hot_chromecast
+          {% else %}
+            media_player.living_room_tv
+          {% endif %}
+        {% endif %}
+      media_content_id: >
+        {% if cameraName == "" %}
+         http://192.168.92.20:8779
+        {% else %}
+         {{ cameraName }}
+        {% endif %}
+      media_content_type: "image/jpeg"
+  speech:
+      type: plain
+      text: >
+        {% if playerName == "media_player.living_room_tv" %}
+          {% set chromecast = "Living Room TV" %}
+        {% elif playerName == "media_player.sonas_hot_chromecast" %}
+          {% set chromecast = "Bedroom TV" %}
+        {% else %}
+          {% set chromecast = "TV" %}
+        {% endif %}
+        {% if cameraName == "http://192.168.92.20:8777" %}
+          {% set camera = "TV" %}
+        {% elif cameraName == "http://192.168.92.20:8779" %}
+          {% set camera = "Living Room" %}
+        {% elif cameraName == "http://192.168.92.20:8780" %}
+          {% set camera = "Kitchen" %}
+        {% else %}
+          {% set camera = "" %}
+        {% endif %}
+        Showing the {{ camera }} camera on the {{ chromecast }}

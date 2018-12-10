@@ -1,0 +1,28 @@
+
+- cal_id: 0in5l5834kpkfu7k1bl1t3hq7o@group.calendar.google.com
+  entities:
+  - device_id: personal
+    ignore_availability: true
+    name: Personal
+    track: true
+
+- cal_id: 254kmq9n57luf1ku5egq3i6i38@group.calendar.google.com
+  entities:
+  - device_id: gdq
+    ignore_availability: true
+    name: GDQ
+    track: true
+
+- cal_id: 18n2a19824mlbhcm26calkls2g@group.calendar.google.com
+  entities:
+  - device_id: jere_school
+    ignore_availability: true
+    name: Jere School
+    track: true
+
+- cal_id: tigr0chf30qaufsu8bhrea10jo@group.calendar.google.com
+  entities:
+  - device_id: tiia_schedule
+    ignore_availability: true
+    name: Tiia Schedule
+    track: true

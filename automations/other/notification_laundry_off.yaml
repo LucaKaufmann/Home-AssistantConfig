@@ -1,0 +1,10 @@
+alias: Turn off washing machine
+id: turn_off_washing_machine
+trigger:
+  platform: event
+  event_type: ios.notification_action_fired
+  event_data:
+    actionName: STOP_WASHING_MACHINE
+action:
+  service: homeassistant.turn_off
+  entity_id: switch.air_conditioner

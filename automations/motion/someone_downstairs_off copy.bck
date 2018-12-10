@@ -1,0 +1,53 @@
+alias: No one downstairs
+id: downstairs_off
+trigger:
+- platform: state
+  entity_id: sensor.downstairs_motion_sensors
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 15
+- platform: state
+  entity_id: sensor.downstairs_media_players
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 5
+- platform: state
+  entity_id: group.anyone_home
+  to: 'off'
+- platform: state
+  entity_id: sensor.steam_76561198189917609
+  to: 'offline'
+- platform: state
+  entity_id: binary_sensor.people_detected_downstairs
+  to: 'off'
+- platform: state
+  entity_id: group.anyone_downstairs
+  to: 'off'
+  for:
+    minutes: 10
+condition:
+  - condition: state
+    entity_id: sensor.downstairs_motion_sensors
+    state: 'off'
+    for:
+      minutes: 15
+  - condition: state
+    entity_id: sensor.downstairs_media_players
+    state: 'off'
+    for:
+      minutes: 5
+  - condition: state
+    entity_id:  sensor.steam_76561198189917609
+    state: 'offline'
+  - condition: state
+    entity_id: group.anyone_downstairs
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.playing_games
+    state: 'off'
+action:
+- alias: Turn off
+  service: input_boolean.turn_off
+  entity_id: input_boolean.someone_downstairs

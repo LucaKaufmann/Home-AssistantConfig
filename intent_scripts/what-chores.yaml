@@ -1,0 +1,23 @@
+WhatChores:
+  speech:
+      type: plain
+      text: >
+        {% set count = 0 %}
+        {% if is_state('input_boolean.clean_litterbox', 'off') and is_state('input_boolean.do_laundry', 'off') and is_state('input_boolean.empty_dishwasher', 'off') %}
+          There's nothing on your to-do list today!
+        {% else %}
+          The things on your to-do list are:
+          {% if is_state('input_boolean.clean_litterbox', 'on') %}
+            Cleaning the litterbox.
+            {% set count = count + 1 %}
+          {% endif %}
+          {% if is_state('input_boolean.do_laundry', 'on') %}
+            Doing the laundry.
+            {% set count = count + 1 %}
+          {% endif %}
+          {% if is_state('input_boolean.empty_dishwasher', 'on') %}
+            Emptying the dishwasher.
+            {% set count = count + 1 %}
+          {% endif %}
+        {% endif %}
+

@@ -1,0 +1,15 @@
+alias: Guest mode on
+id: guest_on
+trigger:
+- platform: state
+  entity_id: binary_sensor.main_door
+  from: 'off'
+  to: 'on'
+condition:
+- condition: state
+  entity_id: input_boolean.vacation_mode
+  state: 'on'
+action:
+- alias: Turn on guest mode
+  service: input_boolean.turn_on
+  entity_id: input_boolean.guest_mode

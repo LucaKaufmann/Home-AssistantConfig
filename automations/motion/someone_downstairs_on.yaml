@@ -1,12 +1,14 @@
-alias: Somoene downstairs
+alias: Someone downstairs
 id: downstairs_on
 trigger:
 - platform: state
-  entity_id: sensor.downstairs_motion_sensors
-  to: 'on'
-- platform: state
   entity_id: sensor.downstairs_media_players
   to: 'on'
+- platform: state
+  entity_id: group.anyone_downstairs
+  to: 'on'
+  for:
+    minutes: 1
 condition:
 - condition: state
   entity_id: group.anyone_home

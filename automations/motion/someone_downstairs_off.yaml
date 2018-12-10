@@ -12,27 +12,56 @@ trigger:
   from: 'on'
   to: 'off'
   for:
-    minutes: 15
-- platform: numeric_state
-  entity_id: image_processing.sighthound_local_file
-  below: '1'
+    minutes: 5
+- platform: state
+  entity_id: group.anyone_home
+  to: 'off'
+- platform: state
+  entity_id: sensor.steam_76561198189917609
+  to: 'offline'
+- platform: state
+  entity_id: binary_sensor.people_detected_downstairs
+  to: 'off'
+- platform: state
+  entity_id: group.anyone_downstairs
+  to: 'off'
+  for:
+    minutes: 2
 condition:
-  - condition: state
-    entity_id: sensor.downstairs_motion_sensors
-    state: 'off'
-    for:
-      minutes: 15
-  - condition: state
-    entity_id: sensor.downstairs_media_players
-    state: 'off'
-    for:
-      minutes: 15
-  - condition: numeric_state
-    entity_id: image_processing.sighthound_local_file
-    below: '1'
-  - condition: state
-    entity_id: group.anyone_home
-    state: 'on'
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: group.anyone_downstairs
+      state: 'off'
+      for:
+        minutes: 2
+    - condition: state
+      entity_id: sensor.downstairs_media_players
+      state: 'off'
+    - condition: or
+      conditions:
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: sensor.downstairs_motion_sensors
+              state: 'off'
+              for:
+                minutes: 5
+            - condition: state
+              entity_id: binary_sensor.people_detected_downstairs
+              state: 'off'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: sensor.downstairs_motion_sensors
+              state: 'off'
+              for:
+                minutes: 20
+            - condition: state
+              entity_id: binary_sensor.people_detected_downstairs
+              state: 'on'
+              
+        
 action:
 - alias: Turn off
   service: input_boolean.turn_off
