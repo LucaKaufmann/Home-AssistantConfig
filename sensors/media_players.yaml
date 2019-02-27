@@ -1,5 +1,4 @@
 platform: template
-name: 'All media players'
 sensors:
     all_media_players:
         value_template: >

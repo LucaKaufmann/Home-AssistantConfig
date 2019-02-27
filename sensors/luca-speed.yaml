@@ -1,5 +1,4 @@
 platform: template
-name: Speed
 sensors:
   luca_speed:
     value_template: "{{ states.device_tracker.sevenplusha.attributes.speed }}"

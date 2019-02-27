@@ -69,6 +69,13 @@
       turn_off:
         service: media_player.turn_off
         entity_id: media_player.speaker
+    playstation:
+      friendly_name: 'Playstation'
+      value_template: "{{ is_state('media_player.playstation_4', 'playing') }}"
+      turn_on:
+        service: script.turn_on_ps4
+      turn_off:
+        service: script.turn_off_ps4
 
 - platform: tplink
   host: 192.168.92.31
@@ -82,3 +89,16 @@
   mac: !secret kitchen_switch_mac
   type: sp3
   friendly_name: 'Kitchen Switch'
+- platform: circadian_lighting
+  disable_brightness_adjust: true
+  sleep_entity: input_boolean.sleeping
+  sleep_state: 'on'
+#   disable_entity: input_boolean.anyone_downstairs
+#   disable_state: 'off'
+  lights_ct:
+    - light.paperlight
+  lights_rgb:
+    - light.big_light
+    - light.desk
+    - light.yellow_light
+    - light.ball

@@ -1,0 +1,28 @@
+last_time_litterbox:
+  name: Last time litterbox
+  has_date: true
+  has_time: true
+last_time_laundry:
+  name: Last time laundry
+  has_date: true
+  has_time: true
+last_time_vacuumed:
+  name: Last time vacuumed
+  has_date: true
+  has_time: true
+last_time_hallway_vacuumed:
+  name: Last time hallway vacuumed
+  has_date: true
+  has_time: true
+last_time_dining_area_vacuumed:
+  name: Last time dining area vacuumed
+  has_date: true
+  has_time: true
+last_time_living_room_vacuumed:
+  name: Last time living room vacuumed
+  has_date: true
+  has_time: true
+last_time_kitchen_vacuumed:
+  name: Last time kitchen vacuumed
+  has_date: true
+  has_time: true

@@ -77,6 +77,10 @@ arrival_notifications:
   initial: off
   icon: mdi:map
 
+announce_streams:
+  name: Announce streams
+  icon: mdi:twitch
+
 guest_mode:
   name: Guest mode
   initial: off
@@ -110,6 +114,10 @@ empty_dishwasher:
   name: Should empty dishwasher
   icon: mdi:dishwasher
 
+take_medicine:
+  name: Should take medicine
+  icon: mdi:pill
+
 do_laundry:
   name: Should do laundry
   icon: mdi:washing-machine
@@ -125,6 +133,10 @@ camera_cycling_livingroom:
 training_mode:
   name: Training Mode
   icon: mdi:library-books
+  
+privacy_mode:
+  name: Privacy mode
+  icon: mdi:shield-account
   
 luca_downstairs:
   name: Luca Downstairs

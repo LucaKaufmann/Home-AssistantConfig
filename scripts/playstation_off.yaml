@@ -1,0 +1,8 @@
+turn_off_ps4:
+  sequence:
+    - service: media_player.turn_off
+      data:
+        entity_id: media_player.playstation_4
+    - service: media_player.turn_off
+      data:
+        entity_id: media_player.lg_webos_smart_tv

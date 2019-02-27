@@ -5,3 +5,9 @@ kitchen_true_light_level:
   max: 100000
   step: 1
   mode: box
+vacuum_cleaning_time:
+  name: Vacuum total cleaning time
+  min: 0
+  max: 100000
+  step: 1
+  mode: box

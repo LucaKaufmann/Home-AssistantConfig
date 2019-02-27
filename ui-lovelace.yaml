@@ -5,6 +5,16 @@ resources:
     type: js
   - url: /local/mini-graph-card/mini-graph-card.js?v=0.1
     type: module
+  - url: https://unpkg.com/moment@2.23.0/moment.js
+    type: js
+  - url: /local/calendar-card/calendar-card.js?v=1.2.1
+    type: module
+  - url: /local/kiosk.js
+    type: js
+  - url: /local/mini-media-player-bundle.js?v=0.9.8
+    type: module
+  - url: /local/tracker-card.js?v=0
+    type: js
 
 title: Home
 views:
@@ -32,27 +42,32 @@ views:
             type: sensor
             entity: sensor.livingroom_temperature
             line_color: '#FFFC19'
+            graph: line
           - id: b18fd9586dbb407e8eab582b4f99afca  # Automatically created id
             type: sensor
             entity: sensor.kitchen_temperature
             colline_coloror: '#3498db'
+            graph: line
           - id: 77012bb5f95947088ca693c694effa60  # Automatically created id
             type: sensor
             entity: sensor.air_purifier_temperature
             line_color: '#FF0000'
+            graph: line
           - id: c62f174e89d74431948aa508b4b1ca4d  # Automatically created id
             type: sensor
             entity: sensor.temperature_office
             line_color: '#1485CC'
+            graph: line
           - id: d17fc5cd765444a4b037aa6bbc49530b  # Automatically created id
             type: sensor
             entity: sensor.temperature_kids_room
             line_color: '#0971B2'
+            graph: line
       - id: 15c1f886b91a4c43bcc3f0dcc3a3950b  # Automatically created id
         type: vertical-stack
         cards:
           - type: map
-            aspect_ratio: 100%
+            aspect_ratio: 16x9
             entities:
               - entity: device_tracker.sevenplusha
               - entity: device_tracker.tiias_iphone
@@ -90,6 +105,8 @@ views:
             name: Kitchen
           - entity: light.hallway_upstairs
             name: Hallway upstairs
+          - entity: light.hallway_downstairs
+            name: Hallway downstairs
           - entity: light.hallway_color
             name: Hallway color
           - entity: light.office
@@ -110,17 +127,33 @@ views:
           border-radius: 25px
         cards:
           - type: picture-entity
-            entity: camera.dafang
-            camera_image: camera.dafang_latest
-          - type: picture-entity
             entity: camera.xiaofang1
-            camera_image: camera.dafang_snapshot_2
+            name: Kitchen
+            show_state: false
+            # camera_image: camera.xiaofang1_latest
           - type: picture-entity
             entity: camera.xiaofang2
-            camera_image: camera.xiaofang2_latest
+            name: Living Room
+            show_state: false
+            # camera_image: camera.xiaofang2_latest
+          - type: picture-entity
+            name: Backyard
+            show_state: false
+            entity: camera.living_room
+            # camera_image: camera.living_room
           - type: picture-entity
             entity: camera.front_door
-            camera_image: camera.front_door
+            show_state: false
+            # camera_image: camera.front_door          
+          - type: picture-entity
+            entity: camera.dafang
+            name: Cats
+            show_state: false
+            # camera_image: camera.dafang_latest
+          - type: picture-entity
+            entity: camera.raspberry
+            name: Front
+            show_state: false
 
       - id: 2902aafc2967441f98d034cf5de05cbb  # Automatically created id
         type: entities
@@ -131,6 +164,8 @@ views:
           - input_boolean.color_mode
           - input_boolean.arrival_notifications
           - input_boolean.vacation_mode
+          - input_boolean.guest_mode
+          - input_boolean.privacy_mode
           - input_boolean.someone_downstairs
       - id: status  # Automatically created id
         type: glance
@@ -174,6 +209,7 @@ views:
           - entity: input_number.kitchen_true_light_level
           - entity: input_boolean.camera_cycling_bedroom
           - entity: input_boolean.camera_cycling_livingroom
+          - entity: input_boolean.announce_streams
       - id: f633f7ffa16a42c7a5154956bd9ef06e  # Automatically created id
         type: entities
         title: Living Room
@@ -183,11 +219,14 @@ views:
           - light.big_light
           - light.living_room
           - light.desk
+          - light.ball
+          - climate.living_room
       - id: 38c014f50e6d4707b40e27b38b7c3756  # Automatically created id
         type: entities
         title: Bed Room
         show_header_toggle: true
         entities:
+          - climate.bedroom
           - fan.xiaomi_miio_device
           - light.yellow_light
       - id: 8940042baf6845399e7f42d1cc0ef8e7  # Automatically created id
@@ -217,7 +256,6 @@ views:
         show_header_toggle: true
         entities:
           - light.hallway_upstairs
-          - light.hallway_color
           - light.gateway
       - id: 99f3767ae8f642b89ae8b18a46378ec6  # Automatically created id
         type: entities
@@ -262,53 +300,111 @@ views:
     title: Media Players
     icon: mdi:play-circle
     cards:
-      - id: 108bc3deb74e488aab05213663c10c34  # Automatically created id
-        type: entities
-        entities:
-          - input_select.audiobook
-          - input_select.music_controller
-          - input_boolean.follow_music
-      - id: ef7a31f64daf4371bb7242c438a3c024  # Automatically created id
-        type: media-control
-        entity: media_player.living_room
-      - id: a488cbc3e8a345a68b10a0dac73a13f0  # Automatically created id
-        type: media-control
-        entity: media_player.kitchen
-      - id: 9f9f26f65356472aa7383d8141dde6cf  # Automatically created id
-        type: media-control
-        entity: media_player.bedroom
-      - id: e6d9b463aaf047a6b04966a7f7443c14  # Automatically created id
-        type: media-control
-        entity: media_player.lg_webos_smart_tv
-      - id: b645146d55e14c90bbf98acc047e92b2  # Automatically created id
-        type: media-control
-        entity: media_player.playstation_4
-      - id: 4bb961dc611949358af999dcd0a86671  # Automatically created id
-        type: media-control
-        entity: media_player.living_room_tv
-      - id: 010bc7c600384457a90c118364c29f24  # Automatically created id
-        type: media-control
-        entity: media_player.speaker
-      - id: 2b7a949eb0074958a20deb5295464c4f  # Automatically created id
-        type: entities
-        entities:
-          - sensor.tv_source
-          - sensor.tv_on_today
-          - sensor.tv_on_past_hour
-          - sensor.netflix_time
-          - sensor.plex_time
-          - sensor.playstation_time
-          - sensor.switch_time
-          - sensor.chromecast_time
-      - id: 0c1ee0fcc328458aa5623afbc3a3df88  # Automatically created id
-        type: history-graph
-        title: TV Time
-        entities:
-          - sensor.tv_on_today
-          - sensor.netflix_time
-          - sensor.plex_time
-          - sensor.playstation_time
-          - sensor.switch_time
+      - type: vertical-stack
+        cards:
+          - id: 108bc3deb74e488aab05213663c10c34  # Automatically created id
+            type: entities
+            entities:
+              - input_select.audiobook
+              - input_select.music_controller
+              - input_boolean.follow_music
+          - type: custom:mini-media-player
+            entity: media_player.living_room
+            icon: mdi:speaker
+            artwork_border: true
+            artwork: cover
+            show_source: true
+            show_progress: true
+            sonos_grouping:
+              - entity_id: media_player.kitchen
+                name: Kitchen
+              - entity_id: media_player.bedroom
+          - type: custom:mini-media-player
+            entity: media_player.kitchen
+            icon: mdi:speaker
+            artwork: cover
+            artwork_border: true
+            show_progress: true
+            sonos_grouping:
+              - entity_id: media_player.living_room
+                name: Kitchen
+              - entity_id: media_player.bedroom
+                name: Office
+          - type: custom:mini-media-player
+            entity: media_player.bedroom
+            icon: mdi:speaker
+            artwork_border: true
+            artwork: cover
+            show_progress: true
+            sonos_grouping:
+              - entity_id: media_player.living_room
+                name: Kitchen
+              - entity_id: media_player.kitchen
+                name: Office
+          - type: custom:mini-media-player
+            entity: media_player.speaker
+            icon: mdi:speaker
+            artwork_border: true
+            artwork: cover
+            show_progress: true
+          - type: custom:mini-media-player
+            entity: media_player.spotify
+            icon: mdi:spotify
+            artwork_border: true
+            artwork: cover
+            show_progress: true
+      - type: vertical-stack
+        cards:
+          - type: custom:mini-media-player
+            entity: media_player.lg_webos_smart_tv
+            icon: mdi:television
+            artwork_border: true
+            artwork: full-cover
+            show_source: true
+            show_progress: true
+          - type: custom:mini-media-player
+            entity: media_player.living_room_tv
+            icon: mdi:cast
+            artwork_border: true
+            artwork: full-cover
+            show_source: true
+            show_progress: true
+          - type: custom:mini-media-player
+            entity: media_player.sonas_hot_chromecast
+            icon: mdi:cast
+            artwork_border: true
+            artwork: full-cover
+            show_source: true
+            show_progress: true
+          - type: custom:mini-media-player
+            entity: media_player.playstation_4
+            icon: mdi:playstation
+            artwork_border: true
+            artwork: full-cover
+            show_source: true
+            show_progress: true
+      - type: vertical-stack
+        cards:
+          - id: 2b7a949eb0074958a20deb5295464c4f  # Automatically created id
+            type: entities
+            entities:
+              - sensor.tv_source
+              - sensor.tv_on_today
+              - sensor.tv_on_past_hour
+              - sensor.netflix_time
+              - sensor.plex_time
+              - sensor.playstation_time
+              - sensor.switch_time
+              - sensor.chromecast_time
+          - id: 0c1ee0fcc328458aa5623afbc3a3df88  # Automatically created id
+            type: history-graph
+            title: TV Time
+            entities:
+              - sensor.tv_on_today
+              - sensor.netflix_time
+              - sensor.plex_time
+              - sensor.playstation_time
+              - sensor.switch_time
   - id: 3  # Automatically created id
     title: Sensors
     icon: mdi:gauge
@@ -317,14 +413,20 @@ views:
         type: entities
         entities:
           - sun.sun
+          - sensor.sun_elevation
+          - sensor.next_launch
       - id: 991994685c7c4a84a938d62fe9d0045e  # Automatically created id
         type: entities
         title: Raspberry Pi
         show_header_toggle: true
         entities:
           - sensor.cpu_temperature
+          - sensor.processor_use
           - sensor.swap_use
           - sensor.swap_free
+          - sensor.memory_use
+          - sensor.memory_free
+          - sensor.disk_use_percent
           - sensor.last_boot
       - id: 54d0f62bff6f4c5c87c35ae068a2990d  # Automatically created id
         type: entities
@@ -341,24 +443,18 @@ views:
         entities:
           - binary_sensor.ring_front_door_ding
           - binary_sensor.ring_front_door_motion
-          - sensor.ring_downstairs_volume
-          - sensor.ring_downstairs_wifi_signal_category
-          - sensor.ring_downstairs_wifi_signal_strength
           - sensor.ring_front_door_battery
           - sensor.ring_front_door_last_activity
           - sensor.ring_front_door_last_ding
           - sensor.ring_front_door_last_motion
-          - sensor.ring_front_door_volume
-          - sensor.ring_front_door_wifi_signal_category
-          - sensor.ring_front_door_wifi_signal_strength
           - sensor.darksky_temperature
       - id: 87944f4d5e4b474e92e495cc7d758264  # Automatically created id
         type: entities
         title: Kitchen
         show_header_toggle: true
         entities:
-          - sensor.motion_kitchen
           - binary_sensor.motion_kitchen
+          - binary_sensor.motion_kitchen_xiaomi
           - sensor.kitchen_light_level
           - sensor.kitchen_lux
           - sensor.kitchen_true_light_level
@@ -369,23 +465,27 @@ views:
         title: Living room
         show_header_toggle: true
         entities:
-          - sensor.living_motion_room
+          - binary_sensor.living_motion_room
           - sensor.big_light_brightness
           - sensor.paperlight_brightness
+          - switch.circadian_lighting_circadian_lighting
           - sensor.livingroom_light_level
           - sensor.livingroom_lux
           - sensor.livingroom_light_level_avg
+          - sensor.target_brightness
+          - sensor.target_brightness_inside
+          - sensor.target_brightness_livingroom
           - sensor.livingroom_temperature
+          - sensor.netatmo_living_room_temperature
           - sensor.downstairs_media_players
           - sensor.downstairs_motion_sensors
-          - binary_sensor.wallpanel_motion
-          - binary_sensor.wallpanel_face_detected
           - binary_sensor.living_room_door
       - id: 55c22db88c9642d69fb29f3049fc966c  # Automatically created id
         type: entities
         title: Bedroom
         show_header_toggle: true
         entities:
+          - sensor.netatmo_bedroom_temperature
           - sensor.air_purifier_temperature
           - sensor.air_purifier_humidity
       - id: 276cf315ed56446893e064b29074c839  # Automatically created id
@@ -471,22 +571,13 @@ views:
     icon: mdi:home-automation
     theme: midnight-remake
     cards:
-      - id: 398d4b2bfbb64a5f880baa067991244a  # Automatically created id
-        type: entities
-        title: Vacuum automations
-        show_header_toggle: true
-        entities:
-          - automation.schedule_vacuum_cleaning
-      - id: a0d8b8a0b466437f96b8b585b2afe9e9  # Automatically created id
-        type: entities
-        title: Audiobook automations
-        show_header_toggle: true
-        entities:
-          - automation.play_curious_george_books
-          - automation.play_curious_george_christmas
-          - automation.play_curious_george_halloween
-          - automation.play_curious_george_space
-          - automation.stop_the_audiobook
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Monster
+        filter:
+          include:
+            - domain: automation
   - id: 5  # Automatically created id
     title: Devices
     icon: mdi:cellphone-iphone
@@ -510,6 +601,7 @@ views:
           - entity: sensor.luca_signal
           - entity: sensor.luca_rssi
           - entity: binary_sensor.luca_downstairs_wifi
+          - entity: binary_sensor.luca_upstairs_wifi
       - type: entities
         id: 5f91aeae09314b78b3f85dd974073074  # Automatically created id
         title: Tiia
@@ -527,6 +619,7 @@ views:
           - entity: sensor.tiia_signal
           - entity: sensor.tiia_rssi
           - entity: binary_sensor.tiia_downstairs_wifi
+          - entity: binary_sensor.tiia_upstairs_wifi
       - id: e9a9b73489c3480bbc233cb9684f8b79  # Automatically created id
         type: entities
         title: Jere
@@ -546,6 +639,8 @@ views:
           - binary_sensor.jere_home
           - input_boolean.guest_mode
           - group.anyone_home
+          - group.anyone_downstairs
+          - group.anyone_upstairs
       - type: entities
         id: 1a7b2ed6d03446ebacd6ca71cf9e1961  # Automatically created id
         title: Sensors
@@ -557,7 +652,7 @@ views:
     cards:
       - id: 254ed1ad86ef4854b6a9eeeaf7e06707  # Automatically created id
         type: map
-        aspect_ratio: 100%
+        aspect_ratio: 1
         entities:
           - entity: device_tracker.sevenplusha
           - entity: device_tracker.tiias_iphone
@@ -578,7 +673,7 @@ views:
     title: Camera
     icon: mdi:camera
     cards:
-      - id: 784cdb355fa14281b3ac13dae5a65761  # Automatically created id
+      - id: 637fa6e4f2424d868c2f6131fb8b5e85  # Automatically created id
         type: vertical-stack
         cards:
           - type: custom:slideshow-card
@@ -593,73 +688,142 @@ views:
               - type: picture-entity
                 name: Living Room
                 show_state: false
-                entity: camera.tensorflow_dafang
-                camera_image: camera.tensorflow_dafang
+                entity: camera.xiaofang2
+                camera_image: camera.xiaofang2
               - type: picture-entity
-                name: People
                 show_state: false
-                entity: camera.dafang_sighthound
-                camera_image: camera.dafang_sighthound
+                show_name: false
+                entity: camera.tensorflow_xiaofang2
+                camera_image: camera.tensorflow_xiaofang2
+              # - type: picture-entity
+              #   name: People
+              #   show_state: false
+              #   entity: camera.sighthound_xiaofang2
+              #   camera_image: camera.sighthound_xiaofang2
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.dafang_snapshot_2
-                camera_image: camera.dafang_snapshot_2
+                entity: camera.xiaofang2_snapshot_2
+                camera_image: camera.xiaofang2_snapshot_2
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.dafang_snapshot_3
-                camera_image: camera.dafang_snapshot_3
+                entity: camera.xiaofang2_snapshot_3
+                camera_image: camera.xiaofang2_snapshot_3
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.dafang_snapshot_4
-                camera_image: camera.dafang_snapshot_4
+                entity: camera.xiaofang2_snapshot_4
+                camera_image: camera.xiaofang2_snapshot_4
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.dafang_snapshot_5
-                camera_image: camera.dafang_snapshot_5
+                entity: camera.xiaofang2_snapshot_5
+                camera_image: camera.xiaofang2_snapshot_5
           - type: entities
             entities:
-              - camera.dafang
-          #     - switch.dafang_h264_rtsp_server
-          #     - switch.dafang_mjpeg_rtsp_server
-          #     - sensor.dafang_light_sensor
-          #     - switch.dafang_ir_filter
-          #     - switch.dafang_ir_led
-          #     - switch.dafang_night_mode
-          #     - switch.dafang_night_mode_auto
-          #     - switch.dafang_blue_led
-          #     - switch.dafang_yellow_led
-          #     - switch.dafang_motion_detection
-          #     - switch.dafang_motion_tracking
-          #     - camera.dafang_motion_snapshot
-          #     - cover.dafang_move_leftright
-          #     - cover.dafang_move_updown
-          #     - binary_sensor.dafang_motion_sensor
-          # - type: custom:monster-card
-          #   card:
-          #     type: glance
-          #     title: Monster
-          #   filter:
-          #     include:
-          #       - domain: image_processing
+              - camera.xiaofang2
+          #     - switch.xiaofangx_h264_rtsp_server
+          #     - switch.xiaofangx_mjpeg_rtsp_server
+          #     - sensor.xiaofang2_light_sensor
+          #     - switch.xiaofangx_ir_filter
+          #     - switch.xiaofangx_ir_led
+              - switch.xiaofangx_night_mode
+              - switch.xiaofangx_night_mode_auto
+          #     - switch.xiaofangx_blue_led
+          #     - switch.xiaofangx_yellow_led
+          #     - switch.xiaofangx_motion_detection
+          #     - switch.xiaofangx_motion_tracking
+          #     - camera.xiaofang2_motion_snapshot
+          #     - binary_sensor.xiaofang2_motion_sensor
           - type: entities
             entities:
-              - binary_sensor.people_dafang
-              - sensor.dafang_faces
-              - sensor.dafang_people
-              - sensor.tensorflow_person_dafang
-              - sensor.tensorflow_cat_dafang
+              - binary_sensor.people_xiaofang2
+              - binary_sensor.people_xiaofang2_new
+              - binary_sensor.people_tf
+              - binary_sensor.eating
+              - binary_sensor.should_vacuum
+              - binary_sensor.xiaofang2_motion_sensor
+              - binary_sensor.people_rekognition_xiaofang2
+              - sensor.tensorflow_person_xiaofang2
+              - sensor.tensorflow_cat_xiaofang2
+          # - type: entities
+          #   entities:
+          #     # - image_processing.cb_xiaofang2_latest_eating_model
+          #     # - image_processing.tensorflow_xiaofang2_latest
+          #     # - image_processing.tensorflow_people
+          #     # - image_processing.cb_xiaofang2_dining_table_cleaning
+          #     - sensor.tensorflow_person_xiaofang2
+          #     - sensor.tensorflow_cat_xiaofang2
+      - id: living_room_camera_stack
+        type: vertical-stack
+        cards:
+          - type: custom:slideshow-card
+            flush: true
+            arrow_color: White
+            arrow_opacity: .5
+            auto_play: true
+            auto_delay: 4
+            style:
+              border-radius: 25px
+            cards:
+              - type: picture-entity
+                name: Living Room
+                show_state: false
+                entity: camera.living_room
+                camera_image: camera.living_room
+              - type: picture-entity
+                show_state: false
+                name: Tensorflow
+                # show_name: false
+                entity: camera.tensorflow_logi
+                camera_image: camera.tensorflow_logi
+              # - type: picture-entity
+              #   name: People
+              #   show_state: false
+              #   entity: camera.sighthound_xiaofang2
+              #   camera_image: camera.sighthound_xiaofang2
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.logi_snapshot_2
+                camera_image: camera.logi_snapshot_2
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.logi_snapshot_3
+                camera_image: camera.logi_snapshot_3
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.logi_snapshot_4
+                camera_image: camera.logi_snapshot_4
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.logi_snapshot_5
+                camera_image: camera.logi_snapshot_5
           - type: entities
             entities:
-              - image_processing.sighthound_dafang_latest
-              - image_processing.facebox_dafang_latest
-              - image_processing.tagbox_dafang_latest
-              - image_processing.tensorflow_dafang_latest
-
-
+              - camera.living_room
+              # - sensor.logi_circle_living_room_last_activity
+              # - sensor.logi_circle_living_room_privacy_mode
+              # - sensor.logi_circle_living_room_streaming_mode
+              # - sensor.logi_circle_living_room_volume
+              # - sensor.logi_circle_living_room_wifi_signal_category
+              # - sensor.logi_circle_living_room_wifi_signal_strength
+              - binary_sensor.people_logi
+              - binary_sensor.people_tf_logi
+              - binary_sensor.people_rekognition_logi
+              - sensor.livingroom_people
+              - sensor.tensorflow_person_logi
+          # - type: entities
+          #   entities:
+          #     # - image_processing.tensorflow_logi_latest
+          #     # - image_processing.sighthound_logi_latest
+          #     - sensor.livingroom_people
+          #     - sensor.tensorflow_person_logi
+          #     - sensor.tensorflow_cat_logi
       - id: 6ffb9058dc4f497ea774245b8ebbefc1  # Automatically created id
         type: vertical-stack
         cards:
@@ -675,6 +839,11 @@ views:
               - type: picture-entity
                 name: Kitchen
                 show_state: false
+                entity: camera.xiaofang1
+                camera_image: camera.xiaofang1
+              - type: picture-entity
+                show_state: false
+                show_name: false
                 entity: camera.tensorflow_xiaofang1
                 camera_image: camera.tensorflow_xiaofang1
               - type: picture-entity
@@ -715,14 +884,11 @@ views:
           - type: entities
             entities:
               - binary_sensor.kitchen_lights_on
-              - image_processing.tensorflow_xiaofang1_latest
+              - binary_sensor.xiaofang1_motion_sensor
+              # - image_processing.tensorflow_xiaofang1_latest
               - sensor.tensorflow_person_xiaofang1
               - sensor.tensorflow_cat_xiaofang1
-          - type: entities
-            entities:
-              - image_processing.tagbox_xiaofang1_latest
-              - binary_sensor.fridge_open
-      - id: 637fa6e4f2424d868c2f6131fb8b5e85  # Automatically created id
+      - id: 784cdb355fa14281b3ac13dae5a65761  # Automatically created id
         type: vertical-stack
         cards:
           - type: custom:slideshow-card
@@ -735,61 +901,137 @@ views:
               border-radius: 25px
             cards:
               - type: picture-entity
-                name: Living Room
+                name: Cats
                 show_state: false
-                entity: camera.tensorflow_xiaofang2
-                camera_image: camera.tensorflow_xiaofang2
+                entity: camera.dafang
+                camera_image: camera.dafang
+              - type: picture-entity
+                show_state: false
+                show_name: false
+                entity: camera.tensorflow_dafang
+                camera_image: camera.tensorflow_dafang
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.xiaofang2_snapshot_2
-                camera_image: camera.xiaofang2_snapshot_2
+                entity: camera.dafang_snapshot_2
+                camera_image: camera.dafang_snapshot_2
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.xiaofang2_snapshot_3
-                camera_image: camera.xiaofang2_snapshot_3
+                entity: camera.dafang_snapshot_3
+                camera_image: camera.dafang_snapshot_3
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.xiaofang2_snapshot_4
-                camera_image: camera.xiaofang2_snapshot_4
+                entity: camera.dafang_snapshot_4
+                camera_image: camera.dafang_snapshot_4
               - type: picture-entity
                 show_name: false
                 show_state: false
-                entity: camera.xiaofang2_snapshot_5
-                camera_image: camera.xiaofang2_snapshot_5
+                entity: camera.dafang_snapshot_5
+                camera_image: camera.dafang_snapshot_5
           - type: entities
             entities:
-              - camera.xiaofang2
-          #     - switch.xiaofangx_h264_rtsp_server
-          #     - switch.xiaofangx_mjpeg_rtsp_server
-          #     - sensor.xiaofang2_light_sensor
-          #     - switch.xiaofangx_ir_filter
-          #     - switch.xiaofangx_ir_led
-          #     - switch.xiaofangx_night_mode
-          #     - switch.xiaofangx_night_mode_auto
-          #     - switch.xiaofangx_blue_led
-          #     - switch.xiaofangx_yellow_led
-          #     - switch.xiaofangx_motion_detection
-          #     - switch.xiaofangx_motion_tracking
-          #     - camera.xiaofang2_motion_snapshot
-          #     - binary_sensor.xiaofang2_motion_sensor
+              - camera.dafang
+          #     - switch.dafang_h264_rtsp_server
+          #     - switch.dafang_mjpeg_rtsp_server
+          #     - sensor.dafang_light_sensor
+          #     - switch.dafang_ir_filter
+          #     - switch.dafang_ir_led
+              - switch.dafang_night_mode
+              - switch.dafang_night_mode_auto
+          #     - switch.dafang_blue_led
+          #     - switch.dafang_yellow_led
+          #     - switch.dafang_motion_detection
+          #     - switch.dafang_motion_tracking
+          #     - camera.dafang_motion_snapshot
+          #     - cover.dafang_move_leftright
+          #     - cover.dafang_move_updown
+              - binary_sensor.dafang_motion_sensor
+          # - type: custom:monster-card
+          #   card:
+          #     type: glance
+          #     title: Monster
+          #   filter:
+          #     include:
+          #       - domain: image_processing
           - type: entities
             entities:
-              - binary_sensor.people_xiaofang2
-              - binary_sensor.people_tf
-              - binary_sensor.eating
-              - binary_sensor.should_vacuum
+              - sensor.tensorflow_person_dafang
+              - sensor.tensorflow_cat_dafang
+              - binary_sensor.cats_detected_closet
+
+          # - type: entities
+          #   entities:
+          #     - image_processing.tensorflow_dafang_latest
+          #     - image_processing.cb_dafang_cat_model
+      - id: raspberry_camera_stack
+        type: vertical-stack
+        cards:
+          - type: custom:slideshow-card
+            flush: true
+            arrow_color: White
+            arrow_opacity: .5
+            auto_play: true
+            auto_delay: 4
+            style:
+              border-radius: 25px
+            cards:
+              - type: picture-entity
+                name: Outside
+                show_state: false
+                entity: camera.raspberry
+                camera_image: camera.raspberry
+              - type: picture-entity
+                name: Tensorflow
+                show_state: false
+                entity: camera.tensorflow_raspberry
+                camera_image: camera.tensorflow_raspberry
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.raspberry_snapshot_1
+                camera_image: camera.raspberry_snapshot_1
+              # - type: picture-entity
+              #   show_state: false
+              #   name: Tensorflow
+              #   # show_name: false
+              #   entity: camera.tensorflow_logi
+              #   camera_image: camera.tensorflow_logi
+              # - type: picture-entity
+              #   show_state: false
+              #   name: People
+              #   # show_name: false
+              #   entity: camera.logi_sighthound
+              #   camera_image: camera.logi_sighthound
+              # - type: picture-entity
+              #   name: People
+              #   show_state: false
+              #   entity: camera.sighthound_xiaofang2
+              #   camera_image: camera.sighthound_xiaofang2
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.raspberry_snapshot_2
+                camera_image: camera.raspberrysnapshot_2
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.raspberry_snapshot_3
+                camera_image: camera.raspberry_snapshot_3
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.raspberry_snapshot_4
+                camera_image: camera.raspberry_snapshot_4
+              - type: picture-entity
+                # show_name: false
+                show_state: false
+                entity: camera.raspberry_snapshot_5
+                camera_image: camera.raspberry_snapshot_5
           - type: entities
             entities:
-              - image_processing.cb_xiaofang2_latest_eatingmodel
-              - image_processing.tagbox_xiaofang2_latest
-              - image_processing.tensorflow_xiaofang2_latest
-              - image_processing.tensorflow_people
-              - image_processing.cb_xiaofang2_dining_table_cleaning
-              - sensor.tensorflow_person_xiaofang2
-              - sensor.tensorflow_cat_xiaofang2
+              - binary_sensor.outside_motion
   - id: 8
     title: Chores
     icon: mdi:format-list-bulleted
@@ -800,6 +1042,7 @@ views:
           - input_boolean.clean_litterbox
           - input_boolean.empty_dishwasher
           - input_boolean.do_laundry
+          - input_boolean.take_medicine
           - binary_sensor.dining_table_cleaning
   - id: 9
     title: Training
@@ -811,6 +1054,7 @@ views:
           - input_boolean.training_mode
           - input_boolean.luca_downstairs
           - input_boolean.tiia_downstairs
+          - input_select.cat
   - id: 10
     title: Vacuum
     icon: mdi:robot-vacuum
@@ -832,10 +1076,103 @@ views:
           - input_boolean.schedule_cleaning
           - input_boolean.cleaning_doublepass
           - input_boolean.notify_vacuum_emptying
+          - input_datetime.last_time_vacuumed
+          - input_datetime.last_time_kitchen_vacuumed
+          - input_datetime.last_time_hallway_vacuumed
+          - input_datetime.last_time_dining_area_vacuumed
+          - input_datetime.last_time_living_room_vacuumed
       - id: 29b04a11d8214ee980c46f5eca861ece  # Automatically created id
         type: picture-entity
         show_name: false
         show_state: false
         entity: camera.vacuum_map
         camera_image: camera.vacuum_map
-
+      - type: custom:slideshow-card
+        flush: true
+        arrow_color: White
+        arrow_opacity: .5
+        auto_play: true
+        auto_delay: 4
+        style:
+          border-radius: 25px
+        cards:
+          - type: picture-entity
+            name: Current Map
+            show_state: false
+            entity: camera.vacuum_map
+            camera_image: camera.vacuum_map
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_snapshot_1
+            camera_image: camera.vacuum_map_snapshot_1
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_snapshot_2
+            camera_image: camera.vacuum_map_snapshot_2
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_snapshot_3
+            camera_image: camera.vacuum_map_snapshot_3
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_snapshot_4
+            camera_image: camera.vacuum_map_snapshot_4
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_snapshot_5
+            camera_image: camera.vacuum_map_snapshot_5
+  - id: 11
+    title: Calendars
+    icon: mdi:calendar
+    cards:
+      - type: custom:calendar-card
+        title: "Jere School"
+        numberOfDays: 14
+        entities:
+          - calendar.jere_school
+      - type: custom:calendar-card
+        title: "Luca"
+        numberOfDays: 14
+        entities:
+          - calendar.personal
+      - type: custom:calendar-card
+        title: "Tiia Work"
+        numberOfDays: 14
+        entities:
+          - calendar.tiia_schedule
+      - type: custom:calendar-card
+        title: "GDQ"
+        numberOfDays: 14
+        entities:
+          - calendar.gdq
+  - id: 12
+    title: 3D Printer
+    icon: mdi:printer-3d
+    cards:
+      - type: entities
+        entities:
+          - binary_sensor.octoprint_printing
+          - binary_sensor.octoprint_printing_error
+      - type: entities
+        entities:
+          - sensor.octoprint_actual_bed_temp
+          - sensor.octoprint_target_bed_temp
+          - sensor.octoprint_actual_tool0_temp
+          - sensor.octoprint_target_tool0_temp
+          - sensor.octoprint_current_state
+          - sensor.octoprint_job_percentage
+          - sensor.octoprint_time_elapsed
+          - sensor.octoprint_time_remaining
+  - id: 13
+    title: Debug
+    cards:
+      - type: custom:tracker-card
+        title:
+        trackers:
+          - sensor.custom_card_tracker
+          - sensor.custom_component_tracker

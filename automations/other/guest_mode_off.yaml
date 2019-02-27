@@ -1,18 +1,19 @@
 alias: Guest mode off
+initial_state: 'on' 
 id: guest_off
 trigger:
 - platform: state
   entity_id: input_boolean.motion_last_10
   to: 'off'
 - platform: numeric_state
-  entity_id: image_processing.sighthound_local_file
+  entity_id: image_processing.sighthound_logi_latest
   below: 1
 condition:
 - condition: state
   entity_id: input_boolean.motion_last_10
   state: 'off'
 - condition: numeric_state
-  entity_id: image_processing.sighthound_local_file
+  entity_id: image_processing.sighthound_logi_latest
   below: 1
 action:
 - alias: Turn off guest mode

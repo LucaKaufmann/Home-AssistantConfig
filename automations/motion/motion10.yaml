@@ -1,4 +1,5 @@
 alias: Motion in the last 10 minutes
+initial_state: 'on' 
 id: motion_10
 trigger:
 - platform: state

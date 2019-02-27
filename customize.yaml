@@ -106,7 +106,12 @@ media_player.lg_webos_smart_tv:
 
 group.all_scenes:
   hidden: false
-
+  
+# input_boolean.privacy_mode:
+#   templates:
+#     icon: >
+#       if (state === 'on') return 'mdi:shield-account';
+#       return 'mdi:shield-account outline';
 # zone.home:
 #     track_ios: true
 #     beacon:

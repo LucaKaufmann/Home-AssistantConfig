@@ -1,5 +1,4 @@
 platform: template
-name: Xiaomi Air Purifier
 sensors:
   air_purifier_temperature:
     value_template: "{{ states.fan.xiaomi_miio_device.attributes['temperature'] }}"

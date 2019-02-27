@@ -1,4 +1,5 @@
 alias: No motion in the last 10 minutes
+initial_state: 'on' 
 id: motion_10_off
 trigger:
 - platform: state

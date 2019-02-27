@@ -1,5 +1,4 @@
 platform: template
-name: Xiaomi Vacuum
 sensors:
   vacuum_status:
     value_template: "{{ states.vacuum.eve.attributes['status'] }}"

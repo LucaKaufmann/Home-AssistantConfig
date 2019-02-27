@@ -1,5 +1,4 @@
 platform: template
-name: Switch Power Sensor
 sensors:
   switch_current_watts:
     value_template: "{{ states.switch.air_conditioner.attributes['current_power_w'] }}"

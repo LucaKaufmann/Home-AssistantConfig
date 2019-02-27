@@ -30,7 +30,7 @@
         prob_given_true: 0.9
         platform: 'state'
         to_state: 'off'
-      - entity_id: 'input_boolean.motion_last_10'
+      - entity_id: 'binary_sensor.motion_last_10'
         prob_given_true: 0.7
         platform: 'state'
         to_state: 'off'
@@ -56,7 +56,7 @@
         prob_given_true: 0.99
         prob_given_false: 0.3
         platform: 'numeric_state'
-        above: 24
+        above: 32
       - entity_id: 'device_tracker.tiiasiphone'
         prob_given_true: 0.6
         prob_given_false: 0.3
@@ -81,7 +81,7 @@
         prob_given_true: 0.99
         prob_given_false: 0.3
         platform: 'numeric_state'
-        above: 24
+        above: 32
       - entity_id: 'device_tracker.sevenplus_router'
         prob_given_true: 0.6
         prob_given_false: 0.3
@@ -115,40 +115,44 @@
 - platform: bayesian
   prior: 0.1
   name: 'People detected downstairs'
-  probability_threshold: 0.5
+  probability_threshold: 0.7
   observations:
-    - entity_id: 'binary_sensor.people_dafang'
+    - entity_id: 'binary_sensor.people_xiaofang2_new'
       prob_given_true: 0.8
       prob_given_false: 0.2
       platform: 'state'
       to_state: 'on'
-    - entity_id: 'binary_sensor.people_xiaofang2'
+    - entity_id: 'binary_sensor.people_logi'
       prob_given_true: 0.8
       prob_given_false: 0.2
       platform: 'state'
       to_state: 'on'
-    - entity_id: 'binary_sensor.people_tf'
-      prob_given_true: 0.8
-      prob_given_false: 0.1
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'sensor.tensorflow_person_dafang'
-      prob_given_true: 0.9
-      prob_given_false: 0.5
-      platform: 'numeric_state'
-      above: '0'
+#     - entity_id: 'binary_sensor.people_tf_logi'
+#       prob_given_true: 0.92
+#       platform: 'state'
+#       to_state: 'on'
+#     - entity_id: 'binary_sensor.people_tf'
+#       prob_given_true: 0.6
+#       prob_given_false: 0.1
+#       platform: 'state'
+#       to_state: 'on'
     - entity_id: 'sensor.tensorflow_person_xiaofang1'
-      prob_given_true: 0.9
+      prob_given_true: 0.95
       prob_given_false: 0.5
       platform: 'numeric_state'
       above: '0'
     - entity_id: 'sensor.tensorflow_person_xiaofang2'
-      prob_given_true: 0.9
-      prob_given_false: 0.5
+      prob_given_true: 0.95
+      prob_given_false: 0.3
       platform: 'numeric_state'
       above: '0'
-    - entity_id: 'sensor.dafang_people'
-      prob_given_true: 0.6
+    - entity_id: 'sensor.tensorflow_person_logi'
+      prob_given_true: 0.8
+      prob_given_false: 0.3
+      platform: 'numeric_state'
+      above: '0'
+    - entity_id: 'sensor.livingroom_people'
+      prob_given_true: 0.8
       prob_given_false: 0.3
       platform: 'numeric_state'
       above: '0'
@@ -157,7 +161,7 @@
     should_vacuum:
       friendly_name: "Should vacuum"
       value_template: >
-       {{ is_state('image_processing.cb_xiaofang2_latest_vacuummodel', 'should_vacuum') and state_attr('image_processing.cb_xiaofang2_latest_vacuummodel', 'should_vacuum') > 60 }}
+       {{ is_state('image_processing.cb_xiaofang2_vacuummodel', 'should_vacuum') and state_attr('image_processing.cb_xiaofang2_vacuummodel', 'should_vacuum') > 55 }}
       icon_template: mdi:robot-vacuum
     people_dafang:
       friendly_name: "People detected living room"
@@ -169,15 +173,38 @@
       value_template: >
        {{ is_state('image_processing.cb_xiaofang2_livingroom_presence', 'people') }}
       icon_template: mdi:account-multiple
+    people_xiaofang2_new:
+      friendly_name: "People detected New"
+      value_template: >
+       {{ is_state('image_processing.cb_xiaofang2_living_room_presence', 'people') }}
+      icon_template: mdi:account-multiple
+    people_logi:
+      friendly_name: "People detected Logi"
+      value_template: >
+       {{ is_state('image_processing.cb_living_room_presence_model', 'people') }}
+      icon_template: mdi:account-multiple
     people_tf:
-      friendly_name: "People Tensorflow"
+      friendly_name: "People detected"
       value_template: >
        {{ is_state('image_processing.tensorflow_people', 'people') }}
       icon_template: mdi:account-multiple
+    people_tf_logi:
+      friendly_name: "People detected"
+      value_template: >
+       {{ is_state('image_processing.tensorflow_people_logi', 'people') }}
+      icon_template: mdi:account-multiple
+    people_rekognition_xiaofang2:
+      friendly_name: "People Rekognition Xiaofang2"
+      value_template: >
+       {{ states('image_processing.rekognition_person_xiaofang2')|int > 0 }}
+    people_rekognition_logi:
+      friendly_name: "People Rekognition Logi"
+      value_template: >
+       {{ states('image_processing.rekognition_person_living_room')|int > 0 }}
     eating:
       friendly_name: "Anyone eating"
       value_template: >
-       {{ is_state('image_processing.cb_xiaofang2_latest_eatingmodel', 'eating') }}
+       {{ is_state('image_processing.cb_xiaofang2_latest_eating_model', 'eating') }}
       icon_template: mdi:silverware-fork-knife
     dining_table_cleaning:
       friendly_name: "Should clean dining table"
@@ -189,6 +216,11 @@
       value_template: >
        {{ is_state('image_processing.cb_xiaofang1_kitchen_lights_model', 'lights_on') }}
       icon_template: mdi:lightbulb-on-outline
+    cats_detected_closet:
+      friendly_name: "Cats detected"
+      value_template: >
+       {{ is_state('image_processing.cb_dafang_cat_model', 'cat') }}
+      icon_template: mdi:cat
     playing_games:
       friendly_name: "Playing games"
       value_template: >
@@ -204,4 +236,35 @@
       value_template: >
        {{ is_state('device_tracker.tiiasiphone', 'home') and state_attr('device_tracker.tiiasiphone', 'ap_mac') == '78:8a:20:80:45:b6' }}
       icon_template: mdi:wifi
+    luca_upstairs_wifi:
+      friendly_name: "Luca Upstairs Wifi"
+      value_template: >
+       {{ is_state('device_tracker.sevenplus_router', 'home') and state_attr('device_tracker.sevenplus_router', 'ap_mac') == 'fc:ec:da:37:79:6a' }}
+      icon_template: mdi:wifi
+    tiia_upstairs_wifi:
+      friendly_name: "Tiia Upstairs Wifi"
+      value_template: >
+       {{ is_state('device_tracker.tiiasiphone', 'home') and state_attr('device_tracker.tiiasiphone', 'ap_mac') == 'fc:ec:da:37:79:6a' }}
+      icon_template: mdi:wifi
+    sonos_speakers:
+      friendly_name: "Sonos speakers"
+      value_template: >
+       {{ is_state('media_player.living_room', 'playing') or is_state('media_player.kitchen', 'playing') or is_state('media_player.bedroom', 'playing') }}
+      icon_template: mdi:speaker
+    motion_last_10:
+      friendly_name: "Motion in the last 10 minutes"
+      value_template: >
+        { ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_motion_room.last_updated) > 600) and is_state('binary_sensor.living_motion_room','off')) and ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) and ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen.last_updated) > 600) and is_state('binary_sensor.motion_kitchen','off')) }}
+    # sonos_speakers:
+    #   friendly_name: Sonos speakers
+    #   value_template: >
+    #     {{ is_state('media_player.living_room', 'playing')
+    #     or is_state('media_player.kitchen', 'playing')
+    #     or is_state('media_player.bedroom', 'playing') }}
+    #   icon_template: mdi:speaker
 - platform: ring
+- platform: hue
+- platform: octoprint
+  monitored_conditions:
+    - Printing
+    - Printing Error

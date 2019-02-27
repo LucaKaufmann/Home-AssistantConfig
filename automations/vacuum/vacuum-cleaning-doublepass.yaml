@@ -1,4 +1,5 @@
 alias: Vacuum double pass
+initial_state: 'on'
 id: vacuum_double_pass
 trigger:
   platform: state

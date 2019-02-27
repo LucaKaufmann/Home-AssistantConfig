@@ -1,8 +1,9 @@
 alias: Xiaomi button double
+initial_state: 'on' 
 id: xiaomi_button_double
 trigger:
 - platform: event
-  event_type: click
+  event_type: xiaomi_aqara.click
   event_data:
     entity_id: binary_sensor.switch_158d0001ae6f8c
     click_type: double

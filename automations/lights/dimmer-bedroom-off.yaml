@@ -1,4 +1,5 @@
 alias: Dimmer bedroom
+initial_state: 'on' 
 id: dimmer_bedroom
 trigger:
 - platform: state

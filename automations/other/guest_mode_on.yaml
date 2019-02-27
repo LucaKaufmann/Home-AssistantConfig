@@ -1,4 +1,5 @@
 alias: Guest mode on
+initial_state: 'on'
 id: guest_on
 trigger:
 - platform: state

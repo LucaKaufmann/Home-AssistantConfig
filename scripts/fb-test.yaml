@@ -1,0 +1,11 @@
+test_fb_notification:
+    sequence:
+      - service: notify.facebook
+        data:
+          message: Some text before the quick replies
+          target: BROADCAST
+          data:
+            attachment:
+              type: image
+              payload: 
+                url: "https://www.w3schools.com/w3css/img_lights.jpg"

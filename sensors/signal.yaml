@@ -1,5 +1,4 @@
 platform: template
-name: Signal
 sensors:
   luca_signal:
     value_template: "{{ states.device_tracker.sevenplus_router.attributes.signal }}"

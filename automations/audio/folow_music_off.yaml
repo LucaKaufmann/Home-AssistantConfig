@@ -1,7 +1,7 @@
 alias: Disable follow music if controller has been paused
 trigger:
   # Check every 5 minutes
-  - platform: time
+  - platform: time_pattern
     minutes: '/5'
     seconds: 0
 condition:

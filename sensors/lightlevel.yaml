@@ -1,0 +1,62 @@
+platform: template
+sensors:
+  target_brightness:
+    friendly_name: "Target brightness"
+    unit_of_measurement: "%"
+    value_template: >
+      {%  set bedtime_value = 10 %}
+      {%  set maximum = 100 %}
+      {%  set a = -0.0130 %}
+      {%  set c = 200 %}
+      {%  set n = 100-c %}
+      {%  set minimum = 20 %}
+      {%  set i = states('sensor.kitchen_light_level_avg') | float %}
+      {%  set p = (a*i)+c %}
+      {%if p < minimum %}
+        0
+      {% elif p > maximum %}
+        {{ maximum }}
+      {% else %}
+        {{ p | int}}
+      {% endif %}
+  target_brightness_inside:
+    friendly_name: "Target brightness inside"
+    unit_of_measurement: "%"
+    value_template: >
+      {%  set bedtime_value = 10 %}
+      {%  set maximum = 100 %}
+      {%  set a = -0.0130 %}
+      {%  set c = 200 %}
+      {%  set n = 100-c %}
+      {%  set minimum = 20 %}
+      {%  set i = states('sensor.livingroom_light_level_avg') | float %}
+      {%  set p = (a*i)+c %}
+      {% if is_state('binary_sensor.sleeping','on') %}
+        {{ bedtime_value | int }}
+      {% else %}
+        {%if p < minimum %}
+          0
+        {% elif p > maximum %}
+          {{ maximum }}
+        {% else %}
+          {{ p | int}}
+        {% endif %}
+      {% endif%}
+  target_brightness_livingroom:
+    friendly_name: "Target brightness livingroom"
+    unit_of_measurement: "%"
+    value_template: >
+      {%  set bedtime_value = 10 %}
+      {% if is_state('media_player.lg_webos_smart_tv','playing') or (as_timestamp(now())-as_timestamp(states.media_player.lg_webos_smart_tv.last_changed)) < 60 %}
+          {% if states('sensor.target_brightness_outside') | int >= 20 %}
+          20
+          {% else %}
+          0
+          {% endif %}
+      {% else %}
+        {% if is_state('binary_sensor.sleeping','on') %}
+          {{ bedtime_value | int }}
+        {% else %}
+          {{ states.sensor.target_brightness.state }}
+        {% endif %}
+      {% endif %}

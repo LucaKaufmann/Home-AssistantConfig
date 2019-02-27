@@ -1,0 +1,8 @@
+sonos_play_matching:
+  alias: Sonos Play Matching
+  sequence:
+  - service: media_player.select_source
+    data_template:
+      entity_id: '{{ entity_id }}'
+      source: '{{ state_attr(entity_id, "source_list") | map("regex_replace", "^(?!.*"
+        + match + ").*$", "") | reject("eq", "") | list | random }}'

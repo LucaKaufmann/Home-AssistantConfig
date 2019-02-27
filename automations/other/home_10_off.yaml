@@ -1,4 +1,5 @@
 alias: Home for over 10 minutes off
+initial_state: 'on'
 id: home_10_off
 trigger:
 - platform: state

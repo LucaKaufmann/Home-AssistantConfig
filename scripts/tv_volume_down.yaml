@@ -1,0 +1,8 @@
+tv_volume_down:
+    alias: "TV Volume down"
+    sequence:
+     - service: media_player.volume_set
+       data_template:
+         entity_id: "media_player.living_room"
+         volume_level: >
+          {{ (states.media_player.living_room.attributes.volume_level - 0.04) | round(2) }}

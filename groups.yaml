@@ -137,9 +137,11 @@ all_lights_except_nightlight:
     - light.desk
     - light.yellow_light
     - light.kitchen
-    - light.hallway
+    - light.hallway_upstairs
+    - light.hallway_downstairs
     - light.living_room
     - light.office
+    - light.ball
 
 downstairs_lights:
   name: Lights downstairs
@@ -149,6 +151,16 @@ downstairs_lights:
     - light.desk
     - light.kitchen
     - light.living_room
+    - light.ball
+    - light.hallway_downstairs
+
+upstairs_lights:
+  name: Lights upstairs
+  entities:
+    - light.office
+    - light.gateway
+    - light.yellow_light
+    - light.hallway_upstairs
 
 light_scenes:
   name: Scenes
@@ -164,7 +176,7 @@ sensor_pi:
   entities:
     - sensor.cpu_used
     - sensor.cpu_temperature
-    - sensor.disk_use_
+    - sensor.disk_use
     - sensor.disk_use_varlog
     - sensor.ram_use
     - sensor.ram_free
@@ -215,7 +227,7 @@ sensor_bedroom:
 sensor_livingroom:
   name: Living room
   entities:
-    - sensor.living_motion_room
+    - binary_sensor.living_motion_room
     - sensor.big_light_brightness
     - sensor.paperlight_brightness
     - sensor.livingroom_light_level
@@ -226,14 +238,14 @@ sensor_livingroom:
 sensor_kitchen:
   name: Kitchen
   entities:
-    - sensor.motion_kitchen
     - binary_sensor.motion_kitchen
+    - binary_sensor.motion_kitchen_xiaomi
     - sensor.kitchen_light_level
     - sensor.kitchen_temperature
 
 kitchen_motion_sensors:
   - binary_sensor.motion_kitchen
-  - sensor.motion_kitchen
+  - binary_sensor.motion_kitchen_xiaomi
 
 hue_sensors:
   name: Hue
@@ -335,12 +347,19 @@ all_media_players:
     - media_player.sonas_hot_chromecast
     - media_player.living_room_tv
 
+sonos_speakers:
+  name: Sonos speakers
+  entities:
+    - media_player.living_room
+    - media_player.kitchen
+    - media_player.bedroom
+
 downstairs_motion_sensors:
   name: Downstairs sensors
   entities:
-    - sensor.motion_kitchen
-    - sensor.living_motion_room
     - binary_sensor.motion_kitchen
+    - binary_sensor.living_motion_room
+    - binary_sensor.motion_kitchen_xiaomi
 
 upstairs_motion_sensors:
   name: Upstairs Motion Sensors
@@ -351,13 +370,19 @@ upstairs_motion_sensors:
 all_motion_sensors:
   name: Motion sensors
   entities:
-    - sensor.motion_kitchen
-    - sensor.living_motion_room
-    - binary_sensor.motion_hallway_upstairs_2
     - binary_sensor.motion_kitchen
+    - binary_sensor.living_motion_room
+    - binary_sensor.motion_hallway_upstairs_2
+    - binary_sensor.motion_kitchen_xiaomi
 
 anyone_downstairs:
   name: Anyone downstairs
   entities:
     - binary_sensor.luca_downstairs_wifi
     - binary_sensor.tiia_downstairs_wifi
+
+anyone_upstairs:
+  name: Anyone upstairs
+  entities:
+    - binary_sensor.luca_upstairs_wifi
+    - binary_sensor.tiia_upstairs_wifi

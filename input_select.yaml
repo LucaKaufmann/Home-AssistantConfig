@@ -14,3 +14,13 @@ audiobook:
     - None
   initial: None
   icon: mdi:audiobook
+
+cat:
+  name: Cat
+  options:
+    - Living Room
+    - Kitchen
+    - Closet
+    - None
+  initial: None
+  icon: mdi:cat

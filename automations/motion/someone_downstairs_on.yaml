@@ -1,4 +1,5 @@
 alias: Someone downstairs
+initial_state: 'on' 
 id: downstairs_on
 trigger:
 - platform: state

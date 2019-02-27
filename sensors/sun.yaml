@@ -1,0 +1,8 @@
+platform: template
+sensors:
+  sun_elevation:
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    friendly_name: "Sun elevation"
+    entity_id: sun.sun
+    unit_of_measurement: 'degrees'
+    icon_template: mdi:white-balance-sunny

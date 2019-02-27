@@ -1,4 +1,5 @@
 alias: Enable sleeping
+initial_state: 'on' 
 id: enable_sleeping
 trigger:
 - platform: state

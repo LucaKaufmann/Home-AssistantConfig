@@ -26,3 +26,30 @@
     ignore_availability: true
     name: Tiia Schedule
     track: true
+- cal_id: lucakaufmann92@gmail.com
+  entities:
+  - device_id: work
+    ignore_availability: true
+    name: Work
+    track: true
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: true
+
+- cal_id: de.ch#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: feiertage_in_der_schweiz
+    ignore_availability: true
+    name: Feiertage in der Schweiz
+    track: true
+
+- cal_id: e_2_de#weeknum@group.v.calendar.google.com
+  entities:
+  - device_id: week_numbers
+    ignore_availability: true
+    name: Week Numbers
+    track: true

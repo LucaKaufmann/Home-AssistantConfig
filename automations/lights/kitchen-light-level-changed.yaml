@@ -1,4 +1,5 @@
 alias: Kitchen light level changed
+initial_state: 'on' 
 id: kitchen_light_level_changed
 trigger:
 - platform: state

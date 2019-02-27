@@ -1,5 +1,4 @@
 platform: template
-name: Lights
 sensors:
   big_light_brightness:
     value_template: "{{ states.light.big_light.attributes['brightness'] or 0 }}"

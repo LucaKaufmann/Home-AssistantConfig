@@ -1,13 +1,7 @@
 platform: template
-name: Image processing sensors
 sensors:
-  dafang_people:
-    value_template: "{{ states('image_processing.sighthound_dafang_latest') | int }}"
-    entity_id: image_processing.sighthound_dafang_latest
+  livingroom_people:
+    value_template: "{{ states('image_processing.sighthound_logi_latest') | int }}"
+    entity_id: image_processing.sighthound_logi_latest
     friendly_name: "People"
     icon_template: mdi:account-multiple
-  dafang_faces:
-    value_template: "{{ states('image_processing.facebox_dafang_latest') | int }}"
-    entity_id: image_processing.facebox_dafang_latest
-    friendly_name: "Faces detected"
-    icon_template: mdi:emoticon

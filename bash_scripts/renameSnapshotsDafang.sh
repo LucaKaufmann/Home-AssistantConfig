@@ -9,6 +9,7 @@ if [ $filesize -gt $minimumsize ]; then
         exit
     fi
     echo "renaming"
+    cp /images/dafang/snapshot5.png /images/dafang/snapshot_"$(date -r /images/dafang/snapshot5.png +"%Y%m%d_%H%M%S").png"
     mv /images/dafang/snapshot4.jpg /images/dafang/snapshot5.jpg
     mv /images/dafang/snapshot3.jpg /images/dafang/snapshot4.jpg
     mv /images/dafang/snapshot2.jpg /images/dafang/snapshot3.jpg

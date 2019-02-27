@@ -1,4 +1,5 @@
 alias: Home for 10 minutes
+initial_state: 'on'
 id: home_10
 trigger:
 - platform: state

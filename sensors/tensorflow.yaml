@@ -2,9 +2,9 @@ platform: template
 sensors:
   tensorflow_person_xiaofang2:
     friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_xiaofang2_latest
+    entity_id: image_processing.tensorflow_xiaofang2
     value_template: >
-      {%- set person = states.image_processing.tensorflow_xiaofang2_latest.attributes.summary.person -%}
+      {%- set person = states.image_processing.tensorflow_xiaofang2.attributes.summary.person -%}
       {%- if person -%}
         {{ person }}
       {%- else -%}
@@ -22,9 +22,9 @@ sensors:
       {%- endif -%}
   tensorflow_cat_xiaofang2:
     friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_xiaofang2_latest
+    entity_id: image_processing.tensorflow_xiaofang2
     value_template: >-
-      {%- set cat = states.image_processing.tensorflow_xiaofang2_latest.attributes.summary.cat -%}
+      {%- set cat = states.image_processing.tensorflow_xiaofang2.attributes.summary.cat -%}
       {%- if cat -%}
         {{ cat }}
       {%- else -%}
@@ -33,9 +33,9 @@ sensors:
 
   tensorflow_person_dafang:
     friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_dafang_latest
+    entity_id: image_processing.tensorflow_dafang
     value_template: >
-      {%- set person = states.image_processing.tensorflow_dafang_latest.attributes.summary.person -%}
+      {%- set person = states.image_processing.tensorflow_dafang.attributes.summary.person -%}
       {%- if person -%}
         {{ person }}
       {%- else -%}
@@ -43,9 +43,9 @@ sensors:
       {%- endif -%}
   tensorflow_cat_dafang:
     friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_dafang_latest
+    entity_id: image_processing.tensorflow_dafang
     value_template: >-
-      {%- set cat = states.image_processing.tensorflow_dafang_latest.attributes.summary.cat -%}
+      {%- set cat = states.image_processing.tensorflow_dafang.attributes.summary.cat -%}
       {%- if cat -%}
         {{ cat }}
       {%- else -%}
@@ -54,9 +54,9 @@ sensors:
 
   tensorflow_person_xiaofang1:
     friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_xiaofang1_latest
+    entity_id: image_processing.tensorflow_xiaofang1
     value_template: >
-      {%- set person = states.image_processing.tensorflow_xiaofang1_latest.attributes.summary.person -%}
+      {%- set person = states.image_processing.tensorflow_xiaofang1.attributes.summary.person -%}
       {%- if person -%}
         {{ person }}
       {%- else -%}
@@ -64,11 +64,22 @@ sensors:
       {%- endif -%}
   tensorflow_cat_xiaofang1:
     friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_xiaofang1_latest
+    entity_id: image_processing.tensorflow_xiaofang1
     value_template: >-
-      {%- set cat = states.image_processing.tensorflow_xiaofang1_latest.attributes.summary.cat -%}
+      {%- set cat = states.image_processing.tensorflow_xiaofang1.attributes.summary.cat -%}
       {%- if cat -%}
         {{ cat }}
       {%- else -%}
         0
       {%- endif -%}
+  tensorflow_person_logi:
+    friendly_name: "Tensorflow Person"
+    entity_id: image_processing.tensorflow_logi_latest
+    value_template: >
+      {%- set person = states.image_processing.tensorflow_logi_latest.attributes.summary.person -%}
+      {%- if person -%}
+        {{ person }}
+      {%- else -%}
+        0
+      {%- endif -%}
+

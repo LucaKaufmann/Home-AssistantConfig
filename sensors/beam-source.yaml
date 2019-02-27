@@ -1,0 +1,7 @@
+platform: template
+sensors:
+  beam_source:
+    value_template: "{{ states.media_player.living_room.attributes['source'] }}"
+    friendly_name: "Source"
+    entity_id: media_player.living_room
+    icon_template: mdi:speaker

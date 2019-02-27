@@ -1,4 +1,5 @@
 alias: Turn off washing machine
+initial_state: 'on'
 id: turn_off_washing_machine
 trigger:
   platform: event

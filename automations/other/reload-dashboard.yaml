@@ -1,4 +1,5 @@
 alias: Reload Dashboard
+initial_state: 'on'
 id: reload_dashboard
 trigger:
     platform: homeassistant
@@ -9,4 +10,10 @@ action:
   data:
     topic: dashboard/rpi1/reload
     payload: "true"
+- alias: Install gmplot
+  service: shell_command.install_gmplot
+- alias: Install gpxpy
+  service: shell_command.install_gpxpy
+# - alias: install tensorflow
+#   service: shell_command.install_tensorflow
 

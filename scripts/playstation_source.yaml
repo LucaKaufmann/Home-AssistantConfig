@@ -1,0 +1,6 @@
+switch_to_ps4:
+  sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.lg_webos_smart_tv
+        source: HDMI1

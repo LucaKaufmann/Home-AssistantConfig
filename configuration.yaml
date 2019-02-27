@@ -15,6 +15,7 @@ homeassistant:
     - '/tmp'
     - '/images'
     - '/config/vacuum'
+    - '/videos'
 # Show links to resources in log and frontend
 # introduction:
 
@@ -26,23 +27,36 @@ frontend:
     - /local/custom_ui/state-card-floorplan.html
     - /local/luca_gps.html
     - /local/tiia_gps.html
+lovelace:
+  mode: yaml
 
+system_health:
 
-panel_custom: !include panel_custom.yaml
+custom_updater:
+  card_urls:
+    - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
+    - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
+
+# panel_custom: !include panel_custom.yaml
 
 panel_iframe:
   luca:
     title: 'Luca GPS'
     url: '/local/luca_gps.html'
+    icon: mdi:human-male
   tiia:
     title: 'Tiia GPS'
     url: '/local/tiia_gps.html'
+    icon: mdi:human-female
     
 # Enables configuration UI
 config:
 
 folder_watcher:
-  - folder: /config/vacuum
+  - folder: /videos
+
+downloader:
+  download_dir: /dashboard/html/images
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -83,14 +97,17 @@ cloud:
         - input_boolean.schedule_cleaning
         - input_boolean.schedule_kitchen_cleaning
         - input_boolean.cleaning_doublepass
+        - input_boolean.auto_lights
         - light.paperlight
         - light.yellow_light
         - light.big_light
         - light.kitchen
         - light.office
         - light.hallway_upstairs
-        - light.hallway_color
+        - light.hallway_downstairs
+        - light.ball
         - light.living_room
+        - light.desk
         - scene.bedtime
         - scene.movie_mode_arctic
         - scene.relax
@@ -101,6 +118,7 @@ cloud:
         - switch.clean_dining_area
         - switch.clean_kitchen
         - switch.clean_livingroom
+        - switch.playstation
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
@@ -135,10 +153,14 @@ cloud:
       script.greys_anatomy:
         name: Grey's Anatomy
         display_categories: switch
+      input_boolean.auto_lights:
+        name: Automatic Lights
+        display_categories: switch
   google_actions:
     filter:
       include_entities:
         - input_boolean.follow_music
+        - input_boolean.auto_lights
         - input_boolean.schedule_cleaning
         - input_boolean.schedule_kitchen_cleaning
         - input_boolean.cleaning_doublepass
@@ -160,6 +182,7 @@ cloud:
         - switch.clean_dining_area
         - switch.clean_kitchen
         - switch.clean_livingroom
+        - switch.playstation
         - script.vacuum_clean_dining_area
         - script.vacuum_clean_kitchen
         - script.vacuum_clean_livingroom
@@ -207,103 +230,8 @@ influxdb:
 ifttt:
   key: !secret ifttt_key
 
-image_processing:
-#   - platform: sighthound
-#     api_key: !secret sighthound_api_key
-#     mode: dev
-#     state_display: persons
-#     scan_interval: 10000
-#     source:
-#       - entity_id: camera.dafang_latest
-#   - platform: facebox
-#     ip_address: !secret influxdb_ip
-#     port: 8081
-#     scan_interval: 10000
-#     source:
-#       - entity_id: camera.dafang_latest
-#   - platform: classificationbox
-#     ip_address: !secret influxdb_ip
-#     port: 8083
-#     model_id: 5bd486373f1745fe
-#     confidence: 50
-#     scan_interval: 10000
-#     source:
-#       - entity_id: camera.dafang
-  - platform: classificationbox
-    ip_address: !secret influxdb_ip
-    port: 8083
-    confidence: 50
-    model_id: livingroom_presence
-    scan_interval: 10000
-    source:
-      - entity_id: camera.xiaofang2
-  - platform: classificationbox
-    ip_address: !secret influxdb_ip
-    port: 8083
-    confidence: 50
-    model_id: dining_table_cleaning
-    scan_interval: 10000
-    source:
-      - entity_id: camera.xiaofang2
-  - platform: classificationbox
-    ip_address: !secret influxdb_ip
-    port: 8083
-    confidence: 50
-    model_id: eatingmodel
-    scan_interval: 10000
-    source:
-      - entity_id: camera.xiaofang2_latest
-  - platform: classificationbox
-    ip_address: !secret influxdb_ip
-    port: 8083
-    confidence: 50
-    model_id: vacuummodel
-    scan_interval: 10000
-    source:
-      - entity_id: camera.xiaofang2_latest
-  - platform: classificationbox
-    ip_address: !secret influxdb_ip
-    port: 8083
-    confidence: 50
-    model_id: kitchen_lights_model
-    scan_interval: 10000
-    source:
-      - entity_id: camera.xiaofang1
-  # - platform: classificationbox
-  #   ip_address: !secret influxdb_ip
-  #   port: 8083
-  #   confidence: 50
-  #   scan_interval: 10000
-  #   source:
-  #     - entity_id: camera.xiaofang1_latest
-  - platform: tensorflow
-    source:
-      - entity_id: camera.xiaofang2_latest
-    model:
-      graph: /config/tensorflow/frozen_inference_graph.pb
-    file_out: '/images/xiaofang2/tensorflow.jpg'
-    scan_interval: 10000
-  - platform: tensorflow2
-    source:
-      - entity_id: camera.xiaofang2
-        name: Tensorflow People
-    model:
-      graph: /config/tensorflow/people.pb
-    scan_interval: 10000
-  - platform: tensorflow
-    source:
-      - entity_id: camera.dafang_latest
-    model:
-      graph: /config/tensorflow/frozen_inference_graph.pb
-    file_out: '/images/dafang/tensorflow.jpg'
-    scan_interval: 10000
-  - platform: tensorflow
-    source:
-      - entity_id: camera.xiaofang1_latest
-    model:
-      graph: /config/tensorflow/frozen_inference_graph.pb
-    file_out: '/images/xiaofang1/tensorflow.jpg'
-    scan_interval: 10000
+
+ 
 
 device_tracker:
 #- platform: nmap_tracker
@@ -339,7 +267,7 @@ device_tracker:
   password: !secret unifi_controller_pw
   verify_ssl: false
   track_new_devices: false
-  detection_time: 60
+  detection_time: 180
   monitored_conditions:
     - rssi
     - signal
@@ -371,19 +299,30 @@ light:
       - light.hallway_1
       - light.hallway_2
       - light.hallway_3
-  - platform: mqtt_template
+  - platform: mqtt
     name: Dashboard Kitchen
     command_topic: "dashboard/rpi1/set"
     state_topic: "dashboard/rpi1/status"
-    command_on_template: "on,{{ brightness|d }}"
-    command_off_template: "off"
-    state_template: "{{ value.split(',')[0] }}"  # must return `on` or `off`
-    brightness_template: "{{ value.split(',')[1] }}"
+    brightness_state_topic: 'dashboard/rpi1/brightness'
+    brightness_command_topic: 'dashboard/rpi1/brightness/set'
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+  - platform: hue
+    host: !secret hue_bridge
 
+circadian_lighting:
+  transition: 30
+  interval: 1800
 
 ring:
   username: !secret ring_user
   password: !secret ring_pw
+
+logi_circle:
+  username: !secret logi_user
+  password: !secret logi_pw
 # Track the sun
 sun:
 
@@ -393,6 +332,11 @@ logger:
     homeassistant.components: info
     homeassistant.components.http.ban: warning
     homeassistant.components.homekit_controller: debug
+
+octoprint:
+  host: !secret octoprint_ip
+  api_key: !secret octoprint_key
+
 # Text to speech
 tts:
   - platform: google
@@ -424,18 +368,18 @@ xiaomi_aqara:
   gateways:
     - key: !secret xiaomi_gateway_key
 
-# tradfri:
-#  host: !secret tradfri_ip
+tradfri:
+  host: !secret tradfri_ip
 
-# netatmo2:
-#   api_key: !secret netatmo_api_key
-#   secret_key: !secret netatmo_secret_key
-#   username: !secret netatmo_user
-#   password: !secret netatmo_pw
-#   discovery: False
-#
-# climate:
-#   - platform: netatmo2
+netatmo2:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: !secret netatmo_user
+  password: !secret netatmo_pw
+  discovery: False
+
+climate:
+  - platform: netatmo2
 
 vacuum:
  - platform: xiaomi_miio
@@ -451,19 +395,15 @@ media_player:
   #   scan_interval: 5
   #   show_all_controls: true
 #  - platform: gstreamer
-  # - platform: spotify
-  #   client_id: !secret spotify_client_id
-  #   client_secret: !secret spotify_secret
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
   - platform: webostv
     host: !secret lgtv_ip
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
         mac: 78:5D:C8:62:65:D1
-  - platform: alexa
-    email: !secret alexa_email
-    password: !secret alexa_password
-    url: 'amazon.com'
   - platform: ps4
     host: !secret ps4waker_ip
     ps4_ip: !secret ps4_ip
@@ -472,6 +412,11 @@ media_player:
     imagemap_json: '/config/ps4/games.json'
     local_store: ''
 
+alexa_media:
+  accounts:
+    - email: !secret alexa_email
+      password: !secret alexa_password
+      url: 'amazon.com'
 
 wake_on_lan:
 
@@ -548,15 +493,22 @@ shell_command:
   rename_snapshots_xiaofang2: 'bash /config/bash_scripts/renameSnapshotsXiaofang2.sh'
   xiaofang2_motion_on: !secret xiaofang2_motion_on
   xiaofang2_motion_off: !secret xiaofang2_motion_off
+  rename_snapshots_raspberry: 'bash /config/bash_scripts/renameSnapshotsRaspberry.sh'
+  rename_snapshots_living_room: 'bash /config/bash_scripts/renameSnapshotsLivingRoom.sh'
   export_csv: 'python /config/export_to_csv.py -r {{rssi}} -s {{signal}} -a {{ap}} -d {{downstairs}}'
   export_csv_luca: "python /config/export_to_csv.py -r {{states.device_tracker.sevenplus_router.attributes.rssi}} -s {{states.device_tracker.sevenplus_router.attributes.signal}} -a {% if is_state('binary_sensor.luca_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.luca_downstairs','on') %}1{% else %}0{% endif %}"
   export_csv_tiia: "python /config/export_to_csv.py -r {{states.device_tracker.tiiasiphone.attributes.rssi}} -s {{states.device_tracker.tiiasiphone.attributes.signal}} -a {% if is_state('binary_sensor.tiia_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.tiia_downstairs','on') %}1{% else %}0{% endif %}"
   export_gps_luca: "python /config/export/export_gps.py -t {{states.device_tracker.sevenplusha.attributes.latitude}} -o {{states.device_tracker.sevenplusha.attributes.longitude}} -d '{{states.device_tracker.sevenplusha.attributes.timestamp}}' -p luca"
-  export_gps_tiia: "python /config/export/export_gps.py -t {{states.device_tracker.tiias_iphone.attributes.latitude}} -o {{states.device_tracker.tiias_iphone.attributes.longitude}} -d '{{states.device_tracker.tiias_iphone.last_updated}}' -p tiia"
+  export_gps_tiia: "python /config/export/export_gps.py -t {{states.device_tracker.tiias_iphone.attributes.latitude}} -o {{states.device_tracker.tiias_iphone.attributes.longitude}} -d '{{states.device_tracker.tiias_iphone.attributes.timestamp}}' -p tiia"
   plot_luca: "python /config/export/plot.py -p luca"
   plot_tiia: "python /config/export/plot.py -p tiia"  
-  build_map: 'bash /config/scripts/vacuum_maps.sh'
-
+  build_map: 'bash /config/bash_scripts/vacuum_maps.sh'
+  rename_vacuum_maps: 'bash /config/bash_scripts/renameVacuumMaps.sh'
+  record_clip: 'bash /config/bash_scripts/recordClip.sh'
+  upload_clip: 'bash /config/bash_scripts/uploadClip.sh'
+  install_gmplot: 'pip install gmplot'
+  install_gpxpy: 'pip install gpxpy'
+  install_tensorflow: 'pip3 install tensorflow==1.11.0'
 recorder:
   purge_keep_days: 5
   db_url: !secret mysql_db_url
@@ -579,3 +531,5 @@ switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml
 input_select: !include input_select.yaml
 input_number: !include input_number.yaml
+input_datetime: !include input_datetime.yaml
+image_processing: !include image_processing.yaml

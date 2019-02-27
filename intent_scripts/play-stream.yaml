@@ -8,4 +8,8 @@ PlayStream:
         {{ player }}
   speech:
       type: plain
-      text: "Enjoy the stream {{streamName}} on {{player}}!"
+      text: >
+        {% if player == "" %}
+          {% set player = "Living Room TV" %}
+        {% endif %}
+        "Enjoy the stream {{streamName}} on {{player}}!"

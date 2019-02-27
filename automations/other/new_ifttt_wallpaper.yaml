@@ -1,0 +1,14 @@
+alias: New Wallpaper
+initial_state: 'on'
+id: new_wallpaper
+trigger:
+  platform: event
+  event_type: ifttt_webhook_received
+  event_data:
+    action: call_service
+action:
+  service_template: '{{ trigger.event.data.service }}'
+  data_template:
+    url: '{{ trigger.event.data.url }}'
+    filename: 'background'
+    overwrite: true

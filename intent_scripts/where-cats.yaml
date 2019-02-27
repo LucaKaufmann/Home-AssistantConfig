@@ -1,0 +1,27 @@
+WhereCats:
+  speech:
+      type: plain
+      text: >
+        {% set location = states('input_select.cat') %}
+        {% if location == 'Living Room' %}
+          {%if (states('sensor.tensorflow_cat_logi')|int > 0 or states('sensor.tensorflow_cat_xiaofang2')|int > 0) %}
+            There should be a cat in the {{location}}
+          {% else %}
+            Last time I've seen a cat was in the {{location}}
+          {% endif %}
+        {% elif location == 'Kitchen' %}
+          {%if states('sensor.tensorflow_cat_xiaofang1')|int > 0 %}
+            There should be a cat in the {{location}}
+          {% else %}
+            Last time I've seen a cat was in the {{location}}
+          {% endif %}
+        {% elif location == 'Closet' %}
+          {%if (states('sensor.tensorflow_cat_dafang')|int > 0 or is_state('binary_sensor.cats_detected_closet','on')) %}
+            There should be a cat in the {{location}}
+          {% else %}
+            Last time I've seen a cat was in the {{location}}
+          {% endif %}
+        {% else %}
+          I haven't seen a cat recently, they might be upstairs.
+        {% endif %}
+

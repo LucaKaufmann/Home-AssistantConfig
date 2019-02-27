@@ -1,5 +1,4 @@
 platform: systemmonitor
-homebridge_hidden: true
 resources:
   - type: disk_use_percent
     arg: /

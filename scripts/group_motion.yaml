@@ -25,10 +25,10 @@ sonos_group_motion:
           {% if target_player is not none %}
             {{ target_player }}
           {% endif %}
-        volume_level: >
-          {% for state in states.media_player if state.entity_id == 'media_player.' + states('input_select.music_controller') %}
-            {{state.attributes.volume_level }}
-          {% endfor %}
+        volume_level: 0.2
+        #  {% for state in states.media_player if state.entity_id == 'media_player.' + states('input_select.music_controller') %}
+        #    {{state.attributes.volume_level }}
+        #  {% endfor %}
 
     #Now join the player into the group
     - service: media_player.sonos_join

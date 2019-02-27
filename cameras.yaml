@@ -1,13 +1,21 @@
-- platform: ffmpeg
+# - platform: ffmpeg
+#   name: DaFang
+#   input: !secret dafang_input
+#   extra_arguments: '-pred 1 -q:v 2'
+# - platform: ffmpeg
+#   name: DaFang mobile
+#   input: !secret dafang_input_2
+- platform: generic
   name: DaFang
-  input: !secret dafang_input
-  extra_arguments: '-pred 1 -q:v 2'
-- platform: ffmpeg
-  name: DaFang mobile
-  input: !secret dafang_input
+  username: !secret camera_user
+  password: !secret camera_pw
+  authentication: basic
+  still_image_url: !secret dafang_url
+  verify_ssl: false
+  scan_interval: 1
 - platform: local_file
   name: Dafang Latest
-  file_path: '/images/dafang/snapshot1.jpg'
+  file_path: '/images/dafang/latest.jpg'
 - platform: local_file
   name: Dafang Snapshot 1
   file_path: '/images/dafang/snapshot1.jpg'
@@ -24,16 +32,24 @@
   name: Dafang Snapshot 5
   file_path: '/images/dafang/snapshot5.jpg'
 
-- platform: ffmpeg
-  name: Xiaofang1
-  input: !secret xiaofang1_input
-  extra_arguments: '-pred 1 -q:v 2'
+# - platform: ffmpeg
+#   name: Xiaofang1
+#   input: !secret xiaofang1_input
+#   extra_arguments: '-pred 1 -q:v 2'
 # - platform: ffmpeg
 #   name: Xiaofang1 mobile
 #   input: !secret dafang_input
+- platform: generic
+  name: Xiaofang1
+  username: !secret camera_user
+  password: !secret camera_pw
+  authentication: basic
+  still_image_url: !secret xiaofang1_url
+  verify_ssl: false
+  scan_interval: 1
 - platform: local_file
   name: Xiaofang1 Latest
-  file_path: '/images/xiaofang1/snapshot1.jpg'
+  file_path: '/images/xiaofang1/latest.jpg'
 - platform: local_file
   name: Xiaofang1 Snapshot 1
   file_path: '/images/xiaofang1/snapshot1.jpg'
@@ -50,16 +66,24 @@
   name: Xiaofang1 Snapshot 5
   file_path: '/images/xiaofang1/snapshot5.jpg'
 
-- platform: ffmpeg
+# - platform: ffmpeg
+#   name: Xiaofang2
+#   input: !secret xiaofang2_input
+#   extra_arguments: '-pred 1 -q:v 2'
+- platform: generic
   name: Xiaofang2
-  input: !secret xiaofang2_input
-  extra_arguments: '-pred 1 -q:v 2'
+  username: !secret camera_user
+  password: !secret camera_pw
+  authentication: basic
+  still_image_url: !secret xiaofang2_url
+  verify_ssl: false
+  scan_interval: 1
 # - platform: ffmpeg
 #   name: Xiaofang2 mobile
 #   input: !secret dafang_input
 - platform: local_file
   name: Xiaofang2 Latest
-  file_path: '/images/xiaofang2/snapshot1.jpg'
+  file_path: '/images/xiaofang2/latest.jpg'
 - platform: local_file
   name: Xiaofang2 Snapshot 1
   file_path: '/images/xiaofang2/snapshot1.jpg'
@@ -77,17 +101,43 @@
   file_path: '/images/xiaofang2/snapshot5.jpg'
 
 - platform: local_file
+  name: Logi Latest
+  file_path: '/images/logi/latest.jpg'
+- platform: local_file
+  name: Logi Snapshot 1
+  file_path: '/images/logi/snapshot1.jpg'
+- platform: local_file
+  name: Logi Snapshot 2
+  file_path: '/images/logi/snapshot2.jpg'
+- platform: local_file
+  name: Logi Snapshot 3
+  file_path: '/images/logi/snapshot3.jpg'
+- platform: local_file
+  name: Logi Snapshot 4
+  file_path: '/images/logi/snapshot4.jpg'
+- platform: local_file
+  name: Logi Snapshot 5
+  file_path: '/images/logi/snapshot5.jpg'
+
+
+- platform: local_file
   name: Tensorflow Xiaofang1
   file_path: '/images/xiaofang1/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Xiaofang2
   file_path: '/images/xiaofang2/tensorflow.jpg'
 - platform: local_file
-  name: Tensorflow People
-  file_path: '/images/xiaofang2/tensorflow_people.jpg'
-- platform: local_file
   name: Tensorflow Dafang
   file_path: '/images/dafang/tensorflow.jpg'
+- platform: local_file
+  name: Tensorflow Logi
+  file_path: '/images/logi/tensorflow.jpg'
+- platform: local_file
+  name: Tensorflow Raspberry
+  file_path: '/images/raspberry/tensorflow.jpg'
+- platform: local_file
+  name: Tensorflow Raspberry Latest
+  file_path: '/images/raspberry/tensorflow_latest.jpg'
 
 # - platform: tensorflow
 #   camera: camera.xiaofang2_latest
@@ -106,12 +156,35 @@
 #   name: Tensorflow Dafang
 #   classifier: ''
 - platform: sighthound
-  camera: camera.dafang_latest
-  processor: image_processing.sighthound_dafang_latest
+  camera: camera.logi_latest
+  processor: image_processing.sighthound_logi_latest
   # Optional Parameters
-  name: Sighthound Dafang
+  name: Sighthound Logi
   classifier: ''
 
+- platform: ffmpeg
+  name: Raspberry
+  input: !secret raspberry_input
+  extra_arguments: '-pred 1 -q:v 2'
+- platform: local_file
+  name: Raspberry Latest
+  file_path: '/images/raspberry/latest.jpg'
+- platform: local_file
+  name: Raspberry Snapshot 1
+  file_path: '/images/raspberry/snapshot1.jpg'
+- platform: local_file
+  name: Raspberry Snapshot 2
+  file_path: '/images/raspberry/snapshot2.jpg'
+- platform: local_file
+  name: Raspberry Snapshot 3
+  file_path: '/images/raspberry/snapshot3.jpg'
+- platform: local_file
+  name: Raspberry Snapshot 4
+  file_path: '/images/raspberry/snapshot4.jpg'
+- platform: local_file
+  name: Raspberry Snapshot 5
+  file_path: '/images/raspberry/snapshot5.jpg'
+  
 # - platform: generic
 #   name: Xiaofang2 Tensorflow
 #   still_image_url: >
@@ -125,9 +198,9 @@
 #   still_image_url: >
 #     {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.tensorflow_dafang.attributes.entity_picture }}
 - platform: generic
-  name: Dafang Sighthound
+  name: Logi Sighthound
   still_image_url: >
-    {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.sighthound_dafang.attributes.entity_picture }}
+    {{ 'https://awesomeplex.duckdns.org:8123'+states.camera.sighthound_logi.attributes.entity_picture }}
 # - platform: generic
 #   name: Vacuum Map
 #   still_image_url: 'https://awesomeplex.duckdns.org:8123/local/navmap.png'
@@ -135,5 +208,21 @@
 #   framerate: 1
 - platform: local_file
   name: Vacuum Map
-  file_path: '/config/www/navmap.png'
+  file_path: '/images/vacuum_maps/latest.png'
+- platform: local_file
+  name: Vacuum Map Snapshot 1
+  file_path: '/images/vacuum_maps/snapshot1.png'
+- platform: local_file
+  name: Vacuum Map Snapshot 2
+  file_path: '/images/vacuum_maps/snapshot2.png'
+- platform: local_file
+  name: Vacuum Map Snapshot 3
+  file_path: '/images/vacuum_maps/snapshot3.png'
+- platform: local_file
+  name: Vacuum Map Snapshot 4
+  file_path: '/images/vacuum_maps/snapshot4.png'
+- platform: local_file
+  name: Vacuum Map Snapshot 5
+  file_path: '/images/vacuum_maps/snapshot5.png'
 - platform: ring
+- platform: logi_circle

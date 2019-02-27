@@ -1,4 +1,5 @@
 alias: Washing machine on
+initial_state: 'on'
 id: washing_machine_on
 trigger:
 - platform: numeric_state
