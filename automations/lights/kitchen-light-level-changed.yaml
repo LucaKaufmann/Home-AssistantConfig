@@ -4,12 +4,17 @@ id: kitchen_light_level_changed
 trigger:
 - platform: state
   entity_id: sensor.kitchen_light_level
-condition:
-- condition: state
-  entity_id: light.kitchen
-  state: 'off'
-  for:
-    minutes: 1
+condition: 
+- condition: or
+  conditions:
+  - condition: state
+    entity_id: light.kitchen
+    state: 'off'
+    for:
+      minutes: 1
+  - condition: state
+    entity_id: light.kitchen
+    state: 'unavailable'
 - condition: state
   entity_id: binary_sensor.kitchen_lights_on
   state: 'off'

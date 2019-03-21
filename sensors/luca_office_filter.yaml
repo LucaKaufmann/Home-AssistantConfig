@@ -1,0 +1,12 @@
+platform: filter
+name: "Luca Office RSSI"
+entity_id: sensor.luca_office_rssi_raw
+filters:
+  - filter: outlier
+    window_size: 2
+    radius: 1.0
+  - filter: lowpass
+    time_constant: 2
+  - filter: time_simple_moving_average
+    window_size: 00:01
+    precision: 1

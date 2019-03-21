@@ -36,6 +36,8 @@ custom_updater:
   card_urls:
     - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
     - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
+  component_urls:
+    - https://raw.githubusercontent.com/keatontaylor/custom_components/master/custom_components.json
 
 # panel_custom: !include panel_custom.yaml
 
@@ -48,6 +50,10 @@ panel_iframe:
     title: 'Tiia GPS'
     url: '/local/tiia_gps.html'
     icon: mdi:human-female
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
     
 # Enables configuration UI
 config:
@@ -267,7 +273,7 @@ device_tracker:
   password: !secret unifi_controller_pw
   verify_ssl: false
   track_new_devices: false
-  detection_time: 180
+  detection_time: 300
   monitored_conditions:
     - rssi
     - signal
@@ -293,12 +299,12 @@ light:
       - light.paperlight_1
       - light.paperlight_2
       - light.paperlight_3
-  - platform: group
-    name: Hallway Downstairs
-    entities:
-      - light.hallway_1
-      - light.hallway_2
-      - light.hallway_3
+  # - platform: group
+  #   name: Hallway Downstairs
+  #   entities:
+  #     - light.hallway_1
+  #     - light.hallway_2
+  #     - light.hallway_3
   - platform: mqtt
     name: Dashboard Kitchen
     command_topic: "dashboard/rpi1/set"
@@ -309,6 +315,21 @@ light:
     payload_on: "ON"
     payload_off: "OFF"
     optimistic: false
+  - platform: mqtt
+    name: Hallway Downstairs
+    schema: json
+    command_topic: "zigbee2mqtt/hallway_downstairs/set"
+    state_topic: "zigbee2mqtt/hallway_downstairs"
+    optimistic: false
+    brightness: true
+#   - platform: mqtt
+#     name: Paperlight
+#     schema: json
+#     command_topic: "zigbee2mqtt/paperlight/set"
+#     state_topic: "zigbee2mqtt/paperlight"
+#     optimistic: false
+#     brightness: true
+#     color_temp: true
   - platform: hue
     host: !secret hue_bridge
 
@@ -406,10 +427,10 @@ media_player:
         mac: 78:5D:C8:62:65:D1
   - platform: ps4
     host: !secret ps4waker_ip
-    ps4_ip: !secret ps4_ip
+    # ps4_ip: !secret ps4_ip
     name: PlayStation 4
     games_filename: '/config/ps4/ps4-games.json'
-    imagemap_json: '/config/ps4/games.json'
+    # imagemap_json: '/config/ps4/games.json'
     local_store: ''
 
 alexa_media:
@@ -423,6 +444,8 @@ wake_on_lan:
 weather:
   - platform: darksky
     api_key: !secret darksky_api_key
+
+webhook:
 
 media_extractor:
   default_query: best
@@ -474,15 +497,21 @@ mqtt:
   password: !secret mqtt_passwd
   discovery: true
   discovery_prefix: homeassistant
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
 
 #binary_sensor:
 #  - platform: mqtt
 #    state_topic: dummy/floorplan/sensor
 #    name: Floorplan
 
+zigbee2mqtt_networkmap:
 
 homekit: !include homekit.yaml
-
 shell_command:
   rename_snapshots_dafang: 'bash /config/bash_scripts/renameSnapshotsDafang.sh'
   dafang_motion_on: !secret dafang_motion_on
@@ -516,6 +545,11 @@ recorder:
     domains:
      - shell_command
      - image_processing
+    entities:
+     - media_player.black_sonos_one
+     - media_player.white_sonos_one
+     - media_player.beam
+     - media_player.echo
 
 sensor: !include_dir_list sensors
 camera: !include cameras.yaml

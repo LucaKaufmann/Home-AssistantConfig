@@ -1,0 +1,6 @@
+platform: mqtt
+state_topic: 'printer/estimation/hours'
+value_template: '{{ value_json.value }}'
+name: 'Printer estimation hours'
+unit_of_measurement: h
+force_update: true

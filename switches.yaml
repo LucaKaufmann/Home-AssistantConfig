@@ -79,6 +79,8 @@
 
 - platform: tplink
   host: 192.168.92.31
+- platform: tplink
+  host: 192.168.92.34
 - platform: broadlink
   host: !secret bedroom_switch_ip
   mac: !secret bedroom_switch_mac

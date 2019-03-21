@@ -226,3 +226,7 @@
   file_path: '/images/vacuum_maps/snapshot5.png'
 - platform: ring
 - platform: logi_circle
+- platform: mjpeg
+  name: OctoPrint
+  still_image_url: http://192.168.92.20:8765/picture/6/current/?_username=admin&_signature=e4f805e512443ecc01b9f069fb5f92b5eef96406
+  mjpeg_url: http://192.168.92.20:9007

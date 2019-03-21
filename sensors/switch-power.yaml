@@ -1,26 +1,50 @@
 platform: template
 sensors:
-  switch_current_watts:
-    value_template: "{{ states.switch.air_conditioner.attributes['current_power_w'] }}"
+  washer_current_watts:
+    value_template: "{{ states.switch.washing_machine.attributes['current_power_w'] }}"
     friendly_name: "Current Power"
-    entity_id: switch.air_conditioner
+    entity_id: switch.washing_machine
     unit_of_measurement: W
     icon_template: mdi:power-standby
-  switch_voltage:
-    value_template: "{{ states.switch.air_conditioner.attributes['voltage'] }}"
+  washer_voltage:
+    value_template: "{{ states.switch.washing_machine.attributes['voltage'] }}"
     friendly_name: "Voltage"
-    entity_id: switch.air_conditioner
+    entity_id: switch.washing_machine
     unit_of_measurement: "V"
     icon_template: mdi:flash
-  switch_current_amps:
-    value_template: "{{ states.switch.air_conditioner.attributes['current_a'] }}"
+  washer_current_amps:
+    value_template: "{{ states.switch.washing_machine.attributes['current_a'] }}"
     friendly_name: "Amps"
-    entity_id: switch.air_conditioner
+    entity_id: switch.washing_machine
     unit_of_measurement: "A"
     icon_template: mdi:flash
-  switch_today_energy:
-    value_template: "{{ states.switch.air_conditioner.attributes['today_energy_kwh'] }}"
+  washer_today_energy:
+    value_template: "{{ states.switch.washing_machine.attributes['today_energy_kwh'] }}"
     friendly_name: "Today energy"
-    entity_id: switch.air_conditioner
+    entity_id: switch.washing_machine
+    unit_of_measurement: "kwh"
+    icon_template: mdi:flash
+  printer_current_watts:
+    value_template: "{{ states.switch.printer.attributes['current_power_w'] }}"
+    friendly_name: "Current Power"
+    entity_id: switch.printer
+    unit_of_measurement: W
+    icon_template: mdi:power-standby
+  printer_voltage:
+    value_template: "{{ states.switch.printer.attributes['voltage'] }}"
+    friendly_name: "Voltage"
+    entity_id: switch.printer
+    unit_of_measurement: "V"
+    icon_template: mdi:flash
+  printer_current_amps:
+    value_template: "{{ states.switch.printer.attributes['current_a'] }}"
+    friendly_name: "Amps"
+    entity_id: switch.printer
+    unit_of_measurement: "A"
+    icon_template: mdi:flash
+  printer_today_energy:
+    value_template: "{{ states.switch.printer.attributes['today_energy_kwh'] }}"
+    friendly_name: "Today energy"
+    entity_id: switch.printer
     unit_of_measurement: "kwh"
     icon_template: mdi:flash

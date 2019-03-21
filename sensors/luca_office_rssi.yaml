@@ -1,0 +1,4 @@
+platform: mqtt
+state_topic: 'monitor/upstairs/4C:74:BF:A8:24:B3/rssi'
+name: 'Luca Office RSSI raw'
+unit_of_measurement: 'dBm'

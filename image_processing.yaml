@@ -21,14 +21,14 @@
 #     scan_interval: 10000
 #     source:
 #       - entity_id: camera.dafang
-- platform: classificationbox
-  ip_address: !secret influxdb_ip
-  port: 8083
-  confidence: 50
-  # model_id: livingroom_presence
-  scan_interval: 10000
-  source:
-    - entity_id: camera.xiaofang2
+# - platform: classificationbox
+#   ip_address: !secret influxdb_ip
+#   port: 8083
+#   confidence: 50
+#   # model_id: livingroom_presence
+#   scan_interval: 10000
+#   source:
+#     - entity_id: camera.xiaofang2
 # - platform: classificationbox
 #   ip_address: !secret influxdb_ip
 #   port: 8083
@@ -45,14 +45,14 @@
 #   scan_interval: 10000
 #   source:
 #     - entity_id: camera.xiaofang2
-# - platform: classificationbox
-#   ip_address: !secret influxdb_ip
-#   port: 8083
-#   confidence: 50
-#   model_id: eatingmodel
-#   scan_interval: 10000
-#   source:
-#     - entity_id: camera.xiaofang2_latest
+- platform: classificationbox
+  ip_address: !secret influxdb_ip
+  port: 8083
+  confidence: 50
+  model_id: eating_model
+  scan_interval: 10000
+  source:
+    - entity_id: camera.xiaofang2_latest
 # - platform: classificationbox
 #   ip_address: !secret influxdb_ip
 #   port: 8083
@@ -61,19 +61,19 @@
 #   scan_interval: 10000
 #   source:
 #     - entity_id: camera.xiaofang2_latest
-# - platform: classificationbox
-#   ip_address: !secret influxdb_ip
-#   port: 8083
-#   confidence: 50
-#   model_id: vacuummodel
-#   scan_interval: 10000
-#   source:
-#     - entity_id: camera.xiaofang2
 - platform: classificationbox
   ip_address: !secret influxdb_ip
   port: 8083
   confidence: 50
-  # model_id: kitchen_lights_model
+  model_id: vacuummodel
+  scan_interval: 10000
+  source:
+    - entity_id: camera.xiaofang2
+- platform: classificationbox
+  ip_address: !secret influxdb_ip
+  port: 8083
+  confidence: 50
+  model_id: kitchen_lights_model
   scan_interval: 10000
   source:
     - entity_id: camera.xiaofang1

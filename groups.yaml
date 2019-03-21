@@ -263,6 +263,7 @@ anyone_home:
   entities:
     - binary_sensor.tiia_home
     - binary_sensor.luca_home
+    - binary_sensor.jere_home
     - input_boolean.guest_mode
 
 devices_status:

@@ -3,7 +3,7 @@ initial_state: 'on'
 id: washing_machine_off
 trigger:
 - platform: numeric_state
-  entity_id: sensor.switch_current_watts
+  entity_id: sensor.washer_current_watts
   below: 0.8
 action:
 - alias: Turn on guest mode

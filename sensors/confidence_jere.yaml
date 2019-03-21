@@ -1,9 +1,9 @@
 platform: min_max
-name: "Home Occupancy Confidence Tiia"
+name: "Home Occupancy Confidence Jere"
 type: mean
 round_digits: 0
 entity_ids:
-  - sensor.upstairs_tiia
+  - sensor.upstairs_jere
   # - sensor.upstairs_hallway_tiia
   # - sensor.living_room_tiia
-  - sensor.kitchen_tiia
+  - sensor.kitchen_jere

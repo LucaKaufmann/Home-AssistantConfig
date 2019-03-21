@@ -1,0 +1,6 @@
+platform: mqtt
+state_topic: 'printer/estimation/seconds'
+value_template: '{{ value_json.value }}'
+name: 'Printer estimation seconds'
+unit_of_measurement: s
+force_update: true

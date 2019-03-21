@@ -8,4 +8,4 @@ trigger:
     actionName: STOP_WASHING_MACHINE
 action:
   service: homeassistant.turn_off
-  entity_id: switch.air_conditioner
+  entity_id: switch.washing_machine

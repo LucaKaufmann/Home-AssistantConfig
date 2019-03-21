@@ -1,0 +1,14 @@
+platform: glances
+host: !secret zigpi_ip
+name: zigpi
+version: 3
+resources:
+  - 'disk_use_percent'
+  - 'memory_use_percent'
+  - 'swap_use_percent'
+  - 'processor_load'
+  - 'process_running'
+  - 'process_total'
+  - 'process_sleeping'
+  #- 'cpu_use_percent'
+  - 'cpu_temp'

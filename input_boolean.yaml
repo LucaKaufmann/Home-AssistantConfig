@@ -146,3 +146,7 @@ tiia_downstairs:
   name: Tiia Downstairs
   icon: mdi:cellphone
  
+printer_shutdown:
+  name: Shutdown after print
+  icon: mdi:power
+ 

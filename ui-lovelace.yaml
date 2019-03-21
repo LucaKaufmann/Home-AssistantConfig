@@ -55,12 +55,12 @@ views:
             graph: line
           - id: c62f174e89d74431948aa508b4b1ca4d  # Automatically created id
             type: sensor
-            entity: sensor.temperature_office
+            entity: sensor.office_temperature
             line_color: '#1485CC'
             graph: line
           - id: d17fc5cd765444a4b037aa6bbc49530b  # Automatically created id
             type: sensor
-            entity: sensor.temperature_kids_room
+            entity: sensor.kids_room_temperature
             line_color: '#0971B2'
             graph: line
       - id: 15c1f886b91a4c43bcc3f0dcc3a3950b  # Automatically created id
@@ -142,7 +142,7 @@ views:
             entity: camera.living_room
             # camera_image: camera.living_room
           - type: picture-entity
-            entity: camera.front_door
+            entity: camera.raspberry
             show_state: false
             # camera_image: camera.front_door          
           - type: picture-entity
@@ -250,6 +250,7 @@ views:
         show_header_toggle: true
         entities:
           - light.hallway_downstairs
+          - sensor.hallway_downstairs_switch
       - id: ecf0284c95de43569def30fefd08f51a  # Automatically created id
         type: entities
         title: Hallway Upstairs
@@ -261,7 +262,7 @@ views:
         type: entities
         title: Bathroom
         entities:
-          - switch.air_conditioner
+          - switch.washing_machine
           - input_boolean.washing_machine
       - id: 576a675e9ca34726b36e5270eae676b7  # Automatically created id
         type: entities
@@ -453,7 +454,7 @@ views:
         title: Kitchen
         show_header_toggle: true
         entities:
-          - binary_sensor.motion_kitchen
+          - binary_sensor.kitchen_motion_sensor
           - binary_sensor.motion_kitchen_xiaomi
           - sensor.kitchen_light_level
           - sensor.kitchen_lux
@@ -465,7 +466,7 @@ views:
         title: Living room
         show_header_toggle: true
         entities:
-          - binary_sensor.living_motion_room
+          - binary_sensor.living_room_motion_sensor
           - sensor.big_light_brightness
           - sensor.paperlight_brightness
           - switch.circadian_lighting_circadian_lighting
@@ -493,16 +494,20 @@ views:
         title: Office
         show_header_toggle: true
         entities:
-          - sensor.temperature_office
-          - sensor.humidity_office
+          - sensor.office_temperature
+          - sensor.office_humidity
           - sensor.pressure_office
+          - sensor.printer_current_amps
+          - sensor.printer_current_watts
+          - sensor.printer_voltage
+          - sensor.printer_today_energy
       - id: 203f103b5c284b27b486925c5b3483aa  # Automatically created id
         type: entities
         title: Kids room
         show_header_toggle: true
         entities:
-          - sensor.temperature_kids_room
-          - sensor.humidity_kids_room
+          - sensor.kids_room_temperature
+          - sensor.kids_room_humidity
           - sensor.pressure_kids_room
       - id: 6de0b9a04e334b349b140f47c214e98c  # Automatically created id
         type: entities
@@ -517,17 +522,17 @@ views:
         title: Entrance
         show_header_toggle: true
         entities:
-          - sensor.illumination_7811dcaf23d2
+          # - sensor.illumination_7811dcaf23d2
           - binary_sensor.main_door
       - id: c06a8a1c852a4cdeb651f83aec877773  # Automatically created id
         type: entities
         title: Bathroom
         show_header_toggle: true
         entities:
-          - sensor.switch_current_amps
-          - sensor.switch_current_watts
-          - sensor.switch_voltage
-          - sensor.switch_today_energy
+          - sensor.washer_current_amps
+          - sensor.washer_current_watts
+          - sensor.washer_voltage
+          - sensor.washer_today_energy
       - id: d0e87da0e76c49eab046963432102cdb  # Automatically created id
         type: entities
         title: Hue
@@ -538,7 +543,7 @@ views:
         type: entities
         title: Tradfri
         entities:
-          - sensor.tradfri_remote_control_2
+          # - sensor.tradfri_remote_control_2
           - sensor.tradfri_remote_control_3
           - sensor.tradfri_remote_control_4
       - id: f3e444f889df44bab24992a8663e84ba  # Automatically created id
@@ -600,6 +605,8 @@ views:
           - entity: sensor.sevenplus_battery_level_2
           - entity: sensor.luca_signal
           - entity: sensor.luca_rssi
+          - entity: sensor.luca_office_rssi_raw
+          - entity: sensor.luca_office_rssi       
           - entity: binary_sensor.luca_downstairs_wifi
           - entity: binary_sensor.luca_upstairs_wifi
       - type: entities
@@ -628,6 +635,7 @@ views:
           - device_tracker.jeresiphone
           - device_tracker.jeres_iphone
           - device_tracker.jerephone
+          - sensor.home_occupancy_confidence_jere
           - sensor.upstairs_jere
       - id: ff896462930142338499dda96b858d49  # Automatically created id
         type: entities
@@ -1154,6 +1162,15 @@ views:
     title: 3D Printer
     icon: mdi:printer-3d
     cards:
+      - type: picture-entity
+        show_name: false
+        show_state: false
+        entity: camera.octoprint
+        camera_image: camera.octoprint
+      - type: entities
+        entities:
+          - switch.printer
+          - input_boolean.printer_shutdown
       - type: entities
         entities:
           - binary_sensor.octoprint_printing
@@ -1168,7 +1185,54 @@ views:
           - sensor.octoprint_job_percentage
           - sensor.octoprint_time_elapsed
           - sensor.octoprint_time_remaining
+          - sensor.printer_estimation_hours
+          - sensor.printer_estimation_seconds
+      - type: entities
+        entities:
+          - sensor.printer_current_amps
+          - sensor.printer_current_watts
+          - sensor.printer_voltage
+          - sensor.printer_today_energy
   - id: 13
+    title: System
+    icon: mdi:laptop
+    cards:
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Pihole
+        filter:
+          include:
+            - entity_id: sensor.pihole_*
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: RFID Pi
+        filter:
+          include:
+            - entity_id: sensor.rfidpi_*
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Zigbee2MQTT
+        filter:
+          include:
+            - entity_id: sensor.zigpi_*
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Monitor Pi
+        filter:
+          include:
+            - entity_id: sensor.monitorpi_*
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Dashboard Pi
+        filter:
+          include:
+            - entity_id: sensor.dashpi_*
+  - id: 14
     title: Debug
     cards:
       - type: custom:tracker-card

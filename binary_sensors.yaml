@@ -97,11 +97,11 @@
   name: 'Jere home'
   probability_threshold: 0.7
   observations:
-      - entity_id: 'device_tracker.jerephone'
-        prob_given_true: 0.99
-        prob_given_false: 0.3
-        platform: 'state'
-        to_state: 'home'
+#       - entity_id: 'device_tracker.jerephone'
+#         prob_given_true: 0.99
+#         prob_given_false: 0.3
+#         platform: 'state'
+#         to_state: 'home'
       - entity_id: 'device_tracker.jeresiphone'
         prob_given_true: 0.6
         prob_given_false: 0.3
@@ -112,6 +112,11 @@
         prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
+      - entity_id: 'sensor.home_occupancy_confidence_jere'
+        prob_given_true: 0.99
+        prob_given_false: 0.3
+        platform: 'numeric_state'
+        above: 32
 - platform: bayesian
   prior: 0.1
   name: 'People detected downstairs'
@@ -254,7 +259,7 @@
     motion_last_10:
       friendly_name: "Motion in the last 10 minutes"
       value_template: >
-        { ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_motion_room.last_updated) > 600) and is_state('binary_sensor.living_motion_room','off')) and ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) and ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen.last_updated) > 600) and is_state('binary_sensor.motion_kitchen','off')) }}
+        {{ not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_room_motion_sensor.last_updated) > 600) and is_state('binary_sensor.living_room_motion_sensor','off')) and not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) and not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kitchen_motion_sensor.last_updated) > 600) and is_state('binary_sensor.kitchen_motion_sensor','off')) }}
     # sonos_speakers:
     #   friendly_name: Sonos speakers
     #   value_template: >
