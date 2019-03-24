@@ -268,7 +268,7 @@
     #     or is_state('media_player.bedroom', 'playing') }}
     #   icon_template: mdi:speaker
 - platform: ring
-- platform: hue
+- platform: huesensor
 - platform: octoprint
   monitored_conditions:
     - Printing

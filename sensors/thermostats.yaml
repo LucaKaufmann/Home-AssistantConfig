@@ -1,13 +1,13 @@
 platform: template
 sensors:
   netatmo_living_room_temperature:
-    value_template: "{{ state_attr('climate.living_room', 'current_temperature') }}"
+    value_template: "{{ state_attr('climate.netatmo_living_room', 'current_temperature') }}"
     entity_id: fan.xiaomi_miio_device
     friendly_name: "Netatmo Living Room Temperature"
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
   netatmo_bedroom_temperature:
-    value_template: "{{ state_attr('climate.bedroom', 'current_temperature') }}"
+    value_template: "{{ state_attr('climate.netatmo_bedroom', 'current_temperature') }}"
     entity_id: fan.xiaomi_miio_device
     friendly_name: "Netatmo Bedroom Temperature"
     unit_of_measurement: °C

@@ -220,13 +220,13 @@ views:
           - light.living_room
           - light.desk
           - light.ball
-          - climate.living_room
+          - climate.netatmo_living_room
       - id: 38c014f50e6d4707b40e27b38b7c3756  # Automatically created id
         type: entities
         title: Bed Room
         show_header_toggle: true
         entities:
-          - climate.bedroom
+          - climate.netatmo_bedroom
           - fan.xiaomi_miio_device
           - light.yellow_light
       - id: 8940042baf6845399e7f42d1cc0ef8e7  # Automatically created id
@@ -570,6 +570,9 @@ views:
             icon: mdi:google-controller
           - entity: sensor.steam_76561198189917609
             name: Teacakess status
+            icon: mdi:google-controller
+          - entity: binary_sensor.playing_games
+            name: Playing games
             icon: mdi:google-controller
   - id: 4  # Automatically created id
     title: Automations

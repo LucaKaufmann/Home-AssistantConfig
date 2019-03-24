@@ -66,7 +66,6 @@ downloader:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret http_password
   ssl_certificate: /certs/fullchain.pem
   ssl_key: /certs/privkey.pem
   #ssl_certificate: !secret ssl_certificate
@@ -392,15 +391,24 @@ xiaomi_aqara:
 tradfri:
   host: !secret tradfri_ip
 
-netatmo2:
+# netatmo2:
+#   api_key: !secret netatmo_api_key
+#   secret_key: !secret netatmo_secret_key
+#   username: !secret netatmo_user
+#   password: !secret netatmo_pw
+#   discovery: False
+
+# climate:
+#   - platform: netatmo2
+
+climate:
+  - platform: netatmo
+
+netatmo:
   api_key: !secret netatmo_api_key
   secret_key: !secret netatmo_secret_key
   username: !secret netatmo_user
   password: !secret netatmo_pw
-  discovery: False
-
-climate:
-  - platform: netatmo2
 
 vacuum:
  - platform: xiaomi_miio
@@ -503,6 +511,8 @@ mqtt:
   will_message:
     topic: 'hass/status'
     payload: 'offline'
+
+stream:
 
 #binary_sensor:
 #  - platform: mqtt
