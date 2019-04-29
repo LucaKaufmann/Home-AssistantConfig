@@ -161,6 +161,8 @@ upstairs_lights:
     - light.gateway
     - light.yellow_light
     - light.hallway_upstairs
+    - light.kids_room
+    - light.bedroom
 
 light_scenes:
   name: Scenes

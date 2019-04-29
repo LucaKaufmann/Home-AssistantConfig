@@ -229,12 +229,14 @@ views:
           - climate.netatmo_bedroom
           - fan.xiaomi_miio_device
           - light.yellow_light
+          - light.bedroom
       - id: 8940042baf6845399e7f42d1cc0ef8e7  # Automatically created id
         type: entities
         title: Kids Room
         show_header_toggle: true
         entities:
           - switch.bedroom_switch
+          - light.kids_room
       - id: c85b0e7b79d74a00bc96477a9e6ad298  # Automatically created id
         type: entities
         title: Kitchen
@@ -459,6 +461,7 @@ views:
           - sensor.kitchen_light_level
           - sensor.kitchen_lux
           - sensor.kitchen_true_light_level
+          - sensor.kitchen_prediction
           - sensor.kitchen_light_level_avg
           - sensor.kitchen_temperature
       - id: 74ef04dd9f094c0e850f930b174e39b7  # Automatically created id
@@ -1190,6 +1193,7 @@ views:
           - sensor.octoprint_time_remaining
           - sensor.printer_estimation_hours
           - sensor.printer_estimation_seconds
+          - sensor.printer_speed
       - type: entities
         entities:
           - sensor.printer_current_amps

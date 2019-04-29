@@ -1,0 +1,8 @@
+platform: template
+sensors:
+  kitchen_prediction:
+    value_template: "{{ states.input_number.kitchen_prediction.state|int or 0 }}"
+    friendly_name: "Kitchen light prediction"
+    entity_id: input_number.kitchen_prediction
+    unit_of_measurement: Lux
+    icon_template: mdi:lightbulb-on-outline

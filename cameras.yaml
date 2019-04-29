@@ -10,7 +10,7 @@
   username: !secret camera_user
   password: !secret camera_pw
   authentication: basic
-  stream_source: !secret dafang_stream_url
+#   stream_source: !secret dafang_stream_url
   still_image_url: !secret dafang_url
   verify_ssl: false
   scan_interval: 1
@@ -46,7 +46,7 @@
   password: !secret camera_pw
   authentication: basic
   still_image_url: !secret xiaofang1_url
-  stream_source: !secret xiaofang1_stream_url
+#   stream_source: !secret xiaofang1_stream_url
   verify_ssl: false
   scan_interval: 1
 - platform: local_file
@@ -78,7 +78,7 @@
   password: !secret camera_pw
   authentication: basic
   still_image_url: !secret xiaofang2_url
-  stream_source: !secret xiaofang2_stream_url
+#   stream_source: !secret xiaofang2_stream_url
   verify_ssl: false
   scan_interval: 1
 # - platform: ffmpeg
@@ -165,14 +165,18 @@
   name: Sighthound Logi
   classifier: ''
 
-- platform: ffmpeg
-  name: Raspberry
-  input: !secret raspberry_input
-  extra_arguments: '-pred 1 -q:v 2'
-# - platform: generic
+# - platform: ffmpeg
 #   name: Raspberry
-#   still_image_url: !secret raspberry_snapshot
-#   stream_source: !secret raspberry_input
+#   input: !secret raspberry_input
+#   extra_arguments: '-pred 1 -q:v 2'
+# - platform: mjpeg
+#   name: OctoPrint
+#   still_image_url: !secret octoprint_still_url
+#   mjpeg_url: !secret octoprint_camera
+- platform: mjpeg
+  name: Raspberry
+  still_image_url: !secret raspberry_snapshot
+  mjpeg_url: !secret raspberry_input
 - platform: local_file
   name: Raspberry Latest
   file_path: '/images/raspberry/latest.jpg'

@@ -111,8 +111,11 @@ cloud:
         - light.hallway_upstairs
         - light.hallway_downstairs
         - light.ball
+        - light.color
         - light.living_room
         - light.desk
+        - light.kids_room
+        - light.bedroom
         - scene.bedtime
         - scene.movie_mode_arctic
         - scene.relax
@@ -298,9 +301,21 @@ light:
       - light.paperlight_1
       - light.paperlight_2
       - light.paperlight_3
+  - platform: group
+    name: Bedroom
+    entities:
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.bedroom_3
+  - platform: group
+    name: Kids Room
+    entities:
+      - light.kids_room_1
+      - light.kids_room_2
+      - light.kids_room_3
   # - platform: group
   #   name: Hallway Downstairs
-  #   entities:
+  #   entities:room_q
   #     - light.hallway_1
   #     - light.hallway_2
   #     - light.hallway_3

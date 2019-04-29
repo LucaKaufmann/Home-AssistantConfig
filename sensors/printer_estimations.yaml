@@ -1,0 +1,18 @@
+platform: template
+sensors:
+  printer_estimation_seconds:
+    friendly_name: "Calculated estimation seconds"
+    unit_of_measurement: "s"
+    value_template: >
+      {% set seconds = states('sensor.octoprint_time_remaining') | int %}
+      {% set multiplier = (states('sensor.printer_speed') | int) / 100 %}
+      {% set newEstimate = seconds / multiplier %}
+      {{ newEstimate | int}}
+    entity_id: sensor.octoprint_time_remaining
+  printer_estimation_hours:
+    friendly_name: "Calculated estimation hours"
+    unit_of_measurement: "h"
+    value_template: >
+      {% set seconds = states('sensor.printer_estimation_seconds') | int %}
+      {% set hours = (seconds/3600)|round(1) %}
+      {{ hours }}
