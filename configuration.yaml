@@ -32,6 +32,8 @@ lovelace:
 
 system_health:
 
+mobile_app:
+
 custom_updater:
   card_urls:
     - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
@@ -295,12 +297,12 @@ light:
       - light.paperlight
       - light.desk
       - light.big_light
-  - platform: group
-    name: Paperlight
-    entities:
-      - light.paperlight_1
-      - light.paperlight_2
-      - light.paperlight_3
+#   - platform: group
+#     name: Paperlight
+#     entities:
+#       - light.paperlight_1
+#       - light.paperlight_2
+#       - light.paperlight_3
   - platform: group
     name: Bedroom
     entities:
@@ -336,14 +338,14 @@ light:
     state_topic: "zigbee2mqtt/hallway_downstairs"
     optimistic: false
     brightness: true
-#   - platform: mqtt
-#     name: Paperlight
-#     schema: json
-#     command_topic: "zigbee2mqtt/paperlight/set"
-#     state_topic: "zigbee2mqtt/paperlight"
-#     optimistic: false
-#     brightness: true
-#     color_temp: true
+  - platform: mqtt
+    name: Paperlight
+    schema: json
+    command_topic: "zigbee2mqtt/paperlight/set"
+    state_topic: "zigbee2mqtt/paperlight"
+    optimistic: false
+    brightness: true
+    color_temp: true
   - platform: hue
     host: !secret hue_bridge
 
@@ -355,9 +357,9 @@ ring:
   username: !secret ring_user
   password: !secret ring_pw
 
-logi_circle:
-  username: !secret logi_user
-  password: !secret logi_pw
+# logi_circle:
+#   username: !secret logi_user
+#   password: !secret logi_pw
 # Track the sun
 sun:
 
@@ -374,7 +376,8 @@ octoprint:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
     language: 'en-us'
   - platform: amazon_polly
     aws_access_key_id: !secret aws_secret_id
@@ -527,7 +530,7 @@ mqtt:
     topic: 'hass/status'
     payload: 'offline'
 
-stream:
+#stream:
 
 #binary_sensor:
 #  - platform: mqtt
@@ -548,8 +551,10 @@ shell_command:
   xiaofang2_motion_on: !secret xiaofang2_motion_on
   xiaofang2_motion_off: !secret xiaofang2_motion_off
   rename_snapshots_raspberry: 'bash /config/bash_scripts/renameSnapshotsRaspberry.sh'
+  rename_car: 'bash /config/bash_scripts/renameCar.sh'  
+  rename_person: 'bash /config/bash_scripts/renamePerson.sh'
   rename_snapshots_living_room: 'bash /config/bash_scripts/renameSnapshotsLivingRoom.sh'
-  export_csv: 'python /config/export_to_csv.py -r {{rssi}} -s {{signal}} -a {{ap}} -d {{downstairs}}'
+  export_csv: 'python /config/export_to_csv.py -r {{rssi}} -s {{signal}} -a {{ap}} -l {{location}}'
   export_csv_luca: "python /config/export_to_csv.py -r {{states.device_tracker.sevenplus_router.attributes.rssi}} -s {{states.device_tracker.sevenplus_router.attributes.signal}} -a {% if is_state('binary_sensor.luca_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.luca_downstairs','on') %}1{% else %}0{% endif %}"
   export_csv_tiia: "python /config/export_to_csv.py -r {{states.device_tracker.tiiasiphone.attributes.rssi}} -s {{states.device_tracker.tiiasiphone.attributes.signal}} -a {% if is_state('binary_sensor.tiia_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.tiia_downstairs','on') %}1{% else %}0{% endif %}"
   export_gps_luca: "python /config/export/export_gps.py -t {{states.device_tracker.sevenplusha.attributes.latitude}} -o {{states.device_tracker.sevenplusha.attributes.longitude}} -d '{{states.device_tracker.sevenplusha.attributes.timestamp}}' -p luca"

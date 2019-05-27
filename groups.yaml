@@ -246,7 +246,7 @@ sensor_kitchen:
     - sensor.kitchen_temperature
 
 kitchen_motion_sensors:
-  - binary_sensor.motion_kitchen
+  - binary_sensor.kitchen_sensor_motion
   - binary_sensor.motion_kitchen_xiaomi
 
 hue_sensors:
@@ -360,8 +360,8 @@ sonos_speakers:
 downstairs_motion_sensors:
   name: Downstairs sensors
   entities:
-    - binary_sensor.motion_kitchen
-    - binary_sensor.living_motion_room
+    - binary_sensor.kitchen_sensor_motion
+    - binary_sensor.living_room_sensor_motion
     - binary_sensor.motion_kitchen_xiaomi
 
 upstairs_motion_sensors:
@@ -373,8 +373,8 @@ upstairs_motion_sensors:
 all_motion_sensors:
   name: Motion sensors
   entities:
-    - binary_sensor.motion_kitchen
-    - binary_sensor.living_motion_room
+    - binary_sensor.kitchen_sensor_motion
+    - binary_sensor.living_room_sensor_motion
     - binary_sensor.motion_hallway_upstairs_2
     - binary_sensor.motion_kitchen_xiaomi
 

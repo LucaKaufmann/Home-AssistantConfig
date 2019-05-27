@@ -31,7 +31,7 @@ sonos_group_motion:
         #  {% endfor %}
 
     #Now join the player into the group
-    - service: media_player.sonos_join
+    - service: sonos.join
       data_template:
         master: media_player.{{ states('input_select.music_controller') }}
         entity_id: >

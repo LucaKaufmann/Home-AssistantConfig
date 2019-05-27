@@ -27,7 +27,7 @@ sonos_ungroup_motion:
           false
         {% endif %}
 
-    - service: media_player.sonos_unjoin
+    - service: sonos.unjoin
       data_template:
         entity_id: >
           {% if target_player is not none %}

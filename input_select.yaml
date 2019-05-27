@@ -24,3 +24,15 @@ cat:
     - None
   initial: None
   icon: mdi:cat
+
+phone_location:
+  name: Phone location
+  options:
+    - Living Room
+    - Kitchen
+    - Bedroom
+    - Office
+    - Jere Room
+    - Bathroom
+  initial: Living Room
+  icon: mdi:cellphone

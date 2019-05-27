@@ -1,38 +1,26 @@
 platform: template
 sensors:
   livingroom_light_level:
-    value_template: "{{ states.binary_sensor.living_room_motion_sensor.attributes['light_level'] }}"
+    value_template: "{{ states('sensor.living_room_sensor_light_level') }}"
     friendly_name: "Living Room Light Level"
-    entity_id: binary_sensor.living_room_motion_sensor
+    entity_id:  sensor.living_room_sensor_light_level
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   livingroom_temperature:
-    value_template: "{{ states.binary_sensor.living_room_motion_sensor.attributes['temperature'] }}"
+    value_template: "{{ states('sensor.living_room_sensor_temperature') }}"
     friendly_name: "Living Room Temperature"
-    entity_id: binary_sensor.living_room_motion_sensor
+    entity_id:  sensor.living_room_sensor_temperature
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
-  livingroom_lux:
-    value_template: "{{ states.binary_sensor.living_room_motion_sensor.attributes['lx'] }}"
-    friendly_name: "Living Room Lux"
-    entity_id: binary_sensor.living_room_motion_sensor
-    unit_of_measurement: Lux
-    icon_template: mdi:lightbulb-on-outline
   kitchen_light_level:
-    value_template: "{{ states.binary_sensor.kitchen_motion_sensor.attributes['light_level'] }}"
+    value_template: "{{ states('sensor.kitchen_sensor_light_level') }}"
     friendly_name: "Kitchen Light Level"
-    entity_id: binary_sensor.kitchen_motion_sensor
+    entity_id: sensor.kitchen_sensor_light_level
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   kitchen_temperature:
-    value_template: "{{ states.binary_sensor.kitchen_motion_sensor.attributes['temperature'] }}"
+    value_template: "{{ states('sensor.kitchen_sensor_temperature') }}"
     friendly_name: "Kitchen Temperature"
-    entity_id: binary_sensor.kitchen_motion_sensor
+    entity_id: sensor.kitchen_sensor_temperature
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
-  kitchen_lux:
-    value_template: "{{ states.binary_sensor.kitchen_motion_sensor.attributes['lx'] }}"
-    friendly_name: "Kitchen Lux"
-    entity_id: binary_sensor.kitchen_motion_sensor
-    unit_of_measurement: Lux
-    icon_template: mdi:lightbulb-on-outline

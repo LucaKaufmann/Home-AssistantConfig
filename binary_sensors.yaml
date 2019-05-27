@@ -23,23 +23,23 @@
         platform: 'state'
         to_state: 'on'
       - entity_id: 'sun.sun'
-        prob_given_true: 0.6
+        prob_given_true: 0.8
         platform: 'state'
         to_state: 'below_horizon'
       - entity_id: 'group.all_lights_except_nightlight'
-        prob_given_true: 0.9
-        platform: 'state'
-        to_state: 'off'
-      - entity_id: 'binary_sensor.motion_last_10'
         prob_given_true: 0.7
         platform: 'state'
         to_state: 'off'
-      - entity_id: 'sensor.sevenplus_battery_state_2'
+      - entity_id: 'input_boolean.motion_last_10'
+        prob_given_true: 0.8
+        platform: 'state'
+        to_state: 'off'
+      - entity_id: 'sensor.sevenplus_battery_state_3'
         prob_given_true: 0.7
         platform: 'state'
         to_state: 'Charging'
       - entity_id: 'sensor.all_media_players'
-        prob_given_true: 0.7
+        prob_given_true: 0.8
         platform: 'state'
         to_state: 'off'
 - platform: bayesian
@@ -259,7 +259,7 @@
     motion_last_10:
       friendly_name: "Motion in the last 10 minutes"
       value_template: >
-        {{ not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_room_motion_sensor.last_updated) > 600) and is_state('binary_sensor.living_room_motion_sensor','off')) and not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) and not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kitchen_motion_sensor.last_updated) > 600) and is_state('binary_sensor.kitchen_motion_sensor','off')) }}
+        {{ not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_room_sensor_motion.last_updated) > 600) and is_state('binary_sensor.living_room_sensor_motion','off')) or not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) or not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kitchen_sensor_motion.last_updated) > 600) and is_state('binary_sensor.kitchen_sensor_motion','off')) }}
     # sonos_speakers:
     #   friendly_name: Sonos speakers
     #   value_template: >

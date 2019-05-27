@@ -418,6 +418,17 @@ views:
           - sun.sun
           - sensor.sun_elevation
           - sensor.next_launch
+      - id: Sleeping
+        type: entities
+        entities: 
+          - binary_sensor.sleeping
+          - input_boolean.home_for_over_10
+          - sun.sun
+          - group.all_lights_except_nightlight
+          - binary_sensor.motion_last_10
+          - input_boolean.motion_last_10
+          - sensor.sevenplus_battery_state_3
+          - sensor.all_media_players
       - id: 991994685c7c4a84a938d62fe9d0045e  # Automatically created id
         type: entities
         title: Raspberry Pi
@@ -456,7 +467,7 @@ views:
         title: Kitchen
         show_header_toggle: true
         entities:
-          - binary_sensor.kitchen_motion_sensor
+          - binary_sensor.kitchen_sensor_motion
           - binary_sensor.motion_kitchen_xiaomi
           - sensor.kitchen_light_level
           - sensor.kitchen_lux
@@ -469,7 +480,7 @@ views:
         title: Living room
         show_header_toggle: true
         entities:
-          - binary_sensor.living_room_motion_sensor
+          - binary_sensor.living_room_sensor_motion
           - sensor.big_light_brightness
           - sensor.paperlight_brightness
           - switch.circadian_lighting_circadian_lighting
@@ -477,8 +488,8 @@ views:
           - sensor.livingroom_lux
           - sensor.livingroom_light_level_avg
           - sensor.target_brightness
-          - sensor.target_brightness_inside
-          - sensor.target_brightness_livingroom
+          - sensor.target_brightness_off
+          - sensor.target_brightness_on
           - sensor.livingroom_temperature
           - sensor.netatmo_living_room_temperature
           - sensor.downstairs_media_players
@@ -1069,6 +1080,7 @@ views:
           - input_boolean.luca_downstairs
           - input_boolean.tiia_downstairs
           - input_select.cat
+          - input_select.phone_location
   - id: 10
     title: Vacuum
     icon: mdi:robot-vacuum
