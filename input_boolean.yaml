@@ -84,7 +84,7 @@ announce_streams:
 guest_mode:
   name: Guest mode
   initial: off
-  
+
 vacation_mode:
   name: Vacation mode
   initial: off
@@ -129,15 +129,15 @@ camera_cycling_bedroom:
 camera_cycling_livingroom:
   name: Cycle cameras livingroom
   icon: mdi:cctv
-  
+
 training_mode:
   name: Training Mode
   icon: mdi:library-books
-  
+
 privacy_mode:
   name: Privacy mode
   icon: mdi:shield-account
-  
+
 luca_downstairs:
   name: Luca Downstairs
   icon: mdi:cellphone
@@ -145,8 +145,15 @@ luca_downstairs:
 tiia_downstairs:
   name: Tiia Downstairs
   icon: mdi:cellphone
- 
+
 printer_shutdown:
   name: Shutdown after print
   icon: mdi:power
- 
+
+motion_alerts:
+  name: Motion Alerts
+  icon: mdi:motion-sensor
+
+tv_lock:
+  name: TV lock
+  icon: mdi:lock

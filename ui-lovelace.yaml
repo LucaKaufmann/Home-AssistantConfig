@@ -144,7 +144,7 @@ views:
           - type: picture-entity
             entity: camera.raspberry
             show_state: false
-            # camera_image: camera.front_door          
+            # camera_image: camera.front_door
           - type: picture-entity
             entity: camera.dafang
             name: Cats
@@ -167,6 +167,7 @@ views:
           - input_boolean.guest_mode
           - input_boolean.privacy_mode
           - input_boolean.someone_downstairs
+          - input_boolean.motion_alerts
       - id: status  # Automatically created id
         type: glance
         entities:
@@ -210,6 +211,8 @@ views:
           - entity: input_boolean.camera_cycling_bedroom
           - entity: input_boolean.camera_cycling_livingroom
           - entity: input_boolean.announce_streams
+          - entity: input_boolean.motion_alerts
+          - entity: input_boolean.tv_lock
       - id: f633f7ffa16a42c7a5154956bd9ef06e  # Automatically created id
         type: entities
         title: Living Room
@@ -420,7 +423,7 @@ views:
           - sensor.next_launch
       - id: Sleeping
         type: entities
-        entities: 
+        entities:
           - binary_sensor.sleeping
           - input_boolean.home_for_over_10
           - sun.sun
@@ -623,7 +626,7 @@ views:
           - entity: sensor.luca_signal
           - entity: sensor.luca_rssi
           - entity: sensor.luca_office_rssi_raw
-          - entity: sensor.luca_office_rssi       
+          - entity: sensor.luca_office_rssi
           - entity: binary_sensor.luca_downstairs_wifi
           - entity: binary_sensor.luca_upstairs_wifi
       - type: entities
