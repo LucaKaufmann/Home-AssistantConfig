@@ -1,0 +1,171 @@
+id: dashboardlights
+title: Lights
+icon: mdi:lightbulb-outline
+cards:
+  - type: weather-forecast
+    entity: weather.dark_sky
+  - type: custom:swipe-card
+    cards:
+      - type: sensor
+        name: Living Room
+        entity: sensor.livingroom_temperature
+        line_color: '#FFFC19'
+        graph: line
+      - type: sensor
+        name: Kitchen
+        entity: sensor.kitchen_temperature
+        colline_coloror: '#3498db'
+        graph: line
+      - type: sensor
+        name: Bedroom
+        entity: sensor.air_purifier_temperature
+        line_color: '#FF0000'
+        graph: line
+      - type: sensor
+        name: Office
+        entity: sensor.office_temperature
+        line_color: '#1485CC'
+        graph: line
+      - type: sensor
+        name: Kids room
+        entity: sensor.kids_room_temperature
+        line_color: '#0971B2'
+        graph: line
+      - type: sensor
+        name: Outdoor
+        entity: sensor.outdoor_temperature
+        line_color: '#1485CC'
+        graph: line
+  - type: custom:slideshow-card
+    flush: true
+    arrow_color: White
+    arrow_opacity: .5
+    auto_play: true
+    auto_delay: 8
+    style:
+      border-radius: 25px
+    cards:
+      - type: picture-glance
+        title: Living room
+        camera_image: camera.xiaofang2
+        camera_view: live
+        entities:
+          - entity: light.living_room
+          - entity: light.big_light
+          - entity: light.paperlight
+          - entity: light.ball
+        # camera_image: camera.xiaofang2_latest
+                  # camera_image: camera.dafang_latest
+      - type: picture-glance
+        title: Kitchen
+        camera_image: camera.xiaofang1
+        camera_view: live
+        entities:
+          - entity: light.kitchen
+      - type: picture-entity
+        entity: camera.raspberry
+        camera_view: live
+        name: Front
+        show_state: false
+      - type: picture-glance
+        title: Backyard
+        camera_image: camera.backyard
+        camera_view: live
+        entities:
+          - entity: light.deck_lightstrip
+      - type: picture-entity
+        entity: camera.dafang
+        camera_view: live
+        name: Cats
+        show_state: false
+  - type: glance
+    title: Living Room
+    entities:
+      - entity: light.living_room
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.big_light
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.ball
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.paperlight
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.desk
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+  - type: horizontal-stack
+    cards:
+      - type: entity-button
+        title: Outside
+        entity: light.deck_lightstrip
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - type: entity-button
+        title: Kitchen
+        entity: light.kitchen
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - type: entity-button
+        title: Hallway downstairs
+        entity: light.hallway_downstairs
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+  - type: glance
+    title: Upstairs
+    entities:
+      - entity: light.bedroom
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.yellow_light
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.color
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.gateway
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.office
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.kids_room
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+  - type: entities
+    title: Lights
+    entities:
+      - entity: input_boolean.auto_lights
+      - entity: input_boolean.movie_mode
+      - entity: input_boolean.gaming_mode 
+      - entity: input_boolean.color_mode

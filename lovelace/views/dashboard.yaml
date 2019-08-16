@@ -1,0 +1,232 @@
+id: dashboard
+title: Dashboard
+icon: mdi:tablet-dashboard
+cards:
+  - type: vertical-stack
+    cards:
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.outside_motion
+            state: "off"
+          - entity: vacuum.eve
+            state: "docked"
+          - entity: binary_sensor.octoprint_printing
+            state: "off"
+        card:
+          type: custom:weather-card
+          entity: weather.dark_sky
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.outside_motion
+            state: "on"
+        card:
+          type: picture-glance
+          title: Front
+          panel: true
+          camera_image: camera.raspberry
+          camera_view: live
+          entities:
+            - entity: binary_sensor.outside_motion
+      - type: conditional
+        conditions:
+          - entity: vacuum.eve
+            state: "cleaning"
+        card:
+          type: picture-glance
+          title: Front
+          panel: true
+          camera_image: camera.vacuum_map
+          camera_view: live
+          entities:
+            - entity: vacuum.eve
+  - type: vertical-stack
+    cards:
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.octoprint_printing
+            state: "on"
+        card:
+          type: picture-entity
+          entity: sensor.octoprint_job_percentage
+          camera_image: camera.octoprint
+          camera_view: live
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/18  
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.kitchen
+          - type: conditional
+            conditions:
+              - entity: vacuum.eve
+                state: "cleaning"
+            card:
+                type: entity-button
+                entity: vacuum.eve
+                name: Stop vacuum
+                tap_action:
+                  action: call-service
+                  service: vacuum.return_to_base
+                  service_data: 
+                    entity_id: vacuum.eve
+                hold_action: 
+                  action: more-info
+          - type: conditional
+            conditions:
+              - entity: vacuum.eve
+                state: "docked"
+            card:
+                type: entity-button
+                entity: script.vacuum_clean_kitchen
+                icon: mdi:fridge-outline
+                tap_action:
+                  action: call-service
+                  service: script.turn_on
+                  service_data: 
+                    entity_id: script.vacuum_clean_kitchen
+  # - type: entity-filter
+  #   entities:
+  #     - light.living_room
+  #     - light.paperlight
+  #     - Big Light
+  #     - light.desk
+  #     - light.ball
+  #     - light.hallway_downstairs
+  #     - light.kitchen
+  #     - light.deck_lightstrip
+  #     - light.hallway_upstairs
+  #     - light.office
+  #     - light.kids_room
+  #     - light.bedroom
+  #     - light.yellow_light
+  #     - light.color
+  #   state_filter:
+  #     - "on"
+  #   card:
+  #     type: glance
+  #     title: Lights on
+  - type: entity-filter
+    show_empty: false
+    entities:
+      - entity: light.living_room
+        name: Living room
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.paperlight
+        name: Paperlight
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.big_light
+        name: Big Light
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.desk
+        name: Couch
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.ball
+        name: Moon
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.hallway_downstairs
+        name: Downstairs
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.kitchen
+        name: Kitchen
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.deck_lightstrip
+        name: Deck
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.hallway_upstairs
+        name: Upstairs
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.office
+        name: Office
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.kids_room
+        name: Kids room
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.bedroom
+        name: Bedroom
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.yellow_light
+        name: Yellow light
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.color
+        name: Color
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+    state_filter:
+      - "on"
+    card:
+      type: glance
+      title: Lights on
+  - type: custom:swipe-card
+    cards:
+      - type: sensor
+        name: Living Room
+        entity: sensor.livingroom_temperature
+        line_color: '#FFFC19'
+        graph: line
+      - type: sensor
+        name: Kitchen
+        entity: sensor.kitchen_temperature
+        colline_coloror: '#3498db'
+        graph: line
+      - type: sensor
+        name: Bedroom
+        entity: sensor.air_purifier_temperature
+        line_color: '#FF0000'
+        graph: line
+      - type: sensor
+        name: Office
+        entity: sensor.office_temperature
+        line_color: '#1485CC'
+        graph: line
+      - type: sensor
+        name: Kids room
+        entity: sensor.kids_room_temperature
+        line_color: '#0971B2'
+        graph: line
+      - type: sensor
+        name: Outdoor
+        entity: sensor.outdoor_temperature
+        line_color: '#1485CC'
+        graph: line

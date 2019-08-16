@@ -11,24 +11,13 @@ resources:
     type: module
   - url: /local/kiosk.js
     type: js
-  - url: /local/community/mini-media-player/mini-media-player.js
+  - url: /local/mini-media-player-bundle.js?v=0.9.8
     type: module
   - url: /local/tracker-card.js?v=0
     type: js
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
     type: module
-  - url: /community_plugin/compact-custom-header/compact-custom-header.js
-    type: module
-  - url: /community_plugin/lovelace-home-feed-card/home-feed-card.js
-    type: js
-  - url: /community_plugin/weather-card/weather-card.js
-    type: module
-  - url: /community_plugin/surveillance-card/surveillance-card.js
-    type: module
-  - url: /community_plugin/mini-graph-card/mini-graph-card.js
-    type: module
-  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
-    type: module
+
 title: Home
 views:
   - id: 0  # Automatically created id
@@ -86,17 +75,32 @@ views:
             camera_view: live
             name: Cats
             show_state: false
-      - type: custom:monster-card
+      - id: e06fb423d97c4b10b9d48cb824e15bcf  # Automatically created id
+        type: entity-filter
+        entities:
+          - entity: light.paperlight
+            name: Dining room
+          - entity: light.big_light
+            name: Big light
+          - entity: light.living_room
+            name: Living room
+          - entity: light.kitchen
+            name: Kitchen
+          - entity: light.hallway_upstairs
+            name: Hallway upstairs
+          - entity: light.hallway_downstairs
+            name: Hallway downstairs
+          - entity: light.hallway_color
+            name: Hallway color
+          - entity: light.office
+            name: Office
+          - entity: light.yellow_light
+            name: Bedroom
+          - entity: light.deck_lightstrip
+            name: Backyard
+        state_filter:
+          - "on"
         show_empty: false
-        card:
-          type: glance
-          title: Lights On
-        filter:
-          include:
-            - domain: light
-          exclude:
-            - state: 'off'
-            - state: 'unavailable'
       - id: dfc8066cded449ca81cc9c61310dba51  # Automatically created id
         type: weather-forecast
         entity: weather.dark_sky
@@ -168,6 +172,7 @@ views:
                 name: Tiia
                 icon: mdi:train
             # camera_image: camera.xiaofang1_latest
+
       - id: 2902aafc2967441f98d034cf5de05cbb  # Automatically created id
         type: entities
         entities:
@@ -200,8 +205,6 @@ views:
       #     include:
       #       - state: 'on'      
   - !include lovelace/views/dashboard.yaml
-  - !include lovelace/views/dashboard-light.yaml
-  - !include lovelace/views/dashboard-big.yaml
   - id: Lights
     title: Lights
     icon: mdi:lightbulb-outline
@@ -275,11 +278,6 @@ views:
               action: toggle
             hold_action:
               action: more-info
-          - entity: light.gateway
-            tap_action:
-              action: toggle
-            hold_action:
-              action: more-info
           - entity: light.office
             tap_action:
               action: toggle
@@ -337,8 +335,6 @@ views:
               - input_select.audiobook
               - input_select.music_controller
               - input_boolean.follow_music
-              - timer.tv_timer
-              - input_select.tv_time
               - entity: input_boolean.tv_limit
               - entity: input_boolean.tv_lock 
               - entity: input_boolean.announce_streams
@@ -541,14 +537,6 @@ views:
               - entity_id: media_player.kitchen
                 name: Kitchen
               - entity_id: media_player.bedroom
-      - type: vertical-stack
-        cards:
-          - type: entities
-            entities:
-              - timer.tv_timer
-              - input_select.tv_time
-              - input_boolean.tv_limit
-              - input_boolean.tv_lock
       - type: glance
         title: Sensors
         entities:
@@ -693,9 +681,8 @@ views:
           - group.all_lights_except_nightlight
           - binary_sensor.motion_last_10
           - input_boolean.motion_last_10
-          - sensor.sevenplus_battery_state
+          - sensor.sevenplus_battery_state_3
           - sensor.all_media_players
-          - binary_sensor.playing_games
       - id: 991994685c7c4a84a938d62fe9d0045e  # Automatically created id
         type: entities
         title: Raspberry Pi
@@ -1265,6 +1252,11 @@ views:
               - sensor.tensorflow_person_dafang
               - sensor.tensorflow_cat_dafang
               - binary_sensor.cats_detected_closet
+
+          # - type: entities
+          #   entities:
+          #     - image_processing.tensorflow_dafang_latest
+          #     - image_processing.cb_dafang_cat_model
       - id: raspberry_camera_stack
         type: vertical-stack
         cards:
@@ -1460,7 +1452,6 @@ views:
         show_state: false
         entity: camera.octoprint
         camera_image: camera.octoprint
-        camera_view: live
       - type: entities
         entities:
           - switch.printer
@@ -1535,171 +1526,3 @@ views:
         trackers:
           - sensor.custom_card_tracker
           - sensor.custom_component_tracker
-  - title: Surveillance
-    icon: mdi:cctv
-    panel: true
-    cards:
-      - type: custom:surveillance-card
-        thumb_interval: 15
-        update_interval: 2
-        cameras:
-          - entity: camera.xiaofang2
-            motion_entity: binary_sensor.living_room_motion_sensor
-          - entity: camera.xiaofang1
-            motion_entity: binary_sensor.kitchen_sensor_motion
-          - entity: camera.backyard
-            motion_entity: binary_sensor.hue_outdoor_motion_sensor_motion_1
-          - entity: camera.raspberry
-            motion_entity: binary_sensor.outside_motion
-  - title: Dashboard
-    icon: mdi:monitor-dashboard
-    cards:
-      - type: custom:swipe-card
-        panel: true
-        cards:
-          - type: vertical-stack
-            cards:
-              - type: 'custom:home-feed-card'
-                title: Home Feed
-                include_history: true
-                # max_height: 12em
-                id_filter: ^home_feed_.*
-                calendars:
-                  - calendar.tiia_schedule
-                  - calendar.personal
-                  - calendar.jere_school
-                entities:
-                  - entity: sensor.octoprint_current_state
-                    state_map:
-                      unknown: "off"
-                  - entity: input_boolean.someone_downstairs
-                    icon: mdi:account
-                  - entity: media_player.lg_webos_smart_tv
-                    name: TV
-                    icon: mdi:television
-                  - entity: sensor.tv_source
-                    content_template: 'Watching {{state}}'
-                    max_history: 3
-                  - entity: binary_sensor.should_vacuum
-                  - entity: vacuum.eve
-                    icon: mdi:robot-vacuum
-                    include_history: true
-                    max_history: 3
-                  - entity: binary_sensor.eating
-                  - entity: binary_sensor.kitchen_lights_on
-                    name: Kitchen lights
-                    include_history: true
-                    max_history: 3
-                  - entity: binary_sensor.sleeping
-                    icon: mdi:sleep
-                  - entity: binary_sensor.ring_front_door_motion
-                  - entity: binary_sensor.ring_front_door_ding
-                  - entity: group.all_lights
-                    name: All lights
-                    icon: mdi:lightbulb-outline
-                    content_template: '{{display_name}} are {{state}}'
-                  - entity: group.anyone_downstairs
-                    name: Phone downstairs
-                    icon: mdi:cellphone-iphone
-                  - entity: group.anyone_upstairs
-                    name: Phone upstairs
-                    icon: mdi:cellphone-iphone
-                  - entity: device_tracker.sevenplusha
-                    name: Luca
-                    icon: mdi:human-male
-                    content_template: '{{display_name}} arrived at {{state}}'
-                    include_history: true
-                    max_history: 5
-                    remove_repeats: true
-                    state_map:
-                      not_home: Unknown Destination
-                  - entity: binary_sensor.tiia_home
-                    name: Tiia home
-                    icon: mdi:human-female
-                    include_history: true
-                    max_history: 3
-                    remove_repeats: true
-                    state_map:
-                      on: Home
-                  - entity: binary_sensor.jere_home
-                    name: Jere home
-                    icon: mdi:human-child
-                    include_history: true
-                    max_history: 3
-                    remove_repeats: true
-                    state_map:
-                      on: Home
-                      
-          # - type: vertical-stack
-          #   cards:
-          #     - type: conditional
-          #       conditions:
-          #         - entity: binary_sensor.outside_motion
-          #           state: "on"
-          #       card:
-          #         type: picture-glance
-          #         title: Front
-          #         panel: true
-          #         camera_image: camera.raspberry
-          #         camera_view: live
-          #         entities:
-          #           - entity: binary_sensor.outside_motion
-          #     - type: conditional
-          #       conditions:
-          #         - entity: vacuum.eve
-          #           state: "cleaning"
-          #       card:
-          #         type: picture-glance
-          #         title: Front
-          #         panel: true
-          #         camera_image: camera.vacuum_map
-          #         camera_view: live
-          #         entities:
-          #           - entity: vacuum.eve
-          #     - type: conditional
-          #       conditions:
-          #         - entity: binary_sensor.outside_motion
-          #           state: "off"
-          #       card:
-          #         type: custom:slideshow-card
-          #         flush: true
-          #         arrow_color: White
-          #         arrow_opacity: .5
-          #         auto_play: true
-          #         auto_delay: 8
-          #         style:
-          #           border-radius: 25px
-          #         cards:
-          #           - type: picture-glance
-          #             title: Living room
-          #             camera_image: camera.xiaofang2
-          #             camera_view: live
-          #             entities:
-          #               - entity: light.living_room
-          #               - entity: light.big_light
-          #               - entity: light.paperlight
-          #               - entity: light.ball
-          #             # camera_image: camera.xiaofang2_latest
-          #                       # camera_image: camera.dafang_latest
-          #           - type: picture-glance
-          #             title: Kitchen
-          #             camera_image: camera.xiaofang1
-          #             camera_view: live
-          #             entities:
-          #               - entity: light.kitchen
-          #           - type: picture-entity
-          #             entity: camera.raspberry
-          #             camera_view: live
-          #             name: Front
-          #             show_state: false
-          #           - type: picture-glance
-          #             title: Backyard
-          #             camera_image: camera.backyard
-          #             camera_view: live
-          #             entities:
-          #               - entity: light.deck_lightstrip
-          #           - type: picture-entity
-          #             entity: camera.dafang
-          #             camera_view: live
-          #             name: Cats
-          #             show_state: false
