@@ -1,5 +1,5 @@
 alias: Group Player when motion detected
-initial_state: 'on' 
+initial_state: 'on'
 trigger:
   - platform: state
     entity_id: group.kitchen_motion_sensors #Entry
@@ -31,7 +31,7 @@ action:
         {% if trigger.entity_id == 'group.kitchen_motion_sensors' %}
           {% set player = 'media_player.kitchen' %}
         {% elif trigger.entity_id == 'group.upstairs_motion_sensors' %}
-          {% set player = 'media_player.bedroom' %}
+          {% set player = 'media_player.hallway_upstairs' %}
         {% elif trigger.entity_id == 'sensor.living_motion_room' %}
           {% set player = 'media_player.living_room' %}
         {% endif %}

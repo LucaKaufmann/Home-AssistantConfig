@@ -196,7 +196,7 @@
 - platform: local_file
   name: Raspberry Snapshot 5
   file_path: '/images/raspberry/snapshot5.jpg'
-  
+
 # - platform: generic
 #   name: Xiaofang2 Tensorflow
 #   still_image_url: >
@@ -236,7 +236,7 @@
 - platform: local_file
   name: Vacuum Map Snapshot 5
   file_path: '/images/vacuum_maps/snapshot5.png'
-- platform: ring
+# - platform: ring
 - platform: mjpeg
   name: OctoPrint
   still_image_url: !secret octoprint_still_url

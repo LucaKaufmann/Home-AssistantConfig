@@ -19,27 +19,34 @@
   probability_threshold: 0.96
   observations:
       - entity_id: 'input_boolean.home_for_over_10'
-        prob_given_true: 0.9
+        prob_given_true: 0.7
         platform: 'state'
         to_state: 'on'
       - entity_id: 'sun.sun'
-        prob_given_true: 0.8
+        prob_given_true: 0.7
         platform: 'state'
         to_state: 'below_horizon'
       - entity_id: 'group.all_lights_except_nightlight'
-        prob_given_true: 0.7
+        prob_given_true: 0.8
         platform: 'state'
         to_state: 'off'
       - entity_id: 'input_boolean.motion_last_10'
-        prob_given_true: 0.8
+        prob_given_true: 0.6
+        prob_given_false: 0.2
         platform: 'state'
         to_state: 'off'
-      - entity_id: 'sensor.sevenplus_battery_state_3'
-        prob_given_true: 0.7
+      - entity_id: 'sensor.sevenplus_battery_state'
+        prob_given_true: 0.6
         platform: 'state'
         to_state: 'Charging'
       - entity_id: 'sensor.all_media_players'
-        prob_given_true: 0.8
+        prob_given_true: 0.5
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'off'
+      - entity_id: 'binary_sensor.playing_games'
+        prob_given_true: 0.4
+        prob_given_false: 0.1
         platform: 'state'
         to_state: 'off'
 - platform: bayesian
@@ -103,13 +110,13 @@
 #         platform: 'state'
 #         to_state: 'home'
       - entity_id: 'device_tracker.jeresiphone'
-        prob_given_true: 0.6
-        prob_given_false: 0.3
+        prob_given_true: 0.9
+        prob_given_false: 0.1
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.jeres_iphone'
-        prob_given_true: 0.6
-        prob_given_false: 0.3
+        prob_given_true: 0.9
+        prob_given_false: 0.1
         platform: 'state'
         to_state: 'home'
       - entity_id: 'sensor.home_occupancy_confidence_jere'
@@ -117,6 +124,16 @@
         prob_given_false: 0.3
         platform: 'numeric_state'
         above: 32
+- platform: bayesian
+  prior: 0.5
+  name: 'Robin home'
+  probability_threshold: 0.7
+  observations:
+      - entity_id: 'device_tracker.robin_router'
+        prob_given_true: 0.99
+        prob_given_false: 0.3
+        platform: 'state'
+        to_state: 'home'
 - platform: bayesian
   prior: 0.1
   name: 'People detected downstairs'
@@ -234,22 +251,32 @@
     luca_downstairs_wifi:
       friendly_name: "Luca Downstairs Wifi"
       value_template: >
-       {{ is_state('device_tracker.sevenplus_router', 'home') and state_attr('device_tracker.sevenplus_router', 'ap_mac') == '78:8a:20:80:45:b6' }}
+       {{ is_state('device_tracker.sevenplus_router', 'home') and (state_attr('device_tracker.sevenplus_router', 'mac') == '78:8a:20:80:45:b6' or state_attr('device_tracker.sevenplus_router', 'mac') == '18:e8:29:c0:63:87') }}
       icon_template: mdi:wifi
     tiia_downstairs_wifi:
       friendly_name: "Tiia Downstairs Wifi"
       value_template: >
-       {{ is_state('device_tracker.tiiasiphone', 'home') and state_attr('device_tracker.tiiasiphone', 'ap_mac') == '78:8a:20:80:45:b6' }}
+       {{ is_state('device_tracker.tiiasiphone', 'home') and (state_attr('device_tracker.tiiasiphone', 'mac') == '78:8a:20:80:45:b6' or state_attr('device_tracker.tiiasiphone', 'mac') == '18:e8:29:c0:63:87') }}
+      icon_template: mdi:wifi
+    robin_downstairs_wifi:
+      friendly_name: "Robin Downstairs Wifi"
+      value_template: >
+       {{ is_state('device_tracker.robin_router', 'home') and (state_attr('device_tracker.robin_router', 'mac') == '78:8a:20:80:45:b6' or state_attr('device_tracker.robin_router', 'mac') == '18:e8:29:c0:63:87') }}
       icon_template: mdi:wifi
     luca_upstairs_wifi:
       friendly_name: "Luca Upstairs Wifi"
       value_template: >
-       {{ is_state('device_tracker.sevenplus_router', 'home') and state_attr('device_tracker.sevenplus_router', 'ap_mac') == 'fc:ec:da:37:79:6a' }}
+       {{ is_state('device_tracker.sevenplus_router', 'home') and state_attr('device_tracker.sevenplus_router', 'mac') == 'fc:ec:da:37:79:6a' }}
       icon_template: mdi:wifi
     tiia_upstairs_wifi:
       friendly_name: "Tiia Upstairs Wifi"
       value_template: >
-       {{ is_state('device_tracker.tiiasiphone', 'home') and state_attr('device_tracker.tiiasiphone', 'ap_mac') == 'fc:ec:da:37:79:6a' }}
+       {{ is_state('device_tracker.tiiasiphone', 'home') and state_attr('device_tracker.tiiasiphone', 'mac') == 'fc:ec:da:37:79:6a' }}
+      icon_template: mdi:wifi
+    robin_upstairs_wifi:
+      friendly_name: "Robin Upstairs Wifi"
+      value_template: >
+       {{ is_state('device_tracker.robin_router', 'home') and state_attr('device_tracker.robin_router', 'mac') == 'fc:ec:da:37:79:6a' }}
       icon_template: mdi:wifi
     sonos_speakers:
       friendly_name: "Sonos speakers"
@@ -260,6 +287,14 @@
       friendly_name: "Motion in the last 10 minutes"
       value_template: >
         {{ not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.living_room_sensor_motion.last_updated) > 600) and is_state('binary_sensor.living_room_sensor_motion','off')) or not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_kitchen_xiaomi.last_updated) > 600) and is_state('binary_sensor.motion_kitchen_xiaomi','off')) or not ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kitchen_sensor_motion.last_updated) > 600) and is_state('binary_sensor.kitchen_sensor_motion','off')) }}
+    outdoor_dark:
+      friendly_name: "Dark outside"
+      value_template: >
+        {{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'dark') }}
+    outdoor_daylight:
+      friendly_name: "Daylight outside"
+      value_template: >
+        {{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'daylight') }}
     # sonos_speakers:
     #   friendly_name: Sonos speakers
     #   value_template: >

@@ -1,0 +1,38 @@
+alias: TV timer starting
+initial_state: 'on'
+id: tv_timer
+trigger:
+- platform: state
+  entity_id: media_player.lg_webos_smart_tv
+  to: 'playing'
+- platform: state
+  entity_id: input_boolean.tv_limit
+  to: 'on'
+condition:
+- condition: state
+  entity_id: input_boolean.tv_limit
+  state: 'on'
+- condition: state
+  entity_id: timer.tv_timer
+  state: 'idle'
+action:
+- service: timer.start
+  data_template:
+    entity_id: timer.tv_timer
+    duration: >
+      {% set time = states('input_select.tv_time') %}
+      {% if time == '15min' %}
+      00:15:00
+      {% elif time == '30min' %}
+      00:30:00
+      {% elif time == '45min' %}
+      00:45:00
+      {% elif time == '1h' %}
+      01:00:00
+      {% elif time == '1h 30min' %}
+      01:30:00
+      {% elif time == '2h' %}
+      02:00:00
+      {% else %}
+      00:15:00
+      {% endif %}

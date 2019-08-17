@@ -4,6 +4,7 @@ music_controller:
       - living_room
       - kitchen
       - bedroom
+      - hallway_upstairs
 
 audiobook:
   name: Audiobook
@@ -34,5 +35,18 @@ phone_location:
     - Office
     - Jere Room
     - Bathroom
+    - Backyard
   initial: Living Room
   icon: mdi:cellphone
+
+tv_time:
+  name: TV Time
+  options:
+    - None
+    - 15min
+    - 30min
+    - 1h
+    - 1h 30min
+    - 2h
+  initial: None
+  icon: mdi:television

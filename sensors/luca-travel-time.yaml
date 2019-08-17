@@ -2,6 +2,7 @@ platform: google_travel_time
 name: 'Luca travel time'
 api_key: !secret google_api_key
 origin: device_tracker.sevenplusha
+scan_interval: 900
 destination: zone.home
 options:
   mode: transit

@@ -91,6 +91,15 @@ living_room:
    - light.big_light
    - light.desk
 
+living_room_color:
+  name: Living Room Color
+  entities:
+   - light.paperlight
+   - light.big_light
+   - light.desk
+   - light.ball
+   - light.color
+
 bed_room:
   name: Bed Room
   entities:
@@ -266,6 +275,7 @@ anyone_home:
     - binary_sensor.tiia_home
     - binary_sensor.luca_home
     - binary_sensor.jere_home
+    - binary_sensor.robin_home
     - input_boolean.guest_mode
 
 devices_status:
@@ -383,6 +393,7 @@ anyone_downstairs:
   entities:
     - binary_sensor.luca_downstairs_wifi
     - binary_sensor.tiia_downstairs_wifi
+    - binary_sensor.robin_downstairs_wifi
 
 anyone_upstairs:
   name: Anyone upstairs
