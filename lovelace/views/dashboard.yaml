@@ -7,11 +7,11 @@ cards:
       - type: conditional
         conditions:
           - entity: binary_sensor.outside_motion
-            state: "off"
+            state_not: "on"
           - entity: vacuum.eve
             state: "docked"
           - entity: binary_sensor.octoprint_printing
-            state: "off"
+            state_not: "on"
         card:
           type: custom:weather-card
           entity: weather.dark_sky
@@ -27,6 +27,23 @@ cards:
           camera_view: live
           entities:
             - entity: binary_sensor.outside_motion
+      - type: picture-entity
+        entity: camera.cat
+        camera_view: live
+        name: Cat
+        show_state: false
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.octoprint_printing
+            state: "on"
+        card:
+          type: picture-entity
+          entity: sensor.octoprint_job_percentage
+          camera_image: camera.octoprint
+          camera_view: live
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/18  
       - type: conditional
         conditions:
           - entity: vacuum.eve
@@ -41,18 +58,6 @@ cards:
             - entity: vacuum.eve
   - type: vertical-stack
     cards:
-      - type: conditional
-        conditions:
-          - entity: binary_sensor.octoprint_printing
-            state: "on"
-        card:
-          type: picture-entity
-          entity: sensor.octoprint_job_percentage
-          camera_image: camera.octoprint
-          camera_view: live
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/18  
       - type: horizontal-stack
         cards:
           - type: light

@@ -256,6 +256,7 @@ sensor_kitchen:
 
 kitchen_motion_sensors:
   - binary_sensor.kitchen_sensor_motion
+  - binary_sensor.kitchen_motion_sensor
   - binary_sensor.motion_kitchen_xiaomi
 
 hue_sensors:

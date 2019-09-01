@@ -25,14 +25,14 @@ sensors:
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius
   outdoor_light_level:
-    value_template: "{{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'light_level') }}"
+    value_template: "{{ states('sensor.hue_outdoor_motion_sensor_1_light_level') }}"
     friendly_name: "Outdoor Light Level"
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_motion_1
+    entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
     unit_of_measurement: Lux
     icon_template: mdi:lightbulb-on-outline
   outdoor_temperature:
-    value_template: "{{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'temperature') }}"
+    value_template: "{{ states('sensor.hue_outdoor_motion_sensor_1_temperature') }}"
     friendly_name: "Outdoor Temperature"
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_motion_1
+    entity_id: sensor.hue_outdoor_motion_sensor_1_temperature
     unit_of_measurement: °C
     icon_template: mdi:temperature-celsius

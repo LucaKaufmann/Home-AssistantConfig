@@ -503,7 +503,7 @@ mqtt:
     payload: 'offline'
 
 # Breaks shell_command
-# stream:
+stream:
 
 #binary_sensor:
 #  - platform: mqtt

@@ -1,0 +1,4 @@
+platform: scrape
+resource: https://www.wowhead.com/news=294747/classic-wow-server-queue-times-eu
+select: "div .news-post-content"
+name: Gehennas status

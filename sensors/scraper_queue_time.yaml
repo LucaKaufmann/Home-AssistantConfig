@@ -1,0 +1,6 @@
+platform: command_line
+command: "python /config/python_scripts/server_queue_time.py"
+name: Gehennas queue time
+value_template: '{{ value | int }}'
+scan_interval: 900
+unit_of_measurement: "min"

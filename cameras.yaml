@@ -31,11 +31,6 @@
 - platform: local_file
   name: Dafang Snapshot 5
   file_path: '/images/dafang/snapshot5.jpg'
-
-# - platform: ffmpeg
-#   name: Xiaofang1
-#   input: !secret xiaofang1_input
-#   extra_arguments: '-pred 1 -q:v 2'
 # - platform: ffmpeg
 #   name: Xiaofang1 mobile
 #   input: !secret dafang_input
@@ -241,3 +236,7 @@
   name: OctoPrint
   still_image_url: !secret octoprint_still_url
   mjpeg_url: !secret octoprint_camera
+- platform: ffmpeg
+  name: Cat
+  input: !secret opticam_input
+  extra_arguments: '-pred 1 -q:v 2'

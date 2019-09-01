@@ -641,16 +641,12 @@ views:
       - type: glance
         title: Outside
         entities:
-          - entity: binary_sensor.hue_outdoor_motion_sensor_motion_1
+          - entity: binary_sensor.deck_motion
             name: Motion
           # - entity: sensor.outdoor_temperature
           #   name: Temperature
           # - entity: sensor.outdoor_light_level
           #   name: Light level
-          - entity: binary_sensor.outdoor_dark
-            name: Dark outside
-          - entity: binary_sensor.outdoor_daylight
-            name: Daylight
       - type: sensor
         name: Outdoor temperature
         entity: sensor.outdoor_temperature
@@ -691,9 +687,9 @@ views:
           - input_boolean.home_for_over_10
           - sun.sun
           - group.all_lights_except_nightlight
-          - binary_sensor.motion_last_10
+          # - binary_sensor.motion_last_10
           - input_boolean.motion_last_10
-          - sensor.sevenplus_battery_state
+          - sensor.battery_state
           - sensor.all_media_players
           - binary_sensor.playing_games
       - id: 991994685c7c4a84a938d62fe9d0045e  # Automatically created id
@@ -731,9 +727,7 @@ views:
           - sensor.darksky_temperature
           - sensor.outdoor_temperature
           - sensor.outdoor_light_level
-          - binary_sensor.outdoor_dark
-          - binary_sensor.outdoor_daylight
-          - binary_sensor.hue_outdoor_motion_sensor_motion_1
+          - binary_sensor.deck_motion
       - id: 87944f4d5e4b474e92e495cc7d758264  # Automatically created id
         type: entities
         title: Kitchen
@@ -859,6 +853,12 @@ views:
             icon: mdi:google-controller
           - entity: binary_sensor.playing_games
             name: Playing games
+            icon: mdi:google-controller
+          - entity: sensor.gehennas_queue
+            name: Gehennas queue
+            icon: mdi:google-controller
+          - entity: sensor.gehennas_queue_time
+            name: Gehennas queue time
             icon: mdi:google-controller
   - id: 4  # Automatically created id
     title: Automations
@@ -986,7 +986,7 @@ views:
             flush: true
             arrow_color: White
             arrow_opacity: .5
-            auto_play: true
+            auto_play: false
             auto_delay: 4
             style:
               border-radius: 25px
@@ -1068,7 +1068,7 @@ views:
             flush: true
             arrow_color: White
             arrow_opacity: .5
-            auto_play: true
+            auto_play: false
             auto_delay: 4
             style:
               border-radius: 25px
@@ -1136,7 +1136,7 @@ views:
             flush: true
             arrow_color: White
             arrow_opacity: .5
-            auto_play: true
+            auto_play: false
             auto_delay: 4
             style:
               border-radius: 25px
@@ -1200,7 +1200,7 @@ views:
             flush: true
             arrow_color: White
             arrow_opacity: .5
-            auto_play: true
+            auto_play: false
             auto_delay: 4
             style:
               border-radius: 25px
@@ -1272,7 +1272,7 @@ views:
             flush: true
             arrow_color: White
             arrow_opacity: .5
-            auto_play: true
+            auto_play: false
             auto_delay: 4
             style:
               border-radius: 25px
@@ -1332,6 +1332,14 @@ views:
           - type: entities
             entities:
               - binary_sensor.outside_motion
+      - id: cat_camera_stack
+        type: vertical-stack
+        cards:
+          - type: picture-entity
+            name: Cat
+            show_state: false
+            entity: camera.cat
+            camera_image: camera.cat
   - id: 8
     title: Chores
     icon: mdi:format-list-bulleted
@@ -1392,7 +1400,7 @@ views:
         flush: true
         arrow_color: White
         arrow_opacity: .5
-        auto_play: true
+        auto_play: false
         auto_delay: 4
         style:
           border-radius: 25px
@@ -1548,7 +1556,7 @@ views:
           - entity: camera.xiaofang1
             motion_entity: binary_sensor.kitchen_sensor_motion
           - entity: camera.backyard
-            motion_entity: binary_sensor.hue_outdoor_motion_sensor_motion_1
+            motion_entity: binary_sensor.deck_motion
           - entity: camera.raspberry
             motion_entity: binary_sensor.outside_motion
   - title: Dashboard
