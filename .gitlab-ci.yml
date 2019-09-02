@@ -12,5 +12,8 @@ test:
     - mkdir /images
     - mkdir /config/vacuum
     - mkdir /videos
+    - mkdir /certs
+    - touch /certs/fullchain.pem
+    - touch /certs/privkey.pem
     - hass --script check_config -c .
 
