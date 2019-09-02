@@ -1,0 +1,12 @@
+stages:
+  - test
+  - deploy
+  - notify
+
+test:
+  stage: test
+  image: homeassistant/amd64-homeassistant:latest
+  script:
+    - cp fake_secrets.yaml secrets.yaml
+    - hass --script check_config -c .
+
