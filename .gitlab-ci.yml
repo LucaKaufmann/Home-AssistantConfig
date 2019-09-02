@@ -8,5 +8,6 @@ test:
   image: homeassistant/amd64-homeassistant:latest
   script:
     - cp fake_secrets.yaml secrets.yaml
+    - cp fake_zones.yaml zones.yaml
     - hass --script check_config -c .
 
