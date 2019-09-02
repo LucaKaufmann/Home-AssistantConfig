@@ -9,7 +9,6 @@ test:
   script:
     - cp fake_secrets.yaml secrets.yaml
     - cp fake_zones.yaml zones.yaml
-    - mkdir /tmp
     - mkdir /images
     - mkdir /config/vacuum
     - mkdir /videos
