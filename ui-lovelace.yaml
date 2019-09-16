@@ -736,7 +736,6 @@ views:
           - binary_sensor.kitchen_sensor_motion
           - binary_sensor.motion_kitchen_xiaomi
           - sensor.kitchen_light_level
-          - sensor.kitchen_lux
           - sensor.kitchen_true_light_level
           - sensor.kitchen_prediction
           - sensor.kitchen_light_level_avg
@@ -751,11 +750,10 @@ views:
           - sensor.paperlight_brightness
           - switch.circadian_lighting_circadian_lighting
           - sensor.livingroom_light_level
-          - sensor.livingroom_lux
           - sensor.livingroom_light_level_avg
           - sensor.target_brightness
-          - sensor.target_brightness_off
-          - sensor.target_brightness_on
+          - sensor.target_brightness_livingroom
+          - sensor.target_brightness_kitchen
           - sensor.livingroom_temperature
           - sensor.netatmo_living_room_temperature
           - sensor.downstairs_media_players
@@ -796,7 +794,6 @@ views:
         entities:
           - binary_sensor.motion_hallway_upstairs
           - binary_sensor.motion_hallway_upstairs_2
-          - sensor.light_level_upstairs
       - id: d22e313aaa1c45e3bd8f3c7d21971942  # Automatically created id
         type: entities
         title: Entrance
@@ -813,12 +810,6 @@ views:
           - sensor.washer_current_watts
           - sensor.washer_voltage
           - sensor.washer_today_energy
-      - id: d0e87da0e76c49eab046963432102cdb  # Automatically created id
-        type: entities
-        title: Hue
-        show_header_toggle: true
-        entities:
-          - sensor.dimmer_switch
       - id: 402d0d3dea7a4d9ba4e8bc7f6a4b7bcf  # Automatically created id
         type: entities
         title: Tradfri

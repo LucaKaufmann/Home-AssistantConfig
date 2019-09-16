@@ -1,6 +1,0 @@
-platform: command_line
-command: "python /config/python_scripts/server_queue.py"
-name: Gehennas queue
-value_template: "{{ value | replace(',','') | int }}" 
-scan_interval: 900
-unit_of_measurement: "people"

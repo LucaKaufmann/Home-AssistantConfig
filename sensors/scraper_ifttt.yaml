@@ -1,4 +1,0 @@
-platform: scrape
-resource: http://status.ifttt.com/
-name: IFTTT status
-select: '.component-status'
