@@ -11,27 +11,38 @@ kid_sleeping:
 
 schedule_kitchen_cleaning:
   name: Schedule kitchen cleaning
-  initial: off
   icon: mdi:food-variant
 
 schedule_livingroom_cleaning:
   name: Schedule livingroom cleaning
-  initial: off
   icon: mdi:sofa
 
 schedule_dining_area_cleaning:
   name: Schedule dining area cleaning
-  initial: off
   icon: mdi:silverware
 
 schedule_hallway_cleaning:
   name: Schedule hallway cleaning
-  initial: off
+  icon: mdi:home
+
+safe_to_clean_kitchen:
+  name: Safe to clean kitchen
+  icon: mdi:food-variant
+
+safe_to_clean_livingroom:
+  name: Safe to clean living room
+  icon: mdi:sofa
+
+safe_to_clean_dining_area:
+  name: Safe to clean dining area
+  icon: mdi:silverware
+
+safe_to_clean_hallway:
+  name: Safe to clean hallway
   icon: mdi:home
 
 schedule_cleaning:
   name: Schedule apartment cleaning
-  initial: off
   icon: mdi:home
 
 cleaning_doublepass:

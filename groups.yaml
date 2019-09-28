@@ -374,12 +374,14 @@ downstairs_motion_sensors:
     - binary_sensor.kitchen_sensor_motion
     - binary_sensor.living_room_sensor_motion
     - binary_sensor.motion_kitchen_xiaomi
+    - binary_sensor.living_room_motion_2
 
 upstairs_motion_sensors:
   name: Upstairs Motion Sensors
   entities:
     - binary_sensor.motion_hallway_upstairs
     - binary_sensor.motion_hallway_upstairs_2
+    - binary_sensor.office_motion
 
 all_motion_sensors:
   name: Motion sensors
@@ -388,6 +390,8 @@ all_motion_sensors:
     - binary_sensor.living_room_sensor_motion
     - binary_sensor.motion_hallway_upstairs_2
     - binary_sensor.motion_kitchen_xiaomi
+    - binary_sensor.office_motion
+    - binary_sensor.living_room_motion_2
 
 anyone_downstairs:
   name: Anyone downstairs

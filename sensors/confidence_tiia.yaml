@@ -5,5 +5,5 @@ round_digits: 0
 entity_ids:
   - sensor.upstairs_tiia
   # - sensor.upstairs_hallway_tiia
-  # - sensor.living_room_tiia
+  - sensor.living_room_tiia
   - sensor.kitchen_tiia

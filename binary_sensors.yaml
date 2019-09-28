@@ -14,12 +14,12 @@
   payload_off: '{"value":false}'
   device_class: motion
 - platform: bayesian
-  prior: 0.1
+  prior: 0.2
   name: 'Sleeping'
   probability_threshold: 0.96
   observations:
       - entity_id: 'input_boolean.home_for_over_10'
-        prob_given_true: 0.7
+        prob_given_true: 0.8
         platform: 'state'
         to_state: 'on'
       - entity_id: 'sun.sun'
@@ -28,6 +28,7 @@
         to_state: 'below_horizon'
       - entity_id: 'group.all_lights_except_nightlight'
         prob_given_true: 0.7
+        prob_given_false: 0.4
         platform: 'state'
         to_state: 'off'
       - entity_id: 'input_boolean.motion_last_10'
@@ -36,7 +37,7 @@
         to_state: 'off'
       - entity_id: 'sensor.all_media_players'
         prob_given_true: 0.5
-        prob_given_false: 0.1
+        prob_given_false: 0.2
         platform: 'state'
         to_state: 'off'
       - entity_id: 'binary_sensor.playing_games'
@@ -44,11 +45,11 @@
         prob_given_false: 0.1
         platform: 'state'
         to_state: 'off'
-      - entity_id: 'input_boolean.someone_downstairs'
-        prob_given_true: 0.5
-        prob_given_false: 0.1
-        platform: 'state'
-        to_state: 'off'
+      # - entity_id: 'group.anyone_downstairs'
+      #   prob_given_true: 0.4
+      #   prob_given_false: 0.1
+      #   platform: 'state'
+      #   to_state: 'off'
 - platform: bayesian
   prior: 0.5
   name: 'Tiia home'
@@ -63,7 +64,7 @@
         prob_given_true: 0.99
         prob_given_false: 0.3
         platform: 'numeric_state'
-        above: 32
+        above: 33
       - entity_id: 'device_tracker.tiiasiphone'
         prob_given_true: 0.6
         prob_given_false: 0.3
@@ -88,7 +89,7 @@
         prob_given_true: 0.99
         prob_given_false: 0.3
         platform: 'numeric_state'
-        above: 32
+        above: 33
       - entity_id: 'device_tracker.sevenplus_router'
         prob_given_true: 0.6
         prob_given_false: 0.3
@@ -303,7 +304,6 @@
     #     or is_state('media_player.bedroom', 'playing') }}
     #   icon_template: mdi:speaker
 - platform: ring
-- platform: huesensor
 - platform: octoprint
   monitored_conditions:
     - Printing

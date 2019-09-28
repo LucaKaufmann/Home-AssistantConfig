@@ -8,23 +8,28 @@ For more details about this platform, please refer to the documentation at
 https://community.home-assistant.io/t/echo-devices-alexa-as-media-player-testers-needed/58639
 """
 import logging
+from datetime import timedelta
+from typing import Optional, Text
 
 import voluptuous as vol
-
+from alexapy import WebsocketEchoClient
 from homeassistant import util
-from homeassistant.const import (
-    CONF_EMAIL, CONF_NAME, CONF_PASSWORD, CONF_SCAN_INTERVAL, CONF_URL)
+from homeassistant.config_entries import SOURCE_IMPORT
+from homeassistant.const import (CONF_EMAIL, CONF_NAME, CONF_PASSWORD,
+                                 CONF_SCAN_INTERVAL, CONF_URL,
+                                 EVENT_HOMEASSISTANT_STOP)
 from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers.event import track_time_interval
-from homeassistant.helpers.discovery import load_platform
-from .const import (
-    ALEXA_COMPONENTS, CONF_DEBUG, CONF_ACCOUNTS, CONF_INCLUDE_DEVICES,
-    CONF_EXCLUDE_DEVICES, DATA_ALEXAMEDIA, DOMAIN, MIN_TIME_BETWEEN_SCANS,
-    MIN_TIME_BETWEEN_FORCED_SCANS, SCAN_INTERVAL, SERVICE_UPDATE_LAST_CALLED,
-    ATTR_EMAIL, STARTUP, __version__
-)
+from homeassistant.helpers.discovery import async_load_platform
+from homeassistant.helpers.event import async_call_later
+from homeassistant.helpers.service import verify_domain_control
 
-# from .config_flow import configured_instances
+from .config_flow import configured_instances
+from .const import (ALEXA_COMPONENTS, ATTR_EMAIL, CONF_ACCOUNTS, CONF_DEBUG,
+                    CONF_EXCLUDE_DEVICES, CONF_INCLUDE_DEVICES,
+                    DATA_ALEXAMEDIA, DOMAIN, MIN_TIME_BETWEEN_FORCED_SCANS,
+                    MIN_TIME_BETWEEN_SCANS, SCAN_INTERVAL,
+                    SERVICE_UPDATE_LAST_CALLED, STARTUP)
+from .helpers import retry_async
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,10 +63,13 @@ LAST_CALL_UPDATE_SCHEMA = vol.Schema({
 def hide_email(email):
     """Obfuscate email."""
     part = email.split('@')
-    return "{}{}{}@{}".format(part[0][0],
-                              "*"*(len(part[0])-2),
-                              part[0][-1],
-                              part[1])
+    return "{}{}{}@{}{}{}".format(part[0][0],
+                                  "*" * (len(part[0]) - 2),
+                                  part[0][-1],
+                                  part[1][0],
+                                  "*" * (len(part[1]) - 2),
+                                  part[1][-1]
+                                  )
 
 
 def hide_serial(item):
@@ -70,48 +78,115 @@ def hide_serial(item):
         return ""
     if isinstance(item, dict):
         response = item.copy()
-        serial = item['serialNumber']
-        response['serialNumber'] = hide_serial(serial)
+        for key, value in item.items():
+            if (isinstance(value, dict) or isinstance(value, list) or
+                    key in ['deviceSerialNumber', 'serialNumber',
+                            'destinationUserId']):
+                response[key] = hide_serial(value)
     elif isinstance(item, str):
         response = "{}{}{}".format(item[0],
-                                   "*"*(len(item)-4),
+                                   "*" * (len(item) - 4),
                                    item[-3:])
+    elif isinstance(item, list):
+        response = []
+        for list_item in item:
+            if isinstance(list_item, dict):
+                response.append(hide_serial(list_item))
+            else:
+                response.append(list_item)
     return response
 
 
-def setup(hass, config, discovery_info=None):
+async def async_setup(hass, config, discovery_info=None):
     """Set up the Alexa domain."""
+    if DOMAIN not in config:
+        return True
+
+    domainconfig = config.get(DOMAIN)
+    for account in domainconfig[CONF_ACCOUNTS]:
+        entry_title = "{} - {}".format(account[CONF_EMAIL], account[CONF_URL])
+        if entry_title in configured_instances(hass):
+            for entry in hass.config_entries.async_entries(DOMAIN):
+                if entry_title == entry.title:
+                    hass.config_entries.async_update_entry(
+                        entry,
+                        data={
+                            CONF_EMAIL: account[CONF_EMAIL],
+                            CONF_PASSWORD: account[CONF_PASSWORD],
+                            CONF_URL: account[CONF_URL],
+                            CONF_DEBUG: account[CONF_DEBUG],
+                            CONF_INCLUDE_DEVICES:
+                                account[CONF_INCLUDE_DEVICES],
+                            CONF_EXCLUDE_DEVICES:
+                                account[CONF_EXCLUDE_DEVICES],
+                            CONF_SCAN_INTERVAL:
+                                account[CONF_SCAN_INTERVAL].total_seconds(),
+                        }
+                    )
+                    break
+        else:
+            hass.async_create_task(
+                hass.config_entries.flow.async_init(
+                    DOMAIN,
+                    context={"source": SOURCE_IMPORT},
+                    data={
+                        CONF_EMAIL: account[CONF_EMAIL],
+                        CONF_PASSWORD: account[CONF_PASSWORD],
+                        CONF_URL: account[CONF_URL],
+                        CONF_DEBUG: account[CONF_DEBUG],
+                        CONF_INCLUDE_DEVICES: account[CONF_INCLUDE_DEVICES],
+                        CONF_EXCLUDE_DEVICES: account[CONF_EXCLUDE_DEVICES],
+                        CONF_SCAN_INTERVAL:
+                            account[CONF_SCAN_INTERVAL].total_seconds(),
+                    },
+                )
+            )
+    return True
+
+@retry_async(limit=5, delay=5, catch_exceptions=True)
+async def async_setup_entry(hass, config_entry):
+    """Set up Alexa Media Player as config entry."""
+    async def close_alexa_media(event=None) -> None:
+        """Clean up Alexa connections."""
+        _LOGGER.debug("Received shutdown request: %s", event)
+        for email, _ in (hass.data
+                         [DATA_ALEXAMEDIA]['accounts'].items()):
+            await close_connections(hass, email)
+    _verify_domain_control = verify_domain_control(hass, DOMAIN)
     if DATA_ALEXAMEDIA not in hass.data:
         hass.data[DATA_ALEXAMEDIA] = {}
         hass.data[DATA_ALEXAMEDIA]['accounts'] = {}
     from alexapy import AlexaLogin, __version__ as alexapy_version
     _LOGGER.info(STARTUP)
     _LOGGER.info("Loaded alexapy==%s", alexapy_version)
-    config = config.get(DOMAIN)
-    for account in config[CONF_ACCOUNTS]:
-        # if account[CONF_EMAIL] in configured_instances(hass):
-        #     continue
-
-        email = account.get(CONF_EMAIL)
-        password = account.get(CONF_PASSWORD)
-        url = account.get(CONF_URL)
-        hass.data[DATA_ALEXAMEDIA]['accounts'][email] = {"config": []}
+    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, close_alexa_media)
+    account = config_entry.data
+    email = account.get(CONF_EMAIL)
+    password = account.get(CONF_PASSWORD)
+    url = account.get(CONF_URL)
+    if email not in hass.data[DATA_ALEXAMEDIA]['accounts']:
+        hass.data[DATA_ALEXAMEDIA]['accounts'][email] = {}
+    if 'login_obj' in hass.data[DATA_ALEXAMEDIA]['accounts'][email]:
+        login = hass.data[DATA_ALEXAMEDIA]['accounts'][email]['login_obj']
+    else:
         login = AlexaLogin(url, email, password, hass.config.path,
                            account.get(CONF_DEBUG))
-
-        test_login_status(hass, account, login,
-                          setup_platform_callback)
+        (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['login_obj']) = login
+    await login.login_with_cookie()
+    await test_login_status(hass, config_entry, login,
+                            setup_platform_callback)
     return True
 
 
-def setup_platform_callback(hass, config, login, callback_data):
+async def setup_platform_callback(hass, config_entry, login, callback_data):
     """Handle response from configurator.
 
     Args:
     callback_data (json): Returned data from configurator passed through
                           request_configuration and configuration_callback
     """
-    _LOGGER.debug(("Status: %s got captcha: %s securitycode: %s"
+    _LOGGER.debug(("Configurator closed for Status: %s\n"
+                   " got captcha: %s securitycode: %s"
                    " Claimsoption: %s AuthSelectOption: %s "
                    " VerificationCode: %s"),
                   login.status,
@@ -120,19 +195,20 @@ def setup_platform_callback(hass, config, login, callback_data):
                   callback_data.get('claimsoption'),
                   callback_data.get('authselectoption'),
                   callback_data.get('verificationcode'))
-    login.login(data=callback_data)
-    test_login_status(hass, config, login,
-                      setup_platform_callback)
+    await login.login(data=callback_data)
+    await test_login_status(hass, config_entry, login,
+                            setup_platform_callback)
 
 
-def request_configuration(hass, config, login, setup_platform_callback):
+async def request_configuration(hass, config_entry, login,
+                               setup_platform_callback):
     """Request configuration steps from the user using the configurator."""
-    configurator = hass.components.configurator
-
-    def configuration_callback(callback_data):
+    async def configuration_callback(callback_data):
         """Handle the submitted configuration."""
-        hass.add_job(setup_platform_callback, hass, config,
-                     login, callback_data)
+        await hass.async_add_job(setup_platform_callback, hass, config_entry,
+                                 login, callback_data)
+
+    configurator = hass.components.configurator
     status = login.status
     email = login.email
     # links = ""
@@ -146,21 +222,21 @@ def request_configuration(hass, config, login, setup_platform_callback):
     # Get Captcha
     if (status and 'captcha_image_url' in status and
             status['captcha_image_url'] is not None):
-        config_id = configurator.request_config(
+        config_id = configurator.async_request_config(
             "Alexa Media Player - Captcha - {}".format(email),
             configuration_callback,
             description=('Please enter the text for the captcha.'
                          ' Please hit confirm to reload image.'
                          # + links
                          + footer
-                        ),
+                         ),
             description_image=status['captcha_image_url'],
             submit_caption="Confirm",
             fields=[{'id': 'captcha', 'name': 'Captcha'}]
         )
     elif (status and 'securitycode_required' in status and
           status['securitycode_required']):  # Get 2FA code
-        config_id = configurator.request_config(
+        config_id = configurator.async_request_config(
             "Alexa Media Player - 2FA - {}".format(email),
             configuration_callback,
             description=('Please enter your Two-Factor Security code.'
@@ -173,34 +249,34 @@ def request_configuration(hass, config, login, setup_platform_callback):
           status['claimspicker_required']):  # Get picker method
         options = status['claimspicker_message']
         if options:
-            config_id = configurator.request_config(
+            config_id = configurator.async_request_config(
                 "Alexa Media Player - Verification Method - {}".format(email),
                 configuration_callback,
                 description=('Please select the verification method. '
-                             '(e.g., sms or email).\n{}'.format(options)
+                             '(e.g., `sms` or `email`).\n{}'.format(options)
                              # + links
                              + footer),
                 submit_caption="Confirm",
                 fields=[{'id': 'claimsoption', 'name': 'Option'}]
             )
         else:
-            configuration_callback({})
+            await configuration_callback({})
     elif (status and 'authselect_required' in status and
           status['authselect_required']):  # Get picker method
         options = status['authselect_message']
         if options:
-            config_id = configurator.request_config(
+            config_id = configurator.async_request_config(
                 "Alexa Media Player - OTP Method - {}".format(email),
                 configuration_callback,
                 description=('Please select the OTP method. '
-                             '(e.g., 0, 1).<br />{}'.format(options)
+                             '(e.g., `0`, `1`).<br />{}'.format(options)
                              # + links
                              + footer),
                 submit_caption="Confirm",
                 fields=[{'id': 'authselectoption', 'name': 'Option'}]
             )
         else:
-            configuration_callback({})
+            await configuration_callback({})
     elif (status and 'verificationcode_required' in status and
           status['verificationcode_required']):  # Get picker method
         config_id = configurator.request_config(
@@ -213,30 +289,35 @@ def request_configuration(hass, config, login, setup_platform_callback):
             fields=[{'id': 'verificationcode', 'name': 'Verification Code'}]
         )
     else:  # Check login
-        config_id = configurator.request_config(
+        config_id = configurator.async_request_config(
             "Alexa Media Player - Begin - {}".format(email),
             configuration_callback,
             description=('Please hit confirm to begin login attempt.'),
             submit_caption="Confirm",
             fields=[]
         )
-    hass.data[DATA_ALEXAMEDIA]['accounts'][email]['config'].append(config_id)
+    if 'configurator' not in hass.data[DATA_ALEXAMEDIA]['accounts'][email]:
+        hass.data[DATA_ALEXAMEDIA]['accounts'][email] = {"configurator": []}
+    hass.data[DATA_ALEXAMEDIA]['accounts'][email]['configurator'].append(
+        config_id)
     if 'error_message' in status and status['error_message']:
-        configurator.notify_errors(  # use sync to delay next pop
+        configurator.async_notify_errors(
             config_id,
             status['error_message'])
-    if len(hass.data[DATA_ALEXAMEDIA]['accounts'][email]['config']) > 1:
-        configurator.request_done((hass.data[DATA_ALEXAMEDIA]
-                                   ['accounts'][email]['config']).pop(0))
+    if len(hass.data[DATA_ALEXAMEDIA]['accounts'][email]['configurator']) > 1:
+        configurator.async_request_done(
+            (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['configurator']).pop(0))
 
 
-def test_login_status(hass, config, login,
-                      setup_platform_callback):
+async def test_login_status(hass, config_entry, login,
+                            setup_platform_callback) -> None:
     """Test the login status and spawn requests for info."""
+    _LOGGER.debug("Testing login status: %s", login.status)
     if 'login_successful' in login.status and login.status['login_successful']:
-        _LOGGER.debug("Setting up Alexa devices")
-        hass.add_job(setup_alexa, hass, config,
-                     login)
+        _LOGGER.debug("Setting up Alexa devices for %s",
+                      hide_email(login.email))
+        await hass.async_add_job(setup_alexa, hass, config_entry,
+                                 login)
         return
     if ('captcha_required' in login.status and
             login.status['captcha_required']):
@@ -256,14 +337,14 @@ def test_login_status(hass, config, login,
     elif ('login_failed' in login.status and
           login.status['login_failed']):
         _LOGGER.debug("Creating configurator to start new login attempt")
-    hass.add_job(request_configuration, hass, config, login,
-                 setup_platform_callback)
+    await hass.async_add_job(request_configuration, hass, config_entry, login,
+                             setup_platform_callback)
 
 
-def setup_alexa(hass, config, login_obj):
+async def setup_alexa(hass, config_entry, login_obj):
     """Set up a alexa api based on host parameter."""
     @util.Throttle(MIN_TIME_BETWEEN_SCANS, MIN_TIME_BETWEEN_FORCED_SCANS)
-    def update_devices():
+    async def update_devices(login_obj):
         """Ping Alexa API to identify all devices, bluetooth, and last called device.
 
         This will add new devices and services when discovered. By default this
@@ -277,43 +358,54 @@ def setup_alexa(hass, config, login_obj):
         Each AlexaAPI call generally results in two webpage requests.
         """
         from alexapy import AlexaAPI
+        email: Text = login_obj.email
+        if email not in hass.data[DATA_ALEXAMEDIA]['accounts']:
+            return
         existing_serials = (hass.data[DATA_ALEXAMEDIA]
                             ['accounts']
                             [email]
                             ['entities']
-                            ['media_player'].keys())
+                            ['media_player'].keys() if 'entities' in (
+                                hass.data[DATA_ALEXAMEDIA]
+                                ['accounts']
+                                [email])
+                            else [])
         existing_entities = (hass.data[DATA_ALEXAMEDIA]
                              ['accounts']
                              [email]
                              ['entities']
                              ['media_player'].values())
-        if (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['websocket']
+        if ('websocket' in hass.data[DATA_ALEXAMEDIA]['accounts'][email]
+            and hass.data[DATA_ALEXAMEDIA]['accounts'][email]['websocket']
                 and not (hass.data[DATA_ALEXAMEDIA]
                          ['accounts'][email]['new_devices'])):
             return
         hass.data[DATA_ALEXAMEDIA]['accounts'][email]['new_devices'] = False
-        devices = AlexaAPI.get_devices(login_obj)
-        bluetooth = AlexaAPI.get_bluetooth(login_obj)
-        preferences = AlexaAPI.get_device_preferences(login_obj)
-        dnd = AlexaAPI.get_dnd_state(login_obj)
+        auth_info = await AlexaAPI.get_authentication(login_obj)
+        devices = await AlexaAPI.get_devices(login_obj)
+        bluetooth = await AlexaAPI.get_bluetooth(login_obj)
+        preferences = await AlexaAPI.get_device_preferences(login_obj)
+        dnd = await AlexaAPI.get_dnd_state(login_obj)
         _LOGGER.debug("%s: Found %s devices, %s bluetooth",
                       hide_email(email),
                       len(devices) if devices is not None else '',
                       len(bluetooth) if bluetooth is not None else '')
         if ((devices is None or bluetooth is None)
                 and not (hass.data[DATA_ALEXAMEDIA]
-                         ['accounts'][email]['config'])):
-            _LOGGER.debug("Alexa API disconnected; attempting to relogin")
-            login_obj.login_with_cookie()
-            test_login_status(hass, config, login_obj, setup_platform_callback)
+                         ['accounts'][email]['configurator'])):
+            _LOGGER.debug("%s: Alexa API disconnected; attempting to relogin",
+                          hide_email(email))
+            await login_obj.login()
+            await test_login_status(hass,
+                                    config_entry, login_obj, setup_platform_callback)
             return
 
         new_alexa_clients = []  # list of newly discovered device names
-        excluded = []
-        included = []
+        exclude_filter = []
+        include_filter = []
         for device in devices:
             if include and device['accountName'] not in include:
-                included.append(device['accountName'])
+                include_filter.append(device['accountName'])
                 if 'appDeviceList' in device:
                     for app in device['appDeviceList']:
                         (hass.data[DATA_ALEXAMEDIA]
@@ -328,7 +420,7 @@ def setup_alexa(hass, config, login_obj):
                  [device['serialNumber']]) = device
                 continue
             elif exclude and device['accountName'] in exclude:
-                excluded.append(device['accountName'])
+                exclude_filter.append(device['accountName'])
                 if 'appDeviceList' in device:
                     for app in device['appDeviceList']:
                         (hass.data[DATA_ALEXAMEDIA]
@@ -343,23 +435,27 @@ def setup_alexa(hass, config, login_obj):
                  [device['serialNumber']]) = device
                 continue
 
-            for b_state in bluetooth['bluetoothStates']:
-                if device['serialNumber'] == b_state['deviceSerialNumber']:
-                    device['bluetooth_state'] = b_state
+            if 'bluetoothStates' in bluetooth:
+                for b_state in bluetooth['bluetoothStates']:
+                    if device['serialNumber'] == b_state['deviceSerialNumber']:
+                        device['bluetooth_state'] = b_state
 
-            for dev in preferences['devicePreferences']:
-                if dev['deviceSerialNumber'] == device['serialNumber']:
-                    device['locale'] = dev['locale']
-                    _LOGGER.debug("Locale %s found for %s",
-                                  device['locale'],
-                                  hide_serial(device['serialNumber']))
+            if 'devicePreferences' in preferences:
+                for dev in preferences['devicePreferences']:
+                    if dev['deviceSerialNumber'] == device['serialNumber']:
+                        device['locale'] = dev['locale']
+                        _LOGGER.debug("Locale %s found for %s",
+                                      device['locale'],
+                                      hide_serial(device['serialNumber']))
 
-            for dev in dnd['doNotDisturbDeviceStatusList']:
-                if dev['deviceSerialNumber'] == device['serialNumber']:
-                    device['dnd'] = dev['enabled']
-                    _LOGGER.debug("DND %s found for %s",
-                                  device['dnd'],
-                                  hide_serial(device['serialNumber']))
+            if 'doNotDisturbDeviceStatusList' in dnd:
+                for dev in dnd['doNotDisturbDeviceStatusList']:
+                    if dev['deviceSerialNumber'] == device['serialNumber']:
+                        device['dnd'] = dev['enabled']
+                        _LOGGER.debug("DND %s found for %s",
+                                      device['dnd'],
+                                      hide_serial(device['serialNumber']))
+            device['auth_info'] = auth_info
 
             (hass.data[DATA_ALEXAMEDIA]
              ['accounts']
@@ -371,22 +467,44 @@ def setup_alexa(hass, config, login_obj):
             if device['serialNumber'] not in existing_serials:
                 new_alexa_clients.append(device['accountName'])
         _LOGGER.debug("%s: Existing: %s New: %s;"
-                      " Filtered by: include_devices: %s exclude_devices:%s",
+                      " Filtered out by not being in include: %s "
+                      "or in exclude: %s",
                       hide_email(email),
                       list(existing_entities),
                       new_alexa_clients,
-                      included,
-                      excluded)
+                      include_filter,
+                      exclude_filter)
 
         if new_alexa_clients:
+            cleaned_config = config.copy()
+            # cleaned_config.pop(CONF_SCAN_INTERVAL, None)
+            # # CONF_SCAN_INTERVAL causes a json error in the recorder because it
+            # # is a timedelta object.
+            cleaned_config.pop(CONF_PASSWORD, None)
+            # CONF_PASSWORD contains sensitive info which is no longer needed
             for component in ALEXA_COMPONENTS:
-                load_platform(hass, component, DOMAIN, {CONF_NAME: DOMAIN},
-                              config)
+                if component == "notify":
+                    hass.async_create_task(
+                        async_load_platform(hass,
+                                            component,
+                                            DOMAIN,
+                                            {CONF_NAME: DOMAIN,
+                                             "config": cleaned_config},
+                                            config))
+                else:
+                    hass.async_add_job(
+                        hass.config_entries.async_forward_entry_setup(
+                                config_entry,
+                                component))
 
         # Process last_called data to fire events
-        update_last_called(login_obj)
+        await update_last_called(login_obj)
+        async_call_later(hass, scan_interval, lambda _:
+                         hass.async_create_task(
+                            update_devices(login_obj,
+                                           no_throttle=True)))
 
-    def update_last_called(login_obj, last_called=None):
+    async def update_last_called(login_obj, last_called=None):
         """Update the last called device for the login_obj.
 
         This will store the last_called in hass.data and also fire an event
@@ -396,7 +514,7 @@ def setup_alexa(hass, config, login_obj):
         if last_called:
             last_called = last_called
         else:
-            last_called = AlexaAPI.get_last_device_serial(login_obj)
+            last_called = await AlexaAPI.get_last_device_serial(login_obj)
         _LOGGER.debug("%s: Updated last_called: %s",
                       hide_email(email),
                       hide_serial(last_called))
@@ -410,17 +528,19 @@ def setup_alexa(hass, config, login_obj):
                           hide_serial(stored_data['last_called'] if
                                       'last_called' in stored_data else None),
                           hide_serial(last_called))
-            hass.bus.fire(('{}_{}'.format(DOMAIN, hide_email(email)))[0:32],
-                          {'last_called_change': last_called})
+            hass.bus.async_fire(
+                ('{}_{}'.format(DOMAIN,
+                                hide_email(email)))[0:32],
+                {'last_called_change': last_called})
         (hass.data[DATA_ALEXAMEDIA]
          ['accounts']
          [email]
          ['last_called']) = last_called
 
-    def update_bluetooth_state(login_obj, device_serial):
+    async def update_bluetooth_state(login_obj, device_serial):
         """Update the bluetooth state on ws bluetooth event."""
         from alexapy import AlexaAPI
-        bluetooth = AlexaAPI.get_bluetooth(login_obj)
+        bluetooth = await AlexaAPI.get_bluetooth(login_obj)
         device = (hass.data[DATA_ALEXAMEDIA]
                   ['accounts']
                   [email]
@@ -428,12 +548,22 @@ def setup_alexa(hass, config, login_obj):
                   ['media_player']
                   [device_serial])
 
-        for b_state in bluetooth['bluetoothStates']:
-            if device_serial == b_state['deviceSerialNumber']:
-                device['bluetooth_state'] = b_state
-        return device['bluetooth_state']
+        if 'bluetoothStates' in bluetooth:
+            for b_state in bluetooth['bluetoothStates']:
+                if device_serial == b_state['deviceSerialNumber']:
+                    # _LOGGER.debug("%s: setting value for: %s to %s",
+                    #               hide_email(email),
+                    #               hide_serial(device_serial),
+                    #               hide_serial(b_state))
+                    device['bluetooth_state'] = b_state
+                    return device['bluetooth_state']
+        _LOGGER.debug("%s: get_bluetooth for: %s failed with %s",
+                      hide_email(email),
+                      hide_serial(device_serial),
+                      hide_serial(bluetooth))
+        return None
 
-    def last_call_handler(call):
+    async def last_call_handler(call):
         """Handle last call service request.
 
         Args:
@@ -447,15 +577,14 @@ def setup_alexa(hass, config, login_obj):
             if requested_emails and email not in requested_emails:
                 continue
             login_obj = account_dict['login_obj']
-            update_last_called(login_obj)
+            await update_last_called(login_obj)
 
-    def ws_connect():
+    async def ws_connect() -> WebsocketEchoClient:
         """Open WebSocket connection.
 
         This will only attempt one login before failing.
         """
-        from alexapy import WebsocketEchoClient
-        websocket = None
+        websocket: Optional[WebsocketEchoClient] = None
         try:
             websocket = WebsocketEchoClient(login_obj,
                                             ws_handler,
@@ -464,13 +593,14 @@ def setup_alexa(hass, config, login_obj):
                                             ws_error_handler)
             _LOGGER.debug("%s: Websocket created: %s", hide_email(email),
                           websocket)
+            await websocket.async_run()
         except BaseException as exception_:
             _LOGGER.debug("%s: Websocket creation failed: %s",
                           hide_email(email),
                           exception_)
         return websocket
 
-    def ws_handler(message_obj):
+    async def ws_handler(message_obj):
         """Handle websocket messages.
 
         This allows push notifications from Alexa to update last_called
@@ -488,11 +618,15 @@ def setup_alexa(hass, config, login_obj):
                             ['accounts']
                             [email]
                             ['entities']
-                            ['media_player'].keys())
+                            ['media_player'].keys() if 'entities' in (
+                                hass.data[DATA_ALEXAMEDIA]
+                                ['accounts']
+                                [email])
+                            else [])
         if command and json_payload:
             _LOGGER.debug("%s: Received websocket command: %s : %s",
                           hide_email(email),
-                          command, json_payload)
+                          command, hide_serial(json_payload))
             serial = None
             if command == 'PUSH_ACTIVITY':
                 #  Last_Alexa Updated
@@ -507,55 +641,72 @@ def setup_alexa(hass, config, login_obj):
                         'timestamp': json_payload['timestamp']
                     }
                 if (serial and serial in existing_serials):
-                    update_last_called(login_obj, last_called)
-                hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                              hide_email(email)))[0:32],
-                              {'push_activity': json_payload})
+                    await update_last_called(login_obj,
+                                             last_called)
+                hass.bus.async_fire(
+                    ('{}_{}'.format(DOMAIN,
+                                    hide_email(email)))[0:32],
+                    {'push_activity': json_payload})
             elif command == 'PUSH_AUDIO_PLAYER_STATE':
                 # Player update
                 serial = (json_payload['dopplerId']['deviceSerialNumber'])
                 if (serial and serial in existing_serials):
-                    _LOGGER.debug("Updating media_player: %s", json_payload)
-                    hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                                  hide_email(email)))[0:32],
-                                  {'player_state': json_payload})
+                    _LOGGER.debug("Updating media_player: %s",
+                                  hide_serial(json_payload))
+                    hass.bus.async_fire(
+                        ('{}_{}'.format(DOMAIN,
+                                        hide_email(email)))[0:32],
+                        {'player_state': json_payload})
             elif command == 'PUSH_VOLUME_CHANGE':
                 # Player volume update
                 serial = (json_payload['dopplerId']['deviceSerialNumber'])
                 if (serial and serial in existing_serials):
                     _LOGGER.debug("Updating media_player volume: %s",
-                                  json_payload)
-                    hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                                  hide_email(email)))[0:32],
-                                  {'player_state': json_payload})
+                                  hide_serial(json_payload))
+                    hass.bus.async_fire(
+                        ('{}_{}'.format(DOMAIN,
+                                        hide_email(email)))[0:32],
+                        {'player_state': json_payload})
             elif command == 'PUSH_DOPPLER_CONNECTION_CHANGE':
                 # Player availability update
                 serial = (json_payload['dopplerId']['deviceSerialNumber'])
                 if (serial and serial in existing_serials):
                     _LOGGER.debug("Updating media_player availability %s",
-                                  json_payload)
-                    hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                                  hide_email(email)))[0:32],
-                                  {'player_state': json_payload})
+                                  hide_serial(json_payload))
+                    hass.bus.async_fire(
+                        ('{}_{}'.format(DOMAIN,
+                                        hide_email(email)))[0:32],
+                        {'player_state': json_payload})
             elif command == 'PUSH_BLUETOOTH_STATE_CHANGE':
                 # Player bluetooth update
                 serial = (json_payload['dopplerId']['deviceSerialNumber'])
-                if (serial and serial in existing_serials):
+                bt_event = json_payload['bluetoothEvent']
+                bt_success = json_payload['bluetoothEventSuccess']
+                if (serial and serial in existing_serials and
+                    bt_success and bt_event and bt_event in [
+                        'DEVICE_CONNECTED',
+                        'DEVICE_DISCONNECTED']):
                     _LOGGER.debug("Updating media_player bluetooth %s",
-                                  json_payload)
-                    bluetooth_state = update_bluetooth_state(login_obj, serial)
-                    hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                                  hide_email(email)))[0:32],
-                                  {'bluetooth_change': bluetooth_state})
+                                  hide_serial(json_payload))
+                    bluetooth_state = await update_bluetooth_state(login_obj,
+                                                                   serial)
+                    # _LOGGER.debug("bluetooth_state %s",
+                    #               hide_serial(bluetooth_state))
+                    if bluetooth_state:
+                        hass.bus.async_fire(
+                            ('{}_{}'.format(DOMAIN,
+                                            hide_email(email)))[0:32],
+                            {'bluetooth_change': bluetooth_state})
             elif command == 'PUSH_MEDIA_QUEUE_CHANGE':
                 # Player availability update
                 serial = (json_payload['dopplerId']['deviceSerialNumber'])
                 if (serial and serial in existing_serials):
                     _LOGGER.debug("Updating media_player queue %s",
-                                  json_payload)
-                    hass.bus.fire(('{}_{}'.format(DOMAIN,
-                                                  hide_email(email)))[0:32],
-                                  {'queue_state': json_payload})
+                                  hide_serial(json_payload))
+                    hass.bus.async_fire(
+                        ('{}_{}'.format(DOMAIN,
+                                        hide_email(email)))[0:32],
+                        {'queue_state': json_payload})
             if (serial and serial not in existing_serials
                     and serial not in (hass.data[DATA_ALEXAMEDIA]
                                        ['accounts']
@@ -564,44 +715,44 @@ def setup_alexa(hass, config, login_obj):
                 _LOGGER.debug("Discovered new media_player %s", serial)
                 (hass.data[DATA_ALEXAMEDIA]
                  ['accounts'][email]['new_devices']) = True
-                update_devices(no_throttle=True)
+                await update_devices(login_obj, no_throttle=True)
 
-    def ws_open_handler():
+    async def ws_open_handler():
         """Handle websocket open."""
-        email = login_obj.email
+        email: Text = login_obj.email
         _LOGGER.debug("%s: Websocket succesfully connected",
                       hide_email(email))
         (hass.data[DATA_ALEXAMEDIA]
          ['accounts'][email]['websocketerror']) = 0  # set errors to 0
 
-    def ws_close_handler():
+    async def ws_close_handler():
         """Handle websocket close.
 
         This should attempt to reconnect up to 5 times
         """
-        from time import sleep
-        email = login_obj.email
-        errors = (hass.data
-                  [DATA_ALEXAMEDIA]['accounts'][email]['websocketerror'])
-        delay = 5*2**errors
+        from asyncio import sleep
+        email: Text = login_obj.email
+        errors: int = (hass.data
+                       [DATA_ALEXAMEDIA]['accounts'][email]['websocketerror'])
+        delay: int = 5 * 2 ** errors
         if (errors < 5):
             _LOGGER.debug("%s: Websocket closed; reconnect #%i in %is",
                           hide_email(email),
                           errors,
                           delay)
-            sleep(delay)
+            await sleep(delay)
             if (not (hass.data
                      [DATA_ALEXAMEDIA]['accounts'][email]['websocket'])):
-                    (hass.data[DATA_ALEXAMEDIA]['accounts']
-                     [email]['websocket']) = ws_connect()
+                (hass.data[DATA_ALEXAMEDIA]['accounts']
+                 [email]['websocket']) = await ws_connect()
         else:
             _LOGGER.debug("%s: Websocket closed; retries exceeded; polling",
                           hide_email(email))
             (hass.data[DATA_ALEXAMEDIA]['accounts']
              [email]['websocket']) = None
-            update_devices()
+            await update_devices(login_obj, no_throttle=True)
 
-    def ws_error_handler(message):
+    async def ws_error_handler(message):
         """Handle websocket error.
 
         This currently logs the error.  In the future, this should invalidate
@@ -618,12 +769,14 @@ def setup_alexa(hass, config, login_obj):
         (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['websocket']) = None
         (hass.data[DATA_ALEXAMEDIA]
          ['accounts'][email]['websocketerror']) = errors + 1
+    config = config_entry.data
+    email = config.get(CONF_EMAIL)
     include = config.get(CONF_INCLUDE_DEVICES)
     exclude = config.get(CONF_EXCLUDE_DEVICES)
-    scan_interval = config.get(CONF_SCAN_INTERVAL)
-    email = login_obj.email
-    (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['websocket']) = ws_connect()
-    (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['login_obj']) = login_obj
+    scan_interval: float = (config.get(CONF_SCAN_INTERVAL).total_seconds()
+        if isinstance(config.get(CONF_SCAN_INTERVAL), timedelta)
+        else config.get(CONF_SCAN_INTERVAL)
+    )
     if 'devices' not in hass.data[DATA_ALEXAMEDIA]['accounts'][email]:
         (hass.data[DATA_ALEXAMEDIA]['accounts'][email]
          ['devices']) = {'media_player': {}}
@@ -635,14 +788,54 @@ def setup_alexa(hass, config, login_obj):
          ['entities']) = {'media_player': {}}
         (hass.data[DATA_ALEXAMEDIA]
          ['accounts'][email]['new_devices']) = True  # force initial update
-        track_time_interval(hass, lambda now: update_devices(), scan_interval)
-    update_devices()
-    hass.services.register(DOMAIN, SERVICE_UPDATE_LAST_CALLED,
-                           last_call_handler, schema=LAST_CALL_UPDATE_SCHEMA)
+    (hass.data[DATA_ALEXAMEDIA]['accounts'][email]['websocket']) = \
+        await ws_connect()
+    await update_devices(login_obj, no_throttle=True)
+    hass.services.async_register(DOMAIN, SERVICE_UPDATE_LAST_CALLED,
+                                 last_call_handler,
+                                 schema=LAST_CALL_UPDATE_SCHEMA)
 
     # Clear configurator. We delay till here to avoid leaving a modal orphan
-    for config_id in hass.data[DATA_ALEXAMEDIA]['accounts'][email]['config']:
-        configurator = hass.components.configurator
-        configurator.request_done(config_id)
-    hass.data[DATA_ALEXAMEDIA]['accounts'][email]['config'] = []
+    await clear_configurator(hass, email)
     return True
+
+
+async def async_unload_entry(hass, entry) -> bool:
+    """Unload a config entry."""
+    hass.services.async_remove(DOMAIN, SERVICE_UPDATE_LAST_CALLED)
+    for component in ALEXA_COMPONENTS:
+        await hass.config_entries.async_forward_entry_unload(entry, component)
+    # notify has to be handled manually as the forward does not work yet
+    from .notify import async_unload_entry
+    await async_unload_entry(hass, entry)
+    email = entry.data['email']
+    await close_connections(hass, email)
+    await clear_configurator(hass, email)
+    hass.data[DATA_ALEXAMEDIA]['accounts'].pop(email)
+    _LOGGER.debug("Unloaded entry for %s", hide_email(email))
+    return True
+
+
+async def clear_configurator(hass, email: Text) -> None:
+    """Clear open configurators for email."""
+    if email not in hass.data[DATA_ALEXAMEDIA]['accounts']:
+        return
+    if 'configurator' in hass.data[DATA_ALEXAMEDIA]['accounts'][email]:
+        for config_id in hass.data[DATA_ALEXAMEDIA]['accounts'][email]['configurator']:
+            configurator = hass.components.configurator
+            configurator.async_request_done(config_id)
+        hass.data[DATA_ALEXAMEDIA]['accounts'][email]['configurator'] = []
+
+
+async def close_connections(hass, email: Text) -> None:
+    """Clear open aiohttp connections for email."""
+    if (email not in hass.data[DATA_ALEXAMEDIA]['accounts'] or
+            'login_obj' not in hass.data[DATA_ALEXAMEDIA]['accounts'][email]):
+        return
+    account_dict = hass.data[DATA_ALEXAMEDIA]['accounts'][email]
+    login_obj = account_dict['login_obj']
+    await login_obj.close()
+    _LOGGER.debug("%s: Connection closed: %s",
+                  hide_email(email),
+                  login_obj._session.closed)
+    await clear_configurator(hass, email)

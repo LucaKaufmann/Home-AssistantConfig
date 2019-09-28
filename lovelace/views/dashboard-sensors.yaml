@@ -1,0 +1,168 @@
+id: sensors
+title: Sensors
+icon: mdi:gauge
+cards:
+  - id: c903740e76df4c93bd5606bf9adc7b53  # Automatically created id
+    type: entities
+    entities:
+      - sun.sun
+      - sensor.sun_elevation
+      - sensor.next_launch
+  - id: Sleeping
+    type: entities
+    entities:
+      - binary_sensor.sleeping
+      - input_boolean.home_for_over_10
+      - sun.sun
+      - group.all_lights_except_nightlight
+      # - binary_sensor.motion_last_10
+      - input_boolean.motion_last_10
+      - sensor.battery_state
+      - sensor.all_media_players
+      - binary_sensor.playing_games
+  - id: 991994685c7c4a84a938d62fe9d0045e  # Automatically created id
+    type: entities
+    title: Raspberry Pi
+    show_header_toggle: true
+    entities:
+      - sensor.cpu_temperature
+      - sensor.processor_use
+      - sensor.swap_use
+      - sensor.swap_free
+      - sensor.memory_use
+      - sensor.memory_free
+      - sensor.disk_use_percent
+      - sensor.last_boot
+  - id: 54d0f62bff6f4c5c87c35ae068a2990d  # Automatically created id
+    type: entities
+    title: Weather
+    show_header_toggle: true
+    entities:
+      - sensor.darksky_summary
+      - sensor.darksky_precip_intensity
+      - sensor.darksky_temperature
+  - id: outside  # Automatically created id
+    type: entities
+    title: Outside
+    show_header_toggle: false
+    entities:
+      - binary_sensor.ring_front_door_ding
+      - binary_sensor.ring_front_door_motion
+      - sensor.ring_front_door_battery
+      - sensor.ring_front_door_last_activity
+      - sensor.ring_front_door_last_ding
+      - sensor.ring_front_door_last_motion
+      - sensor.darksky_temperature
+      - sensor.outdoor_temperature
+      - sensor.storage_temperature
+      - sensor.storage_pressure
+      - sensor.storage_humidity
+      - sensor.storage_temp_battery
+      - sensor.outdoor_light_level
+      - binary_sensor.deck_motion
+  - id: 87944f4d5e4b474e92e495cc7d758264  # Automatically created id
+    type: entities
+    title: Kitchen
+    show_header_toggle: true
+    entities:
+      - binary_sensor.kitchen_sensor_motion
+      - binary_sensor.motion_kitchen_xiaomi
+      - binary_sensor.fridge
+      - sensor.kitchen_light_level
+      - sensor.kitchen_true_light_level
+      - sensor.kitchen_prediction
+      - sensor.kitchen_light_level_avg
+      - sensor.kitchen_temperature
+  - id: 74ef04dd9f094c0e850f930b174e39b7  # Automatically created id
+    type: entities
+    title: Living room
+    show_header_toggle: true
+    entities:
+      - binary_sensor.living_room_sensor_motion
+      - binary_sensor.living_room_motion_2
+      - sensor.big_light_brightness
+      - sensor.paperlight_brightness
+      - switch.circadian_lighting_circadian_lighting
+      - sensor.livingroom_light_level
+      - sensor.livingroom_light_level_avg
+      - sensor.target_brightness
+      - sensor.target_brightness_livingroom
+      - sensor.target_brightness_kitchen
+      - sensor.livingroom_temperature
+      - sensor.netatmo_living_room_temperature
+      - sensor.downstairs_media_players
+      - sensor.downstairs_motion_sensors
+      - binary_sensor.living_room_door
+  - id: 55c22db88c9642d69fb29f3049fc966c  # Automatically created id
+    type: entities
+    title: Bedroom
+    show_header_toggle: true
+    entities:
+      - sensor.netatmo_bedroom_temperature
+      - sensor.air_purifier_temperature
+      - sensor.air_purifier_humidity
+  - id: 276cf315ed56446893e064b29074c839  # Automatically created id
+    type: entities
+    title: Office
+    show_header_toggle: true
+    entities:
+      - binary_sensor.office_motion
+      - binary_sensor.office_illumination
+      - sensor.office_temperature
+      - sensor.office_humidity
+      - sensor.pressure_office
+      - sensor.printer_current_amps
+      - sensor.printer_current_watts
+      - sensor.printer_voltage
+      - sensor.printer_today_energy
+  - id: 203f103b5c284b27b486925c5b3483aa  # Automatically created id
+    type: entities
+    title: Kids room
+    show_header_toggle: true
+    entities:
+      - sensor.kids_room_temperature
+      - sensor.kids_room_humidity
+      - sensor.pressure_kids_room
+  - id: 6de0b9a04e334b349b140f47c214e98c  # Automatically created id
+    type: entities
+    title: Hallway Upstairs
+    show_header_toggle: true
+    entities:
+      - binary_sensor.motion_hallway_upstairs
+      - binary_sensor.motion_hallway_upstairs_2
+  - id: d22e313aaa1c45e3bd8f3c7d21971942  # Automatically created id
+    type: entities
+    title: Entrance
+    show_header_toggle: true
+    entities:
+      # - sensor.illumination_7811dcaf23d2
+      - binary_sensor.main_door
+  - id: c06a8a1c852a4cdeb651f83aec877773  # Automatically created id
+    type: entities
+    title: Bathroom
+    show_header_toggle: true
+    entities:
+      - sensor.washer_current_amps
+      - sensor.washer_current_watts
+      - sensor.washer_voltage
+      - sensor.washer_today_energy
+  - id: 402d0d3dea7a4d9ba4e8bc7f6a4b7bcf  # Automatically created id
+    type: entities
+    title: Tradfri
+    entities:
+      # - sensor.tradfri_remote_control_2
+      - sensor.tradfri_remote_control_3
+      - sensor.tradfri_remote_control_4
+  - id: f3e444f889df44bab24992a8663e84ba  # Automatically created id
+    type: glance
+    title: Gaming
+    entities:
+      - entity: sensor.steam_76561197994627749
+        name: Hotky status
+        icon: mdi:google-controller
+      - entity: sensor.steam_76561198189917609
+        name: Teacakess status
+        icon: mdi:google-controller
+      - entity: binary_sensor.playing_games
+        name: Playing games
+        icon: mdi:google-controller

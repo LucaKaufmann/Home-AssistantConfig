@@ -4,6 +4,7 @@ sonos_say:
      - service: sonos.snapshot
        data_template:
          entity_id: "{{ sonos_entity }}"
+         with_group: true
      - service: sonos.unjoin
        data_template:
          entity_id: "{{ sonos_entity }}"
@@ -19,3 +20,4 @@ sonos_say:
      - service: sonos.restore
        data_template:
          entity_id: "{{ sonos_entity }}"
+         with_group: true
