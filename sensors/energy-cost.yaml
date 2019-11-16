@@ -1,0 +1,32 @@
+platform: template
+sensors:
+  washer_today_cost:
+    value_template: "{{ ((states('sensor.washer_today_energy')|float)*(states('input_number.energy_cost')|float)/100)|round(2) }}"
+    friendly_name: "Today cost washer"
+    entity_id: sensor.washer_today_energy
+    unit_of_measurement: "€"
+    icon_template: mdi:currency-eur
+  printer_today_cost:
+    value_template: "{{ ((states('sensor.printer_today_energy')|float)*(states('input_number.energy_cost')|float)/100)|round(2) }}"
+    friendly_name: "Today cost printer"
+    entity_id: sensor.printer_today_energy
+    unit_of_measurement: "€"
+    icon_template: mdi:currency-eur
+  light_today_cost:
+    value_template: "{{ ((states('sensor.total_light_energy_today')|float)*(states('input_number.energy_cost')|float)/100)|round(2) }}"
+    friendly_name: "Today cost lights"
+    entity_id: sensor.total_light_energy_today
+    unit_of_measurement: "€"
+    icon_template: mdi:currency-eur
+  entertainment_today_cost:
+    value_template: "{{ ((states('sensor.entertainment_today_energy')|float)*(states('input_number.energy_cost')|float)/100)|round(2) }}"
+    friendly_name: "Today cost entertainment"
+    entity_id: sensor.entertainment_today_energy
+    unit_of_measurement: "€"
+    icon_template: mdi:currency-eur
+  network_devices_today_cost:
+    value_template: "{{(((states('input_number.network_devices_energy')|float)*20/1000)*(states('input_number.energy_cost')|float)/100)|round(2) }}"
+    friendly_name: "Today cost network"
+    entity_id: input_number.network_devices_energy
+    unit_of_measurement: "€"
+    icon_template: mdi:currency-eur

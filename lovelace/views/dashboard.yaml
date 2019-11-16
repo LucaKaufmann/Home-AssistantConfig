@@ -27,11 +27,6 @@ cards:
           camera_view: live
           entities:
             - entity: binary_sensor.outside_motion
-      - type: picture-entity
-        entity: camera.cat
-        camera_view: live
-        name: Cat
-        show_state: false
       - type: conditional
         conditions:
           - entity: binary_sensor.octoprint_printing

@@ -1,0 +1,23 @@
+- platform: ios
+# - platform: facebook
+#   name: facebook
+#   page_access_token: !secret fb_token
+- platform: webostv
+  host: !secret lgtv_ip
+  name: livingroom_tv
+- platform: command_line
+  name: beam
+  command: "/config/alexa-tts/alexa_wrapper.sh -d 'Beam'"
+- platform: command_line
+  name: echo
+  command: "/config/alexa-tts/alexa_wrapper.sh -d 'Echo'"
+- platform: command_line
+  name: white
+  command: "/config/alexa-tts/alexa_wrapper.sh -d 'White Sonos One'"
+- platform: command_line
+  name: black
+  command: "/config/alexa-tts/alexa_wrapper.sh -d 'Black Sonos One'"
+- platform: slack
+  name: Jenkins
+  api_key: !secret slack_api_key
+  default_channel: '#smart-home'

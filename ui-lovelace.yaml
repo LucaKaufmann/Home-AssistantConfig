@@ -203,6 +203,7 @@ views:
   - !include lovelace/views/dashboard-light.yaml
   - !include lovelace/views/dashboard-big.yaml
   - !include lovelace/views/dashboard-sensors.yaml
+  - !include lovelace/views/dashboard-energy.yaml
   - id: Lights
     title: Lights
     icon: mdi:lightbulb-outline
@@ -291,6 +292,11 @@ views:
               action: toggle
             hold_action:
               action: more-info
+          - entity: light.hallway_upstairs
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
       - type: entities
         title: Lights
         entities:
@@ -307,6 +313,9 @@ views:
         entities:
           - entity: input_boolean.someone_downstairs
           - entity: input_boolean.motion_alerts
+          - entity: input_boolean.auto_lights
+          - entity: input_boolean.school_mode
+          - entity: input_boolean.workout_mode
       - type: glance
         title: Switches
         entities:
@@ -698,7 +707,7 @@ views:
           - entity: device_tracker.sevenplusbt
           - entity: device_tracker.lucasapple_watch
           - entity: sensor.upstairs_luca
-          - entity: sensor.upstairs_hallway_luca
+          - entity: sensor.downstairs_luca
           - entity: sensor.living_room_luca
           - entity: sensor.kitchen_luca
           - entity: sensor.home_occupancy_confidence_luca
@@ -719,7 +728,7 @@ views:
           - entity: device_tracker.tiias_iphone
           - entity: device_tracker.tiiasapple_watch
           - entity: sensor.upstairs_tiia
-          - entity: sensor.upstairs_hallway_tiia
+          - entity: sensor.downstairs_tiia
           - entity: sensor.living_room_tiia
           - entity: sensor.kitchen_tiia
           - entity: sensor.home_occupancy_confidence_tiia
@@ -734,9 +743,11 @@ views:
         entities:
           - device_tracker.jeresiphone
           - device_tracker.jeres_iphone
-          - device_tracker.jerephone
-          - sensor.home_occupancy_confidence_jere
           - sensor.upstairs_jere
+          - sensor.downstairs_jere
+          - sensor.living_room_jere
+          - sensor.kitchen_jere
+          - sensor.home_occupancy_confidence_jere
       - type: entities
         id: robin_tracker 
         title: Robin
@@ -1158,11 +1169,26 @@ views:
       - id: chores  # Automatically created id
         type: entities
         entities:
-          - input_boolean.clean_litterbox
-          - input_boolean.empty_dishwasher
           - input_boolean.do_laundry
           - input_boolean.take_medicine
           - binary_sensor.dining_table_cleaning
+      - id: chores_jere  # Automatically created id
+        type: entities
+        entities:
+          - input_boolean.clean_litterbox
+          - input_boolean.empty_dishwasher
+          - input_boolean.homework
+          - input_boolean.clean_room
+          - group.chores_jere
+      - id: school_jere
+        type: entities
+        entities:
+          - sensor.jere_time_to_get_home
+          - input_number.video_game_time
+          - input_number.video_game_time_today
+          - input_datetime.jere_school_ending
+          - input_datetime.jere_got_home
+          - input_boolean.school_mode
   - id: 9
     title: Training
     icon: mdi:library-books

@@ -1,0 +1,101 @@
+platform: template
+sensors:
+  #Hue bulbs
+  big_light_energy_today:
+    value_template: "{{ (((states('sensor.big_light_on')|float*10)+(24*0.2))/1000)|round(5) }}"
+    friendly_name: "Big light energy today"
+    entity_id:  sensor.big_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  yellow_light_energy_today:
+    value_template: "{{ (((states('sensor.yellow_light_on')|float*10)+(24*0.2))/1000)|round(5) }}"
+    friendly_name: "Yellow light energy today"
+    entity_id:  sensor.yellow_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  kitchen_light_energy_today:
+    value_template: "{{ (((states('sensor.kitchen_light_on')|float*9.5)+(24*0.2))/1000)|round(5) }}"
+    friendly_name: "Kitchen light energy today"
+    entity_id:  sensor.kitchen_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  
+  #Hue lightstrip
+  lightstrip_energy_today:
+    value_template: "{{ (((states('sensor.lightstrip_on')|float*20)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Kitchen light energy today"
+    entity_id:  sensor.lightstrip_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+
+  #Tradfri Color
+  ball_light_energy_today:
+    value_template: "{{ (((states('sensor.ball_light_on')|float*8.6)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Ball light energy today"
+    entity_id:  sensor.ball_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  color_light_energy_today:
+    value_template: "{{ (((states('sensor.color_light_on')|float*8.6)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Color light energy today"
+    entity_id:  sensor.color_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+
+  #Tradfri white spectrum
+  hallway_upstairs_energy_today:
+    value_template: "{{ (((states('sensor.hallway_upstairs_light_on')|float*11)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Hallway upstairs light energy today"
+    entity_id:  sensor.hallway_upstairs_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  livingroom_energy_today:
+    value_template: "{{ (((states('sensor.livingroom_light_on')|float*11)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Living room light energy today"
+    entity_id:  sensor.livingroom_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  office_light_energy_today:
+    value_template: "{{ (((states('sensor.office_light_on')|float*11)+(24*0.4))/1000)|round(5) }}"
+    friendly_name: "Office light energy today"
+    entity_id:  sensor.office_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  paperlight_energy_today:
+    value_template: "{{ ((((states('sensor.paperlight_on')|float*11)+(24*0.4))/1000)*3)|round(5) }}"
+    friendly_name: "Paperlight light energy today"
+    entity_id:  sensor.paperlight_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  
+
+  
+  #Tradfri GU10 white spectrum
+  hallway_downstairs_energy_today:
+    value_template: "{{ ((((states('sensor.hallway_downstairs_light_on')|float*5)+(24*0.1))/1000)*3)|round(5) }}"
+    friendly_name: "Hallway downstairs light energy today"
+    entity_id:  sensor.hallway_downstairs_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+
+  #Tradfri E14
+  bedroom_light_energy_today:
+    value_template: "{{ ((((states('sensor.bedroom_light_on')|float*5.3)+(24*0.1))/1000)*3)|round(5) }}"
+    friendly_name: "Bedroom light energy today"
+    entity_id:  sensor.bedroom_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+  kids_room_light_energy_today:
+    value_template: "{{ ((((states('sensor.kids_room_light_on')|float*5.3)+(24*0.1))/1000)*3)|round(5) }}"
+    friendly_name: "Kids room light energy today"
+    entity_id:  sensor.kids_room_light_on
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+
+  total_light_energy_today:
+    value_template: "{{ ((states.sensor.big_light_energy_today.state|float)+(states.sensor.yellow_light_energy_today.state|float)+(states.sensor.kitchen_light_energy_today.state|float)+(states.sensor.lightstrip_energy_today.state|float)+(states.sensor.ball_light_energy_today.state|float)+(states.sensor.color_light_energy_today.state|float)+(states.sensor.hallway_upstairs_energy_today.state|float)+(states.sensor.livingroom_energy_today.state|float)+(states.sensor.office_light_energy_today.state|float)+(states.sensor.paperlight_energy_today.state|float)+(states.sensor.hallway_downstairs_energy_today.state|float)+(states.sensor.bedroom_light_energy_today.state|float)+(states.sensor.kids_room_light_energy_today.state|float))|round(5)}}"
+    friendly_name: "Total light energy today"
+    entity_id:  sensor.time
+    unit_of_measurement: kwh
+    icon_template: mdi:flash
+

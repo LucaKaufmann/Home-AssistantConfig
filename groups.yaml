@@ -405,3 +405,11 @@ anyone_upstairs:
   entities:
     - binary_sensor.luca_upstairs_wifi
     - binary_sensor.tiia_upstairs_wifi
+
+chores_jere:
+  name: Chores Jere
+  entities:
+    - input_boolean.homework
+    - input_boolean.clean_room
+    - input_boolean.empty_dishwasher
+    - input_boolean.clean_litterbox

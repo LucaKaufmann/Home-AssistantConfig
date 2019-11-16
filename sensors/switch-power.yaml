@@ -48,3 +48,27 @@ sensors:
     entity_id: switch.printer
     unit_of_measurement: "kwh"
     icon_template: mdi:flash
+  entertainment_current_watts:
+    value_template: "{{ states.switch.entertainment.attributes['current_power_w'] }}"
+    friendly_name: "Current Power"
+    entity_id: switch.entertainment
+    unit_of_measurement: W
+    icon_template: mdi:power-standby
+  entertainment_voltage:
+    value_template: "{{ states.switch.entertainment.attributes['voltage'] }}"
+    friendly_name: "Voltage"
+    entity_id: switch.entertainment
+    unit_of_measurement: "V"
+    icon_template: mdi:flash
+  entertainment_current_amps:
+    value_template: "{{ states.switch.entertainment.attributes['current_a'] }}"
+    friendly_name: "Amps"
+    entity_id: switch.entertainment
+    unit_of_measurement: "A"
+    icon_template: mdi:flash
+  entertainment_today_energy:
+    value_template: "{{ states.switch.entertainment.attributes['today_energy_kwh'] }}"
+    friendly_name: "Today energy"
+    entity_id: switch.entertainment
+    unit_of_measurement: "kwh"
+    icon_template: mdi:flash

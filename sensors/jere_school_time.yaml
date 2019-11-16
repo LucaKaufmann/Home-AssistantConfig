@@ -1,0 +1,13 @@
+platform: template
+sensors:
+  jere_time_to_get_home:
+    value_template: "{{ ((as_timestamp(states.input_datetime.jere_got_home.state)-as_timestamp(states.input_datetime.jere_school_ending.state))/60) | int }}"
+    entity_id: input_datetime.jere_got_home
+    friendly_name: "Jere's time to get home"
+    unit_of_measurement: min
+    icon_template: >
+      {% if (states.sensor.jere_time_to_get_home.state|int > 30) %}
+      mdi:clock
+      {% else %}
+      mdi:clock-outline
+      {% endif %}

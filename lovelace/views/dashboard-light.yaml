@@ -161,6 +161,11 @@ cards:
         tap_action:
           action: toggle
         hold_action:
+          action: more-infos
+      - entity: light.hallway_upstairs
+        tap_action:
+          action: toggle
+        hold_action:
           action: more-info
   - type: entities
     title: Lights

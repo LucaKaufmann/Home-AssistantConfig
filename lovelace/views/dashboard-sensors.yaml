@@ -54,10 +54,6 @@ cards:
       - sensor.ring_front_door_last_motion
       - sensor.darksky_temperature
       - sensor.outdoor_temperature
-      - sensor.storage_temperature
-      - sensor.storage_pressure
-      - sensor.storage_humidity
-      - sensor.storage_temp_battery
       - sensor.outdoor_light_level
       - binary_sensor.deck_motion
   - id: 87944f4d5e4b474e92e495cc7d758264  # Automatically created id
@@ -89,6 +85,9 @@ cards:
       - sensor.target_brightness_livingroom
       - sensor.target_brightness_kitchen
       - sensor.livingroom_temperature
+      - sensor.living_room_temperature
+      - sensor.living_room_humidity
+      - sensor.living_room_pressure
       - sensor.netatmo_living_room_temperature
       - sensor.downstairs_media_players
       - sensor.downstairs_motion_sensors
@@ -101,6 +100,9 @@ cards:
       - sensor.netatmo_bedroom_temperature
       - sensor.air_purifier_temperature
       - sensor.air_purifier_humidity
+      - sensor.bedroom_temperature
+      - sensor.bedroom_humidity
+      - sensor.bedroom_pressure
   - id: 276cf315ed56446893e064b29074c839  # Automatically created id
     type: entities
     title: Office
@@ -120,6 +122,7 @@ cards:
     title: Kids room
     show_header_toggle: true
     entities:
+      - binary_sensor.kids_door
       - sensor.kids_room_temperature
       - sensor.kids_room_humidity
       - sensor.pressure_kids_room
@@ -146,6 +149,10 @@ cards:
       - sensor.washer_current_watts
       - sensor.washer_voltage
       - sensor.washer_today_energy
+      - sensor.bathroom_temperature
+      - sensor.bathroom_pressure
+      - sensor.bathroom_humidity
+      - sensor.bathroom_temp_battery
   - id: 402d0d3dea7a4d9ba4e8bc7f6a4b7bcf  # Automatically created id
     type: entities
     title: Tradfri

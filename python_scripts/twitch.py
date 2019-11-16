@@ -16,7 +16,8 @@ streams = {
     "games done quick": "gamesdonequick",
     "shroud": "shroud",
     "seagull": "a_seagull",
-    "sneaky": "c9sneaky"
+    "sneaky": "c9sneaky",
+    "hydra": "hydramist"
 }
 
 if streamInput in streams:
@@ -38,6 +39,8 @@ elif (chromecast == 5):
     mediaPlayer = "living_room_speaker"
 elif (chromecast == 6):
     mediaPlayer = "music_flow2034"
+elif (chromecast == 7 or chromecast == 'kitchen display'):
+    mediaPlayer = "kitchen_display"
 else:
     mediaPlayer = "living_room_tv"
 

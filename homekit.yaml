@@ -1,8 +1,23 @@
 filter:
   include_entities:
-    - camera.dafang_mobile
     - media_player.lg_webos_smart_tv
-    - script.zootopia
-    - sensor.temperature_kids_room
-    - sensor.temperature_office
+    - media_player.living_room_tv
     - switch.start_vacuum
+    - switch.air_conditioner
+    - input_boolean.workout_mode
+    - input_boolean.tv_lock
+    - input_boolean.auto_lights
+    - input_boolean.guest_mode
+    - light.big_light
+    - light.paperlight
+    - light.ball
+    - light.color
+    - light.lighstrip
+    - light.living_room
+    - light.hallway_downstairs
+    - light.kitchen
+    - light.hallway_upstairs
+    - light.kids_room
+    - light.bedroom
+    - light.yellow_light
+    - light.office

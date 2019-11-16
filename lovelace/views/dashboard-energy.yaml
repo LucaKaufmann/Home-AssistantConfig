@@ -1,0 +1,89 @@
+id: energy
+title: Energy
+icon: mdi:flash
+cards:
+  - type: entities
+    show_header_toggle: false
+    title: 3D printer
+    entities:
+      - sensor.printer_current_amps
+      - sensor.printer_current_watts
+      - sensor.printer_voltage
+      - sensor.printer_today_energy
+  - type: entities
+    title: Laundry machine
+    show_header_toggle: false
+    entities:
+      - sensor.washer_current_amps
+      - sensor.washer_current_watts
+      - sensor.washer_voltage
+      - sensor.washer_today_energy
+  - type: entities
+    title: Entertainment
+    show_header_toggle: false
+    entities:
+      - sensor.entertainment_current_amps
+      - sensor.entertainment_current_watts
+      - sensor.entertainment_voltage
+      - sensor.entertainment_today_energy
+  - type: entities
+    title: Network devices
+    show_header_toggle: false
+    entities:
+      - input_number.network_devices_energy
+  - type: entities
+    title: Energy cost
+    show_header_toggle: false
+    entities:
+      - input_number.energy_cost
+      - sensor.printer_today_cost
+      - sensor.washer_today_cost
+      - sensor.entertainment_today_cost
+      - sensor.light_today_cost
+      - sensor.network_devices_today_cost
+  - type: vertical-stack
+    cards:
+      - type: entities
+        title: Lights downstairs on today
+        show_header_toggle: false
+        entities:
+          - sensor.big_light_on
+          - sensor.paperlight_on
+          - sensor.livingroom_light_on
+          - sensor.lightstrip_on
+          - sensor.ball_light_on
+          - sensor.color_light_on
+          - sensor.kitchen_light_on
+          - sensor.hallway_downstairs_light_on
+      - type: entities
+        title: Lights downstairs energy today
+        show_header_toggle: false
+        entities:
+          - sensor.big_light_energy_today
+          - sensor.paperlight_energy_today
+          - sensor.livingroom_energy_today
+          - sensor.lightstrip_energy_today
+          - sensor.ball_light_energy_today
+          - sensor.color_light_energy_today
+          - sensor.kitchen_light_energy_today
+          - sensor.hallway_downstairs_energy_today
+  - type: vertical-stack
+    cards:
+      - type: entities
+        title: Lights upstairs on today
+        show_header_toggle: false
+        entities:
+          - sensor.hallway_upstairs_light_on
+          - sensor.kids_room_light_on
+          - sensor.office_light_on
+          - sensor.bedroom_light_on
+          - sensor.yellow_light_on
+      - type: entities
+        title: Lights upstairs energy today
+        show_header_toggle: false
+        entities:
+          - sensor.hallway_upstairs_energy_today
+          - sensor.kids_room_light_energy_today
+          - sensor.office_light_energy_today
+          - sensor.bedroom_light_energy_today
+          - sensor.yellow_light_energy_today

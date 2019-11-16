@@ -94,10 +94,6 @@ updater:
 
 # Discover some devices automatically
 discovery:
-  # ignore:
-  #   - ikea_tradfri
-  enable:
-    - homekit
 
 alexa:
 
@@ -236,21 +232,21 @@ device_tracker:
 #   username: !secret unifi_user
 #   password: !secret unifi_pw
 #   track_new_devices: no
-- platform: unifi
-  host: !secret unifi_controller_ip
-  username: !secret unifi_user
-  password: !secret unifi_controller_pw
-  verify_ssl: false
-  track_new_devices: false
-  detection_time: 300
-  monitored_conditions:
-    - rssi
-    - signal
-    - ap_mac
-    - name
-    - mac
-    - ip
-    - _last_seen_by_uap
+# - platform: unifi
+#   host: !secret unifi_controller_ip
+#   username: !secret unifi_user
+#   password: !secret unifi_controller_pw
+#   verify_ssl: false
+#   track_new_devices: false
+#   detection_time: 300
+#   monitored_conditions:
+#     - rssi
+#     - signal
+#     - ap_mac
+#     - name
+#     - mac
+#     - ip
+#     - _last_seen_by_uap
 # - platform: icloud
 #   username: !secret icloud_user
 #   password: !secret icloud_pw
@@ -351,11 +347,6 @@ tts:
   - platform: google_translate
     service_name: google_say
     language: 'en-us'
-  - platform: amazon_polly
-    aws_access_key_id: !secret aws_secret_id
-    aws_secret_access_key: !secret aws_access_key
-    voice: Matthew
-    text_type: ssml
 
 # Additional components
 #light:
@@ -463,26 +454,7 @@ ios:
               destructive: yes
               behavior: 'default'
 
-notify:
-  - platform: ios
-  - platform: facebook
-    name: facebook
-    page_access_token: !secret fb_token
-  - platform: webostv
-    host: !secret lgtv_ip
-    name: livingroom_tv
-  - platform: command_line
-    name: beam
-    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Beam'"
-  - platform: command_line
-    name: echo
-    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Echo'"
-  - platform: command_line
-    name: white
-    command: "/config/alexa-tts/alexa_wrapper.sh -d 'White Sonos One'"
-  - platform: command_line
-    name: black
-    command: "/config/alexa-tts/alexa_wrapper.sh -d 'Black Sonos One'"
+
 #device_sun_light_trigger:
 #  light_group: group.living_room
 #  device_group: group.tracking_devices
@@ -565,6 +537,7 @@ zone: !include zones.yaml
 scene: !include_dir_list scenes
 script: !include_dir_merge_named scripts
 intent_script: !include_dir_merge_named intent_scripts
+notify: !include notify.yaml
 switch: !include switches.yaml
 input_boolean: !include input_boolean.yaml
 input_select: !include input_select.yaml

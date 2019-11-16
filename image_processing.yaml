@@ -123,27 +123,27 @@
 #   model:
 #     graph: /config/tensorflow/people_logi.pb
 #   scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.dafang
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/dafang/tensorflow.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.xiaofang1
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/xiaofang1/tensorflow.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.logi_latest
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/logi/tensorflow.jpg'
-  scan_interval: 10000
+#- platform: tensorflow
+#  source:
+#    - entity_id: camera.dafang
+#  model:
+#    graph: ./tensorflow/frozen_inference_graph.pb
+#  file_out: '/images/dafang/tensorflow.jpg'
+#  scan_interval: 10000
+#- platform: tensorflow
+#  source:
+#    - entity_id: camera.xiaofang1
+#  model:
+#    graph: ./tensorflow/frozen_inference_graph.pb
+#  file_out: '/images/xiaofang1/tensorflow.jpg'
+#  scan_interval: 10000
+#- platform: tensorflow
+#  source:
+#    - entity_id: camera.logi_latest
+#  model:
+#    graph: ./tensorflow/frozen_inference_graph.pb
+#  file_out: '/images/logi/tensorflow.jpg'
+#  scan_interval: 10000
 
 ##### Rekognition #####
 # - platform: amazon_rekognition

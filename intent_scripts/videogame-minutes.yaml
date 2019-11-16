@@ -1,0 +1,5 @@
+VideogameTime:
+  speech:
+      type: plain
+      text: >
+        You have {{ states.input_number.video_game_time.state }} minutes of video game time.

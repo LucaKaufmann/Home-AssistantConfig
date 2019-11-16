@@ -1,5 +1,5 @@
 platform: mqtt
-state_topic: 'monitor/kitchen/luca'
+state_topic: 'monitor/downstairs/luca'
 value_template: '{{ value_json.confidence }}'
 unit_of_measurement: '%'
-name: 'Kitchen Luca'
+name: 'Downstairs Luca'

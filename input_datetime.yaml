@@ -26,3 +26,11 @@ last_time_kitchen_vacuumed:
   name: Last time kitchen vacuumed
   has_date: true
   has_time: true
+jere_school_ending:
+  name: Jere's school ending
+  has_date: true
+  has_time: true
+jere_got_home:
+  name: Jere got home
+  has_date: true
+  has_time: true

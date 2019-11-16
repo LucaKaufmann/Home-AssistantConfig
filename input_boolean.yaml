@@ -133,6 +133,14 @@ do_laundry:
   name: Should do laundry
   icon: mdi:washing-machine
 
+clean_room:
+  name: Should clean room
+  icon: mdi:pinwheel
+
+homework:
+  name: Should do homework
+  icon: mdi:book-open-variant
+
 camera_cycling_bedroom:
   name: Cycle cameras bedroom
   icon: mdi:cctv
@@ -168,3 +176,11 @@ motion_alerts:
 tv_lock:
   name: TV lock
   icon: mdi:lock
+
+workout_mode:
+  name: Workout mode
+  icon: mdi:weight-lifter
+
+school_mode:
+  name: School mode
+  icon: mdi:school

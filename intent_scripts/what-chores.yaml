@@ -3,7 +3,7 @@ WhatChores:
       type: plain
       text: >
         {% set count = 0 %}
-        {% if is_state('input_boolean.clean_litterbox', 'off') and is_state('input_boolean.do_laundry', 'off') and is_state('input_boolean.empty_dishwasher', 'off') %}
+        {% if is_state('input_boolean.clean_litterbox', 'off') and is_state('input_boolean.do_laundry', 'off') and is_state('input_boolean.empty_dishwasher', 'off') and is_state('input_boolean.homework', 'off') and is_state('input_boolean.clean_room', 'off')%}
           There's nothing on your to-do list today!
         {% else %}
           The things on your to-do list are:
@@ -17,6 +17,14 @@ WhatChores:
           {% endif %}
           {% if is_state('input_boolean.empty_dishwasher', 'on') %}
             Emptying the dishwasher.
+            {% set count = count + 1 %}
+          {% endif %}
+          {% if is_state('input_boolean.homework', 'on') %}
+            Doing your homework.
+            {% set count = count + 1 %}
+          {% endif %}
+          {% if is_state('input_boolean.clean_room', 'on') %}
+            Cleaning your room.
             {% set count = count + 1 %}
           {% endif %}
         {% endif %}
