@@ -364,23 +364,8 @@ fan:
     token: !secret air_purifier_token
     name: Xiaomi Air Purifier
 
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - key: !secret xiaomi_gateway_key
-
 tradfri:
   host: !secret tradfri_ip
-
-# netatmo2:
-#   api_key: !secret netatmo_api_key
-#   secret_key: !secret netatmo_secret_key
-#   username: !secret netatmo_user
-#   password: !secret netatmo_pw
-#   discovery: False
-
-# climate:
-#   - platform: netatmo2
 
 climate:
   - platform: netatmo
@@ -390,12 +375,6 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: !secret netatmo_user
   password: !secret netatmo_pw
-
-vacuum:
- - platform: xiaomi_miio
-   name: 'Eve'
-   host: !secret xiaomi_ip
-   token: !secret xiaomi_token
 
 map:
 
@@ -454,12 +433,7 @@ ios:
               destructive: yes
               behavior: 'default'
 
-
-#device_sun_light_trigger:
-#  light_group: group.living_room
-#  device_group: group.tracking_devices
-
-
+browser_mod:
 
 #snips:
 mqtt:
@@ -475,13 +449,7 @@ mqtt:
     topic: 'hass/status'
     payload: 'offline'
 
-# Breaks shell_command
 stream:
-
-#binary_sensor:
-#  - platform: mqtt
-#    state_topic: dummy/floorplan/sensor
-#    name: Floorplan
 
 zigbee2mqtt_networkmap:
 
@@ -509,6 +477,8 @@ shell_command:
   plot_tiia: "python /config/export/plot.py -p tiia"
   build_map: 'bash /config/bash_scripts/vacuum_maps.sh'
   rename_vacuum_maps: 'bash /config/bash_scripts/renameVacuumMaps.sh'
+  rename_vacuum_maps_walle: 'bash /config/bash_scripts/renameVacuumMapsWalle.sh'
+  rename_vacuum_maps_mo: 'bash /config/bash_scripts/renameVacuumMapsMo.sh'
   record_clip: 'bash /config/bash_scripts/recordClip.sh'
   upload_clip: 'bash /config/bash_scripts/uploadClip.sh'
   install_gmplot: 'pip install gmplot'
@@ -526,6 +496,8 @@ recorder:
      - media_player.white_sonos_one
      - media_player.beam
      - media_player.echo
+     - sensor.vacuum_map_walle
+     - sensor.vacuum_map_mo
 
 sensor: !include_dir_list sensors
 camera: !include cameras.yaml

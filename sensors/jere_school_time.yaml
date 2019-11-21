@@ -1,8 +1,13 @@
 platform: template
 sensors:
   jere_time_to_get_home:
-    value_template: "{{ ((as_timestamp(states.input_datetime.jere_got_home.state)-as_timestamp(states.input_datetime.jere_school_ending.state))/60) | int }}"
-    entity_id: input_datetime.jere_got_home
+    value_template: >
+      {% set time = ((as_timestamp(states.input_datetime.jere_got_home.state)-as_timestamp(states.input_datetime.jere_school_ending.state))/60) | int %}
+      {% if time < 0 %}
+      0
+      {% else %}
+      {{time}}
+      {% endif %}
     friendly_name: "Jere's time to get home"
     unit_of_measurement: min
     icon_template: >

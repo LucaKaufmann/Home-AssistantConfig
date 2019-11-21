@@ -213,24 +213,42 @@
 #   still_image_url: 'https://awesomeplex.duckdns.org:8123/local/navmap.png'
 #   content_type: image/png
 #   framerate: 1
+- platform: generic
+  name: Vacuum Map Walle
+  still_image_url: !secret vacuum_walle_image_url
 - platform: local_file
-  name: Vacuum Map
-  file_path: '/images/vacuum_maps/latest.png'
+  name: Vacuum Map Walle 1
+  file_path: '/images/vacuum_maps_walle/snapshot1.png'
 - platform: local_file
-  name: Vacuum Map Snapshot 1
-  file_path: '/images/vacuum_maps/snapshot1.png'
+  name: Vacuum Map Walle 2
+  file_path: '/images/vacuum_maps_walle/snapshot2.png'
 - platform: local_file
-  name: Vacuum Map Snapshot 2
-  file_path: '/images/vacuum_maps/snapshot2.png'
+  name: Vacuum Map Walle 3
+  file_path: '/images/vacuum_maps_walle/snapshot3.png'
 - platform: local_file
-  name: Vacuum Map Snapshot 3
-  file_path: '/images/vacuum_maps/snapshot3.png'
+  name: Vacuum Map Walle 4
+  file_path: '/images/vacuum_maps_walle/snapshot4.png'
 - platform: local_file
-  name: Vacuum Map Snapshot 4
-  file_path: '/images/vacuum_maps/snapshot4.png'
+  name: Vacuum Map Walle 5
+  file_path: '/images/vacuum_maps_walle/snapshot5.png'
+- platform: generic
+  name: Vacuum Map Mo
+  still_image_url: !secret vacuum_mo_image_url
 - platform: local_file
-  name: Vacuum Map Snapshot 5
-  file_path: '/images/vacuum_maps/snapshot5.png'
+  name: Vacuum Map Mo 1
+  file_path: '/images/vacuum_maps_mo/snapshot1.png'
+- platform: local_file
+  name: Vacuum Map Mo 2
+  file_path: '/images/vacuum_maps_mo/snapshot2.png'
+- platform: local_file
+  name: Vacuum Map Mo 3
+  file_path: '/images/vacuum_maps_mo/snapshot3.png'
+- platform: local_file
+  name: Vacuum Map Mo 4
+  file_path: '/images/vacuum_maps_mo/snapshot4.png'
+- platform: local_file
+  name: Vacuum Map Mo 5
+  file_path: '/images/vacuum_maps_mo/snapshot5.png'
 # - platform: ring
 - platform: mjpeg
   name: OctoPrint

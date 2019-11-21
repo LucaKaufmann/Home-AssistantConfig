@@ -1,0 +1,6 @@
+platform: mqtt
+state_topic: "valetudo/walle/state"
+json_attributes_topic: "valetudo/walle/map_data"
+name: vacuum_map_walle
+value_template: 'OK'
+scan_interval: 5

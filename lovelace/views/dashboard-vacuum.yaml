@@ -1,0 +1,143 @@
+id: vacuum
+title: Vacuum
+icon: mdi:robot-vacuum
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:slideshow-card
+        flush: true
+        arrow_color: White
+        arrow_opacity: .5
+        auto_play: false
+        auto_delay: 4
+        style:
+          border-radius: 25px
+        cards:
+          - type: picture-entity
+            name: Current Map
+            show_state: false
+            entity: camera.vacuum_map_walle
+            camera_image: camera.vacuum_map_walle
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_walle_1
+            camera_image: camera.vacuum_map_walle_1
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_walle_2
+            camera_image: camera.vacuum_map_walle_2
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_walle_3
+            camera_image: camera.vacuum_map_walle_3
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_walle_4
+            camera_image: camera.vacuum_map_walle_4
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_walle_5
+            camera_image: camera.vacuum_map_walle_5
+      - id: walle  # Automatically created id
+        type: entities
+        title: Vacuum Wall-E
+        show_header_toggle: false
+        entities:
+          - vacuum.walle
+          - sensor.vacuum_downstairs_status
+          - sensor.vacuum_downstairs_battery
+          - sensor.vacuum_downstairs_cleaning_time
+          - sensor.vacuum_downstairs_cleaned_area
+          - script.vacuum_clean_kitchen
+          - script.vacuum_clean_livingroom
+          - script.vacuum_clean_dining_area
+          - script.vacuum_clean_dining_area_kitchen
+          - script.move_away_from_dock
+      - type: 'custom:valetudo-map-card'
+        entity: sensor.vacuum_map_walle
+        rotate: 0
+        crop:
+          top: 0
+          bottom: 0
+          left: 0
+          right: 0
+        min_height: 0
+      - type: entities
+        title: Wall-E Schedule
+        entities:
+          - input_boolean.schedule_kitchen_cleaning
+          - input_boolean.schedule_livingroom_cleaning
+          - input_boolean.schedule_dining_area_cleaning
+          - input_boolean.schedule_cleaning
+          - input_boolean.cleaning_doublepass
+          - input_boolean.notify_vacuum_emptying
+          - input_datetime.last_time_vacuumed
+          - input_datetime.last_time_kitchen_vacuumed
+          - input_datetime.last_time_hallway_vacuumed
+          - input_datetime.last_time_dining_area_vacuumed
+          - input_datetime.last_time_living_room_vacuumed
+  - type: vertical-stack
+    cards:
+      - type: custom:slideshow-card
+        flush: true
+        arrow_color: White
+        arrow_opacity: .5
+        auto_play: false
+        auto_delay: 4
+        style:
+          border-radius: 25px
+        cards:
+          - type: picture-entity
+            name: Current Map
+            show_state: false
+            entity: camera.vacuum_map_mo
+            camera_image: camera.vacuum_map_mo
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_mo_1
+            camera_image: camera.vacuum_map_mo_1
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_mo_2
+            camera_image: camera.vacuum_map_mo_2
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_mo_3
+            camera_image: camera.vacuum_map_mo_3
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_mo_4
+            camera_image: camera.vacuum_map_mo_4
+          - type: picture-entity
+            show_name: false
+            show_state: false
+            entity: camera.vacuum_map_mo_5
+            camera_image: camera.vacuum_map_mo_5
+      - id: mo  # Automatically created id
+        type: entities
+        title: Vacuum Mo
+        show_header_toggle: false
+        entities:
+          - vacuum.mo
+          - sensor.vacuum_upstairs_status
+          - sensor.vacuum_upstairs_battery
+          - sensor.vacuum_upstairs_cleaning_time
+          - sensor.vacuum_upstairs_cleaned_area
+      - type: 'custom:valetudo-map-card'
+        entity: sensor.vacuum_map_mo
+        rotate: 0
+        crop:
+          top: 0
+          bottom: 0
+          left: 0
+          right: 0
+        min_height: 0

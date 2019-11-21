@@ -3,6 +3,7 @@ vacuum_clean_dining_area:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: vacuum.eve
-        command: app_zoned_clean
-        params: [[18500, 24000, 21000, 25500, 1]]
+        entity_id: 'vacuum.walle'
+        command: 'zoned_cleanup'
+        params:
+          'zone_ids': ['Dining Area']

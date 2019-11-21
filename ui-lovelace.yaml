@@ -29,6 +29,8 @@ resources:
     type: module
   - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
     type: module
+  - type: js
+    url: /community_plugin/lovelace-valetudo-map-card/valetudo-map-card.js
 title: Home
 views:
   - id: 0  # Automatically created id
@@ -1201,77 +1203,7 @@ views:
           - input_boolean.tiia_downstairs
           - input_select.cat
           - input_select.phone_location
-  - id: 10
-    title: Vacuum
-    icon: mdi:robot-vacuum
-    cards:
-      - id: vacuum  # Automatically created id
-        type: entities
-        title: Vacuum
-        show_header_toggle: true
-        entities:
-          - vacuum.eve
-          - sensor.vacuum_status
-          - sensor.vacuum_battery
-          - sensor.vacuum_cleaning_time
-          - sensor.vacuum_cleaned_area
-          - switch.clean_kitchen
-          - input_boolean.schedule_kitchen_cleaning
-          - input_boolean.schedule_livingroom_cleaning
-          - input_boolean.schedule_dining_area_cleaning
-          - input_boolean.schedule_cleaning
-          - input_boolean.cleaning_doublepass
-          - input_boolean.notify_vacuum_emptying
-          - input_datetime.last_time_vacuumed
-          - input_datetime.last_time_kitchen_vacuumed
-          - input_datetime.last_time_hallway_vacuumed
-          - input_datetime.last_time_dining_area_vacuumed
-          - input_datetime.last_time_living_room_vacuumed
-      - id: 29b04a11d8214ee980c46f5eca861ece  # Automatically created id
-        type: picture-entity
-        show_name: false
-        show_state: false
-        entity: camera.vacuum_map
-        camera_image: camera.vacuum_map
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Current Map
-            show_state: false
-            entity: camera.vacuum_map
-            camera_image: camera.vacuum_map
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.vacuum_map_snapshot_1
-            camera_image: camera.vacuum_map_snapshot_1
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.vacuum_map_snapshot_2
-            camera_image: camera.vacuum_map_snapshot_2
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.vacuum_map_snapshot_3
-            camera_image: camera.vacuum_map_snapshot_3
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.vacuum_map_snapshot_4
-            camera_image: camera.vacuum_map_snapshot_4
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.vacuum_map_snapshot_5
-            camera_image: camera.vacuum_map_snapshot_5
+  - !include lovelace/views/dashboard-vacuum.yaml
   - id: 11
     title: Calendars
     icon: mdi:calendar

@@ -3,6 +3,7 @@ vacuum_clean_livingroom:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: vacuum.eve
-        command: app_zoned_clean
-        params: [[18000, 23500, 21500, 29500, 1]]
+        entity_id: 'vacuum.walle'
+        command: 'zoned_cleanup'
+        params:
+          'zone_ids': ['Living room']

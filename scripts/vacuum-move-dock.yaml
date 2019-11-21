@@ -1,10 +1,9 @@
 move_away_from_dock:
   alias: Move away from dock
   sequence:
-    - alias: Move away from dock
-      service: vacuum.xiaomi_remote_control_move_step
+    - service: vacuum.send_command
       data:
-        entity_id: vacuum.eve
-        velocity: 0.08
-        rotation: 0
-        duration: 4000
+        entity_id: 'vacuum.rockrobo'
+        command: 'go_to'
+        params:
+          'spot_id': 'garbage'
