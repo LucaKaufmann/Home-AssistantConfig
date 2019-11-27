@@ -6,4 +6,4 @@ vacuum_doublepass:
     - alias: Start cleaning
       service: vacuum.turn_on
       data:
-        entity_id: vacuum.eve
+        entity_id: vacuum.walle

@@ -218,37 +218,37 @@
   still_image_url: !secret vacuum_walle_image_url
 - platform: local_file
   name: Vacuum Map Walle 1
-  file_path: '/images/vacuum_maps_walle/snapshot1.png'
+  file_path: '/images/vacuum_maps_walle/snapshot1.jpg'
 - platform: local_file
   name: Vacuum Map Walle 2
-  file_path: '/images/vacuum_maps_walle/snapshot2.png'
+  file_path: '/images/vacuum_maps_walle/snapshot2.jpg'
 - platform: local_file
   name: Vacuum Map Walle 3
-  file_path: '/images/vacuum_maps_walle/snapshot3.png'
+  file_path: '/images/vacuum_maps_walle/snapshot3.jpg'
 - platform: local_file
   name: Vacuum Map Walle 4
-  file_path: '/images/vacuum_maps_walle/snapshot4.png'
+  file_path: '/images/vacuum_maps_walle/snapshot4.jpg'
 - platform: local_file
   name: Vacuum Map Walle 5
-  file_path: '/images/vacuum_maps_walle/snapshot5.png'
+  file_path: '/images/vacuum_maps_walle/snapshot5.jpg'
 - platform: generic
   name: Vacuum Map Mo
   still_image_url: !secret vacuum_mo_image_url
 - platform: local_file
   name: Vacuum Map Mo 1
-  file_path: '/images/vacuum_maps_mo/snapshot1.png'
+  file_path: '/images/vacuum_maps_mo/snapshot1.jpg'
 - platform: local_file
   name: Vacuum Map Mo 2
-  file_path: '/images/vacuum_maps_mo/snapshot2.png'
+  file_path: '/images/vacuum_maps_mo/snapshot2.jpg'
 - platform: local_file
   name: Vacuum Map Mo 3
-  file_path: '/images/vacuum_maps_mo/snapshot3.png'
+  file_path: '/images/vacuum_maps_mo/snapshot3.jpg'
 - platform: local_file
   name: Vacuum Map Mo 4
-  file_path: '/images/vacuum_maps_mo/snapshot4.png'
+  file_path: '/images/vacuum_maps_mo/snapshot4.jpg'
 - platform: local_file
   name: Vacuum Map Mo 5
-  file_path: '/images/vacuum_maps_mo/snapshot5.png'
+  file_path: '/images/vacuum_maps_mo/snapshot5.jpg'
 # - platform: ring
 - platform: mjpeg
   name: OctoPrint

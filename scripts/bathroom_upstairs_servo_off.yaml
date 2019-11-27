@@ -1,0 +1,10 @@
+bathroom_upstairs_servo_off:
+  alias: Servo off bathroom upstairs
+  sequence:
+    - service: esphome.bathroom_heating_control_servo
+      data:
+        level: -100
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.bathroom_upstairs_servo
+        value: -100

@@ -167,7 +167,6 @@ upstairs_lights:
   name: Lights upstairs
   entities:
     - light.office
-    - light.gateway
     - light.yellow_light
     - light.hallway_upstairs
     - light.kids_room

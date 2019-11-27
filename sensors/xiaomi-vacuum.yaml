@@ -11,7 +11,7 @@ sensors:
     entity_id: vacuum.walle
     icon_template: mdi:fan
   vacuum_downstairs_cleaned_area:
-    value_template: "{{ states.vacuum.walle.attributes['cleanArea'] }}"
+    value_template: "{{ state_attr('vacuum.walle', 'last_run_stats').area }}"
     friendly_name: "Cleaned area"
     unit_of_measurement: "m2"
     entity_id: vacuum.walle
@@ -23,7 +23,7 @@ sensors:
     unit_of_measurement: "%"
     icon_template: mdi:battery
   vacuum_downstairs_cleaning_time:
-    value_template: "{{ states.vacuum.walle.attributes['cleanTime'] }}"
+    value_template: "{{ state_attr('vacuum.walle', 'last_run_stats').duration }}"
     friendly_name: "Cleaning time"
     entity_id: vacuum.walle
     icon_template: mdi:timer
@@ -38,7 +38,7 @@ sensors:
     entity_id: vacuum.mo
     icon_template: mdi:fan
   vacuum_upstairs_cleaned_area:
-    value_template: "{{ states.vacuum.mo.attributes['cleanArea'] }}"
+    value_template: "{{ state_attr('vacuum.mo', 'last_run_stats').area }}"
     friendly_name: "Cleaned area"
     unit_of_measurement: "m2"
     entity_id: vacuum.mo
@@ -50,7 +50,7 @@ sensors:
     unit_of_measurement: "%"
     icon_template: mdi:battery
   vacuum_upstairs_cleaning_time:
-    value_template: "{{ states.vacuum.eve.attributes['cleanTime'] }}"
+    value_template: "{{ state_attr('vacuum.mo', 'last_run_stats').duration }}"
     friendly_name: "Cleaning time"
     entity_id: vacuum.mo
     icon_template: mdi:timer

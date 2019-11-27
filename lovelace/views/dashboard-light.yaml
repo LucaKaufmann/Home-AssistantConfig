@@ -129,6 +129,13 @@ cards:
           action: toggle
         hold_action:
           action: more-info
+      - type: entity-button
+        title: Entrance
+        entity: light.entrance
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
   - type: glance
     title: Upstairs
     entities:

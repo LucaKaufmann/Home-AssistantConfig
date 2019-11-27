@@ -1,0 +1,74 @@
+id: 5  # Automatically created id
+title: Devices
+icon: mdi:cellphone-iphone
+cards:
+  - type: entities
+    id: 21f0ffff3b4148a38c51dd6bc2de8b55  # Automatically created id
+    title: Luca
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.sevenplus_router
+      - entity: device_tracker.luca_iphone
+      - entity: sensor.battery_level_luca
+      - entity: sensor.battery_state_luca
+      - entity: device_tracker.lucasapple_watch
+      - entity: sensor.upstairs_luca
+      - entity: sensor.downstairs_luca
+      - entity: sensor.living_room_luca
+      - entity: sensor.kitchen_luca
+      - entity: sensor.home_occupancy_confidence_luca
+      - entity: binary_sensor.luca_downstairs_wifi
+      - entity: binary_sensor.luca_upstairs_wifi
+  - type: entities
+    id: 5f91aeae09314b78b3f85dd974073074  # Automatically created id
+    title: Tiia
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.tiiaphone
+      - entity: device_tracker.tiiasiphone
+      - entity: device_tracker.tiias_iphone
+      - entity: device_tracker.tiiasapple_watch
+      - entity: sensor.upstairs_tiia
+      - entity: sensor.downstairs_tiia
+      - entity: sensor.living_room_tiia
+      - entity: sensor.kitchen_tiia
+      - entity: sensor.home_occupancy_confidence_tiia
+      - entity: sensor.tiia_signal
+      - entity: sensor.tiia_rssi
+      - entity: binary_sensor.tiia_downstairs_wifi
+      - entity: binary_sensor.tiia_upstairs_wifi
+  - id: e9a9b73489c3480bbc233cb9684f8b79  # Automatically created id
+    type: entities
+    title: Jere
+    show_header_toggle: true
+    entities:
+      - device_tracker.jeresiphone
+      - device_tracker.jeres_iphone
+      - entity: sensor.battery_level_jere
+      - entity: sensor.battery_state_jere
+      - sensor.upstairs_jere
+      - sensor.downstairs_jere
+      - sensor.living_room_jere
+      - sensor.kitchen_jere
+      - sensor.home_occupancy_confidence_jere
+  - type: entities
+    id: robin_tracker 
+    title: Robin
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.robin_router
+      - entity: binary_sensor.robin_downstairs_wifi
+      - entity: binary_sensor.robin_upstairs_wifi
+  - id: ff896462930142338499dda96b858d49  # Automatically created id
+    type: entities
+    title: Sensors
+    show_header_toggle: true
+    entities:
+      - binary_sensor.tiia_home
+      - binary_sensor.luca_home
+      - binary_sensor.jere_home
+      - binary_sensor.robin_home
+      - input_boolean.guest_mode
+      - group.anyone_home
+      - group.anyone_downstairs
+      - group.anyone_upstairs

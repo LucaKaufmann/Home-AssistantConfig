@@ -153,6 +153,10 @@ cards:
       - sensor.bathroom_pressure
       - sensor.bathroom_humidity
       - sensor.bathroom_temp_battery
+      - switch.bathroom_upstairs_servo
+      - input_number.bathroom_upstairs_servo
+      - script.bathroom_upstairs_servo_on
+      - script.bathroom_upstairs_servo_off
   - id: 402d0d3dea7a4d9ba4e8bc7f6a4b7bcf  # Automatically created id
     type: entities
     title: Tradfri

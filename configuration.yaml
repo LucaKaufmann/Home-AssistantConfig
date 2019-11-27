@@ -197,6 +197,40 @@ influxdb:
 #  password: !secret influxdb_password
   database: homeassistant
   default_measurement: state
+  exclude:
+    domains:
+     - shell_command
+     - image_processing
+     - calendar
+     - camera
+     - device_tracker
+     - script
+    entities:
+     - binary_sensor.floorplan
+     - media_player.black_sonos_one
+     - media_player.white_sonos_one
+     - media_player.beam
+     - media_player.echo
+     - sensor.vacuum_map_walle
+     - sensor.vacuum_map_mo
+     - sensor.0x00158d00023d8cd6_linkquality
+     - sensor.0x00158d00036b7c46_linkquality
+     - sensor.0x00158d0003f3f064_linkquality
+     - sensor.0x00158d0004144a1b_linkquality
+     - sensor.circadian_values
+     - sensor.date
+     - sensor.date_time
+     - sensor.date_time_iso
+  include:
+    entities:
+      - device_tracker.sevenplus_router
+      - device_tracker.luca_iphone
+      - device_tracker.jeresiphone
+      - device_tracker.jeres_iphone
+      - device_tracker.tiiasiphone
+      - device_tracker.tiias_iphone
+
+  
 
 ifttt:
   key: !secret ifttt_key
@@ -304,6 +338,14 @@ light:
     schema: json
     command_topic: "zigbee2mqtt/paperlight/set"
     state_topic: "zigbee2mqtt/paperlight"
+    optimistic: false
+    brightness: true
+    color_temp: true
+  - platform: mqtt
+    name: Entrance
+    schema: json
+    command_topic: "zigbee2mqtt/entrance/set"
+    state_topic: "zigbee2mqtt/entrance"
     optimistic: false
     brightness: true
     color_temp: true
@@ -471,7 +513,7 @@ shell_command:
   export_csv: 'python /config/export_to_csv.py -r {{rssi}} -s {{signal}} -a {{ap}} -l {{location}}'
   export_csv_luca: "python /config/export_to_csv.py -r {{states.device_tracker.sevenplus_router.attributes.rssi}} -s {{states.device_tracker.sevenplus_router.attributes.signal}} -a {% if is_state('binary_sensor.luca_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.luca_downstairs','on') %}1{% else %}0{% endif %}"
   export_csv_tiia: "python /config/export_to_csv.py -r {{states.device_tracker.tiiasiphone.attributes.rssi}} -s {{states.device_tracker.tiiasiphone.attributes.signal}} -a {% if is_state('binary_sensor.tiia_downstairs_wifi','on') %}1{% else %}0{% endif %} -d {% if is_state('input_boolean.tiia_downstairs','on') %}1{% else %}0{% endif %}"
-  export_gps_luca: "python /config/export/export_gps.py -t {{states.device_tracker.sevenplusha.attributes.latitude}} -o {{states.device_tracker.sevenplusha.attributes.longitude}} -d '{{states.device_tracker.sevenplusha.attributes.timestamp}}' -p luca"
+  export_gps_luca: "python /config/export/export_gps.py -t {{states.device_tracker.luca_iphone.attributes.latitude}} -o {{states.device_tracker.luca_iphone.attributes.longitude}} -d '{{states.device_tracker.sevenplusha.attributes.timestamp}}' -p luca"
   export_gps_tiia: "python /config/export/export_gps.py -t {{states.device_tracker.tiias_iphone.attributes.latitude}} -o {{states.device_tracker.tiias_iphone.attributes.longitude}} -d '{{states.device_tracker.tiias_iphone.attributes.timestamp}}' -p tiia"
   plot_luca: "python /config/export/plot.py -p luca"
   plot_tiia: "python /config/export/plot.py -p tiia"

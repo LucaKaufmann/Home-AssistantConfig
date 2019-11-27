@@ -3,7 +3,7 @@ move_away_from_dock:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: 'vacuum.rockrobo'
+        entity_id: 'vacuum.walle'
         command: 'go_to'
         params:
           'spot_id': 'garbage'

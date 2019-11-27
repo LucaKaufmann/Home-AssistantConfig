@@ -1,0 +1,29 @@
+alias: Lights upstairs off
+initial_state: 'on' 
+id: lights_upstairs_off
+trigger:
+  - platform: state
+    entity_id: group.upstairs_motion_sensors
+    to: 'off'
+    for:
+      minutes: 20
+  - platform: state
+    entity_id: group.anyone_upstairs
+    to: 'off'
+    for:
+      minutes: 20
+condition: 
+  - condition: state
+    entity_id: group.upstairs_motion_sensors
+    state: 'off'
+    for:
+      minutes: 20
+  - condition: state
+    entity_id: group.anyone_upstairs
+    state: 'off'
+    for:
+      minutes: 20
+action:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: group.upstairs_lights

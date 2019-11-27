@@ -7,17 +7,6 @@ cards:
       - type: conditional
         conditions:
           - entity: binary_sensor.outside_motion
-            state_not: "on"
-          - entity: vacuum.eve
-            state: "docked"
-          - entity: binary_sensor.octoprint_printing
-            state_not: "on"
-        card:
-          type: custom:weather-card
-          entity: weather.dark_sky
-      - type: conditional
-        conditions:
-          - entity: binary_sensor.outside_motion
             state: "on"
         card:
           type: picture-glance
@@ -41,16 +30,47 @@ cards:
             navigation_path: /lovelace/18  
       - type: conditional
         conditions:
-          - entity: vacuum.eve
+          - entity: vacuum.walle
+            state: "cleaning"
+        card:
+          # type: picture-glance
+          # title: Vacuum Wall-E
+          # panel: true
+          # camera_image: camera.vacuum_map_walle
+          # camera_view: live
+          # entities:
+          #   - entity: vacuum.walle
+          type: 'custom:valetudo-map-card'
+          entity: sensor.vacuum_map_walle
+          rotate: 0
+          crop:
+            top: 0
+            bottom: 0
+            left: 0
+            right: 0
+      - type: conditional
+        conditions:
+          - entity: vacuum.mo
             state: "cleaning"
         card:
           type: picture-glance
-          title: Front
+          title: Vacuum M-O
           panel: true
-          camera_image: camera.vacuum_map
+          camera_image: camera.vacuum_map_mo
           camera_view: live
           entities:
-            - entity: vacuum.eve
+            - entity: vacuum.mo
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.outside_motion
+            state_not: "on"
+          # - entity: vacuum.walle
+          #   state: "docked"
+          # - entity: binary_sensor.octoprint_printing
+          #   state_not: "on"
+        card:
+          type: custom:weather-card
+          entity: weather.dark_sky
   - type: vertical-stack
     cards:
       - type: horizontal-stack
@@ -59,22 +79,22 @@ cards:
             entity: light.kitchen
           - type: conditional
             conditions:
-              - entity: vacuum.eve
+              - entity: vacuum.walle
                 state: "cleaning"
             card:
                 type: entity-button
-                entity: vacuum.eve
+                entity: vacuum.walle
                 name: Stop vacuum
                 tap_action:
                   action: call-service
                   service: vacuum.return_to_base
                   service_data: 
-                    entity_id: vacuum.eve
+                    entity_id: vacuum.walle
                 hold_action: 
                   action: more-info
           - type: conditional
             conditions:
-              - entity: vacuum.eve
+              - entity: vacuum.walle
                 state: "docked"
             card:
                 type: entity-button
@@ -147,6 +167,12 @@ cards:
           action: more-info
       - entity: light.kitchen
         name: Kitchen
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.entrance
+        name: Entrance
         tap_action:
           action: toggle
         hold_action:
