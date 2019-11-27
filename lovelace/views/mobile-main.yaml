@@ -1,0 +1,353 @@
+id: mobilemain
+title: Mobile
+icon: mdi:home
+cards:
+  - type: vertical-stack
+    cards:
+      - type: 'custom:home-feed-card'
+        title: Home Feed
+        include_history: true
+        max_height: 12em
+        id_filter: ^home_feed_.*
+        calendars:
+          - calendar.tiia_schedule
+          - calendar.personal
+          - calendar.jere_school
+        entities:
+          - entity: sensor.octoprint_current_state
+            state_map:
+              unknown: "off"
+          - entity: input_boolean.someone_downstairs
+            icon: mdi:account
+          - entity: media_player.lg_webos_smart_tv
+            name: TV
+            icon: mdi:television
+          - entity: sensor.tv_source
+            content_template: 'Watching {{state}}'
+            max_history: 3
+          - entity: binary_sensor.should_vacuum
+          - entity: vacuum.eve
+            icon: mdi:robot-vacuum
+            include_history: true
+            max_history: 3
+          - entity: binary_sensor.eating
+          - entity: binary_sensor.kitchen_lights_on
+            name: Kitchen lights
+            include_history: true
+            max_history: 3
+          - entity: binary_sensor.sleeping
+            icon: mdi:sleep
+          - entity: binary_sensor.ring_front_door_motion
+          - entity: binary_sensor.ring_front_door_ding
+          - entity: binary_sensor.living_room_door
+            include_history: true
+            max_history: 3
+          - entity: binary_sensor.main_door
+            include_history: true
+            max_history: 3
+          - entity: light.paperlight
+            name: Paperlight
+            icon: mdi:lightbulb-outline
+          - entity: light.big_light
+            name: Big light
+            icon: mdi:lightbulb-outline
+          - entity: group.anyone_downstairs
+            name: Phone downstairs
+            icon: mdi:cellphone-iphone
+          - entity: group.anyone_upstairs
+            name: Phone upstairs
+            icon: mdi:cellphone-iphone
+          - entity: device_tracker.sevenplusha
+            name: Luca
+            icon: mdi:human-male
+            content_template: '{{display_name}} arrived at {{state}}'
+            include_history: true
+            max_history: 5
+            remove_repeats: true
+            state_map:
+              not_home: Unknown Destination
+          - entity: binary_sensor.tiia_home
+            name: Tiia home
+            icon: mdi:human-female
+            include_history: true
+            max_history: 3
+            remove_repeats: true
+            state_map:
+              on: Home
+          - entity: binary_sensor.jere_home
+            name: Jere home
+            icon: mdi:human-child
+            include_history: true
+            max_history: 3
+            remove_repeats: true
+            state_map:
+              on: Home
+      - type: conditional
+        conditions:
+          - entity: vacuum.walle
+            state: "cleaning"
+        card:
+          type: 'custom:valetudo-map-card'
+          entity: sensor.vacuum_map_walle
+          rotate: 0
+          crop:
+            top: 0
+            bottom: 0
+            left: 0
+            right: 0
+          min_height: 0
+      - type: conditional
+        conditions:
+          - entity: vacuum.mo
+            state: "cleaning"
+        card:
+          type: 'custom:valetudo-map-card'
+          entity: sensor.vacuum_map_mo
+          rotate: 0
+          crop:
+            top: 0
+            bottom: 0
+            left: 0
+            right: 0
+          min_height: 0
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.octoprint_printing
+            state: "on"
+        card:
+          type: picture-entity
+          entity: sensor.octoprint_job_percentage
+          camera_image: camera.octoprint
+          camera_view: live
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/18
+  - type: vertical-stack
+    cards:
+      - type: custom:swipe-card
+        cards:
+          - type: glance
+            title: Downstairs
+            entities:
+              - entity: light.living_room
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.big_light
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.ball
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.color
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.paperlight
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.desk
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.kitchen
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.hallway_downstairs
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.entrance
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+          - type: glance
+            title: Upstairs
+            entities:
+              - entity: light.bedroom
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.yellow_light
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.office
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.kids_room
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.hallway_upstairs
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: vacuum.walle
+            name: Start Wall-E
+            tap_action:
+              action: call-service
+              service: vacuum.start
+              service_data: 
+                entity_id: vacuum.walle
+            hold_action: 
+              action: more-info
+          - type: entity-button
+            entity: vacuum.walle
+            name: Stop Wall-E
+            tap_action:
+              action: call-service
+              service: vacuum.return_to_base
+              service_data: 
+                entity_id: vacuum.walle
+            hold_action: 
+              action: more-info
+          - type: entity-button
+            entity: script.vacuum_clean_kitchen
+            icon: mdi:fridge-outline
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: script.vacuum_clean_livingroom
+            icon: mdi:sofa
+          - type: entity-button
+            entity: script.vacuum_clean_dining_area
+            icon: mdi:silverware-fork-knife
+          - type: entity-button
+            entity: script.vacuum_clean_dining_area_kitchen
+            name: Dining area and kitchen
+            icon: mdi:silverware
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: vacuum.mo
+            name: Start M-O
+            tap_action:
+              action: call-service
+              service: vacuum.start
+              service_data: 
+                entity_id: vacuum.mo
+            hold_action: 
+              action: more-info
+          - type: entity-button
+            entity: vacuum.mo
+            name: Stop M-O
+            tap_action:
+              action: call-service
+              service: vacuum.return_to_base
+              service_data: 
+                entity_id: vacuum.mo
+            hold_action: 
+              action: more-info
+      - type: entities
+        title: Switches
+        entities:
+          - entity: input_boolean.auto_lights
+          - entity: input_boolean.movie_mode
+          # - entity: input_boolean.gaming_mode 
+          - entity: input_boolean.color_mode
+          - entity: input_boolean.guest_mode
+          - entity: input_boolean.tv_lock
+  # - type: vertical-stack
+  #   cards:
+  #     - type: custom:weather-card
+  #       entity: weather.dark_sky
+  #     - type: custom:swipe-card
+  #       cards:
+  #         - type: custom:mini-graph-card
+  #           name: Outdoor
+  #           icon: mdi:temperature-celsius
+  #           line_color: 
+  #               - "#0971B2"
+  #               - "#3498db"
+  #           entities:
+  #             - entity: sensor.outdoor_temperature
+  #               name: Outdoor
+  #             - entity: sensor.darksky_temperature
+  #               name: Dark sky
+  #         - type: custom:mini-graph-card
+  #           name: Downstairs
+  #           icon: mdi:temperature-celsius
+  #           entities:
+  #             - entity: sensor.livingroom_temperature
+  #               name: Living room
+  #             - entity: sensor.kitchen_temperature
+  #               name: Kitchen
+  #         - type: custom:mini-graph-card
+  #           name: Upstairs
+  #           icon: mdi:temperature-celsius
+  #           entities:
+  #             - entity: sensor.air_purifier_temperature
+  #               name: Bedroom
+  #             - entity: sensor.office_temperature
+  #               name: Office
+  #             - entity: sensor.kids_room_temperature
+  #               name: Kids room
+  #     - type: horizontal-stack
+  #       cards:
+  #         - type: custom:swipe-card
+  #           cards:
+  #             - type: custom:mini-graph-card
+  #               name: Outdoor
+  #               icon: mdi:lightbulb-on
+  #               entities:
+  #                 - entity: sensor.outdoor_light_level
+  #                   name: Outdoor
+  #             - type: custom:mini-graph-card
+  #               name: Living room
+  #               icon: mdi:lightbulb-on
+  #               entities:
+  #                 - entity: sensor.livingroom_light_level
+  #                   name: Living room
+  #             - type: custom:mini-graph-card
+  #               name: Kitchen
+  #               icon: mdi:lightbulb-on
+  #               entities:
+  #                 - entity: sensor.kitchen_light_level
+  #                   name: Kitchen
+  #             - type: custom:mini-graph-card
+  #               name: Upstairs
+  #               icon: mdi:lightbulb-on
+  #               entities:
+  #                 - entity: sensor.hallway_upstairs_light_level_mqtt
+  #                   name: Upstairs
+  #         - type: custom:swipe-card
+  #           cards:
+  #             - type: custom:mini-graph-card
+  #               name: Paperlight
+  #               icon: mdi:lightbulb-on
+  #               line_color: 
+  #                 - "#FFFC19"
+  #               entities:
+  #                 - entity: sensor.paperlight_brightness
+  #                   name: Paperlight
+  #             - type: custom:mini-graph-card
+  #               name: Big light
+  #               icon: mdi:lightbulb-on
+  #               line_color:
+  #                 - "#FFCA0D"
+  #               entities:
+  #                 - entity: sensor.big_light_brightness
+  #                   name: Big light

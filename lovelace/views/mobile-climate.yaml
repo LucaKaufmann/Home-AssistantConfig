@@ -1,0 +1,94 @@
+id: mobileclimate
+title: Climate
+icon: mdi:home-thermometer
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:weather-card
+        entity: weather.dark_sky
+      - type: horizontal-stack
+        cards:
+          - type: thermostat
+            entity: climate.netatmo_living_room
+          - type: thermostat
+            entity: climate.netatmo_bedroom
+      - type: entities
+        entities:
+          - switch.bathroom_upstairs_servo     
+      - type: custom:mini-graph-card
+        name: Outdoor
+        icon: mdi:temperature-celsius
+        line_color: 
+            - "#0971B2"
+            - "#3498db"
+        entities:
+          - entity: sensor.outdoor_temperature
+            name: Outdoor
+          - entity: sensor.darksky_temperature
+            name: Dark sky
+      - type: custom:mini-graph-card
+        name: Downstairs
+        icon: mdi:temperature-celsius
+        entities:
+          - entity: sensor.living_room_temperature
+            name: Living room
+          - entity: sensor.kitchen_temperature
+            name: Kitchen
+      - type: custom:mini-graph-card
+        name: Upstairs
+        icon: mdi:temperature-celsius
+        entities:
+          - entity: sensor.bedroom_temperature
+            name: Bedroom
+          - entity: sensor.office_temperature
+            name: Office
+          - entity: sensor.kids_room_temperature
+            name: Kids room
+          - entity: sensor.bathroom_temperature
+            name: Bathroom
+      # - type: horizontal-stack
+      #   cards:
+      #     - type: custom:swipe-card
+      #       cards:
+      #         - type: custom:mini-graph-card
+      #           name: Outdoor
+      #           icon: mdi:lightbulb-on
+      #           entities:
+      #             - entity: sensor.outdoor_light_level
+      #               name: Outdoor
+      #         - type: custom:mini-graph-card
+      #           name: Living room
+      #           icon: mdi:lightbulb-on
+      #           entities:
+      #             - entity: sensor.livingroom_light_level
+      #               name: Living room
+      #         - type: custom:mini-graph-card
+      #           name: Kitchen
+      #           icon: mdi:lightbulb-on
+      #           entities:
+      #             - entity: sensor.kitchen_light_level
+      #               name: Kitchen
+      #         - type: custom:mini-graph-card
+      #           name: Upstairs
+      #           icon: mdi:lightbulb-on
+      #           entities:
+      #             - entity: sensor.hallway_upstairs_light_level_mqtt
+      #               name: Upstairs
+      #     - type: custom:swipe-card
+      #       cards:
+      #         - type: custom:mini-graph-card
+      #           name: Paperlight
+      #           icon: mdi:lightbulb-on
+      #           line_color: 
+      #             - "#FFFC19"
+      #           entities:
+      #             - entity: sensor.paperlight_brightness
+      #               name: Paperlight
+      #         - type: custom:mini-graph-card
+      #           name: Big light
+      #           icon: mdi:lightbulb-on
+      #           line_color:
+      #             - "#FFCA0D"
+      #           entities:
+      #             - entity: sensor.big_light_brightness
+      #               name: Big light

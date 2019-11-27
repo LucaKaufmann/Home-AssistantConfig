@@ -1,4 +1,0 @@
-zootopia:
-  alias: Zootopia
-  sequence:
-    - service: rest_command.zootopia

@@ -96,23 +96,41 @@ cards:
             - entity: camera.tensorflow_raspberry
       - type: conditional
         conditions:
-          - entity: vacuum.eve
+          - entity: vacuum.walle
             state: "cleaning"
         card:
           type: picture-glance
           title: Vacuum
-          camera_image: camera.vacuum_map
+          camera_image: camera.vacuum_map_walle
           camera_view: live
           hold_action:
             action: navigate
             navigation_path: /lovelace/16
           entities:
-            - entity: vacuum.eve
-            - sensor.vacuum_status
-            - sensor.vacuum_battery
-            - sensor.vacuum_cleaning_time
-            - sensor.vacuum_cleaned_area
+            - entity: vacuum.walle
+            - sensor.vacuum_downstairs_status
+            - sensor.vacuum_downstairs_battery
+            - sensor.vacuum_downstairs_cleaning_time
+            - sensor.vacuum_downstairs_cleaned_area
             - switch.clean_kitchen
+      - type: conditional
+        conditions:
+          - entity: vacuum.mo
+            state: "cleaning"
+        card:
+          type: picture-glance
+          title: Vacuum
+          camera_image: camera.vacuum_map_mo
+          camera_view: live
+          hold_action:
+            action: navigate
+            navigation_path: /lovelace/16
+          entities:
+            - entity: vacuum.mo
+            - sensor.vacuum_upstairs_status
+            - sensor.vacuum_upstairs_battery
+            - sensor.vacuum_upstairs_cleaning_time
+            - sensor.vacuum_upstairs_cleaned_area
       - type: conditional
         conditions:
           - entity: binary_sensor.octoprint_printing
@@ -399,6 +417,11 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
+              - entity: light.color
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
               - entity: light.paperlight
                 tap_action:
                   action: toggle
@@ -409,17 +432,17 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.deck_lightstrip
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
               - entity: light.kitchen
                 tap_action:
                   action: toggle
                 hold_action:
                   action: more-info
               - entity: light.hallway_downstairs
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.entrance
                 tap_action:
                   action: toggle
                 hold_action:
@@ -437,16 +460,6 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.color
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
-              - entity: light.gateway
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
               - entity: light.office
                 tap_action:
                   action: toggle
@@ -460,23 +473,23 @@ cards:
       - type: horizontal-stack
         cards:
           - type: entity-button
-            entity: vacuum.eve
-            name: Start vacuum
+            entity: vacuum.walle
+            name: Start Wall-E
             tap_action:
               action: call-service
               service: vacuum.start
               service_data: 
-                entity_id: vacuum.eve
+                entity_id: vacuum.walle
             hold_action: 
               action: more-info
           - type: entity-button
-            entity: vacuum.eve
-            name: Stop vacuum
+            entity: vacuum.walle
+            name: Stop Wall-E
             tap_action:
               action: call-service
               service: vacuum.return_to_base
               service_data: 
-                entity_id: vacuum.eve
+                entity_id: vacuum.walle
             hold_action: 
               action: more-info
           - type: entity-button
@@ -494,7 +507,28 @@ cards:
             entity: script.vacuum_clean_dining_area_kitchen
             name: Dining area and kitchen
             icon: mdi:silverware
-          
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: vacuum.mo
+            name: Start M-O
+            tap_action:
+              action: call-service
+              service: vacuum.start
+              service_data: 
+                entity_id: vacuum.mo
+            hold_action: 
+              action: more-info
+          - type: entity-button
+            entity: vacuum.mo
+            name: Stop M-O
+            tap_action:
+              action: call-service
+              service: vacuum.return_to_base
+              service_data: 
+                entity_id: vacuum.mo
+            hold_action: 
+              action: more-info
       - type: entities
         title: Lights
         entities:

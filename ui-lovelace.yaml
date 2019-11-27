@@ -3,18 +3,14 @@ resources:
     type: js
   - url: /local/slideshow-card.js
     type: js
-  - url: /local/mini-graph-card/mini-graph-card.js?v=0.1
-    type: module
   - url: https://unpkg.com/moment@2.23.0/moment.js
     type: js
-  - url: /local/calendar-card/calendar-card.js?v=1.2.1
+  - url: /community_plugin/calendar-card/calendar-card.js
     type: module
   - url: /local/kiosk.js
     type: js
-  - url: /local/community/mini-media-player/mini-media-player.js
+  - url: /community_plugin/mini-media-player/mini-media-player-bundle.js
     type: module
-  - url: /local/tracker-card.js?v=0
-    type: js
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
     type: module
   - url: /community_plugin/compact-custom-header/compact-custom-header.js
@@ -31,6 +27,28 @@ resources:
     type: module
   - type: js
     url: /community_plugin/lovelace-valetudo-map-card/valetudo-map-card.js
+cch:
+  redirect: true
+  exceptions:
+    - conditions:
+        user: Luca
+      config:
+        show_tabs: '1,2,3,4,21,7,8,16,18,20'
+        default_tab: '1'
+        options: hide
+        swipe: true
+    - conditions:
+        user: Jere
+      config:
+        options: clock
+        clock_format: 24
+        show_tabs: '6'
+        default_tab: '6'
+    - conditions:
+        user: Tiia
+      config:
+        show_tabs: '1,2,4,6,17,18'
+        default_tab: '1'
 title: Home
 views:
   - id: 0  # Automatically created id
@@ -201,6 +219,9 @@ views:
       #   filter:
       #     include:
       #       - state: 'on'      
+  - !include lovelace/views/mobile-main.yaml
+  - !include lovelace/views/mobile-climate.yaml
+  - !include lovelace/views/mobile-cameras.yaml
   - !include lovelace/views/dashboard.yaml
   - !include lovelace/views/dashboard-light.yaml
   - !include lovelace/views/dashboard-big.yaml
@@ -817,7 +838,7 @@ views:
               border-radius: 25px
             cards:
               - type: picture-entity
-                name: Living Room
+                name: Backyard
                 show_state: false
                 entity: camera.backyard
                 camera_image: camera.backyard
