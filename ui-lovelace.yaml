@@ -33,7 +33,7 @@ cch:
     - conditions:
         user: Luca
       config:
-        show_tabs: '1,2,3,4,21,7,8,16,18,20'
+        show_tabs: '1,2,3,4,8,12,19,22,23'
         default_tab: '1'
         options: hide
         swipe: true
@@ -47,7 +47,7 @@ cch:
     - conditions:
         user: Tiia
       config:
-        show_tabs: '1,2,4,6,17,18'
+        show_tabs: '1,2,3,4,19,22'
         default_tab: '1'
 title: Home
 views:
@@ -222,6 +222,7 @@ views:
   - !include lovelace/views/mobile-main.yaml
   - !include lovelace/views/mobile-climate.yaml
   - !include lovelace/views/mobile-cameras.yaml
+  - !include lovelace/views/mobile-family.yaml
   - !include lovelace/views/dashboard.yaml
   - !include lovelace/views/dashboard-light.yaml
   - !include lovelace/views/dashboard-big.yaml
@@ -1113,7 +1114,6 @@ views:
         entities:
           - input_boolean.do_laundry
           - input_boolean.take_medicine
-          - binary_sensor.dining_table_cleaning
       - id: chores_jere  # Automatically created id
         type: entities
         entities:

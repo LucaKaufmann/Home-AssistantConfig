@@ -144,7 +144,12 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.color
+              - entity: light.shelf
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.christmas_tree
                 tap_action:
                   action: toggle
                 hold_action:
@@ -214,16 +219,34 @@ cards:
                 entity_id: vacuum.walle
             hold_action: 
               action: more-info
-          - type: entity-button
-            entity: vacuum.walle
-            name: Stop Wall-E
-            tap_action:
-              action: call-service
-              service: vacuum.return_to_base
-              service_data: 
-                entity_id: vacuum.walle
-            hold_action: 
-              action: more-info
+          - type: conditional
+            conditions:
+              - entity: vacuum.walle
+                state_not: "docked"
+            card:
+              type: entity-button
+              entity: vacuum.walle
+              name: Return Wall-E
+              icon: mdi:home-map-marker
+              tap_action:
+                action: call-service
+                service: vacuum.return_to_base
+                service_data: 
+                  entity_id: vacuum.walle
+              hold_action: 
+                action: more-info
+          - type: conditional
+            conditions:
+              - entity: vacuum.walle
+                state: "docked"
+            card:
+              type: entity-button
+              entity: vacuum.walle
+              name: Empty Wall-E
+              icon: mdi:trash-can-outline
+              tap_action:
+                action: call-service
+                service: script.move_away_from_dock
           - type: entity-button
             entity: script.vacuum_clean_kitchen
             icon: mdi:fridge-outline

@@ -3,7 +3,7 @@ vacuum_clean_kitchen:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: 'vacuum.wwalle'
+        entity_id: 'vacuum.walle'
         command: 'zoned_cleanup'
         params:
           'zone_ids': ['Kitchen']

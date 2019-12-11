@@ -8,7 +8,7 @@
 - platform: generic
   name: DaFang
   username: !secret camera_user
-  password: !secret camera_pw
+  password: !secret dafang_pw
   authentication: basic
   stream_source: !secret dafang_stream_url
   still_image_url: !secret dafang_url
@@ -37,7 +37,7 @@
 - platform: generic
   name: Xiaofang1
   username: !secret camera_user
-  password: !secret camera_pw
+  password: !secret xiaofang1_pw
   authentication: basic
   still_image_url: !secret xiaofang1_url
   stream_source: !secret xiaofang1_stream_url
@@ -68,7 +68,7 @@
 - platform: generic
   name: Xiaofang2
   username: !secret camera_user
-  password: !secret camera_pw
+  password: !secret xiaofang2_pw
   authentication: basic
   still_image_url: !secret xiaofang2_url
   stream_source: !secret xiaofang2_stream_url

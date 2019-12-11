@@ -1,195 +1,65 @@
-id: mobilecameras
-title: Cameras
-icon: mdi:camera
+id: devices  
+title: Devices
+icon: mdi:cellphone-iphone
 cards:
-  - type: vertical-stack
-    cards:
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Living Room
-            show_state: false
-            entity: camera.xiaofang2
-            camera_image: camera.xiaofang2
-          - type: picture-entity
-            show_state: false
-            show_name: false
-            entity: camera.tensorflow_xiaofang2
-            camera_image: camera.tensorflow_xiaofang2
-          # - type: picture-entity
-          #   name: People
-          #   show_state: false
-          #   entity: camera.sighthound_xiaofang2
-          #   camera_image: camera.sighthound_xiaofang2
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang2_snapshot_2
-            camera_image: camera.xiaofang2_snapshot_2
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang2_snapshot_3
-            camera_image: camera.xiaofang2_snapshot_3
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang2_snapshot_4
-            camera_image: camera.xiaofang2_snapshot_4
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang2_snapshot_5
-            camera_image: camera.xiaofang2_snapshot_5
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Kitchen
-            show_state: false
-            entity: camera.xiaofang1
-            camera_image: camera.xiaofang1
-          - type: picture-entity
-            show_state: false
-            show_name: false
-            entity: camera.tensorflow_xiaofang1
-            camera_image: camera.tensorflow_xiaofang1
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang1_snapshot_2
-            camera_image: camera.xiaofang1_snapshot_2
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang1_snapshot_3
-            camera_image: camera.xiaofang1_snapshot_3
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang1_snapshot_4
-            camera_image: camera.xiaofang1_snapshot_4
-          - type: picture-entity
-            show_name: false
-            show_state: false
-            entity: camera.xiaofang1_snapshot_5
-            camera_image: camera.xiaofang1_snapshot_5
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Outside
-            show_state: false
-            entity: camera.raspberry
-            camera_image: camera.raspberry
-          - type: picture-entity
-            name: Tensorflow
-            show_state: false
-            entity: camera.tensorflow_raspberry
-            camera_image: camera.tensorflow_raspberry
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.raspberry_snapshot_1
-            camera_image: camera.raspberry_snapshot_1
-          # - type: picture-entity
-          #   show_state: false
-          #   name: Tensorflow
-          #   # show_name: false
-          #   entity: camera.tensorflow_logi
-          #   camera_image: camera.tensorflow_logi
-          # - type: picture-entity
-          #   show_state: false
-          #   name: People
-          #   # show_name: false
-          #   entity: camera.logi_sighthound
-          #   camera_image: camera.logi_sighthound
-          # - type: picture-entity
-          #   name: People
-          #   show_state: false
-          #   entity: camera.sighthound_xiaofang2
-          #   camera_image: camera.sighthound_xiaofang2
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.raspberry_snapshot_2
-            camera_image: camera.raspberrysnapshot_2
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.raspberry_snapshot_3
-            camera_image: camera.raspberry_snapshot_3
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.raspberry_snapshot_4
-            camera_image: camera.raspberry_snapshot_4
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.raspberry_snapshot_5
-            camera_image: camera.raspberry_snapshot_5
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Backyard
-            show_state: false
-            entity: camera.backyard
-            camera_image: camera.backyard
-          - type: picture-entity
-            show_state: false
-            name: Tensorflow
-            # show_name: false
-            entity: camera.tensorflow_logi
-            camera_image: camera.tensorflow_logi
-          # - type: picture-entity
-          #   name: People
-          #   show_state: false
-          #   entity: camera.sighthound_xiaofang2
-          #   camera_image: camera.sighthound_xiaofang2
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.logi_snapshot_2
-            camera_image: camera.logi_snapshot_2
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.logi_snapshot_3
-            camera_image: camera.logi_snapshot_3
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.logi_snapshot_4
-            camera_image: camera.logi_snapshot_4
-          - type: picture-entity
-            # show_name: false
-            show_state: false
-            entity: camera.logi_snapshot_5
-            camera_image: camera.logi_snapshot_5
+  - type: entities
+    title: Luca
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.sevenplus_router
+      - entity: device_tracker.luca_iphone
+      - entity: sensor.battery_level_luca
+      - entity: sensor.battery_state_luca
+      - entity: sensor.upstairs_luca
+      - entity: sensor.downstairs_luca
+      - entity: sensor.living_room_luca
+      - entity: sensor.kitchen_luca
+      - entity: sensor.home_occupancy_confidence_luca
+      - entity: binary_sensor.luca_downstairs_wifi
+      - entity: binary_sensor.luca_upstairs_wifi
+  - type: entities
+    title: Tiia
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.tiiasiphone
+      - entity: device_tracker.tiias_iphone
+      - entity: sensor.upstairs_tiia
+      - entity: sensor.downstairs_tiia
+      - entity: sensor.living_room_tiia
+      - entity: sensor.kitchen_tiia
+      - entity: sensor.home_occupancy_confidence_tiia
+      - entity: binary_sensor.tiia_downstairs_wifi
+      - entity: binary_sensor.tiia_upstairs_wifi
+  - type: entities
+    title: Jere
+    show_header_toggle: true
+    entities:
+      - device_tracker.jeresiphone
+      - device_tracker.jeres_iphone
+      - entity: sensor.battery_level_jere
+      - entity: sensor.battery_state_jere
+      - sensor.upstairs_jere
+      - sensor.downstairs_jere
+      - sensor.living_room_jere
+      - sensor.kitchen_jere
+      - sensor.home_occupancy_confidence_jere
+  - type: entities
+    id: robin_tracker 
+    title: Robin
+    show_header_toggle: true
+    entities:
+      - entity: device_tracker.robin_router
+      - entity: binary_sensor.robin_downstairs_wifi
+      - entity: binary_sensor.robin_upstairs_wifi
+  - type: entities
+    title: Sensors
+    show_header_toggle: true
+    entities:
+      - binary_sensor.tiia_home
+      - binary_sensor.luca_home
+      - binary_sensor.jere_home
+      - binary_sensor.robin_home
+      - input_boolean.guest_mode
+      - group.anyone_home
+      - group.anyone_downstairs
+      - group.anyone_upstairs

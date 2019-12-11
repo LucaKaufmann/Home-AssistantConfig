@@ -60,3 +60,10 @@
     ignore_availability: true
     name: Contacts
     track: true
+
+- cal_id: fm1bvl2jm96kefbs30sbndt2qs@group.calendar.google.com
+  entities:
+  - device_id: sports
+    ignore_availability: true
+    name: Sports
+    track: true

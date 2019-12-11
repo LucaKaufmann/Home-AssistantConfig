@@ -119,6 +119,8 @@ cloud:
         - light.desk
         - light.kids_room
         - light.bedroom
+        - light.shelf
+        - light.christmas_tree
         - scene.bedtime
         - scene.movie_mode_arctic
         - scene.relax
@@ -140,6 +142,9 @@ cloud:
         - script.criminal_minds
         - script.greys_anatomy
         - media_player.lg_webos_smart_tv
+        - media_player.living_room_tv
+        - media_player.bedroom_tv
+        - media_player.speaker
     entity_config:
       switch.clean_kitchen:
         name: Vacuuming the Kitchen
@@ -352,6 +357,12 @@ light:
   - platform: hue
     host: !secret hue_bridge
     allow_hue_groups: false
+  - platform: switch
+    name: Christmas Tree
+    entity_id: switch.christmas_tree
+  - platform: switch
+    name: Shelf
+    entity_id: switch.air_conditioner
 
 circadian_lighting:
   transition: 30
@@ -503,9 +514,11 @@ shell_command:
   rename_snapshots_xiaofang1: 'bash /config/bash_scripts/renameSnapshotsXiaofang1.sh'
   xiaofang1_motion_on: !secret xiaofang1_motion_on
   xiaofang1_motion_off: !secret xiaofang1_motion_off
+  reboot_xiaofang1: !secret reboot_xiaofang1
   rename_snapshots_xiaofang2: 'bash /config/bash_scripts/renameSnapshotsXiaofang2.sh'
   xiaofang2_motion_on: !secret xiaofang2_motion_on
   xiaofang2_motion_off: !secret xiaofang2_motion_off
+  reboot_xiaofang2: !secret reboot_xiaofang2
   rename_snapshots_raspberry: 'bash /config/bash_scripts/renameSnapshotsRaspberry.sh'
   rename_car: 'bash /config/bash_scripts/renameCar.sh'
   rename_person: 'bash /config/bash_scripts/renamePerson.sh'

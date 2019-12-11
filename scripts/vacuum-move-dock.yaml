@@ -6,4 +6,4 @@ move_away_from_dock:
         entity_id: 'vacuum.walle'
         command: 'go_to'
         params:
-          'spot_id': 'garbage'
+          'spot_id': 'Garbage'

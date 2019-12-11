@@ -130,50 +130,6 @@
         prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
-- platform: bayesian
-  prior: 0.1
-  name: 'People detected downstairs'
-  probability_threshold: 0.7
-  observations:
-    - entity_id: 'binary_sensor.people_xiaofang2_new'
-      prob_given_true: 0.8
-      prob_given_false: 0.2
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'binary_sensor.people_logi'
-      prob_given_true: 0.8
-      prob_given_false: 0.2
-      platform: 'state'
-      to_state: 'on'
-#     - entity_id: 'binary_sensor.people_tf_logi'
-#       prob_given_true: 0.92
-#       platform: 'state'
-#       to_state: 'on'
-#     - entity_id: 'binary_sensor.people_tf'
-#       prob_given_true: 0.6
-#       prob_given_false: 0.1
-#       platform: 'state'
-#       to_state: 'on'
-    - entity_id: 'sensor.tensorflow_person_xiaofang1'
-      prob_given_true: 0.95
-      prob_given_false: 0.5
-      platform: 'numeric_state'
-      above: '0'
-    - entity_id: 'sensor.tensorflow_person_xiaofang2'
-      prob_given_true: 0.95
-      prob_given_false: 0.3
-      platform: 'numeric_state'
-      above: '0'
-    - entity_id: 'sensor.tensorflow_person_logi'
-      prob_given_true: 0.8
-      prob_given_false: 0.3
-      platform: 'numeric_state'
-      above: '0'
-    - entity_id: 'sensor.livingroom_people'
-      prob_given_true: 0.8
-      prob_given_false: 0.3
-      platform: 'numeric_state'
-      above: '0'
 - platform: template
   sensors:
     should_vacuum:
@@ -181,26 +137,6 @@
       value_template: >
        {{ is_state('image_processing.cb_xiaofang2_vacuummodel', 'should_vacuum') and state_attr('image_processing.cb_xiaofang2_vacuummodel', 'should_vacuum') > 55 }}
       icon_template: mdi:robot-vacuum
-    people_dafang:
-      friendly_name: "People detected living room"
-      value_template: >
-       {{ is_state('image_processing.cb_dafang_5bd486373f1745fe', 'people') }}
-      icon_template: mdi:account-multiple
-    people_xiaofang2:
-      friendly_name: "People detected living room"
-      value_template: >
-       {{ is_state('image_processing.cb_xiaofang2_livingroom_presence', 'people') }}
-      icon_template: mdi:account-multiple
-    people_xiaofang2_new:
-      friendly_name: "People detected New"
-      value_template: >
-       {{ is_state('image_processing.cb_xiaofang2_living_room_presence', 'people') }}
-      icon_template: mdi:account-multiple
-    people_logi:
-      friendly_name: "People detected Logi"
-      value_template: >
-       {{ is_state('image_processing.cb_living_room_presence_model', 'people') }}
-      icon_template: mdi:account-multiple
     people_tf:
       friendly_name: "People detected"
       value_template: >
@@ -211,34 +147,16 @@
       value_template: >
        {{ is_state('image_processing.tensorflow_people_logi', 'people') }}
       icon_template: mdi:account-multiple
-    people_rekognition_xiaofang2:
-      friendly_name: "People Rekognition Xiaofang2"
-      value_template: >
-       {{ states('image_processing.rekognition_person_xiaofang2')|int > 0 }}
-    people_rekognition_logi:
-      friendly_name: "People Rekognition Logi"
-      value_template: >
-       {{ states('image_processing.rekognition_person_living_room')|int > 0 }}
     eating:
       friendly_name: "Anyone eating"
       value_template: >
        {{ is_state('image_processing.cb_xiaofang2_latest_eating_model', 'eating') }}
       icon_template: mdi:silverware-fork-knife
-    dining_table_cleaning:
-      friendly_name: "Should clean dining table"
-      value_template: >
-       {{ is_state('image_processing.cb_xiaofang2_dining_table_cleaning', 'should_clean') and state_attr('image_processing.cb_xiaofang2_dining_table_cleaning', 'should_clean') > 55 }}
-      icon_template: mdi:spray-bottle
     kitchen_lights_on:
       friendly_name: "Kitchen Lights on"
       value_template: >
        {{ is_state('image_processing.cb_xiaofang1_kitchen_lights_model', 'lights_on') }}
       icon_template: mdi:lightbulb-on-outline
-    cats_detected_closet:
-      friendly_name: "Cats detected"
-      value_template: >
-       {{ is_state('image_processing.cb_dafang_cat_model', 'cat') }}
-      icon_template: mdi:cat
     playing_games:
       friendly_name: "Playing games"
       value_template: >
