@@ -108,7 +108,7 @@
 #   model:
 #     graph: ./tensorflow/frozen_inference_graph.pb
 #   file_out: '/images/xiaofang2/tensorflow.jpg'
-  scan_interval: 10000
+  # scan_interval: 10000
 # - platform: tensorflow2
 #   source:
 #     - entity_id: camera.xiaofang2
