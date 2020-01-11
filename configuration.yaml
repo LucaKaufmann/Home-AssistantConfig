@@ -65,19 +65,16 @@ panel_iframe:
 # Enables configuration UI
 config:
 
-folder_watcher:
-  - folder: /videos
-
 downloader:
   download_dir: /dashboard/html/images
 
 http:
   # Uncomment this to add a password (recommended!)
-  ssl_certificate: /certs/fullchain.pem
-  ssl_key: /certs/privkey.pem
+  # ssl_certificate: /certs/fullchain.pem
+  # ssl_key: /certs/privkey.pem
   #ssl_certificate: !secret ssl_certificate
   #ssl_key: !secret ssl_key
-  base_url: !secret base_url
+  # base_url: !secret base_url
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: example.duckdns.org:8123
 # Checks for available updates
@@ -538,9 +535,9 @@ shell_command:
   rename_vacuum_maps_mo: 'bash /config/bash_scripts/renameVacuumMapsMo.sh'
   record_clip: 'bash /config/bash_scripts/recordClip.sh'
   upload_clip: 'bash /config/bash_scripts/uploadClip.sh'
-  install_gmplot: 'pip install gmplot'
-  install_gpxpy: 'pip install gpxpy'
-  install_tensorflow: 'pip3 install tensorflow==1.11.0'
+  # install_gmplot: 'pip install gmplot'
+  # install_gpxpy: 'pip install gpxpy'
+  # install_tensorflow: 'pip3 install tensorflow==1.11.0'
 recorder:
   purge_keep_days: 5
   db_url: !secret mysql_db_url

@@ -86,28 +86,28 @@
 #     - entity_id: camera.xiaofang1_latest
 
 ###### Tensorflow #####
-- platform: tensorflow
-  source:
-    - entity_id: camera.raspberry_latest
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-    area:
-      top: 0.4
-  file_out: '/images/raspberry/tensorflow_latest.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.raspberry
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/raspberry/tensorflow.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.xiaofang2
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/xiaofang2/tensorflow.jpg'
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.raspberry_latest
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#     area:
+#       top: 0.4
+#   file_out: '/images/raspberry/tensorflow_latest.jpg'
+#   scan_interval: 10000
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.raspberry
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#   file_out: '/images/raspberry/tensorflow.jpg'
+#   scan_interval: 10000
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.xiaofang2
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#   file_out: '/images/xiaofang2/tensorflow.jpg'
   scan_interval: 10000
 # - platform: tensorflow2
 #   source:
