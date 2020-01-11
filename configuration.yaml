@@ -351,9 +351,11 @@ light:
     schema: json
     command_topic: "zigbee2mqtt/entrance/set"
     state_topic: "zigbee2mqtt/entrance"
+    availability_topic: "zigbee2mqtt/bridge/state"
     optimistic: false
     brightness: true
     color_temp: true
+    xy: true
   - platform: hue
     host: !secret hue_bridge
     allow_hue_groups: false

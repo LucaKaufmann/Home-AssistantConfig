@@ -58,15 +58,15 @@ cards:
           - script.vacuum_clean_dining_area
           - script.vacuum_clean_dining_area_kitchen
           - script.move_away_from_dock
-      - type: 'custom:valetudo-map-card'
-        entity: sensor.vacuum_map_walle
-        rotate: 0
-        crop:
-          top: 0
-          bottom: 0
-          left: 0
-          right: 0
-        min_height: 0
+#      - type: 'custom:valetudo-map-card'
+#        entity: sensor.vacuum_map_walle
+#        rotate: 0
+#        crop:
+#          top: 0
+#          bottom: 0
+#          left: 0
+#          right: 0
+#        min_height: 0
       - type: entities
         title: Wall-E Schedule
         entities:
@@ -132,12 +132,12 @@ cards:
           - sensor.vacuum_upstairs_battery
           - sensor.vacuum_upstairs_cleaning_time
           - sensor.vacuum_upstairs_cleaned_area
-      - type: 'custom:valetudo-map-card'
-        entity: sensor.vacuum_map_mo
-        rotate: 0
-        crop:
-          top: 0
-          bottom: 0
-          left: 0
-          right: 0
-        min_height: 0
+#      - type: 'custom:valetudo-map-card'
+#        entity: sensor.vacuum_map_mo
+#        rotate: 0
+#        crop:
+#          top: 0
+#          bottom: 0
+#          left: 0
+#          right: 0
+#        min_height: 0
