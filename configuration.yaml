@@ -489,7 +489,7 @@ browser_mod:
 
 #snips:
 mqtt:
-  broker: 127.0.0.1
+  broker: 192.168.92.20
   username: !secret mqtt_user
   password: !secret mqtt_passwd
   discovery: true
