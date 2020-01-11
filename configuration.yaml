@@ -11,11 +11,11 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Helsinki
   customize: !include customize.yaml
-  whitelist_external_dirs:
-    - '/tmp'
-    - '/images'
-    - '/config/vacuum'
-    - '/videos'
+  # whitelist_external_dirs:
+  #   - '/tmp'
+  #   - '/images'
+  #   - '/config/vacuum'
+  #   - '/videos'
 # Show links to resources in log and frontend
 # introduction:
 
@@ -191,46 +191,46 @@ logbook:
     domains:
       - group
 
-influxdb:
-  host: !secret influxdb_ip
-  port: 8086
-# uncomment if you used a password
-#  username: admin
-#  password: !secret influxdb_password
-  database: homeassistant
-  default_measurement: state
-  exclude:
-    domains:
-     - shell_command
-     - image_processing
-     - calendar
-     - camera
-     - device_tracker
-     - script
-    entities:
-     - binary_sensor.floorplan
-     - media_player.black_sonos_one
-     - media_player.white_sonos_one
-     - media_player.beam
-     - media_player.echo
-     - sensor.vacuum_map_walle
-     - sensor.vacuum_map_mo
-     - sensor.0x00158d00023d8cd6_linkquality
-     - sensor.0x00158d00036b7c46_linkquality
-     - sensor.0x00158d0003f3f064_linkquality
-     - sensor.0x00158d0004144a1b_linkquality
-     - sensor.circadian_values
-     - sensor.date
-     - sensor.date_time
-     - sensor.date_time_iso
-  include:
-    entities:
-      - device_tracker.sevenplus_router
-      - device_tracker.luca_iphone
-      - device_tracker.jeresiphone
-      - device_tracker.jeres_iphone
-      - device_tracker.tiiasiphone
-      - device_tracker.tiias_iphone
+# influxdb:
+#   host: !secret influxdb_ip
+#   port: 8086
+# # uncomment if you used a password
+# #  username: admin
+# #  password: !secret influxdb_password
+#   database: homeassistant
+#   default_measurement: state
+#   exclude:
+#     domains:
+#      - shell_command
+#      - image_processing
+#      - calendar
+#      - camera
+#      - device_tracker
+#      - script
+#     entities:
+#      - binary_sensor.floorplan
+#      - media_player.black_sonos_one
+#      - media_player.white_sonos_one
+#      - media_player.beam
+#      - media_player.echo
+#      - sensor.vacuum_map_walle
+#      - sensor.vacuum_map_mo
+#      - sensor.0x00158d00023d8cd6_linkquality
+#      - sensor.0x00158d00036b7c46_linkquality
+#      - sensor.0x00158d0003f3f064_linkquality
+#      - sensor.0x00158d0004144a1b_linkquality
+#      - sensor.circadian_values
+#      - sensor.date
+#      - sensor.date_time
+#      - sensor.date_time_iso
+#   include:
+#     entities:
+#       - device_tracker.sevenplus_router
+#       - device_tracker.luca_iphone
+#       - device_tracker.jeresiphone
+#       - device_tracker.jeres_iphone
+#       - device_tracker.tiiasiphone
+#       - device_tracker.tiias_iphone
 
   
 
@@ -367,9 +367,9 @@ circadian_lighting:
   transition: 30
   interval: 1800
 
-ring:
-  username: !secret ring_user
-  password: !secret ring_pw
+# ring:
+#   username: !secret ring_user
+#   password: !secret ring_pw
 
 logi_circle:
   client_id: !secret logi_client_id
@@ -485,7 +485,7 @@ ios:
               destructive: yes
               behavior: 'default'
 
-browser_mod:
+# browser_mod:
 
 #snips:
 mqtt:
