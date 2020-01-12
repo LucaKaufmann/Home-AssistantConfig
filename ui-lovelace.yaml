@@ -13,13 +13,11 @@ resources:
     type: module
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
     type: module
-  - url: /community_plugin/compact-custom-header/compact-custom-header.js
+  - url: /community_plugin/custom-header/custom-header.js
     type: module
-  - url: /community_plugin/lovelace-home-feed-card/home-feed-card.js
+  - url: /community_plugin/lovelace-home-feed-card/lovelace-home-feed-card.js
     type: js
   - url: /community_plugin/weather-card/weather-card.js
-    type: module
-  - url: /community_plugin/surveillance-card/surveillance-card.js
     type: module
   - url: /community_plugin/mini-graph-card/mini-graph-card.js
     type: module
@@ -27,7 +25,7 @@ resources:
     type: module
 #  - type: js
 #    url: /community_plugin/lovelace-valetudo-map-card/valetudo-map-card.js
-cch:
+custom_header:
   redirect: true
   exceptions:
     - conditions:
