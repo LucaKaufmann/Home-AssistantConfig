@@ -120,7 +120,7 @@
   file_path: '/images/xiaofang1/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Xiaofang2
-  file_path: '/images/xiaofang2/tensorflow.jpg'
+  file_path: '/config/tmp/xiaofang2_latest.jpg'
 - platform: local_file
   name: Tensorflow Dafang
   file_path: '/images/dafang/tensorflow.jpg'
@@ -129,10 +129,7 @@
   file_path: '/images/logi/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Raspberry
-  file_path: '/images/raspberry/tensorflow.jpg'
-- platform: local_file
-  name: Tensorflow Raspberry Latest
-  file_path: '/images/raspberry/tensorflow_latest.jpg'
+  file_path: ''/config/tmp/raspberry_latest.jpg''
 
 # - platform: tensorflow
 #   camera: camera.xiaofang2_latest

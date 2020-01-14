@@ -815,8 +815,8 @@ views:
               - binary_sensor.should_vacuum
               - binary_sensor.xiaofang2_motion_sensor
               - binary_sensor.people_rekognition_xiaofang2
-              - sensor.tensorflow_person_xiaofang2
-              - sensor.tensorflow_cat_xiaofang2
+              - sensor.person_xiaofang2
+              - sensor.cat_xiaofang2
           # - type: entities
           #   entities:
           #     # - image_processing.cb_xiaofang2_latest_eating_model
@@ -1024,11 +1024,6 @@ views:
           #   filter:
           #     include:
           #       - domain: image_processing
-          - type: entities
-            entities:
-              - sensor.tensorflow_person_dafang
-              - sensor.tensorflow_cat_dafang
-              - binary_sensor.cats_detected_closet
       - id: raspberry_camera_stack
         type: vertical-stack
         cards:
@@ -1096,14 +1091,8 @@ views:
           - type: entities
             entities:
               - binary_sensor.outside_motion
-      - id: cat_camera_stack
-        type: vertical-stack
-        cards:
-          - type: picture-entity
-            name: Cat
-            show_state: false
-            entity: camera.cat
-            camera_image: camera.cat
+              - sensor.car_raspberry
+              - sensor.person_raspberry
   - id: 8
     title: Chores
     icon: mdi:format-list-bulleted
