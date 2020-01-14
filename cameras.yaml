@@ -129,7 +129,7 @@
   file_path: '/images/logi/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Raspberry
-  file_path: ''/config/tmp/raspberry_latest.jpg''
+  file_path: '/config/tmp/raspberry_latest.jpg'
 
 # - platform: tensorflow
 #   camera: camera.xiaofang2_latest
