@@ -14,7 +14,7 @@ cards:
             entity: climate.netatmo_bedroom
       - type: entities
         entities:
-          - switch.bathroom_upstairs_servo     
+          - switch.bathroom_heating     
       - type: custom:mini-graph-card
         name: Outdoor
         icon: mdi:temperature-celsius

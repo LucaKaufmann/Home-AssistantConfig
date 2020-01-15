@@ -76,13 +76,13 @@
         service: script.turn_on_ps4
       turn_off:
         service: script.turn_off_ps4
-    bathroom_upstairs_servo:
-      friendly_name: 'Bathroom upstairs servo'
-      value_template: "{{ states('input_number.bathroom_upstairs_servo')|float >= 80 }}"
-      turn_on:
-        service: script.bathroom_upstairs_servo_on
-      turn_off:
-        service: script.bathroom_upstairs_servo_off
+    # bathroom_upstairs_servo:
+    #   friendly_name: 'Bathroom upstairs servo'
+    #   value_template: "{{ states('input_number.bathroom_upstairs_servo')|float >= 80 }}"
+    #   turn_on:
+    #     service: script.bathroom_upstairs_servo_on
+    #   turn_off:
+    #     service: script.bathroom_upstairs_servo_off
 
 # - platform: tplink
 #   host: 192.168.92.31
