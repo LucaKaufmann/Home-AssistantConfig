@@ -26,7 +26,11 @@ cards:
             content_template: 'Watching {{state}}'
             max_history: 3
           - entity: binary_sensor.should_vacuum
-          - entity: vacuum.eve
+          - entity: vacuum.walle
+            icon: mdi:robot-vacuum
+            include_history: true
+            max_history: 3
+          - entity: vacuum.mo
             icon: mdi:robot-vacuum
             include_history: true
             max_history: 3
@@ -37,8 +41,6 @@ cards:
             max_history: 3
           - entity: binary_sensor.sleeping
             icon: mdi:sleep
-          - entity: binary_sensor.ring_front_door_motion
-          - entity: binary_sensor.ring_front_door_ding
           - entity: binary_sensor.living_room_door
             include_history: true
             max_history: 3
@@ -57,7 +59,7 @@ cards:
           - entity: group.anyone_upstairs
             name: Phone upstairs
             icon: mdi:cellphone-iphone
-          - entity: device_tracker.sevenplusha
+          - entity: device_tracker.iphone_luca
             name: Luca
             icon: mdi:human-male
             content_template: '{{display_name}} arrived at {{state}}'
