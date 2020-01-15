@@ -32,7 +32,7 @@ custom_header:
     - conditions:
         user: Luca
       config:
-        show_tabs: '1,2,3,4,8,12,19,22,23'
+        show_tabs: '1,2,3,4,8,12,19,21,22,23'
         default_tab: '1'
         options: hide
         swipe: true
@@ -46,7 +46,7 @@ custom_header:
     - conditions:
         user: Tiia
       config:
-        show_tabs: '1,2,3,4,19,22'
+        show_tabs: '1,2,3,4,19,21,22'
         default_tab: '1'
 title: Home
 views:
@@ -261,13 +261,13 @@ views:
               action: more-info
       - type: horizontal-stack
         cards:
-          - type: entity-button
-            title: Outside
-            entity: light.deck_lightstrip
-            tap_action:
-              action: toggle
-            hold_action:
-              action: more-info
+          # - type: entity-button
+          #   title: Outside
+          #   entity: light.deck_lightstrip
+          #   tap_action:
+          #     action: toggle
+          #   hold_action:
+          #     action: more-info
           - type: entity-button
             title: Kitchen
             entity: light.kitchen
@@ -669,8 +669,8 @@ views:
                 show_state: false
                 entity: camera.logi_snapshot_5
                 camera_image: camera.logi_snapshot_5
-      - type: light
-        entity: light.deck_lightstrip
+      # - type: light
+      #   entity: light.deck_lightstrip
       - type: glance
         title: Outside
         entities:

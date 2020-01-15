@@ -149,17 +149,12 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.christmas_tree
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
               - entity: light.paperlight
                 tap_action:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.desk
+              - entity: light.lightstrip
                 tap_action:
                   action: toggle
                 hold_action:
