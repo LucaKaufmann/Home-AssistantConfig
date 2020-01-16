@@ -1,0 +1,18 @@
+stages:
+  - test
+  - deploy
+  - notify
+
+test:
+  stage: test
+  image: homeassistant/amd64-homeassistant:latest
+  script:
+    - cp fake_secrets.yaml secrets.yaml
+    - cp fake_zones.yaml zones.yaml
+    - mkdir /images
+    - mkdir /config/vacuum
+    - mkdir /videos
+    - touch /certs/fullchain.pem
+    - touch /certs/privkey.pem
+    - hass --script check_config -c .
+
