@@ -188,6 +188,8 @@ logbook:
       - group.sensor_livingroom
       - group.sensor_pi
       - group.sensor_view
+      - sensor.fortnite_stats_hotky
+      - sensor.fortnite_stats_teacakess
     domains:
       - group
 
@@ -223,6 +225,8 @@ influxdb:
      - sensor.date
      - sensor.date_time
      - sensor.date_time_iso
+     - sensor.fortnite_stats_hotky
+     - sensor.fortnite_stats_teacakess  
   include:
     entities:
       - device_tracker.sevenplus_router

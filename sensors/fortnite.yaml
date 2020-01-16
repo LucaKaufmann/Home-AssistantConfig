@@ -1,0 +1,55 @@
+platform: template
+sensors:
+  fortnite_kills_hotky:
+    friendly_name: "Fortnite Kills Hotky"
+    entity_id: sensor.fortnite_stats_hotky
+    unit_of_measurement: 'kills'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_hotky.attributes.lifeTimeStats if stat.key|lower == 'kills' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
+
+  fortnite_wins_hotky:
+    friendly_name: "Fortnite Wins Hotky"
+    entity_id: sensor.fortnite_stats_hotky
+    unit_of_measurement: 'wins'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_hotky.attributes.lifeTimeStats if stat.key|lower == 'wins' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
+
+  fortnite_kills_teacakess:
+    friendly_name: "Fortnite Kills Teacakess"
+    entity_id: sensor.fortnite_stats_teacakess
+    unit_of_measurement: 'kills'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_teacakess.attributes.lifeTimeStats if stat.key|lower == 'kills' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
+
+  fortnite_wins_teacakess:
+    friendly_name: "Fortnite Wins Teacakess"
+    entity_id: sensor.fortnite_stats_teacakess
+    unit_of_measurement: 'wins'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_teacakess.attributes.lifeTimeStats if stat.key|lower == 'wins' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
+
+  fortnite_kills_hotkyjr:
+    friendly_name: "Fortnite Kills HotkyJr"
+    entity_id: sensor.fortnite_stats_hotkyjr
+    unit_of_measurement: 'kills'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_hotkyjr.attributes.lifeTimeStats if stat.key|lower == 'kills' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
+
+  fortnite_wins_hotkyjr:
+    friendly_name: "Fortnite Wins HotkyJr"
+    entity_id: sensor.fortnite_stats_hotkyjr
+    unit_of_measurement: 'wins'
+    value_template: >-
+      {%- for stat in states.sensor.fortnite_stats_hotkyjr.attributes.lifeTimeStats if stat.key|lower == 'wins' -%}
+        {{- stat.value -}}
+      {%- endfor -%}
