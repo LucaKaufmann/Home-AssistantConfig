@@ -161,6 +161,11 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
+              - entity: light.tv_strip
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
               - entity: light.kitchen
                 tap_action:
                   action: toggle

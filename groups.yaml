@@ -96,9 +96,10 @@ living_room_color:
   entities:
    - light.paperlight
    - light.big_light
-   - light.desk
+   - light.lightstrip
    - light.ball
-   - light.color
+   - light.tv_strip
+
 
 bed_room:
   name: Bed Room
@@ -137,6 +138,7 @@ color_lights:
     - light.big_light
     - light.desk
     - light.living_room
+    - light.tv_strip
 
 all_lights_except_nightlight:
   name: Lights except night light
@@ -162,6 +164,7 @@ downstairs_lights:
     - light.living_room
     - light.ball
     - light.hallway_downstairs
+    - light.tv_strip
 
 upstairs_lights:
   name: Lights upstairs
