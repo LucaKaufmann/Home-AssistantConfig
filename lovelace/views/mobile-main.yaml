@@ -209,6 +209,11 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
+              - entity: light.office_strip
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
               - entity: light.kids_room
                 tap_action:
                   action: toggle
