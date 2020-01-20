@@ -65,9 +65,6 @@ panel_iframe:
 # Enables configuration UI
 config:
 
-downloader:
-  download_dir: /dashboard/html/images
-
 http:
   # Uncomment this to add a password (recommended!)
   # ssl_certificate: /certs/fullchain.pem
