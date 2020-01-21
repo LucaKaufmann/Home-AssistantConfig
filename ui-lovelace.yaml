@@ -382,34 +382,50 @@ views:
             artwork: cover
             show_source: true
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.kitchen
-                name: Kitchen
-              - entity_id: media_player.bedroom
+            tts:
+              platform: alexa
+              entity_id: media_player.beam
+              type: announce
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
             entity: media_player.kitchen
             icon: mdi:speaker
             artwork: cover
             artwork_border: true
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.living_room
-                name: Kitchen
-              - entity_id: media_player.bedroom
-                name: Office
+            tts:
+              platform: alexa
+              entity_id: media_player.black_sonos_one
+              type: tts
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
-            entity: media_player.bedroom
+            entity: media_player.office
             icon: mdi:speaker
             artwork_border: true
             artwork: cover
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.living_room
-                name: Kitchen
-              - entity_id: media_player.kitchen
-                name: Office
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
-            entity: media_player.speaker
+            entity: media_player.hallway_upstairs
+            icon: mdi:speaker
+            artwork_border: true
+            artwork: cover
+            show_progress: true
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
+          - type: custom:mini-media-player
+            entity: media_player.kids_room
             icon: mdi:speaker
             artwork_border: true
             artwork: cover
