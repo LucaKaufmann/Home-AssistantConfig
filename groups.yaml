@@ -159,12 +159,14 @@ downstairs_lights:
   entities:
     - light.paperlight
     - light.big_light
-    - light.desk
+    - light.lightstrip
     - light.kitchen
     - light.living_room
     - light.ball
     - light.hallway_downstairs
     - light.tv_strip
+    - light.tv_strip_switch
+    - light.tv_strip_ps4
 
 upstairs_lights:
   name: Lights upstairs
