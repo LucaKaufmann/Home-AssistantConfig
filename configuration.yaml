@@ -554,6 +554,7 @@ recorder:
      - media_player.echo
      - sensor.vacuum_map_walle
      - sensor.vacuum_map_mo
+     - sensor.next_launch
 
 sensor: !include_dir_list sensors
 camera: !include cameras.yaml
