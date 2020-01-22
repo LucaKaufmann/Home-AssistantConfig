@@ -442,6 +442,7 @@ media_player:
     client_secret: !secret spotify_client_secret
   - platform: webostv
     host: !secret lgtv_ip
+    standby_connection: true
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
