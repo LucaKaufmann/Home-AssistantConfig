@@ -440,13 +440,6 @@ media_player:
   - platform: spotify
     client_id: !secret spotify_client_id
     client_secret: !secret spotify_client_secret
-  - platform: webostv
-    host: !secret lgtv_ip
-    standby_connection: true
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: 78:5D:C8:62:65:D1
   - platform: ps4
     host: !secret ps4waker_ip
     # ps4_ip: !secret ps4_ip
@@ -462,6 +455,13 @@ alexa_media:
       url: 'amazon.com'
 
 wake_on_lan:
+
+webostv:
+  host: !secret lgtv_ip
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: 78:5D:C8:62:65:D1
 
 weather:
   - platform: darksky
