@@ -106,8 +106,10 @@
 #   disable_state: 'off'
   lights_ct:
     - light.paperlight
+    - light.office
   lights_rgb:
     - light.big_light
-    - light.desk
+    - light.lightstrip
     - light.yellow_light
     - light.ball
+    - light.hallway_upstairs
