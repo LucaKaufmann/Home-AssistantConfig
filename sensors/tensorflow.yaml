@@ -25,7 +25,7 @@ sensors:
     friendly_name: "Person outside"
     entity_id: image_processing.doods_raspberry
     value_template: >
-      {%- set person = states.image_processing.doods_raspberry.summary.person -%}
+      {%- set person = states.image_processing.doods_raspberry.attributes.summary.person -%}
       {%- if person -%}
         {{ person }}
       {%- else -%}
@@ -36,8 +36,8 @@ sensors:
     friendly_name: "Car outside"
     entity_id: image_processing.doods_raspberry
     value_template: >
-      {%- set car = states.image_processing.doods_raspberry.summary.car -%}
-      {%- set truck = states.image_processing.doods_raspberry.summary.truck -%}
+      {%- set car = states.image_processing.doods_raspberry.attributes.summary.car -%}
+      {%- set truck = states.image_processing.doods_raspberry.attributes.summary.truck -%}
       {% set result = car + truck %}
       {%- if result -%}
         {{ result }}
