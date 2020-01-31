@@ -38,10 +38,13 @@ sensors:
     value_template: >
       {%- set car = states.image_processing.doods_raspberry.attributes.summary.car -%}
       {%- set truck = states.image_processing.doods_raspberry.attributes.summary.truck -%}
-      {% set result = car + truck %}
-      {%- if result -%}
-        {{ result }}
+      {%- if car -%}
+        {% if truck %}
+          {{(car|int)+(truck|int)}}
+        {% else %}
+          {{car|int}}
+        {% endif %}
       {%- else -%}
-        0
-      {%- endif -%}
+      0
+      {% endif %}
 
