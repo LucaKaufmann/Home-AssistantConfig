@@ -209,6 +209,24 @@
       friendly_name: "Daylight outside"
       value_template: >
         {{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'daylight') }}
+    person_outside:
+      friendly_name: "Person detected outside"
+      value_template: >
+        {% set summary = states.image_processing.doods_raspberry.attributes.summary %}
+        {% if summary['person'] %}
+        True
+        {% else %}
+        False
+        {% endif %}
+    car_outside:
+      friendly_name: "Person detected outside"
+      value_template: >
+        {% set summary = states.image_processing.doods_raspberry.attributes.summary %}
+        {% if summary['truck'] or summary['car'] %}
+        True
+        {% else %}
+        False
+        {% endif %}
     # sonos_speakers:
     #   friendly_name: Sonos speakers
     #   value_template: >
