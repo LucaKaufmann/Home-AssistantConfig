@@ -27,7 +27,7 @@
   url: "http://192.168.92.20:6006"
   detector: default
   file_out:
-    - "/config/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
+    - "/config/www/{{ camera_entity.split('.')[1] }}_latest.jpg"
   source:
     - entity_id: camera.raspberry
   confidence: 50
@@ -58,7 +58,7 @@
   url: "http://192.168.92.20:6006"
   detector: default
   file_out:
-    - "/config/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
+    - "/config/www/{{ camera_entity.split('.')[1] }}_latest.jpg"
   source:
     - entity_id: camera.xiaofang2
   confidence: 50
