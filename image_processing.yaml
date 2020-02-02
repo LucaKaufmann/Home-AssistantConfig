@@ -46,7 +46,7 @@
       area:
         # Exclude top 40% of image
         top: 0.4
-        right: 0.2
+        right: 0.8
         # contains: false
     - name: truck
       confidence: 40
