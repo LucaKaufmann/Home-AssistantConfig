@@ -20,7 +20,7 @@ cards:
           - entity: input_boolean.someone_downstairs
             icon: mdi:account
           - entity: media_player.lg_webos_smart_tv
-            name: TV
+            name: TVlight.small_ball
             icon: mdi:television
           - entity: sensor.tv_source
             content_template: 'Watching {{state}}'
@@ -210,6 +210,11 @@ cards:
                 hold_action:
                   action: more-info
               - entity: light.office_strip
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.small_ball
                 tap_action:
                   action: toggle
                 hold_action:
