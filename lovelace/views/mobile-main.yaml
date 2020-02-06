@@ -166,16 +166,6 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.tv_strip_switch
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
-              - entity: light.tv_strip_ps4
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
               - entity: light.kitchen
                 tap_action:
                   action: toggle
