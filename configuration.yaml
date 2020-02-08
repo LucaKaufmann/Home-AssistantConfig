@@ -420,14 +420,14 @@ fan:
 tradfri:
   host: !secret tradfri_ip
 
-climate:
-  - platform: netatmo
+# climate:
+#   - platform: netatmo
 
-netatmo:
-  api_key: !secret netatmo_api_key
-  secret_key: !secret netatmo_secret_key
-  username: !secret netatmo_user
-  password: !secret netatmo_pw
+# netatmo:
+#   api_key: !secret netatmo_api_key
+#   secret_key: !secret netatmo_secret_key
+#   username: !secret netatmo_user
+#   password: !secret netatmo_pw
 
 map:
 

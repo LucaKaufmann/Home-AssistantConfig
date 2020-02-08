@@ -41,6 +41,8 @@
   labels:
     - name: person
       confidence: 40
+      area:
+        top: 0.8
     - name: car
       confidence: 40
       area:
