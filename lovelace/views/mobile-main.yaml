@@ -305,7 +305,7 @@ cards:
           - entity: input_boolean.color_mode
           - entity: input_boolean.guest_mode
           - entity: input_boolean.tv_lock
-          - entity: input_bookean.motion_alerts
+          - entity: input_boolean.motion_alerts
   # - type: vertical-stack
   #   cards:
   #     - type: custom:weather-card
