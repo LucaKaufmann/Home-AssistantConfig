@@ -304,6 +304,7 @@ cards:
           # - entity: input_boolean.gaming_mode 
           - entity: input_boolean.color_mode
           - entity: input_boolean.guest_mode
+          - entity: input_boolean.vacation_mode
           - entity: input_boolean.tv_lock
           - entity: input_boolean.motion_alerts
   # - type: vertical-stack
