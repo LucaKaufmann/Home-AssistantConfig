@@ -221,7 +221,7 @@
     jere_school:
       friendly_name: "Jere school starting"
       value_template: >
-        {{ state_attr('calendar.jere_school.attributes.offset_reached', 'true') }}
+        {{ states.calendar.jere_school.attributes.offset_reached }}
     car_outside:
       friendly_name: "Person detected outside"
       value_template: >
