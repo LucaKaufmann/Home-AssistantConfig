@@ -11,11 +11,11 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Helsinki
   customize: !include customize.yaml
-  whitelist_external_dirs:
-    - '/tmp'
-    - '/images'
-    - '/config/vacuum'
-    - '/videos'
+  # whitelist_external_dirs:
+  #   - '/tmp'
+  #   - '/images'
+  #   - '/config/vacuum'
+  #   - '/videos'
 # Show links to resources in log and frontend
 # introduction:
 
@@ -59,25 +59,19 @@ panel_iframe:
     icon: mdi:human-female
   networkmap:
     title: 'Zigbee Map'
-    url: '/local/zigbee2mqtt_networkmap/map.html'
+    url: '/local/community/zigbee2mqtt_networkmap/map.html'
     icon: 'mdi:graphql'
 
 # Enables configuration UI
 config:
 
-folder_watcher:
-  - folder: /videos
-
-downloader:
-  download_dir: /dashboard/html/images
-
 http:
   # Uncomment this to add a password (recommended!)
-  ssl_certificate: /certs/fullchain.pem
-  ssl_key: /certs/privkey.pem
+  # ssl_certificate: /certs/fullchain.pem
+  # ssl_key: /certs/privkey.pem
   #ssl_certificate: !secret ssl_certificate
   #ssl_key: !secret ssl_key
-  base_url: !secret base_url
+  # base_url: !secret base_url
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: example.duckdns.org:8123
 # Checks for available updates
@@ -191,6 +185,8 @@ logbook:
       - group.sensor_livingroom
       - group.sensor_pi
       - group.sensor_view
+      - sensor.fortnite_stats_hotky
+      - sensor.fortnite_stats_teacakess
     domains:
       - group
 
@@ -226,6 +222,8 @@ influxdb:
      - sensor.date
      - sensor.date_time
      - sensor.date_time_iso
+     - sensor.fortnite_stats_hotky
+     - sensor.fortnite_stats_teacakess  
   include:
     entities:
       - device_tracker.sevenplus_router
@@ -370,9 +368,9 @@ circadian_lighting:
   transition: 30
   interval: 1800
 
-ring:
-  username: !secret ring_user
-  password: !secret ring_pw
+# ring:
+#   username: !secret ring_user
+#   password: !secret ring_pw
 
 logi_circle:
   client_id: !secret logi_client_id
@@ -422,14 +420,14 @@ fan:
 tradfri:
   host: !secret tradfri_ip
 
-climate:
-  - platform: netatmo
+# climate:
+#   - platform: netatmo
 
-netatmo:
-  api_key: !secret netatmo_api_key
-  secret_key: !secret netatmo_secret_key
-  username: !secret netatmo_user
-  password: !secret netatmo_pw
+# netatmo:
+#   api_key: !secret netatmo_api_key
+#   secret_key: !secret netatmo_secret_key
+#   username: !secret netatmo_user
+#   password: !secret netatmo_pw
 
 map:
 
@@ -442,12 +440,6 @@ media_player:
   - platform: spotify
     client_id: !secret spotify_client_id
     client_secret: !secret spotify_client_secret
-  - platform: webostv
-    host: !secret lgtv_ip
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: 78:5D:C8:62:65:D1
   - platform: ps4
     host: !secret ps4waker_ip
     # ps4_ip: !secret ps4_ip
@@ -463,6 +455,13 @@ alexa_media:
       url: 'amazon.com'
 
 wake_on_lan:
+
+webostv:
+  host: !secret lgtv_ip
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: 78:5D:C8:62:65:D1
 
 weather:
   - platform: darksky
@@ -488,11 +487,11 @@ ios:
               destructive: yes
               behavior: 'default'
 
-browser_mod:
+# browser_mod:
 
 #snips:
 mqtt:
-  broker: 127.0.0.1
+  broker: 192.168.92.20
   username: !secret mqtt_user
   password: !secret mqtt_passwd
   discovery: true
@@ -538,9 +537,9 @@ shell_command:
   rename_vacuum_maps_mo: 'bash /config/bash_scripts/renameVacuumMapsMo.sh'
   record_clip: 'bash /config/bash_scripts/recordClip.sh'
   upload_clip: 'bash /config/bash_scripts/uploadClip.sh'
-  install_gmplot: 'pip install gmplot'
-  install_gpxpy: 'pip install gpxpy'
-  install_tensorflow: 'pip3 install tensorflow==1.11.0'
+  # install_gmplot: 'pip install gmplot'
+  # install_gpxpy: 'pip install gpxpy'
+  # install_tensorflow: 'pip3 install tensorflow==1.11.0'
 recorder:
   purge_keep_days: 5
   db_url: !secret mysql_db_url
@@ -555,6 +554,7 @@ recorder:
      - media_player.echo
      - sensor.vacuum_map_walle
      - sensor.vacuum_map_mo
+     - sensor.next_launch
 
 sensor: !include_dir_list sensors
 camera: !include cameras.yaml

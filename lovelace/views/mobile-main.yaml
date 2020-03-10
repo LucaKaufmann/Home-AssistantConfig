@@ -20,13 +20,17 @@ cards:
           - entity: input_boolean.someone_downstairs
             icon: mdi:account
           - entity: media_player.lg_webos_smart_tv
-            name: TV
+            name: TVlight.small_ball
             icon: mdi:television
           - entity: sensor.tv_source
             content_template: 'Watching {{state}}'
             max_history: 3
           - entity: binary_sensor.should_vacuum
-          - entity: vacuum.eve
+          - entity: vacuum.walle
+            icon: mdi:robot-vacuum
+            include_history: true
+            max_history: 3
+          - entity: vacuum.mo
             icon: mdi:robot-vacuum
             include_history: true
             max_history: 3
@@ -37,8 +41,6 @@ cards:
             max_history: 3
           - entity: binary_sensor.sleeping
             icon: mdi:sleep
-          - entity: binary_sensor.ring_front_door_motion
-          - entity: binary_sensor.ring_front_door_ding
           - entity: binary_sensor.living_room_door
             include_history: true
             max_history: 3
@@ -57,7 +59,7 @@ cards:
           - entity: group.anyone_upstairs
             name: Phone upstairs
             icon: mdi:cellphone-iphone
-          - entity: device_tracker.sevenplusha
+          - entity: device_tracker.iphone_luca
             name: Luca
             icon: mdi:human-male
             content_template: '{{display_name}} arrived at {{state}}'
@@ -149,17 +151,17 @@ cards:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.christmas_tree
-                tap_action:
-                  action: toggle
-                hold_action:
-                  action: more-info
               - entity: light.paperlight
                 tap_action:
                   action: toggle
                 hold_action:
                   action: more-info
-              - entity: light.desk
+              - entity: light.lightstrip
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.tv_strip
                 tap_action:
                   action: toggle
                 hold_action:
@@ -193,6 +195,16 @@ cards:
                 hold_action:
                   action: more-info
               - entity: light.office
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.office_strip
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - entity: light.small_ball
                 tap_action:
                   action: toggle
                 hold_action:
@@ -292,7 +304,9 @@ cards:
           # - entity: input_boolean.gaming_mode 
           - entity: input_boolean.color_mode
           - entity: input_boolean.guest_mode
+          - entity: input_boolean.vacation_mode
           - entity: input_boolean.tv_lock
+          - entity: input_boolean.motion_alerts
   # - type: vertical-stack
   #   cards:
   #     - type: custom:weather-card

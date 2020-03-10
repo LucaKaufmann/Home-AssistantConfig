@@ -1,0 +1,8 @@
+- entity_id: media_player.kitchen
+  name: Kitchen
+- entity_id: media_player.office
+  name: Office
+- entity_id: media_player.living_room
+  name: Living room
+- entity_id: media_player.hallway_upstairs
+  name: Hallway upstairs

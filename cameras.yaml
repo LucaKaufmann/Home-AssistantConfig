@@ -76,63 +76,60 @@
 # - platform: ffmpeg
 #   name: Xiaofang2 mobile
 #   input: !secret dafang_input
-- platform: local_file
-  name: Xiaofang2 Latest
-  file_path: '/images/xiaofang2/latest.jpg'
-- platform: local_file
-  name: Xiaofang2 Snapshot 1
-  file_path: '/images/xiaofang2/snapshot1.jpg'
-- platform: local_file
-  name: Xiaofang2 Snapshot 2
-  file_path: '/images/xiaofang2/snapshot2.jpg'
-- platform: local_file
-  name: Xiaofang2 Snapshot 3
-  file_path: '/images/xiaofang2/snapshot3.jpg'
-- platform: local_file
-  name: Xiaofang2 Snapshot 4
-  file_path: '/images/xiaofang2/snapshot4.jpg'
-- platform: local_file
-  name: Xiaofang2 Snapshot 5
-  file_path: '/images/xiaofang2/snapshot5.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Latest
+#   file_path: '/images/xiaofang2/latest.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Snapshot 1
+#   file_path: '/images/xiaofang2/snapshot1.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Snapshot 2
+#   file_path: '/images/xiaofang2/snapshot2.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Snapshot 3
+#   file_path: '/images/xiaofang2/snapshot3.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Snapshot 4
+#   file_path: '/images/xiaofang2/snapshot4.jpg'
+# - platform: local_file
+#   name: Xiaofang2 Snapshot 5
+#   file_path: '/images/xiaofang2/snapshot5.jpg'
 
-- platform: local_file
-  name: Logi Latest
-  file_path: '/images/logi/latest.jpg'
-- platform: local_file
-  name: Logi Snapshot 1
-  file_path: '/images/logi/snapshot1.jpg'
-- platform: local_file
-  name: Logi Snapshot 2
-  file_path: '/images/logi/snapshot2.jpg'
-- platform: local_file
-  name: Logi Snapshot 3
-  file_path: '/images/logi/snapshot3.jpg'
-- platform: local_file
-  name: Logi Snapshot 4
-  file_path: '/images/logi/snapshot4.jpg'
-- platform: local_file
-  name: Logi Snapshot 5
-  file_path: '/images/logi/snapshot5.jpg'
+# - platform: local_file
+#   name: Logi Latest
+#   file_path: '/images/logi/latest.jpg'
+# - platform: local_file
+#   name: Logi Snapshot 1
+#   file_path: '/images/logi/snapshot1.jpg'
+# - platform: local_file
+#   name: Logi Snapshot 2
+#   file_path: '/images/logi/snapshot2.jpg'
+# - platform: local_file
+#   name: Logi Snapshot 3
+#   file_path: '/images/logi/snapshot3.jpg'
+# - platform: local_file
+#   name: Logi Snapshot 4
+#   file_path: '/images/logi/snapshot4.jpg'
+# - platform: local_file
+#   name: Logi Snapshot 5
+#   file_path: '/images/logi/snapshot5.jpg'
 
 
-- platform: local_file
-  name: Tensorflow Xiaofang1
-  file_path: '/images/xiaofang1/tensorflow.jpg'
+# - platform: local_file
+#   name: Tensorflow Xiaofang1
+#   file_path: '/images/xiaofang1/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Xiaofang2
-  file_path: '/images/xiaofang2/tensorflow.jpg'
-- platform: local_file
-  name: Tensorflow Dafang
-  file_path: '/images/dafang/tensorflow.jpg'
-- platform: local_file
-  name: Tensorflow Logi
-  file_path: '/images/logi/tensorflow.jpg'
+  file_path: '/config/www/xiaofang2_latest.jpg'
+# - platform: local_file
+#   name: Tensorflow Dafang
+#   file_path: '/images/dafang/tensorflow.jpg'
+# - platform: local_file
+#   name: Tensorflow Logi
+#   file_path: '/images/logi/tensorflow.jpg'
 - platform: local_file
   name: Tensorflow Raspberry
-  file_path: '/images/raspberry/tensorflow.jpg'
-- platform: local_file
-  name: Tensorflow Raspberry Latest
-  file_path: '/images/raspberry/tensorflow_latest.jpg'
+  file_path: '/config/www/raspberry_latest.jpg'
 
 # - platform: tensorflow
 #   camera: camera.xiaofang2_latest

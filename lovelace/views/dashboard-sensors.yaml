@@ -46,12 +46,6 @@ cards:
     title: Outside
     show_header_toggle: false
     entities:
-      - binary_sensor.ring_front_door_ding
-      - binary_sensor.ring_front_door_motion
-      - sensor.ring_front_door_battery
-      - sensor.ring_front_door_last_activity
-      - sensor.ring_front_door_last_ding
-      - sensor.ring_front_door_last_motion
       - sensor.darksky_temperature
       - sensor.outdoor_temperature
       - sensor.outdoor_light_level
@@ -112,7 +106,7 @@ cards:
       - binary_sensor.office_illumination
       - sensor.office_temperature
       - sensor.office_humidity
-      - sensor.pressure_office
+      - sensor.office_pressure
       - sensor.printer_current_amps
       - sensor.printer_current_watts
       - sensor.printer_voltage
@@ -123,9 +117,10 @@ cards:
     show_header_toggle: true
     entities:
       - binary_sensor.kids_door
+      - binary_sensor.motion_kids_room
       - sensor.kids_room_temperature
       - sensor.kids_room_humidity
-      - sensor.pressure_kids_room
+      - sensor.kids_room_pressure
   - id: 6de0b9a04e334b349b140f47c214e98c  # Automatically created id
     type: entities
     title: Hallway Upstairs
@@ -157,13 +152,6 @@ cards:
       - input_number.bathroom_upstairs_servo
       - script.bathroom_upstairs_servo_on
       - script.bathroom_upstairs_servo_off
-  - id: 402d0d3dea7a4d9ba4e8bc7f6a4b7bcf  # Automatically created id
-    type: entities
-    title: Tradfri
-    entities:
-      # - sensor.tradfri_remote_control_2
-      - sensor.tradfri_remote_control_3
-      - sensor.tradfri_remote_control_4
   - id: f3e444f889df44bab24992a8663e84ba  # Automatically created id
     type: glance
     title: Gaming

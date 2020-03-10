@@ -54,6 +54,7 @@ cards:
           - entity: light.big_light
           - entity: light.paperlight
           - entity: light.ball
+          - entity: light.tv_strip
         # camera_image: camera.xiaofang2_latest
                   # camera_image: camera.dafang_latest
       - type: picture-glance
@@ -101,7 +102,22 @@ cards:
           action: toggle
         hold_action:
           action: more-info
-      - entity: light.desk
+      - entity: light.lightstrip
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.tv_strip
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.tv_strip_switch
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+      - entity: light.tv_strip_ps4
         tap_action:
           action: toggle
         hold_action:

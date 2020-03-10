@@ -1,3 +1,83 @@
+- platform: classificationbox
+  ip_address: !secret influxdb_ip
+  port: 8083
+  confidence: 50
+  model_id: eating_model
+  scan_interval: 10000
+  source:
+    - entity_id: camera.xiaofang2_latest
+- platform: classificationbox
+  ip_address: !secret influxdb_ip
+  port: 8083
+  confidence: 50
+  model_id: vacuummodel
+  scan_interval: 10000
+  source:
+    - entity_id: camera.xiaofang2
+- platform: classificationbox
+  ip_address: !secret influxdb_ip
+  port: 8083
+  confidence: 50
+  model_id: kitchen_lights_model
+  scan_interval: 10000
+  source:
+    - entity_id: camera.xiaofang1
+- platform: doods
+  scan_interval: 1000
+  url: "http://192.168.92.20:6006"
+  detector: default
+  file_out:
+    - "/config/www/{{ camera_entity.split('.')[1] }}_latest.jpg"
+  source:
+    - entity_id: camera.raspberry
+  confidence: 50
+  # area:
+  #   # All detections must be inside this area to trigger
+  #   top: 0.1
+  #   # If true the entire detection must be inside the box
+  #   # If false if any part of the detection is in the box it will trigger
+  #   # defaults to true for legacy compatibility
+  #   contains: true
+  labels:
+    - name: person
+      confidence: 40
+      area:
+        top: 0.2
+    - name: car
+      confidence: 40
+      area:
+        # Exclude top 40% of image
+        top: 0.4
+        right: 0.8
+        # contains: false
+    - name: truck
+      confidence: 40
+      area:
+        # Exclude top 40% of image
+        top: 0.4
+        # contains: false
+- platform: doods
+  scan_interval: 1000
+  url: "http://192.168.92.20:6006"
+  detector: default
+  file_out:
+    - "/config/www/{{ camera_entity.split('.')[1] }}_latest.jpg"
+  source:
+    - entity_id: camera.xiaofang2
+  confidence: 50
+  # area:
+  #   # All detections must be inside this area to trigger
+  #   top: 0.1
+  #   # If true the entire detection must be inside the box
+  #   # If false if any part of the detection is in the box it will trigger
+  #   # defaults to true for legacy compatibility
+  #   contains: true
+  labels:
+    - name: person
+      confidence: 40
+    - name: cat
+      confidence: 40
+
 # - platform: sighthound
 #   api_key: !secret sighthound_api_key
 #   mode: dev
@@ -45,14 +125,7 @@
 #   scan_interval: 10000
 #   source:
 #     - entity_id: camera.xiaofang2
-- platform: classificationbox
-  ip_address: !secret influxdb_ip
-  port: 8083
-  confidence: 50
-  model_id: eating_model
-  scan_interval: 10000
-  source:
-    - entity_id: camera.xiaofang2_latest
+
 # - platform: classificationbox
 #   ip_address: !secret influxdb_ip
 #   port: 8083
@@ -61,22 +134,8 @@
 #   scan_interval: 10000
 #   source:
 #     - entity_id: camera.xiaofang2_latest
-- platform: classificationbox
-  ip_address: !secret influxdb_ip
-  port: 8083
-  confidence: 50
-  model_id: vacuummodel
-  scan_interval: 10000
-  source:
-    - entity_id: camera.xiaofang2
-- platform: classificationbox
-  ip_address: !secret influxdb_ip
-  port: 8083
-  confidence: 50
-  model_id: kitchen_lights_model
-  scan_interval: 10000
-  source:
-    - entity_id: camera.xiaofang1
+
+
 # - platform: classificationbox
 #   ip_address: !secret influxdb_ip
 #   port: 8083
@@ -86,29 +145,29 @@
 #     - entity_id: camera.xiaofang1_latest
 
 ###### Tensorflow #####
-- platform: tensorflow
-  source:
-    - entity_id: camera.raspberry_latest
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-    area:
-      top: 0.4
-  file_out: '/images/raspberry/tensorflow_latest.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.raspberry
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/raspberry/tensorflow.jpg'
-  scan_interval: 10000
-- platform: tensorflow
-  source:
-    - entity_id: camera.xiaofang2
-  model:
-    graph: ./tensorflow/frozen_inference_graph.pb
-  file_out: '/images/xiaofang2/tensorflow.jpg'
-  scan_interval: 10000
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.raspberry_latest
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#     area:
+#       top: 0.4
+#   file_out: '/images/raspberry/tensorflow_latest.jpg'
+#   scan_interval: 10000
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.raspberry
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#   file_out: '/images/raspberry/tensorflow.jpg'
+#   scan_interval: 10000
+# - platform: tensorflow
+#   source:
+#     - entity_id: camera.xiaofang2
+#   model:
+#     graph: ./tensorflow/frozen_inference_graph.pb
+#   file_out: '/images/xiaofang2/tensorflow.jpg'
+  # scan_interval: 10000
 # - platform: tensorflow2
 #   source:
 #     - entity_id: camera.xiaofang2

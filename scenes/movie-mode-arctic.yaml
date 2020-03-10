@@ -5,9 +5,14 @@ entities:
     brightness: 255
     rgb_color: [105, 218, 195]
     transition: 3
-  light.desk:
+  light.lightstrip:
     state: on
     brightness: 255
+    rgb_color: [83, 176, 255]
+    transition: 5
+  light.tv_strip:
+    state: on
+    brightness: 25
     rgb_color: [83, 176, 255]
     transition: 5
   light.paperlight:

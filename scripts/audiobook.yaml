@@ -5,4 +5,4 @@ zootopia:
       data:
         media_content_type: "video"
         media_content_id: !secret curious_george_url
-        entity_id: media_player.speaker
+        entity_id: media_player.kids_room

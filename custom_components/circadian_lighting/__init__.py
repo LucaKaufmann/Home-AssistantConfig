@@ -35,7 +35,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.components.light import (
     VALID_TRANSITION, ATTR_TRANSITION)
 from homeassistant.const import (
-    CONF_LATITUDE, CONF_LONGITUDE,
+    CONF_LATITUDE, CONF_LONGITUDE, CONF_ELEVATION,
     SUN_EVENT_SUNRISE, SUN_EVENT_SUNSET)
 from homeassistant.util import Throttle
 from homeassistant.helpers.discovery import load_platform
@@ -46,8 +46,9 @@ from homeassistant.util.color import (
     color_xy_to_hs)
 from homeassistant.util.dt import utcnow as dt_utcnow, as_local
 
-import astral
 from datetime import datetime, timedelta
+
+VERSION = '1.0.9'
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,7 +66,8 @@ CONF_SUNSET_OFFSET = 'sunset_offset'
 CONF_SUNRISE_TIME = 'sunrise_time'
 CONF_SUNSET_TIME = 'sunset_time'
 CONF_INTERVAL = 'interval'
-DEFAULT_INTERVAL = 900
+DEFAULT_INTERVAL = 300
+DEFAULT_TRANSITION = 60
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
@@ -79,8 +81,9 @@ CONFIG_SCHEMA = vol.Schema({
         vol.Optional(CONF_SUNSET_TIME): cv.time,
         vol.Optional(CONF_LATITUDE): cv.latitude,
         vol.Optional(CONF_LONGITUDE): cv.longitude,
+        vol.Optional(CONF_ELEVATION): float,
         vol.Optional(CONF_INTERVAL, default=DEFAULT_INTERVAL): cv.positive_int,
-        vol.Optional(ATTR_TRANSITION, default=DEFAULT_INTERVAL): VALID_TRANSITION
+        vol.Optional(ATTR_TRANSITION, default=DEFAULT_TRANSITION): VALID_TRANSITION
     }),
 }, extra=vol.ALLOW_EXTRA)
 
@@ -94,15 +97,9 @@ def setup(hass, config):
     sunrise_time = conf.get(CONF_SUNRISE_TIME)
     sunset_time = conf.get(CONF_SUNSET_TIME)
 
-    if conf.get(CONF_LATITUDE) is None:
-        latitude = hass.config.latitude
-    else:
-        latitude = conf.get(CONF_LATITUDE)
-
-    if conf.get(CONF_LONGITUDE) is None:
-        longitude = hass.config.longitude
-    else:
-        longitude = conf.get(CONF_LONGITUDE)
+    latitude = conf.get(CONF_LATITUDE, hass.config.latitude)
+    longitude = conf.get(CONF_LONGITUDE, hass.config.longitude)
+    elevation = conf.get(CONF_ELEVATION, hass.config.elevation)
 
     load_platform(hass, 'sensor', DOMAIN, {}, config)
 
@@ -111,7 +108,7 @@ def setup(hass, config):
 
     cl = CircadianLighting(hass, min_colortemp, max_colortemp,
                     sunrise_offset, sunset_offset, sunrise_time, sunset_time,
-                    latitude, longitude,
+                    latitude, longitude, elevation,
                     interval, transition)
 
     hass.data[DATA_CIRCADIAN_LIGHTING] = cl
@@ -123,7 +120,7 @@ class CircadianLighting(object):
 
     def __init__(self, hass, min_colortemp, max_colortemp,
                     sunrise_offset, sunset_offset, sunrise_time, sunset_time,
-                    latitude, longitude,
+                    latitude, longitude, elevation,
                     interval, transition):
         self.hass = hass
         self.data = {}
@@ -135,6 +132,7 @@ class CircadianLighting(object):
         self.data['sunset_time'] = sunset_time
         self.data['latitude'] = latitude
         self.data['longitude'] = longitude
+        self.data['elevation'] = elevation
         self.data['interval'] = interval
         self.data['transition'] = transition
         self.data['percent'] = self.calc_percent()
@@ -164,9 +162,14 @@ class CircadianLighting(object):
             solar_noon = sunrise + (sunset - sunrise)/2
             solar_midnight = sunset + ((sunrise + timedelta(days=1)) - sunset)/2
         else:
+            import astral
             location = astral.Location()
+            location.name = 'name'
+            location.region = 'region'
             location.latitude = self.data['latitude']
             location.longitude = self.data['longitude']
+            location.elevation = self.data['elevation']
+            _LOGGER.debug("Astral location: " + str(location))
             if self.data['sunrise_time'] is not None:
                 if date is None:
                     utcdate = dt_utcnow()
@@ -197,70 +200,79 @@ class CircadianLighting(object):
     def calc_percent(self):
         utcnow = dt_utcnow()
         now = as_local(utcnow)
-        today_sun_times = self.get_sunrise_sunset()
+        _LOGGER.debug("now: " + str(now))
 
+        today_sun_times = self.get_sunrise_sunset(now)
+        _LOGGER.debug("today_sun_times: " + str(today_sun_times))
+
+        # Convert everything to epoch timestamps for easy calculation
         now_seconds = now.timestamp()
-        today_sunrise_seconds = today_sun_times[SUN_EVENT_SUNRISE].timestamp()
-        today_sunset_seconds = today_sun_times[SUN_EVENT_SUNSET].timestamp()
-        today_solar_noon_seconds = today_sun_times['solar_noon'].timestamp()
-        today_solar_midnight_seconds = today_sun_times['solar_midnight'].timestamp()
+        sunrise_seconds = today_sun_times[SUN_EVENT_SUNRISE].timestamp()
+        sunset_seconds = today_sun_times[SUN_EVENT_SUNSET].timestamp()
+        solar_noon_seconds = today_sun_times['solar_noon'].timestamp()
+        solar_midnight_seconds = today_sun_times['solar_midnight'].timestamp()
 
-        if now < today_sun_times[SUN_EVENT_SUNRISE]:
+        if now < today_sun_times[SUN_EVENT_SUNRISE]: # It's before sunrise (after midnight)
+            # Because it's before sunrise (and after midnight) sunset must have happend yesterday
             yesterday_sun_times = self.get_sunrise_sunset(now - timedelta(days=1))
-            yesterday_sunrise_seconds = yesterday_sun_times[SUN_EVENT_SUNRISE].timestamp()
-            yesterday_sunset_seconds = yesterday_sun_times[SUN_EVENT_SUNSET].timestamp()
-            yesterday_solar_midnight_seconds = yesterday_sun_times['solar_midnight'].timestamp()
-
-            x1 = yesterday_sunset_seconds
-            y1 = 0
-
-            if today_sun_times['solar_midnight'] > yesterday_sun_times[SUN_EVENT_SUNSET] and today_sun_times['solar_midnight'] < today_sun_times[SUN_EVENT_SUNRISE]:
-                x2 = today_solar_midnight_seconds
-            else:
-                x2 = yesterday_solar_midnight_seconds
-            y2 = -100
-
-            x3 = today_sunrise_seconds
-            y3 = 0
-        elif now > today_sun_times[SUN_EVENT_SUNSET]:
+            _LOGGER.debug("yesterday_sun_times: " + str(yesterday_sun_times))
+            sunset_seconds = yesterday_sun_times[SUN_EVENT_SUNSET].timestamp()
+            if today_sun_times['solar_midnight'] > today_sun_times[SUN_EVENT_SUNSET] and yesterday_sun_times['solar_midnight'] > yesterday_sun_times[SUN_EVENT_SUNSET]:
+                # Solar midnight is after sunset so use yesterdays's time
+                solar_midnight_seconds = yesterday_sun_times['solar_midnight'].timestamp()
+        elif now > today_sun_times[SUN_EVENT_SUNSET]: # It's after sunset (before midnight)
+            # Because it's after sunset (and before midnight) sunrise should happen tomorrow
             tomorrow_sun_times = self.get_sunrise_sunset(now + timedelta(days=1))
-            tomorrow_sunrise_seconds = tomorrow_sun_times[SUN_EVENT_SUNRISE].timestamp()
-            tomorrow_sunset_seconds = tomorrow_sun_times[SUN_EVENT_SUNSET].timestamp()
-            tomorrow_solar_midnight_seconds = tomorrow_sun_times['solar_midnight'].timestamp()
+            _LOGGER.debug("tomorrow_sun_times: " + str(tomorrow_sun_times))
+            sunrise_seconds = tomorrow_sun_times[SUN_EVENT_SUNRISE].timestamp()
+            if today_sun_times['solar_midnight'] < today_sun_times[SUN_EVENT_SUNRISE] and tomorrow_sun_times['solar_midnight'] < tomorrow_sun_times[SUN_EVENT_SUNRISE]:
+                # Solar midnight is before sunrise so use tomorrow's time
+                solar_midnight_seconds = tomorrow_sun_times['solar_midnight'].timestamp()
 
-            x1 = today_sunset_seconds
-            y1 = 0
+        _LOGGER.debug("now_seconds: " + str(now_seconds))
+        _LOGGER.debug("sunrise_seconds: " + str(sunrise_seconds))
+        _LOGGER.debug("sunset_seconds: " + str(sunset_seconds))
+        _LOGGER.debug("solar_midnight_seconds: " + str(solar_midnight_seconds))
+        _LOGGER.debug("solar_noon_seconds: " + str(solar_noon_seconds))
 
-            if today_sun_times['solar_midnight'] > today_sun_times[SUN_EVENT_SUNSET] and today_sun_times['solar_midnight'] < tomorrow_sun_times[SUN_EVENT_SUNRISE]:
-                x2 = today_solar_midnight_seconds
+        # Figure out where we are in time so we know which half of the parabola to calculate
+        # We're generating a different sunset-sunrise parabola for before and after solar midnight
+        # because it might not be half way between sunrise and sunset
+        # We're also (obviously) generating a different parabola for sunrise-sunset
+
+        # sunrise-sunset parabola
+        if now_seconds > sunrise_seconds and now_seconds < sunset_seconds:
+            h = solar_noon_seconds
+            k = 100
+            # parabola before solar_noon
+            if now_seconds < solar_noon_seconds:
+                x = sunrise_seconds
+            # parabola after solar_noon
             else:
-                x2 = tomorrow_solar_midnight_seconds
-            y2 = -100
+                x = sunset_seconds
+            y = 0
 
-            x3 = tomorrow_sunrise_seconds
-            y3 = 0
-        else:
-            x1 = today_sunrise_seconds
-            y1 = 0
-            x2 = today_solar_noon_seconds
-            y2 = 100
-            x3 = today_sunset_seconds
-            y3 = 0
+        # sunset_sunrise parabola
+        elif now_seconds > sunset_seconds and now_seconds < sunrise_seconds:
+            h = solar_midnight_seconds
+            k = -100
+            # parabola before solar_midnight
+            if now_seconds < solar_midnight_seconds:
+                x = sunset_seconds
+            # parabola after solar_midnight
+            else:
+                x = sunrise_seconds
+            y = 0
 
-        # Generate color temperature parabola from points
-        a1 = -x1**2+x2**2
-        b1 = -x1+x2
-        d1 = -y1+y2
-        a2 = -x2**2+x3**2
-        b2 = -x2+x3
-        d2 = -y2+y3
-        bm = -(b2/b1)
-        a3 = bm*a1+a2
-        d3 = bm*d1+d2
-        a = d3/a3
-        b = (d1-a1*a)/b1
-        c = y1-a*x1**2-b*x1
-        percentage = a*now_seconds**2+b*now_seconds+c
+        a = (y-k)/(h-x)**2
+        percentage = a*(now_seconds-h)**2+k
+
+        _LOGGER.debug("h: " + str(h))
+        _LOGGER.debug("k: " + str(k))
+        _LOGGER.debug("x: " + str(x))
+        _LOGGER.debug("y: " + str(y))
+        _LOGGER.debug("a: " + str(a))
+        _LOGGER.debug("percentage: " + str(percentage))
 
         return percentage
 

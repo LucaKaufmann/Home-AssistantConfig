@@ -1,0 +1,6 @@
+Coronavirus:
+  speech:
+      type: plain
+      text: >
+        There are currently {{states('sensor.worldwide_coronavirus_current')}} active cases worldwide. {{ states('sensor.finland_coronavirus_current')}} in Finland and {{states('sensor.switzerland_coronavirus_current')}} in Switzerland
+

@@ -96,9 +96,10 @@ living_room_color:
   entities:
    - light.paperlight
    - light.big_light
-   - light.desk
+   - light.lightstrip
    - light.ball
-   - light.color
+   - light.tv_strip
+
 
 bed_room:
   name: Bed Room
@@ -137,6 +138,7 @@ color_lights:
     - light.big_light
     - light.desk
     - light.living_room
+    - light.tv_strip
 
 all_lights_except_nightlight:
   name: Lights except night light
@@ -157,11 +159,14 @@ downstairs_lights:
   entities:
     - light.paperlight
     - light.big_light
-    - light.desk
+    - light.lightstrip
     - light.kitchen
     - light.living_room
     - light.ball
     - light.hallway_downstairs
+    - light.tv_strip
+    - light.tv_strip_switch
+    - light.tv_strip_ps4
 
 upstairs_lights:
   name: Lights upstairs
@@ -171,6 +176,7 @@ upstairs_lights:
     - light.hallway_upstairs
     - light.kids_room
     - light.bedroom
+    - light.office_strip
 
 light_scenes:
   name: Scenes
@@ -255,8 +261,11 @@ sensor_kitchen:
 
 kitchen_motion_sensors:
   - binary_sensor.kitchen_sensor_motion
-  - binary_sensor.kitchen_motion_sensor
   - binary_sensor.motion_kitchen_xiaomi
+
+living_room_motion_sensors:
+  - binary_sensor.living_room_sensor_motion
+  - binary_sensor.living_room_motion_2
 
 hue_sensors:
   name: Hue
@@ -380,7 +389,6 @@ upstairs_motion_sensors:
   entities:
     - binary_sensor.motion_hallway_upstairs
     - binary_sensor.motion_hallway_upstairs_2
-    - binary_sensor.office_motion
 
 all_motion_sensors:
   name: Motion sensors

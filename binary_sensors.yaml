@@ -106,12 +106,12 @@
 #         platform: 'state'
 #         to_state: 'home'
       - entity_id: 'device_tracker.jeresiphone'
-        prob_given_true: 0.6
-        prob_given_false: 0.1
+        prob_given_true: 0.5
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.jeres_iphone'
-        prob_given_true: 0.6
+        prob_given_true: 0.8
         prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
@@ -209,6 +209,28 @@
       friendly_name: "Daylight outside"
       value_template: >
         {{ state_attr('binary_sensor.hue_outdoor_motion_sensor_motion_1', 'daylight') }}
+    person_outside:
+      friendly_name: "Person detected outside"
+      value_template: >
+        {% set summary = states.image_processing.doods_raspberry.attributes.summary %}
+        {% if summary['person'] %}
+        True
+        {% else %}
+        False
+        {% endif %}
+    jere_school:
+      friendly_name: "Jere school starting"
+      value_template: >
+        {{ states.calendar.jere_school.attributes.offset_reached }}
+    car_outside:
+      friendly_name: "Person detected outside"
+      value_template: >
+        {% set summary = states.image_processing.doods_raspberry.attributes.summary %}
+        {% if summary['truck'] or summary['car'] %}
+        True
+        {% else %}
+        False
+        {% endif %}
     # sonos_speakers:
     #   friendly_name: Sonos speakers
     #   value_template: >

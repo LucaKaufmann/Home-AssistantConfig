@@ -7,12 +7,17 @@ trigger:
     for:
       minutes: 2
   - platform: state
-    entity_id: sensor.living_motion_room #Entry
+    entity_id: group.living_room_motion_sensors #Entry
     to: 'off'
     for:
       minutes: 5
   - platform: state
-    entity_id: binary_sensor.motion_hallway_upstairs #Entry
+    entity_id: group.upstairs_motion_sensors #Entry
+    to: 'off'
+    for:
+      minutes: 5
+  - platform: state
+    entity_id: binary_sensor.office_motion #Entry
     to: 'off'
     for:
       minutes: 5
@@ -28,10 +33,12 @@ action:
       target_player: >
         {% if trigger.entity_id == 'group.kitchen_motion_sensors' %}
           {% set player = 'media_player.kitchen' %}
-        {% elif trigger.entity_id == 'binary_sensor.motion_hallway_upstairs' %}
+        {% elif trigger.entity_id == 'group.upstairs_motion_sensors' %}
           {% set player = 'media_player.hallway_upstairs' %}
-        {% elif trigger.entity_id == 'sensor.living_motion_room' %}
+        {% elif trigger.entity_id == 'group.living_room_motion_sensors' %}
           {% set player = 'media_player.living_room' %}
+        {% elif trigger.entity_id == 'binary_sensor.office_motion' %}
+          {% set player = 'media_player.office' %}
         {% endif %}
         {% if player is not none %}
           {{ player }}

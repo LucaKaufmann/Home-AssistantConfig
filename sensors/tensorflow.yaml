@@ -1,85 +1,50 @@
 platform: template
 sensors:
-  tensorflow_person_xiaofang2:
-    friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_xiaofang2
+  person_xiaofang2:
+    friendly_name: "Person living room"
+    entity_id: image_processing.doods_xiaofang2
     value_template: >
-      {%- set person = states.image_processing.tensorflow_xiaofang2.attributes.summary.person -%}
+      {%- set person = states.image_processing.doods_xiaofang2.summary.person -%}
       {%- if person -%}
         {{ person }}
       {%- else -%}
         0
       {%- endif -%}
-  tensorflow_people_xiaofang2:
-    friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_people
-    value_template: >
-      {%- set person = states.image_processing.tensorflow_people.attributes.people -%}
-      {%- if person -%}
-        {{ person }}
-      {%- else -%}
-        0
-      {%- endif -%}
-  tensorflow_cat_xiaofang2:
-    friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_xiaofang2
+  cat_xiaofang2:
+    friendly_name: "Cats living room"
+    entity_id: image_processing.doods_xiaofang2
     value_template: >-
-      {%- set cat = states.image_processing.tensorflow_xiaofang2.attributes.summary.cat -%}
+      {%- set cat = states.image_processing.doods_xiaofang2.attributes.summary.cat -%}
       {%- if cat -%}
         {{ cat }}
       {%- else -%}
         0
       {%- endif -%}
 
-  tensorflow_person_dafang:
-    friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_dafang
+  person_raspberry:
+    friendly_name: "Person outside"
+    entity_id: image_processing.doods_raspberry
     value_template: >
-      {%- set person = states.image_processing.tensorflow_dafang.attributes.summary.person -%}
+      {%- set person = states.image_processing.doods_raspberry.attributes.summary.person -%}
       {%- if person -%}
         {{ person }}
-      {%- else -%}
-        0
-      {%- endif -%}
-  tensorflow_cat_dafang:
-    friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_dafang
-    value_template: >-
-      {%- set cat = states.image_processing.tensorflow_dafang.attributes.summary.cat -%}
-      {%- if cat -%}
-        {{ cat }}
       {%- else -%}
         0
       {%- endif -%}
 
-  tensorflow_person_xiaofang1:
-    friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_xiaofang1
+  car_raspberry:
+    friendly_name: "Car outside"
+    entity_id: image_processing.doods_raspberry
     value_template: >
-      {%- set person = states.image_processing.tensorflow_xiaofang1.attributes.summary.person -%}
-      {%- if person -%}
-        {{ person }}
+      {%- set car = states.image_processing.doods_raspberry.attributes.summary.car -%}
+      {%- set truck = states.image_processing.doods_raspberry.attributes.summary.truck -%}
+      {%- if car -%}
+        {% if truck %}
+          {{(car|int)+(truck|int)}}
+        {% else %}
+          {{car|int}}
+        {% endif %}
       {%- else -%}
-        0
-      {%- endif -%}
-  tensorflow_cat_xiaofang1:
-    friendly_name: "Tensorflow Cat"
-    entity_id: image_processing.tensorflow_xiaofang1
-    value_template: >-
-      {%- set cat = states.image_processing.tensorflow_xiaofang1.attributes.summary.cat -%}
-      {%- if cat -%}
-        {{ cat }}
-      {%- else -%}
-        0
-      {%- endif -%}
-  tensorflow_person_logi:
-    friendly_name: "Tensorflow Person"
-    entity_id: image_processing.tensorflow_logi_latest
-    value_template: >
-      {%- set person = states.image_processing.tensorflow_logi_latest.attributes.summary.person -%}
-      {%- if person -%}
-        {{ person }}
-      {%- else -%}
-        0
-      {%- endif -%}
+      0
+      {% endif %}
 

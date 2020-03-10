@@ -10,8 +10,13 @@ entities:
     brightness: 144
     color_temp: 443
     transition: 2
-  light.desk:
+  light.lightstrip:
     state: on
     brightness: 144
+    color_temp: 443
+    transition: 2
+  light.tv_strip:
+    state: on
+    brightness: 255
     color_temp: 443
     transition: 2

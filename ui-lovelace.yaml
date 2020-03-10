@@ -13,27 +13,26 @@ resources:
     type: module
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
     type: module
-  - url: /community_plugin/compact-custom-header/compact-custom-header.js
+  - url: /community_plugin/custom-header/custom-header.js
     type: module
-  - url: /community_plugin/lovelace-home-feed-card/home-feed-card.js
+  - url: /community_plugin/lovelace-home-feed-card/lovelace-home-feed-card.js
     type: js
   - url: /community_plugin/weather-card/weather-card.js
     type: module
-  - url: /community_plugin/surveillance-card/surveillance-card.js
-    type: module
-  - url: /community_plugin/mini-graph-card/mini-graph-card.js
+  - url: /community_plugin/mini-graph-card/mini-graph-card-bundle.js
     type: module
   - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
     type: module
-#  - type: js
-#    url: /community_plugin/lovelace-valetudo-map-card/valetudo-map-card.js
-cch:
+  - type: js
+    url: /community_plugin/lovelace-valetudo-map-card/valetudo-map-card.js
+
+custom_header:
   redirect: true
   exceptions:
     - conditions:
         user: Luca
       config:
-        show_tabs: '1,2,3,4,8,12,19,22,23'
+        show_tabs: '1,2,3,4,8,12,19,21,22,23'
         default_tab: '1'
         options: hide
         swipe: true
@@ -47,7 +46,7 @@ cch:
     - conditions:
         user: Tiia
       config:
-        show_tabs: '1,2,3,4,19,22'
+        show_tabs: '1,2,3,4,19,21,22'
         default_tab: '1'
 title: Home
 views:
@@ -262,13 +261,13 @@ views:
               action: more-info
       - type: horizontal-stack
         cards:
-          - type: entity-button
-            title: Outside
-            entity: light.deck_lightstrip
-            tap_action:
-              action: toggle
-            hold_action:
-              action: more-info
+          # - type: entity-button
+          #   title: Outside
+          #   entity: light.deck_lightstrip
+          #   tap_action:
+          #     action: toggle
+          #   hold_action:
+          #     action: more-info
           - type: entity-button
             title: Kitchen
             entity: light.kitchen
@@ -383,34 +382,50 @@ views:
             artwork: cover
             show_source: true
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.kitchen
-                name: Kitchen
-              - entity_id: media_player.bedroom
+            tts:
+              platform: alexa
+              entity_id: media_player.beam
+              type: announce
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
             entity: media_player.kitchen
             icon: mdi:speaker
             artwork: cover
             artwork_border: true
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.living_room
-                name: Kitchen
-              - entity_id: media_player.bedroom
-                name: Office
+            tts:
+              platform: alexa
+              entity_id: media_player.black_sonos_one
+              type: tts
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
-            entity: media_player.bedroom
+            entity: media_player.office
             icon: mdi:speaker
             artwork_border: true
             artwork: cover
             show_progress: true
-            sonos_grouping:
-              - entity_id: media_player.living_room
-                name: Kitchen
-              - entity_id: media_player.kitchen
-                name: Office
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
           - type: custom:mini-media-player
-            entity: media_player.speaker
+            entity: media_player.hallway_upstairs
+            icon: mdi:speaker
+            artwork_border: true
+            artwork: cover
+            show_progress: true
+            speaker_group:
+              platform: sonos
+              show_group_count: true
+              entities: !include lovelace/components/sonos-list.yaml
+          - type: custom:mini-media-player
+            entity: media_player.kids_room
             icon: mdi:speaker
             artwork_border: true
             artwork: cover
@@ -670,8 +685,8 @@ views:
                 show_state: false
                 entity: camera.logi_snapshot_5
                 camera_image: camera.logi_snapshot_5
-      - type: light
-        entity: light.deck_lightstrip
+      # - type: light
+      #   entity: light.deck_lightstrip
       - type: glance
         title: Outside
         entities:
@@ -816,8 +831,8 @@ views:
               - binary_sensor.should_vacuum
               - binary_sensor.xiaofang2_motion_sensor
               - binary_sensor.people_rekognition_xiaofang2
-              - sensor.tensorflow_person_xiaofang2
-              - sensor.tensorflow_cat_xiaofang2
+              - sensor.person_xiaofang2
+              - sensor.cat_xiaofang2
           # - type: entities
           #   entities:
           #     # - image_processing.cb_xiaofang2_latest_eating_model
@@ -1025,11 +1040,6 @@ views:
           #   filter:
           #     include:
           #       - domain: image_processing
-          - type: entities
-            entities:
-              - sensor.tensorflow_person_dafang
-              - sensor.tensorflow_cat_dafang
-              - binary_sensor.cats_detected_closet
       - id: raspberry_camera_stack
         type: vertical-stack
         cards:
@@ -1097,14 +1107,8 @@ views:
           - type: entities
             entities:
               - binary_sensor.outside_motion
-      - id: cat_camera_stack
-        type: vertical-stack
-        cards:
-          - type: picture-entity
-            name: Cat
-            show_state: false
-            entity: camera.cat
-            camera_image: camera.cat
+              - sensor.car_raspberry
+              - sensor.person_raspberry
   - id: 8
     title: Chores
     icon: mdi:format-list-bulleted
@@ -1276,76 +1280,76 @@ views:
         cards:
           - type: vertical-stack
             cards:
-              - type: 'custom:home-feed-card'
-                title: Home Feed
-                include_history: true
-                # max_height: 12em
-                id_filter: ^home_feed_.*
-                calendars:
-                  - calendar.tiia_schedule
-                  - calendar.personal
-                  - calendar.jere_school
-                entities:
-                  - entity: sensor.octoprint_current_state
-                    state_map:
-                      unknown: "off"
-                  - entity: input_boolean.someone_downstairs
-                    icon: mdi:account
-                  - entity: media_player.lg_webos_smart_tv
-                    name: TV
-                    icon: mdi:television
-                  - entity: sensor.tv_source
-                    content_template: 'Watching {{state}}'
-                    max_history: 3
-                  - entity: binary_sensor.should_vacuum
-                  - entity: vacuum.eve
-                    icon: mdi:robot-vacuum
-                    include_history: true
-                    max_history: 3
-                  - entity: binary_sensor.eating
-                  - entity: binary_sensor.kitchen_lights_on
-                    name: Kitchen lights
-                    include_history: true
-                    max_history: 3
-                  - entity: binary_sensor.sleeping
-                    icon: mdi:sleep
-                  - entity: binary_sensor.ring_front_door_motion
-                  - entity: binary_sensor.ring_front_door_ding
-                  - entity: group.all_lights
-                    name: All lights
-                    icon: mdi:lightbulb-outline
-                    content_template: '{{display_name}} are {{state}}'
-                  - entity: group.anyone_downstairs
-                    name: Phone downstairs
-                    icon: mdi:cellphone-iphone
-                  - entity: group.anyone_upstairs
-                    name: Phone upstairs
-                    icon: mdi:cellphone-iphone
-                  - entity: device_tracker.sevenplusha
-                    name: Luca
-                    icon: mdi:human-male
-                    content_template: '{{display_name}} arrived at {{state}}'
-                    include_history: true
-                    max_history: 5
-                    remove_repeats: true
-                    state_map:
-                      not_home: Unknown Destination
-                  - entity: binary_sensor.tiia_home
-                    name: Tiia home
-                    icon: mdi:human-female
-                    include_history: true
-                    max_history: 3
-                    remove_repeats: true
-                    state_map:
-                      on: Home
-                  - entity: binary_sensor.jere_home
-                    name: Jere home
-                    icon: mdi:human-child
-                    include_history: true
-                    max_history: 3
-                    remove_repeats: true
-                    state_map:
-                      on: Home
+              # - type: 'custom:home-feed-card'
+              #   title: Home Feed
+              #   include_history: true
+              #   # max_height: 12em
+              #   id_filter: ^home_feed_.*
+              #   calendars:
+              #     - calendar.tiia_schedule
+              #     - calendar.personal
+              #     - calendar.jere_school
+              #   entities:
+              #     - entity: sensor.octoprint_current_state
+              #       state_map:
+              #         unknown: "off"
+              #     - entity: input_boolean.someone_downstairs
+              #       icon: mdi:account
+              #     - entity: media_player.lg_webos_smart_tv
+              #       name: TV
+              #       icon: mdi:television
+              #     - entity: sensor.tv_source
+              #       content_template: 'Watching {{state}}'
+              #       max_history: 3
+              #     - entity: binary_sensor.should_vacuum
+              #     - entity: vacuum.eve
+              #       icon: mdi:robot-vacuum
+              #       include_history: true
+              #       max_history: 3
+              #     - entity: binary_sensor.eating
+              #     - entity: binary_sensor.kitchen_lights_on
+              #       name: Kitchen lights
+              #       include_history: true
+              #       max_history: 3
+              #     - entity: binary_sensor.sleeping
+              #       icon: mdi:sleep
+              #     - entity: binary_sensor.ring_front_door_motion
+              #     - entity: binary_sensor.ring_front_door_ding
+              #     - entity: group.all_lights
+              #       name: All lights
+              #       icon: mdi:lightbulb-outline
+              #       content_template: '{{display_name}} are {{state}}'
+              #     - entity: group.anyone_downstairs
+              #       name: Phone downstairs
+              #       icon: mdi:cellphone-iphone
+              #     - entity: group.anyone_upstairs
+              #       name: Phone upstairs
+              #       icon: mdi:cellphone-iphone
+              #     - entity: device_tracker.sevenplusha
+              #       name: Luca
+              #       icon: mdi:human-male
+              #       content_template: '{{display_name}} arrived at {{state}}'
+              #       include_history: true
+              #       max_history: 5
+              #       remove_repeats: true
+              #       state_map:
+              #         not_home: Unknown Destination
+              #     - entity: binary_sensor.tiia_home
+              #       name: Tiia home
+              #       icon: mdi:human-female
+              #       include_history: true
+              #       max_history: 3
+              #       remove_repeats: true
+              #       state_map:
+              #         on: Home
+              #     - entity: binary_sensor.jere_home
+              #       name: Jere home
+              #       icon: mdi:human-child
+              #       include_history: true
+              #       max_history: 3
+              #       remove_repeats: true
+              #       state_map:
+              #         on: Home
                       
           # - type: vertical-stack
           #   cards:
