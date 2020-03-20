@@ -1,6 +1,3 @@
-# Views
-# Components
-# Rooms
 living_room:
   name: Living Room
   entities:
@@ -16,7 +13,6 @@ living_room_color:
    - light.lightstrip
    - light.ball
    - light.tv_strip
-
 
 bed_room:
   name: Bed Room
@@ -177,10 +173,14 @@ sensor_kitchen:
     - sensor.kitchen_temperature
 
 kitchen_motion_sensors:
+  name: Kitchen motion sensors
+  entities:
   - binary_sensor.kitchen_sensor_motion
   - binary_sensor.motion_kitchen_xiaomi
 
 living_room_motion_sensors:
+  name: Living room motion sensors
+  entities:
   - binary_sensor.living_room_sensor_motion
   - binary_sensor.living_room_motion_2
 
@@ -245,7 +245,6 @@ automations_lights:
     - automation.flash_when_luca_home
     - automation.flash_when_tiia_home
 
-
 automations_motion:
   name: Motion Automations
   entities:
@@ -254,7 +253,6 @@ automations_motion:
     - automation.living_room_lights_off_when_no_motion
     - automation.living_room_lights_on_when_motion
     - automation.movement_detected
-
 
 automations_vacuum:
   name: Vacuum automations
