@@ -290,12 +290,6 @@ device_tracker:
 
 light:
   - platform: group
-    name: Livingroom Lights
-    entities:
-      - light.paperlight
-      - light.desk
-      - light.big_light
-  - platform: group
     name: Bedroom
     entities:
       - light.bedroom_1
