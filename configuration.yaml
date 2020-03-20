@@ -295,12 +295,6 @@ light:
       - light.paperlight
       - light.desk
       - light.big_light
-#   - platform: group
-#     name: Paperlight
-#     entities:
-#       - light.paperlight_1
-#       - light.paperlight_2
-#       - light.paperlight_3
   - platform: group
     name: Bedroom
     entities:
@@ -313,12 +307,6 @@ light:
       - light.kids_room_1
       - light.kids_room_2
       - light.kids_room_3
-  # - platform: group
-  #   name: Hallway Downstairs
-  #   entities:room_q
-  #     - light.hallway_1
-  #     - light.hallway_2
-  #     - light.hallway_3
   - platform: mqtt
     name: Dashboard Kitchen
     command_topic: "dashboard/rpi1/set"
