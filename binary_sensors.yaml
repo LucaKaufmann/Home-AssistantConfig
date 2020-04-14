@@ -78,7 +78,7 @@
 - platform: bayesian
   prior: 0.5
   name: 'Luca home'
-  probability_threshold: 0.7
+  probability_threshold: 0.6
   observations:
       - entity_id: 'sensor.home_occupancy_confidence_luca'
         prob_given_true: 0.99
