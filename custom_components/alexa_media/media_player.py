@@ -9,7 +9,8 @@ https://community.home-assistant.io/t/echo-devices-alexa-as-media-player-testers
 """
 import asyncio
 import logging
-from typing import List  # noqa pylint: disable=unused-import
+import re
+from typing import List, Text  # noqa pylint: disable=unused-import
 
 from homeassistant import util
 from homeassistant.components.media_player import MediaPlayerDevice
@@ -808,9 +809,12 @@ class AlexaClient(MediaPlayerDevice):
         return self._last_update
 
     @property
-    def media_image_url(self):
+    def media_image_url(self) -> Text:
         """Return the image URL of current playing media."""
-        return self._media_image_url
+        if self._media_image_url:
+            return re.sub("\\(", "%28", re.sub("\\)", "%29", self._media_image_url))
+            # fix failure of HA media player ui to quote "(" or ")"
+        return None
 
     @property
     def media_image_remotely_accessible(self):
@@ -997,12 +1001,12 @@ class AlexaClient(MediaPlayerDevice):
             await self.async_update()
 
     @_catch_login_errors
-    async def async_send_tts(self, message):
+    async def async_send_tts(self, message, **kwargs):
         """Send TTS to Device.
 
         NOTE: Does not work on WHA Groups.
         """
-        await self.alexa_api.send_tts(message, customer_id=self._customer_id)
+        await self.alexa_api.send_tts(message, customer_id=self._customer_id, **kwargs)
 
     @_catch_login_errors
     async def async_send_announcement(self, message, **kwargs):
