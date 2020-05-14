@@ -1,10 +1,10 @@
 sonos_say:
   alias: "Sonos TTS script"
   sequence:
-    - service: media_player.sonos_snapshot
+    - service: sonos.snapshot
       data_template:
         entity_id: "{{ 'media_player.' ~ sonos_entity }}"
-    - service: media_player.sonos_unjoin
+    - service: sonos.unjoin
       data_template:
         entity_id:  "{{ 'media_player.' ~ sonos_entity }}"
     - service: media_player.volume_set
@@ -25,6 +25,6 @@ sonos_say:
         {% set minutes = (duration / 60)|int % 60 %}
         {% set hours = (duration / 3600)|int %}
         {{ [hours, minutes, seconds]|join(':') }}
-    - service: media_player.sonos_restore
+    - service: sonos.restore
       data_template:
         entity_id:  "{{ 'media_player.' ~ sonos_entity }}"
