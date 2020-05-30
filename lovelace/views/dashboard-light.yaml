@@ -36,14 +36,7 @@ cards:
         entity: sensor.outdoor_temperature
         line_color: '#1485CC'
         graph: line
-  - type: custom:slideshow-card
-    flush: true
-    arrow_color: White
-    arrow_opacity: .5
-    auto_play: true
-    auto_delay: 8
-    style:
-      border-radius: 25px
+  - type: custom:swipe-card
     cards:
       - type: picture-glance
         title: Living room

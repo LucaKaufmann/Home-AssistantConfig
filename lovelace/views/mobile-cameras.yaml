@@ -4,49 +4,31 @@ icon: mdi:camera
 cards:
   - type: vertical-stack
     cards:
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Living Room
-            show_state: false
-            entity: camera.xiaofang2
-            camera_image: camera.xiaofang2
-          - type: picture-entity
-            show_state: false
-            show_name: false
-            entity: camera.tensorflow_xiaofang2
-            camera_image: camera.tensorflow_xiaofang2
+      - type: picture-entity
+        name: Living Room
+        show_state: false
+        entity: camera.xiaofang2
+        camera_image: camera.xiaofang2
+      - type: picture-entity
+        show_state: false
+        show_name: false
+        entity: camera.tensorflow_xiaofang2
+        camera_image: camera.tensorflow_xiaofang2
       - type: picture-entity
         name: Kitchen
         show_state: false
         entity: camera.xiaofang1
         camera_image: camera.xiaofang1
-      - type: custom:slideshow-card
-        flush: true
-        arrow_color: White
-        arrow_opacity: .5
-        auto_play: false
-        auto_delay: 4
-        style:
-          border-radius: 25px
-        cards:
-          - type: picture-entity
-            name: Outside
-            show_state: false
-            entity: camera.raspberry
-            camera_image: camera.raspberry
-          - type: picture-entity
-            name: Tensorflow
-            show_state: false
-            entity: camera.tensorflow_raspberry
-            camera_image: camera.tensorflow_raspberry
+      - type: picture-entity
+        name: Outside
+        show_state: false
+        entity: camera.raspberry
+        camera_image: camera.raspberry
+      - type: picture-entity
+        name: Tensorflow
+        show_state: false
+        entity: camera.tensorflow_raspberry
+        camera_image: camera.tensorflow_raspberry
       - type: picture-entity
         name: Backyard
         show_state: false
