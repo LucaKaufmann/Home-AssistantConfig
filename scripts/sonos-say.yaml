@@ -13,7 +13,7 @@ sonos_say:
         volume_level: "{{ volume }}"
     - service: tts.google_say
       data_template:
-        entity_id:  "{{ 'media_player.' ~ sonos_entity }}"
+        entity_id:  "{{ 'media_player.' + sonos_entity }}"
         message: "{{ message }}"
     - delay: '00:00:01'
     - delay: >-
@@ -27,4 +27,4 @@ sonos_say:
         {{ [hours, minutes, seconds]|join(':') }}
     - service: sonos.restore
       data_template:
-        entity_id:  "{{ 'media_player.' ~ sonos_entity }}"
+        entity_id:  "{{ 'media_player.' + sonos_entity }}"
