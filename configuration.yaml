@@ -344,7 +344,7 @@ light:
     entity_id: switch.christmas_tree
   - platform: switch
     name: Shelf
-    entity_id: switch.air_conditioner
+    entity_id: switch.shelf_lights
 
 circadian_lighting:
   transition: 30

@@ -97,7 +97,7 @@
   host: !secret kitchen_switch_ip
   mac: !secret kitchen_switch_mac
   type: sp3
-  friendly_name: 'Air Conditioner'
+  friendly_name: 'Shelf lights'
 - platform: circadian_lighting
   disable_brightness_adjust: true
   sleep_entity: input_boolean.sleeping
