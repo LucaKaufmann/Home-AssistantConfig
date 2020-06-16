@@ -12,9 +12,19 @@ cards:
             entity: climate.netatmo_living_room
           - type: thermostat
             entity: climate.netatmo_bedroom
-      - type: entities
+      - type: glance
+        title: Switches
         entities:
-          - switch.bathroom_heating     
+          - entity: switch.air_conditioner
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+          - entity: switch.bathroom_heating
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info   
       - type: custom:mini-graph-card
         name: Outdoor
         icon: mdi:temperature-celsius
