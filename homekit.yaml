@@ -2,7 +2,8 @@ filter:
   include_entities:
     - media_player.lg_webos_smart_tv
     - media_player.living_room_tv
-    - switch.start_vacuum
+    - vacuum.walle
+    - vacuum.eve
     - switch.air_conditioner
     - input_boolean.workout_mode
     - input_boolean.tv_lock
@@ -21,3 +22,9 @@ filter:
     - light.bedroom
     - light.yellow_light
     - light.office
+    - light.tv_strip
+    - light.office_strip
+    - camera.xiaofang2
+    - camera.xiaofang1
+    - camera.raspberry
+    - fan.xiaomi_air_purifier
